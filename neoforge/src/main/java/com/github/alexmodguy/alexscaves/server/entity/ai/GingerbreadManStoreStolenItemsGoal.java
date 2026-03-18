@@ -8,10 +8,10 @@ import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
@@ -93,7 +93,7 @@ public class GingerbreadManStoreStolenItemsGoal extends Goal {
 
     private Stream<BlockPos> getNearbyBarrels(BlockPos blockpos, ServerLevel world, int range) {
         PoiManager pointofinterestmanager = world.getPoiManager();
-        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.GINGERBARREL.getKey()), blockpos2 -> doesBarrelHaveSpace(world, blockpos2, mob.getItemInHand(InteractionHand.OFF_HAND)), blockpos, range, PoiManager.Occupancy.ANY);
+        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.GINGERBARREL.get())), blockpos2 -> doesBarrelHaveSpace(world, blockpos2, mob.getItemInHand(InteractionHand.OFF_HAND)), blockpos, range, PoiManager.Occupancy.ANY);
     }
 
     private static boolean doesBarrelHaveSpace(Level world, BlockPos pos, ItemStack addTo) {

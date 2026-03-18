@@ -4,8 +4,8 @@ import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.config.ACClientConfig;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.platform.NeoForgeRegistryHelper;
 import com.github.alexmodguy.alexscaves.server.CommonProxy;
-import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
@@ -93,6 +93,7 @@ public class AlexsCavesNeoForge {
 
     public AlexsCavesNeoForge(IEventBus modEventBus, ModContainer modContainer) {
         AlexsCaves.init();
+        NeoForgeRegistryHelper.init(modEventBus);
         modContainer.registerConfig(ModConfig.Type.COMMON, COMMON_CONFIG_SPEC, "alexscaves-general.toml");
         modContainer.registerConfig(ModConfig.Type.CLIENT, CLIENT_CONFIG_SPEC, "alexscaves-client.toml");
         modEventBus.addListener(this::commonSetup);
@@ -105,7 +106,6 @@ public class AlexsCavesNeoForge {
         modEventBus.addListener(this::registerTicketControllers);
         NeoForge.EVENT_BUS.register(new CommonEvents());
         NeoForge.EVENT_BUS.addListener(ACEffectRegistry::registerBrewingRecipes);
-        ACBlockRegistry.DEF_REG.register(modEventBus);
         ACBlockEntityRegistry.DEF_REG.register(modEventBus);
         ACItemRegistry.DEF_REG.register(modEventBus);
         ACArmorMaterial.ARMOR_MATERIALS.register(modEventBus);
@@ -113,11 +113,9 @@ public class AlexsCavesNeoForge {
         ACEntityRegistry.DEF_REG.register(modEventBus);
         ACEntityDataRegistry.DEF_REG.register(modEventBus);
         ACAttachmentRegistry.DEF_REG.register(modEventBus);
-        ACPOIRegistry.DEF_REG.register(modEventBus);
         ACFeatureRegistry.DEF_REG.register(modEventBus);
         ACSurfaceRuleConditionRegistry.DEF_REG.register(modEventBus);
         ACCarverRegistry.DEF_REG.register(modEventBus);
-        ACSoundRegistry.DEF_REG.register(modEventBus);
         ACStructureRegistry.DEF_REG.register(modEventBus);
         ACStructurePieceRegistry.DEF_REG.register(modEventBus);
         ACStructureProcessorRegistry.DEF_REG.register(modEventBus);
@@ -186,7 +184,6 @@ public class AlexsCavesNeoForge {
             ACSurfaceRules.setup();
             ACPlayerCapes.setup();
             ACEffectRegistry.setup();
-            ACBlockRegistry.setup();
             ACItemRegistry.setup();
             // ACPotPatternRegistry.expandVanillaDefinitions(); // Pot patterns are now data-driven in 1.21
             ACBlockEntityRegistry.expandVanillaDefinitions();

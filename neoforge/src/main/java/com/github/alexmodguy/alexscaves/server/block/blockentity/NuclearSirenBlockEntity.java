@@ -10,6 +10,7 @@ import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -127,7 +128,9 @@ public class NuclearSirenBlockEntity extends BlockEntity {
 
     private Stream<BlockPos> getNearbyCriticalFurnaces(ServerLevel world, int range) {
         PoiManager pointofinterestmanager = world.getPoiManager();
-        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.NUCLEAR_FURNACE.getKey()), this::isCriticalFurnace, this.getBlockPos(), range, PoiManager.Occupancy.ANY);
+        // TODO
+//        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.REPELLING_MAGNETS.get()))), this::isCriticalFurnace, this.getBlockPos(), range, PoiManager.Occupancy.ANY);
+        return Stream.of();
     }
 
     private boolean isCriticalFurnace(BlockPos pos) {

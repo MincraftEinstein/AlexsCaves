@@ -6,22 +6,25 @@ import net.minecraft.sounds.Music;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
+import java.util.function.Supplier;
+
 public class ACMusics {
 
     public static final ForgeMusic LUXTRUCTOSAURUS_BOSS_MUSIC = new ForgeMusic(ACSoundRegistry.LUXTRUCTOSAURUS_BOSS_MUSIC, 0, 0, true);
 
     private static class ForgeMusic extends Music {
 
-        private final DeferredHolder<SoundEvent, SoundEvent> registryObject;
+        private final Supplier<SoundEvent> registryObject;
 
-        public ForgeMusic(DeferredHolder<SoundEvent, SoundEvent> registryObject, int minDelay, int maxDelay, boolean replaceCurrentMusic) {
+        public ForgeMusic(Supplier<SoundEvent> registryObject, int minDelay, int maxDelay, boolean replaceCurrentMusic) {
             super(null, minDelay, maxDelay, replaceCurrentMusic);
             this.registryObject = registryObject;
         }
 
+        // TODO
         @Override
         public Holder<SoundEvent> getEvent() {
-            return this.registryObject;
+            return null; //this.registryObject;
         }
     }
 }

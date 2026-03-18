@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves;
 
+import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,5 +12,9 @@ public class AlexsCaves {
 
     public static void init() {
         LOGGER.info("Hello from Alex's Caves Multiloader Edition");
+    }
+
+    public static ResourceLocation id(String path) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
     }
 }

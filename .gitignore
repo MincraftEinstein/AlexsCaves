@@ -11,7 +11,9 @@ out
 *.ipr
 *.iws
 *.iml
-.idea
+.idea/*
+!.idea/scopes
+!.idea/icon.png
 
 # gradle
 build
@@ -20,10 +22,4 @@ build
 # other
 eclipse
 run
-.vscode
-
-# Files from Forge MDK
-forge*changelog.txt
-
-# Backup files
-*.bak
+runs

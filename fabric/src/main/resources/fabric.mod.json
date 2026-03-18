@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "alexscaves",
+  "version": "${version}",
+  "name": "Alex's Caves",
+  "description": "${description}",
+  "authors": [
+    "${mod_authors}"
+  ],
+  "contact": {
+    "homepage": "",
+    "sources": "https://github.com/MincraftEinstein/AlexsCaves",
+    "issues": "https://github.com/MincraftEinstein/AlexsCaves/issues"
+  },
+  "license": "${license}",
+  "icon": "pack.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.github.alexmodguy.alexscaves.AlexsCavesFabric"
+    ],
+    "client": [
+      "com.github.alexmodguy.alexscaves.AlexsCavesFabricClient"
+    ]
+  },
+  "mixins": [
+    "alexscaves.mixins.json",
+    "alexscaves.fabric.mixins.json"
+  ],
+  "accessWidener": "alexscaves.accesswidener",
+  "depends": {
+    "fabricloader": ">=${fabric_version}",
+    "fabric-api": ">=${fabric_api_version}",
+    "minecraft": ">=${minecraft_version} <${max_minecraft_version}",
+    "java": ">=${java_version}",
+    "fzzy_config": ">=${fzzy_config_version}"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+      }
+    },
+    "fzzy_config": [
+      "alexscaves"
+    ]
+  }
+}

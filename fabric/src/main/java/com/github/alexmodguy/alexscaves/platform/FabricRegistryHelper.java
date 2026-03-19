@@ -24,7 +24,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
@@ -93,11 +92,12 @@ public class FabricRegistryHelper implements RegistryHelper {
 //        return new MenuType<>(supplier::create, FeatureFlags.DEFAULT_FLAGS);
 //    }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public <T extends PoiType> Supplier<T> registerPOIType(String name, Supplier<T> type) {
-        T poi = (T) PointOfInterestHelper.register(id(name), type.get().maxTickets(), type.get().validRange(), type.get().matchingStates());
-        return () -> poi;
+    public <T extends PoiType> RegHolder<PoiType, T> registerPOIType(String name, Supplier<T> type) {
+        var id = id(name);
+         PointOfInterestHelper.register(id, type.get().maxTickets(), type.get().validRange(), type.get().matchingStates());
+        var holder = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolder(id).get();
+        return FabRegHolder.of(holder);
     }
 
     @Override

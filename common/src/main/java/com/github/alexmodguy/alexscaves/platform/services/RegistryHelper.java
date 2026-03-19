@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.platform.services;
 
+import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.client.particle.ParticleProvider;
@@ -19,7 +20,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
@@ -56,7 +56,7 @@ public interface RegistryHelper {
     // TODO
 //    <T extends AbstractContainerMenu> MenuType<T> createMenuType(MenuTypeSupplier<T> supplier);
 
-    <T extends PoiType> Supplier<T> registerPOIType(String name, Supplier<T> type);
+    <T extends PoiType> RegHolder<PoiType, T> registerPOIType(String name, Supplier<T> type);
 
     <T extends CreativeModeTab> Supplier<T> registerCreativeModeTab(String name, Function<CreativeModeTab.Builder, T> type);
 

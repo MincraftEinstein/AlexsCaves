@@ -126,8 +126,8 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
 //    }
 
     @Override
-    public <T extends PoiType> Supplier<T> registerPOIType(String name, Supplier<T> type) {
-        return POI_TYPES.register(name, type);
+    public <T extends PoiType> RegHolder<PoiType, T> registerPOIType(String name, Supplier<T> type) {
+        return NeoRegHolder.of(POI_TYPES.register(name, type));
     }
 
     @Override

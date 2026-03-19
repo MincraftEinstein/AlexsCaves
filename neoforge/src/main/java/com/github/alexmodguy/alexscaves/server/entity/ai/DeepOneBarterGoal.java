@@ -7,6 +7,7 @@ import com.github.alexmodguy.alexscaves.server.entity.living.DeepOneBaseEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -76,7 +77,7 @@ public class DeepOneBarterGoal extends Goal {
 
     private static Stream<BlockPos> getNearbyAltars(BlockPos blockpos, ServerLevel world, int range) {
         PoiManager pointofinterestmanager = world.getPoiManager();
-        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.ABYSSAL_ALTAR.getKey()), blockpos2 -> hasPearls(world, blockpos2, true), blockpos, range, PoiManager.Occupancy.ANY);
+        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.ABYSSAL_ALTAR.get())), blockpos2 -> hasPearls(world, blockpos2, true), blockpos, range, PoiManager.Occupancy.ANY);
     }
 
     private static boolean hasPearls(Level world, BlockPos pos, boolean timed) {

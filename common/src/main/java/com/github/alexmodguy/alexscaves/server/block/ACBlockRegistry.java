@@ -14,6 +14,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockSetType;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
+import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
@@ -194,7 +195,7 @@ public class ACBlockRegistry {
     public static final Supplier<Block> GEOTHERMAL_VENT_MEDIUM = registerBlockAndItem("geothermal_vent_medium", () -> new ThinGeothermalVentBlock(12));
     public static final Supplier<Block> GEOTHERMAL_VENT_THIN = registerBlockAndItem("geothermal_vent_thin", () -> new ThinGeothermalVentBlock(8));
     // TODO when fluids
-//    public static final Supplier<Block> ACID = register("acid", () -> new AcidBlock(ACFluidRegistry.ACID_FLUID_SOURCE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).noCollission().strength(100.0F).lightLevel(state -> 7).emissiveRendering((state, world, pos) -> false).noLootTable().replaceable().liquid().pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> ACID = register("acid", () -> new AcidBlock(()->Fluids.LAVA/*ACFluidRegistry.ACID_FLUID_SOURCE*/, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).noCollission().strength(100.0F).lightLevel(state -> 7).emissiveRendering((state, world, pos) -> false).noLootTable().replaceable().liquid().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> UNDERWEED = registerBlockAndItem("underweed", () -> new CavePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instabreak().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GRASS).noOcclusion().noCollission().replaceable(), false));
     public static final Supplier<Block> POTTED_UNDERWEED = register("potted_underweed", () -> new FlowerPotBlock(UNDERWEED.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> METAL_BARREL = registerBlockAndItem("metal_barrel", () -> new MetalBarrelBlock());
@@ -361,7 +362,7 @@ public class ACBlockRegistry {
     public static final Supplier<Block> FROSTMINT = registerBlockAndItemEdible("frostmint", () -> new FrostmintBlock(), ACFoods.FROSTMINT);
     public static final Supplier<Block> SUGAR_GLASS = registerBlockAndItemEdible("sugar_glass", () -> new SugarGlassBlock(), ACFoods.SUGAR_GLASS);
     // TODO when fluids
-//    public static final Supplier<Block> PURPLE_SODA = register("purple_soda", () -> new PurpleSodaBlock(ACFluidRegistry.PURPLE_SODA_FLUID_SOURCE, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).noCollission().strength(100.0F).emissiveRendering((state, world, pos) -> false).noLootTable().replaceable().liquid().pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> PURPLE_SODA = register("purple_soda", () -> new PurpleSodaBlock(()->Fluids.WATER/*ACFluidRegistry.PURPLE_SODA_FLUID_SOURCE*/, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).noCollission().strength(100.0F).emissiveRendering((state, world, pos) -> false).noLootTable().replaceable().liquid().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> SUNDROP = registerBlockAndItemEdible("sundrop", () -> new SundropBlock(), ACFoods.SUNDROP);
     public static final Supplier<Block> GUMMY_RING_RED = registerBlockAndItemEdible("gummy_ring_red", () -> new GummyRingBlock(), ACFoods.GUMMY_RING);
     public static final Supplier<Block> GUMMY_RING_GREEN = registerBlockAndItemEdible("gummy_ring_green", () -> new GummyRingBlock(), ACFoods.GUMMY_RING);

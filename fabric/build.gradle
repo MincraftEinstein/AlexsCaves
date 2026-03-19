@@ -7,6 +7,9 @@ repositories {
     maven {
         url = "https://maven.terraformersmc.com/releases/"
     }
+    maven {
+        url = "https://maven.teamvoided.org/releases"
+    }
 }
 
 dependencies {
@@ -20,6 +23,9 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
     modImplementation("com.terraformersmc:modmenu:${modmenu_version}")
     modImplementation "me.fzzyhmstrs:fzzy_config:${fzzy_config_version}"
+    modImplementation("com.github.alexthe666.citadel:citadel-1.21.1-refabricated:${fabric_citadel_version}") {
+        transitive(false)
+    }
 }
 
 loom {

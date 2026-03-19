@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.misc;
 
-import net.neoforged.fml.ModList;
+import com.github.alexmodguy.alexscaves.platform.Services;
 
 public class ACLoadedMods {
 
@@ -8,8 +8,8 @@ public class ACLoadedMods {
     private static boolean entityCullingLoaded;
 
     public static void afterAllModsLoaded(){
-        distantHorizonsLoaded = ModList.get().isLoaded("distanthorizons");
-        entityCullingLoaded = ModList.get().isLoaded("entityculling");
+        distantHorizonsLoaded = Services.PLATFORM_HELPER.isModLoaded("distanthorizons");
+        entityCullingLoaded = Services.PLATFORM_HELPER.isModLoaded("entityculling");
     }
 
     public static boolean isDistantHorizonsLoaded() {

@@ -1,9 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
-import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
-import com.github.alexmodguy.alexscaves.server.block.blockentity.ConversionCrucibleBlockEntity;
-import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
-import com.github.alexmodguy.alexscaves.server.item.BiomeTreatItem;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
@@ -17,8 +13,6 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
@@ -61,50 +55,50 @@ public class ConversionCrucibleBlock extends BaseEntityBlock {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
-    @javax.annotation.Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
-        return createTickerHelper(p_152182_, ACBlockEntityRegistry.CONVERSION_CRUCIBLE.get(), ConversionCrucibleBlockEntity::tick);
-    }
+//    @Nullable
+//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
+//        return createTickerHelper(p_152182_, ACBlockEntityRegistry.CONVERSION_CRUCIBLE.get(), ConversionCrucibleBlockEntity::tick);
+//    }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new ConversionCrucibleBlockEntity(pos, state);
+        // TODO
+        return null;//new ConversionCrucibleBlockEntity(pos, state);
     }
-
 
     @Override
     public ItemInteractionResult useItemOn(ItemStack playerItem, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        if (worldIn.getBlockEntity(pos) instanceof ConversionCrucibleBlockEntity crucible && !player.isShiftKeyDown()) {
-            if (crucible.getConvertingToBiome() != null) {
-                if (crucible.getWantItem().isEmpty()) {
-                    crucible.rerollWantedItem();
-                    crucible.markUpdated();
-                }
-                else if (!crucible.getWantItem().isEmpty() && crucible.getWantItem().is(playerItem.getItem())) {
-                    if (!worldIn.isClientSide) {
-                        ItemStack copy = playerItem.copy();
-                        copy.setCount(1);
-                        crucible.consumeItem(copy);
-                        if (!player.getAbilities().instabuild) {
-                            playerItem.shrink(1);
-                        }
-                        crucible.markUpdated();
-                    }
-                    return ItemInteractionResult.SUCCESS;
-                }
-                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
-            }
-            else if (playerItem.is(ACItemRegistry.BIOME_TREAT.get()) && BiomeTreatItem.getCaveBiome(playerItem) != null) {
-                if (!worldIn.isClientSide) {
-                    crucible.setConvertingToBiome(BiomeTreatItem.getCaveBiome(playerItem));
-                    crucible.setFilledLevel(1);
-                    crucible.rerollWantedItem();
-                    crucible.markUpdated();
-                }
-                return ItemInteractionResult.SUCCESS;
-            }
-        }
+//        if (worldIn.getBlockEntity(pos) instanceof ConversionCrucibleBlockEntity crucible && !player.isShiftKeyDown()) {
+//            if (crucible.getConvertingToBiome() != null) {
+//                if (crucible.getWantItem().isEmpty()) {
+//                    crucible.rerollWantedItem();
+//                    crucible.markUpdated();
+//                }
+//                else if (!crucible.getWantItem().isEmpty() && crucible.getWantItem().is(playerItem.getItem())) {
+//                    if (!worldIn.isClientSide) {
+//                        ItemStack copy = playerItem.copy();
+//                        copy.setCount(1);
+//                        crucible.consumeItem(copy);
+//                        if (!player.getAbilities().instabuild) {
+//                            playerItem.shrink(1);
+//                        }
+//                        crucible.markUpdated();
+//                    }
+//                    return ItemInteractionResult.SUCCESS;
+//                }
+//                return ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+//            }
+//            else if (playerItem.is(ACItemRegistry.BIOME_TREAT.get()) && BiomeTreatItem.getCaveBiome(playerItem) != null) {
+//                if (!worldIn.isClientSide) {
+//                    crucible.setConvertingToBiome(BiomeTreatItem.getCaveBiome(playerItem));
+//                    crucible.setFilledLevel(1);
+//                    crucible.rerollWantedItem();
+//                    crucible.markUpdated();
+//                }
+//                return ItemInteractionResult.SUCCESS;
+//            }
+//        }
         return super.useItemOn(playerItem, state, worldIn, pos, player, handIn, hit);
     }
 

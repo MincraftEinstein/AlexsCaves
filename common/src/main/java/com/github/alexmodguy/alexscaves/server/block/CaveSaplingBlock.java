@@ -21,7 +21,7 @@ public class CaveSaplingBlock extends SaplingBlock {
 
     @Override
     public void randomTick(BlockState blockState, ServerLevel serverLevel, BlockPos blockPos, RandomSource randomSource) {
-        if(growsNaturally){
+        if (growsNaturally) {
             super.randomTick(blockState, serverLevel, blockPos, randomSource);
         }
     }

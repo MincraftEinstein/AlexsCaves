@@ -102,7 +102,8 @@ public class AbyssmarineWallBlock extends WallBlock implements ActivatedByAltar 
     private static VoxelShape applyWallShape(VoxelShape p_58034_, WallSide p_58035_, VoxelShape p_58036_, VoxelShape p_58037_) {
         if (p_58035_ == WallSide.TALL) {
             return Shapes.or(p_58034_, p_58037_);
-        } else {
+        }
+        else {
             return p_58035_ == WallSide.LOW ? Shapes.or(p_58034_, p_58036_) : p_58034_;
         }
     }

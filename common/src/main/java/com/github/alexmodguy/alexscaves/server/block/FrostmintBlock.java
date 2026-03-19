@@ -1,32 +1,26 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
-import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.item.FallingFrostmintEntity;
-import com.github.alexmodguy.alexscaves.server.entity.item.FallingGuanoEntity;
-import com.github.alexmodguy.alexscaves.server.entity.util.FrostmintExplosion;
-import com.github.alexmodguy.alexscaves.server.entity.util.MineExplosion;
-import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Fallable;
+import net.minecraft.world.level.block.FallingBlock;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.material.MapColor;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class FrostmintBlock extends SlabBlock implements Fallable {
+
     public FrostmintBlock() {
         super(BlockBehaviour.Properties.of().mapColor(MapColor.WOOL).strength(1.0F, 1.5F).sound(SoundType.STONE).instrument(NoteBlockInstrument.BASS));
     }
@@ -40,7 +34,7 @@ public class FrostmintBlock extends SlabBlock implements Fallable {
     @Override
     public void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, Projectile projectile) {
         BlockPos blockPos = blockHitResult.getBlockPos();
-        while(level.getBlockState(blockPos.below()).is(this) && blockPos.getY() > level.getMinBuildHeight()){
+        while (level.getBlockState(blockPos.below()).is(this) && blockPos.getY() > level.getMinBuildHeight()) {
             blockPos = blockPos.below();
         }
         level.scheduleTick(blockPos, this, this.getDelayAfterPlace());

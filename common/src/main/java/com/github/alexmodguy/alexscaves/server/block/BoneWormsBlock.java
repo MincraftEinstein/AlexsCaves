@@ -34,7 +34,6 @@ public class BoneWormsBlock extends Block implements SimpleWaterloggedBlock {
     private static final VoxelShape SHAPE_NORTH = Block.box(1.0D, 1.0D, 12.0D, 15.0D, 15.0D, 16.0D);
     private static final VoxelShape SHAPE_SOUTH = Block.box(1.0D, 1.0D, 0.0D, 15.0D, 15.0D, 4.0D);
 
-
     public BoneWormsBlock() {
         super(BlockBehaviour.Properties.of().mapColor(DyeColor.PINK).instabreak().sound(SoundType.WET_GRASS).noOcclusion().noCollission().dynamicShape().replaceable());
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.UP).setValue(WATERLOGGED, Boolean.valueOf(true)));
@@ -54,22 +53,14 @@ public class BoneWormsBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        switch (state.getValue(FACING)) {
-            case UP:
-                return SHAPE_UP;
-            case DOWN:
-                return SHAPE_DOWN;
-            case EAST:
-                return SHAPE_EAST;
-            case WEST:
-                return SHAPE_WEST;
-            case NORTH:
-                return SHAPE_NORTH;
-            case SOUTH:
-                return SHAPE_SOUTH;
-        }
-        return SHAPE_UP;
-
+        return switch (state.getValue(FACING)) {
+            case UP -> SHAPE_UP;
+            case DOWN -> SHAPE_DOWN;
+            case EAST -> SHAPE_EAST;
+            case WEST -> SHAPE_WEST;
+            case NORTH -> SHAPE_NORTH;
+            case SOUTH -> SHAPE_SOUTH;
+        };
     }
 
     @Nullable
@@ -100,6 +91,4 @@ public class BoneWormsBlock extends Block implements SimpleWaterloggedBlock {
     public PushReaction getPistonPushReaction(BlockState blockState) {
         return PushReaction.DESTROY;
     }
-
-
 }

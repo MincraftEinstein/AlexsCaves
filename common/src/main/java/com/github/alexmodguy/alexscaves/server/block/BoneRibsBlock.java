@@ -26,16 +26,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class BoneRibsBlock extends HorizontalDirectionalBlock implements SimpleWaterloggedBlock {
+
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty UNDER = BooleanProperty.create("under");
 
     public final Map<BlockState, VoxelShape> shapeMap = new HashMap<>();
-    private static final VoxelShape SHAPE_TOP = Block.box(0.0D, 14.0D, 0.0D, 16.0D, 16.0D, 16.0D);
-    private static final VoxelShape SHAPE_BOTTOM = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D);
-    private static final VoxelShape SHAPE_NORTH = Block.box(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 2.0D);
-    private static final VoxelShape SHAPE_SOUTH = Block.box(0.0D, 0.0D, 14.0D, 16.0D, 16.0D, 16.0D);
-    private static final VoxelShape SHAPE_WEST = Block.box(0.0D, 0.0D, 0.0D, 2.0D, 16.0D, 16.0D);
-    private static final VoxelShape SHAPE_EAST = Block.box(14.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D);
+    private static final VoxelShape SHAPE_TOP = Block.box(0, 14, 0, 16, 16, 16);
+    private static final VoxelShape SHAPE_BOTTOM = Block.box(0, 0, 0, 16, 2, 16);
+    private static final VoxelShape SHAPE_NORTH = Block.box(0, 0, 0, 16, 16, 2);
+    private static final VoxelShape SHAPE_SOUTH = Block.box(0, 0, 14, 16, 16, 16);
+    private static final VoxelShape SHAPE_WEST = Block.box(0, 0, 0, 2, 16, 16);
+    private static final VoxelShape SHAPE_EAST = Block.box(14, 0, 0, 16, 16, 16);
 
     public BoneRibsBlock() {
         super(Properties.of().mapColor(MapColor.SAND).requiresCorrectToolForDrops().strength(2.0F).sound(SoundType.BONE_BLOCK).noOcclusion());
@@ -50,22 +51,16 @@ public class BoneRibsBlock extends HorizontalDirectionalBlock implements SimpleW
     protected VoxelShape getRibsShape(BlockState state) {
         if (shapeMap.containsKey(state)) {
             return shapeMap.get(state);
-        } else {
+        }
+        else {
             VoxelShape merge = state.getValue(UNDER) ? SHAPE_BOTTOM : SHAPE_TOP;
-            switch (state.getValue(FACING)) {
-                case NORTH:
-                    merge = Shapes.join(merge, SHAPE_NORTH, BooleanOp.OR);
-                    break;
-                case EAST:
-                    merge = Shapes.join(merge, SHAPE_EAST, BooleanOp.OR);
-                    break;
-                case SOUTH:
-                    merge = Shapes.join(merge, SHAPE_SOUTH, BooleanOp.OR);
-                    break;
-                case WEST:
-                    merge = Shapes.join(merge, SHAPE_WEST, BooleanOp.OR);
-                    break;
-            }
+            merge = switch (state.getValue(FACING)) {
+                case NORTH -> Shapes.join(merge, SHAPE_NORTH, BooleanOp.OR);
+                case EAST -> Shapes.join(merge, SHAPE_EAST, BooleanOp.OR);
+                case SOUTH -> Shapes.join(merge, SHAPE_SOUTH, BooleanOp.OR);
+                case WEST -> Shapes.join(merge, SHAPE_WEST, BooleanOp.OR);
+                default -> merge;
+            };
             shapeMap.put(state, merge);
             return merge;
         }

@@ -23,6 +23,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class BoneNoduleBlock extends Block implements SimpleWaterloggedBlock {
+
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
 
@@ -54,21 +55,14 @@ public class BoneNoduleBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        switch (state.getValue(FACING)) {
-            case UP:
-                return SHAPE_UP;
-            case DOWN:
-                return SHAPE_DOWN;
-            case EAST:
-                return SHAPE_EAST;
-            case WEST:
-                return SHAPE_WEST;
-            case NORTH:
-                return SHAPE_NORTH;
-            case SOUTH:
-                return SHAPE_SOUTH;
-        }
-        return SHAPE_UP;
+        return switch (state.getValue(FACING)) {
+            case UP -> SHAPE_UP;
+            case DOWN -> SHAPE_DOWN;
+            case EAST -> SHAPE_EAST;
+            case WEST -> SHAPE_WEST;
+            case NORTH -> SHAPE_NORTH;
+            case SOUTH -> SHAPE_SOUTH;
+        };
 
     }
 

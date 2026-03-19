@@ -52,7 +52,8 @@ public class BaleenBoneBlock extends Block implements SimpleWaterloggedBlock {
         Direction.Axis xDetermine;
         if (context.getClickedFace().getAxis().isHorizontal()) {
             xDetermine = context.getClickedFace().getAxis();
-        } else {
+        }
+        else {
             xDetermine = context.getHorizontalDirection().getAxis();
         }
         return this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(levelaccessor.getFluidState(blockpos).getType() == Fluids.WATER)).setValue(X, xDetermine == Direction.Axis.X);

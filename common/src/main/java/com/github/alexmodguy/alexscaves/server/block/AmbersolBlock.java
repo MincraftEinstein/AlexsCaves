@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
 import com.mojang.serialization.MapCodec;
-import com.github.alexmodguy.alexscaves.server.block.blockentity.AmbersolBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -64,7 +63,7 @@ public class AmbersolBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new AmbersolBlockEntity(pos, state);
+        // TODO
+        return null; //new AmbersolBlockEntity(pos, state);
     }
-
 }

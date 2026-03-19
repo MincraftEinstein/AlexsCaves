@@ -4,7 +4,6 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -14,7 +13,7 @@ import net.minecraft.world.level.material.MapColor;
 
 public class CavePaintingBlock extends DirectionalBlock {
 
-    private static String id = Util.makeDescriptionId("block", ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "cave_painting"));
+    private static final String ID = Util.makeDescriptionId("block", AlexsCaves.id("cave_painting"));
 
     public CavePaintingBlock() {
         super(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_YELLOW).requiresCorrectToolForDrops().strength(1.2F, 4.5F).sound(SoundType.DRIPSTONE_BLOCK));
@@ -39,7 +38,7 @@ public class CavePaintingBlock extends DirectionalBlock {
     }
 
     public String getDescriptionId() {
-        return id;
+        return ID;
     }
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {

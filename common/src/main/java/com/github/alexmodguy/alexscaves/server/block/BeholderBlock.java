@@ -1,20 +1,15 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
-import com.mojang.serialization.MapCodec;
-import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
-import com.github.alexmodguy.alexscaves.server.block.blockentity.BeholderBlockEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -34,7 +29,7 @@ public class BeholderBlock extends BaseEntityBlock implements SimpleWaterloggedB
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     protected BeholderBlock() {
-        super(Properties.of().mapColor(MapColor.COLOR_RED).noCollission().strength(1F, 12.0F).sound(ACSoundTypes.BEHOLDER));
+        super(Properties.of().mapColor(MapColor.COLOR_RED).noCollission().strength(1F, 12.0F).sound(ACSoundTypes.BEHOLDER.get()));
         this.registerDefaultState(this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(false)));
     }
 
@@ -71,15 +66,16 @@ public class BeholderBlock extends BaseEntityBlock implements SimpleWaterloggedB
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
-    @javax.annotation.Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
-        return createTickerHelper(p_152182_, ACBlockEntityRegistry.BEHOLDER.get(), BeholderBlockEntity::tick);
-    }
+//    @Nullable
+//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
+//        return createTickerHelper(p_152182_, ACBlockEntityRegistry.BEHOLDER.get(), BeholderBlockEntity::tick);
+//    }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new BeholderBlockEntity(pos, state);
+        // TODO
+        return null;//new BeholderBlockEntity(pos, state);
     }
 
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> stateBuilder) {

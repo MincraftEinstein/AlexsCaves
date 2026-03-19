@@ -3,12 +3,11 @@ package com.github.alexmodguy.alexscaves.server.block;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.CrossCollisionBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -19,8 +18,6 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.neoforged.neoforge.common.ItemAbility;
-import net.neoforged.neoforge.common.ItemAbilities;
 
 public class CandyCanePoleBlock extends CrossCollisionBlock {
 
@@ -41,15 +38,15 @@ public class CandyCanePoleBlock extends CrossCollisionBlock {
         float f2 = 8.0F - connectorWidth;
         float f3 = 8.0F + connectorWidth;
         float upper = connectorYMax - 4.0F;
-        VoxelShape voxelshape = Block.box((double)f, 0.0D, (double)f, (double)f1, (double)poleHeight, (double)f1);
-        VoxelShape voxelshape1 = Block.box((double)f2, (double)upper, 0.0D, (double)f3, (double)connectorYMax, (double)f3);
-        VoxelShape voxelshape2 = Block.box((double)f2, (double)upper, (double)f2, (double)f3, (double)connectorYMax, 16.0D);
-        VoxelShape voxelshape3 = Block.box(0.0D, (double)upper, (double)f2, (double)f3, (double)connectorYMax, (double)f3);
-        VoxelShape voxelshape4 = Block.box((double)f2, (double)upper, (double)f2, 16.0D, (double)connectorYMax, (double)f3);
+        VoxelShape voxelshape = Block.box(f, 0.0D, f, f1, poleHeight, f1);
+        VoxelShape voxelshape1 = Block.box(f2, upper, 0.0D, f3, connectorYMax, f3);
+        VoxelShape voxelshape2 = Block.box(f2, upper, f2, f3, connectorYMax, 16.0D);
+        VoxelShape voxelshape3 = Block.box(0.0D, upper, f2, f3, connectorYMax, f3);
+        VoxelShape voxelshape4 = Block.box(f2, upper, f2, 16.0D, connectorYMax, f3);
         VoxelShape voxelshape5 = Shapes.or(voxelshape1, voxelshape4);
         VoxelShape voxelshape6 = Shapes.or(voxelshape2, voxelshape3);
-        VoxelShape[] avoxelshape = new VoxelShape[]{Shapes.empty(), voxelshape2, voxelshape3, voxelshape6, voxelshape1, Shapes.or(voxelshape2, voxelshape1), Shapes.or(voxelshape3, voxelshape1), Shapes.or(voxelshape6, voxelshape1), voxelshape4, Shapes.or(voxelshape2, voxelshape4), Shapes.or(voxelshape3, voxelshape4), Shapes.or(voxelshape6, voxelshape4), voxelshape5, Shapes.or(voxelshape2, voxelshape5), Shapes.or(voxelshape3, voxelshape5), Shapes.or(voxelshape6, voxelshape5)};
-        for(int i = 0; i < 16; ++i) {
+        VoxelShape[] avoxelshape = new VoxelShape[] {Shapes.empty(), voxelshape2, voxelshape3, voxelshape6, voxelshape1, Shapes.or(voxelshape2, voxelshape1), Shapes.or(voxelshape3, voxelshape1), Shapes.or(voxelshape6, voxelshape1), voxelshape4, Shapes.or(voxelshape2, voxelshape4), Shapes.or(voxelshape3, voxelshape4), Shapes.or(voxelshape6, voxelshape4), voxelshape5, Shapes.or(voxelshape2, voxelshape5), Shapes.or(voxelshape3, voxelshape5), Shapes.or(voxelshape6, voxelshape5)};
+        for (int i = 0; i < 16; ++i) {
             avoxelshape[i] = Shapes.or(voxelshape, avoxelshape[i]);
         }
         return avoxelshape;
@@ -85,17 +82,18 @@ public class CandyCanePoleBlock extends CrossCollisionBlock {
         builder.add(NORTH, EAST, WEST, SOUTH, WATERLOGGED);
     }
 
-    public static BooleanProperty getPropertyByDirection(Direction direction){
+    public static BooleanProperty getPropertyByDirection(Direction direction) {
         return PROPERTY_BY_DIRECTION.get(direction);
     }
 
-    public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
-        ItemStack itemStack = context.getItemInHand();
-        if (!itemStack.canPerformAction(toolAction))
-            return null;
-        if (ItemAbilities.AXE_STRIP == toolAction && this == ACBlockRegistry.CANDY_CANE_POLE.get()) {
-            return ACBlockRegistry.STRIPPED_CANDY_CANE_POLE.get().defaultBlockState().setValue(WATERLOGGED, state.getValue(WATERLOGGED)).setValue(NORTH, state.getValue(NORTH)).setValue(EAST, state.getValue(EAST)).setValue(WEST, state.getValue(WEST)).setValue(SOUTH, state.getValue(SOUTH));
-        }
-        return super.getToolModifiedState(state, context, toolAction, simulate);
-    }
+    // TODO
+//    public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
+//        ItemStack itemStack = context.getItemInHand();
+//        if (!itemStack.canPerformAction(toolAction))
+//            return null;
+//        if (ItemAbilities.AXE_STRIP == toolAction && this == ACBlockRegistry.CANDY_CANE_POLE.get()) {
+//            return ACBlockRegistry.STRIPPED_CANDY_CANE_POLE.get().defaultBlockState().setValue(WATERLOGGED, state.getValue(WATERLOGGED)).setValue(NORTH, state.getValue(NORTH)).setValue(EAST, state.getValue(EAST)).setValue(WEST, state.getValue(WEST)).setValue(SOUTH, state.getValue(SOUTH));
+//        }
+//        return super.getToolModifiedState(state, context, toolAction, simulate);
+//    }
 }

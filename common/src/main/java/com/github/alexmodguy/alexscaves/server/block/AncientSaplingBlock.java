@@ -1,9 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
-import com.github.alexmodguy.alexscaves.server.block.grower.AncientTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
@@ -29,7 +27,8 @@ public class AncientSaplingBlock extends SaplingBlock {
     public void advanceTree(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
         if (state.getValue(STAGE) == 0) {
             level.setBlock(pos, state.cycle(STAGE), 4);
-        } else {
+        }
+        else {
             // First, try to grow a 3x3 mega tree
             if (!tryGrowThreeByThreeMegaTree(level, pos, state, random)) {
                 // If 3x3 pattern not found, fall back to normal tree growth
@@ -45,20 +44,22 @@ public class AncientSaplingBlock extends SaplingBlock {
      * @return true if a mega tree was successfully grown, false otherwise
      */
     private boolean tryGrowThreeByThreeMegaTree(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
-        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess()
+        // TODO
+        Holder<ConfiguredFeature<?, ?>> holder = null;/*level.registryAccess()
                 .registryOrThrow(Registries.CONFIGURED_FEATURE)
                 .getHolder(AncientTreeGrower.GIANT_ANCIENT_TREE)
-                .orElse(null);
+                .orElse(null);*/
 
         if (holder == null) {
             return false;
         }
 
-        var event = net.neoforged.neoforge.event.EventHooks.fireBlockGrowFeature(level, random, pos, holder);
-        holder = event.getFeature();
-        if (event.isCanceled()) {
-            return false;
-        }
+        // TODO?
+//        var event = net.neoforged.neoforge.event.EventHooks.fireBlockGrowFeature(level, random, pos, holder);
+//        holder = event.getFeature();
+//        if (event.isCanceled()) {
+//            return false;
+//        }
 
         ChunkGenerator chunkGenerator = level.getChunkSource().getGenerator();
 

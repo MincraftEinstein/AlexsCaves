@@ -12,6 +12,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class CavePlantBlock extends BushBlock {
+
     protected static final VoxelShape SHAPE = Block.box(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D);
     protected static final VoxelShape SHAPE_TALL = Block.box(3.0D, 0.0D, 3.0D, 13.0D, 7.0D, 13.0D);
     private final boolean taller;

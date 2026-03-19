@@ -1,16 +1,10 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
-import com.mojang.serialization.MapCodec;
-import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
-import com.github.alexmodguy.alexscaves.server.block.blockentity.AbyssalAltarBlockEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.Container;
-import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -19,8 +13,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -45,9 +37,7 @@ public class AbyssalAltarBlock extends BaseEntityBlock implements SimpleWaterlog
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     public static final BooleanProperty ACTIVE = BooleanProperty.create("active");
 
-    public static final ToIntFunction<BlockState> LIGHT_EMISSION = (blockState) -> {
-        return blockState.getValue(ACTIVE) ? 5 : 0;
-    };
+    public static final ToIntFunction<BlockState> LIGHT_EMISSION = (blockState) -> blockState.getValue(ACTIVE) ? 5 : 0;
 
     public AbyssalAltarBlock() {
         super(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLUE).dynamicShape().strength(2.5F, 10.0F).sound(SoundType.DEEPSLATE).lightLevel(LIGHT_EMISSION));
@@ -75,7 +65,8 @@ public class AbyssalAltarBlock extends BaseEntityBlock implements SimpleWaterlog
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new AbyssalAltarBlockEntity(pos, state);
+        // TODO
+        return null; //new AbyssalAltarBlockEntity(pos, state);
     }
 
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState state1, boolean b) {
@@ -111,44 +102,47 @@ public class AbyssalAltarBlock extends BaseEntityBlock implements SimpleWaterlog
 
     @Override
     public ItemInteractionResult useItemOn(ItemStack heldItem, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        if (worldIn.getBlockEntity(pos) instanceof AbyssalAltarBlockEntity altarBlockEntity && !player.isShiftKeyDown()) {
-            ItemStack copy = heldItem.copy();
-            copy.setCount(1);
-            if (altarBlockEntity.getItem(0).isEmpty()) {
-                altarBlockEntity.setItem(0, copy);
-                altarBlockEntity.onEntityInteract(player, false);
-                if (!player.isCreative()) {
-                    heldItem.shrink(1);
-                }
-                return ItemInteractionResult.SUCCESS;
-            } else {
-                if (altarBlockEntity.queueItemDrop(altarBlockEntity.getItem(0).copy())) {
-                    altarBlockEntity.onEntityInteract(player, true);
-                    altarBlockEntity.setItem(0, ItemStack.EMPTY);
-                }
-                return ItemInteractionResult.SUCCESS;
-            }
-        }
+        // TODO
+//        if (worldIn.getBlockEntity(pos) instanceof AbyssalAltarBlockEntity altarBlockEntity && !player.isShiftKeyDown()) {
+//            ItemStack copy = heldItem.copy();
+//            copy.setCount(1);
+//            if (altarBlockEntity.getItem(0).isEmpty()) {
+//                altarBlockEntity.setItem(0, copy);
+//                altarBlockEntity.onEntityInteract(player, false);
+//                if (!player.isCreative()) {
+//                    heldItem.shrink(1);
+//                }
+//                return ItemInteractionResult.SUCCESS;
+//            }
+//            else {
+//                if (altarBlockEntity.queueItemDrop(altarBlockEntity.getItem(0).copy())) {
+//                    altarBlockEntity.onEntityInteract(player, true);
+//                    altarBlockEntity.setItem(0, ItemStack.EMPTY);
+//                }
+//                return ItemInteractionResult.SUCCESS;
+//            }
+//        }
         return super.useItemOn(heldItem, state, worldIn, pos, player, handIn, hit);
     }
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult hit) {
-        if (worldIn.getBlockEntity(pos) instanceof AbyssalAltarBlockEntity altarBlockEntity && !player.isShiftKeyDown()) {
-            if (!altarBlockEntity.getItem(0).isEmpty()) {
-                if (altarBlockEntity.queueItemDrop(altarBlockEntity.getItem(0).copy())) {
-                    altarBlockEntity.onEntityInteract(player, true);
-                    altarBlockEntity.setItem(0, ItemStack.EMPTY);
-                }
-                return InteractionResult.SUCCESS;
-            }
-        }
+        // TODO
+//        if (worldIn.getBlockEntity(pos) instanceof AbyssalAltarBlockEntity altarBlockEntity && !player.isShiftKeyDown()) {
+//            if (!altarBlockEntity.getItem(0).isEmpty()) {
+//                if (altarBlockEntity.queueItemDrop(altarBlockEntity.getItem(0).copy())) {
+//                    altarBlockEntity.onEntityInteract(player, true);
+//                    altarBlockEntity.setItem(0, ItemStack.EMPTY);
+//                }
+//                return InteractionResult.SUCCESS;
+//            }
+//        }
         return super.useWithoutItem(state, worldIn, pos, player, hit);
     }
 
-    @javax.annotation.Nullable
-    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-        return createTickerHelper(blockEntityType, ACBlockEntityRegistry.ABYSSAL_ALTAR.get(), AbyssalAltarBlockEntity::tick);
-    }
-
+    // TODO
+//    @Nullable
+//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+//        return createTickerHelper(blockEntityType, ACBlockEntityRegistry.ABYSSAL_ALTAR.get(), AbyssalAltarBlockEntity::tick);
+//    }
 }

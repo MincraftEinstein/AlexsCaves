@@ -11,9 +11,6 @@ import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.chunk.PalettedContainer;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
-import net.neoforged.fml.util.ObfuscationReflectionHelper;
-
-import java.lang.reflect.Field;
 
 public class FillBiomeAboveFeature extends Feature<FillBiomeAboveConfiguration> {
 
@@ -46,9 +43,7 @@ public class FillBiomeAboveFeature extends Feature<FillBiomeAboveConfiguration> 
                             }
                         }
                         try {
-                            Field biomesField = ObfuscationReflectionHelper.findField(LevelChunkSection.class, "biomes");
-                            biomesField.setAccessible(true);
-                            biomesField.set(section, container);
+                            section.biomes = container;
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

@@ -7,6 +7,10 @@ repositories {
     maven {
         url = "https://thedarkcolour.github.io/KotlinForForge/"
     }
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
 }
 
 neoForge {
@@ -33,6 +37,11 @@ neoForge {
 
         client {
             client()
+        }
+
+        testWorld {
+            client()
+            programArguments = ["--quickPlaySingleplayer", "test"]
         }
 
         server {

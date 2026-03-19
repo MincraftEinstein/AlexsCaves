@@ -48,6 +48,13 @@ loom {
             ideConfigGenerated(true)
             runDir('runs/client')
         }
+
+        testWorld {
+            client()
+            runDir('runs/client')
+            programArgs("--quickPlaySingleplayer", "test")
+        }
+
         server {
             server()
             setConfigName('Fabric Server')

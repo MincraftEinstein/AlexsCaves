@@ -10,6 +10,10 @@ repositories {
     maven {
         url = "https://maven.teamvoided.org/releases"
     }
+    maven {
+        name = "Fuzs Mod Resources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+    }
 }
 
 dependencies {
@@ -26,6 +30,8 @@ dependencies {
     modImplementation("com.github.alexthe666.citadel:citadel-1.21.1-refabricated:${fabric_citadel_version}") {
         transitive(false)
     }
+    // TODO remove when fzzy port
+    modApi("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${fcap_config_version}")
 }
 
 loom {

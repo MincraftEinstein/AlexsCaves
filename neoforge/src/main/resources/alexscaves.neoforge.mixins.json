@@ -41,7 +41,6 @@
     "client.AdvancementTabAccessor",
     "client.AdvancementTabMixin",
     "client.AdvancementsScreenAccessor",
-    "client.AdvancementWidgetAccessor",
     "client.BiomeAmbientSoundsHandlerInstanceMixin",
     "client.BiomeAmbientSoundsHandlerMixin",
     "client.CameraAccessor",

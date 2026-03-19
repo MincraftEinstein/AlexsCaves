@@ -147,7 +147,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
 
     @Override
     public void registerPottedPlant(Supplier<Block> plant, Supplier<Block> pottedPlant) {
-        ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(BuiltInRegistries.BLOCK.getKey(plant.get()), pottedPlant);
+        ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(((DeferredHolder<Block, Block>) plant).getId(), pottedPlant);
     }
 
     @Override

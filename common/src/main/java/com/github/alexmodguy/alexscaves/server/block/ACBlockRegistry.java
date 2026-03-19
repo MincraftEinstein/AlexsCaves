@@ -3,7 +3,6 @@ package com.github.alexmodguy.alexscaves.server.block;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.item.*;
 import com.github.alexthe666.citadel.item.BlockItemWithSupplier;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.DyeColor;
@@ -195,7 +194,7 @@ public class ACBlockRegistry {
     public static final Supplier<Block> GEOTHERMAL_VENT_MEDIUM = registerBlockAndItem("geothermal_vent_medium", () -> new ThinGeothermalVentBlock(12));
     public static final Supplier<Block> GEOTHERMAL_VENT_THIN = registerBlockAndItem("geothermal_vent_thin", () -> new ThinGeothermalVentBlock(8));
     // TODO when fluids
-    public static final Supplier<Block> ACID = register("acid", () -> new AcidBlock(()->Fluids.LAVA/*ACFluidRegistry.ACID_FLUID_SOURCE*/, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).noCollission().strength(100.0F).lightLevel(state -> 7).emissiveRendering((state, world, pos) -> false).noLootTable().replaceable().liquid().pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> ACID = register("acid", () -> new AcidBlock(() -> Fluids.LAVA/*ACFluidRegistry.ACID_FLUID_SOURCE*/, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).noCollission().strength(100.0F).lightLevel(state -> 7).emissiveRendering((state, world, pos) -> false).noLootTable().replaceable().liquid().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> UNDERWEED = registerBlockAndItem("underweed", () -> new CavePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instabreak().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GRASS).noOcclusion().noCollission().replaceable(), false));
     public static final Supplier<Block> POTTED_UNDERWEED = register("potted_underweed", () -> new FlowerPotBlock(UNDERWEED.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> METAL_BARREL = registerBlockAndItem("metal_barrel", () -> new MetalBarrelBlock());
@@ -362,7 +361,7 @@ public class ACBlockRegistry {
     public static final Supplier<Block> FROSTMINT = registerBlockAndItemEdible("frostmint", () -> new FrostmintBlock(), ACFoods.FROSTMINT);
     public static final Supplier<Block> SUGAR_GLASS = registerBlockAndItemEdible("sugar_glass", () -> new SugarGlassBlock(), ACFoods.SUGAR_GLASS);
     // TODO when fluids
-    public static final Supplier<Block> PURPLE_SODA = register("purple_soda", () -> new PurpleSodaBlock(()->Fluids.WATER/*ACFluidRegistry.PURPLE_SODA_FLUID_SOURCE*/, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).noCollission().strength(100.0F).emissiveRendering((state, world, pos) -> false).noLootTable().replaceable().liquid().pushReaction(PushReaction.DESTROY)));
+    public static final Supplier<Block> PURPLE_SODA = register("purple_soda", () -> new PurpleSodaBlock(() -> Fluids.WATER/*ACFluidRegistry.PURPLE_SODA_FLUID_SOURCE*/, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).noCollission().strength(100.0F).emissiveRendering((state, world, pos) -> false).noLootTable().replaceable().liquid().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> SUNDROP = registerBlockAndItemEdible("sundrop", () -> new SundropBlock(), ACFoods.SUNDROP);
     public static final Supplier<Block> GUMMY_RING_RED = registerBlockAndItemEdible("gummy_ring_red", () -> new GummyRingBlock(), ACFoods.GUMMY_RING);
     public static final Supplier<Block> GUMMY_RING_GREEN = registerBlockAndItemEdible("gummy_ring_green", () -> new GummyRingBlock(), ACFoods.GUMMY_RING);
@@ -430,19 +429,17 @@ public class ACBlockRegistry {
     }
 
     private static Supplier<Block> registerBlockAndItem(String name, Supplier<Block> block, int itemType) {
-        Supplier<Block> registered = register(name, block);
-        Services.REGISTRY_HELPER.registerItem(name, getBlockSupplier(itemType, registered));
-        return registered;
+        return Services.REGISTRY_HELPER.registerBlock(name, block);
     }
 
     private static Supplier<Block> registerBlockAndItemEdible(String name, Supplier<Block> block, FoodProperties foodProperties) {
         Supplier<Block> registered = register(name, block);
-        Services.REGISTRY_HELPER.registerItem(name, () -> new BlockItemWithSupplier(block, new Item.Properties().food(foodProperties)));
+        Services.REGISTRY_HELPER.registerItem(name, () -> new BlockItemWithSupplier(registered, new Item.Properties().food(foodProperties)));
         return registered;
     }
 
     public static Supplier<Block> register(String name, Supplier<Block> block) {
-        return Services.REGISTRY_HELPER.registerBlock(name, block);
+        return Services.REGISTRY_HELPER.registerBlockNoItem(name, block);
     }
 
     private static Supplier<? extends BlockItemWithSupplier> getBlockSupplier(int itemType, Supplier<Block> block) {

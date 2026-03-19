@@ -495,6 +495,9 @@ public class ACSoundRegistry {
     public static final Supplier<SoundEvent> DISAPPOINTMENT = createSoundEvent("disappointment");
     public static final Supplier<SoundEvent> NUCLEAR_SIREN = createSoundEvent("nuclear_siren");
 
+    public static void init(){
+    }
+
     private static Supplier<SoundEvent> createSoundEvent(final String soundName) {
         return Services.REGISTRY_HELPER.registerSound(soundName, () -> SoundEvent.createVariableRangeEvent(AlexsCaves.id(soundName)));
     }

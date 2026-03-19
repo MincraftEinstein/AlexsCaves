@@ -22,6 +22,9 @@ public class ACPOIRegistry {
     public static final Supplier<PoiType> CONVERSION_CRUCIBLE = register("conversion_crucible", () -> new PoiType(getAllStatesOf(ACBlockRegistry.CONVERSION_CRUCIBLE.get()), 0, 6));
     public static final Supplier<PoiType> GINGERBARREL = register("gingerbarrel", () -> new PoiType(getAllStatesOf(ACBlockRegistry.GINGERBARREL.get()), 0, 6));
 
+    public static void init() {
+    }
+
     private static Supplier<PoiType> register(String name, Supplier<PoiType> poiType) {
         return Services.REGISTRY_HELPER.registerPOIType(name, poiType);
     }

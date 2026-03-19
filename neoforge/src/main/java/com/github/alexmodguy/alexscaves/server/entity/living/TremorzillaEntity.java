@@ -1122,7 +1122,7 @@ public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMou
     private Stream<BlockPos> getNearbySirens(ServerLevel world, int range) {
         PoiManager pointofinterestmanager = world.getPoiManager();
 
-        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.NUCLEAR_SIREN.get())), Predicates.alwaysTrue(), this.blockPosition(), range, PoiManager.Occupancy.ANY);
+        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.NUCLEAR_SIREN.key()), Predicates.alwaysTrue(), this.blockPosition(), range, PoiManager.Occupancy.ANY);
     }
 
     private void activateSiren(BlockPos pos) {

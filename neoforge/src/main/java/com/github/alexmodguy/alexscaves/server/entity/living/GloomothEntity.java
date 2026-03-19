@@ -293,7 +293,7 @@ public class GloomothEntity extends PathfinderMob implements UnderzealotSacrific
 
     public BlockPos getNearestMothBall(ServerLevel world, BlockPos to, int range) {
         PoiManager pointofinterestmanager = world.getPoiManager();
-        return pointofinterestmanager.findClosest(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.MOTH_BALL.get())), blockPos -> isWithinMothBallRange(blockPos, range), to, range, PoiManager.Occupancy.ANY).orElse(null);
+        return pointofinterestmanager.findClosest(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.MOTH_BALL.key()), blockPos -> isWithinMothBallRange(blockPos, range), to, range, PoiManager.Occupancy.ANY).orElse(null);
     }
 
     private boolean isWithinMothBallRange(BlockPos blockPos, int range) {

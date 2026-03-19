@@ -33,12 +33,12 @@ public class MagnetUtil {
 
     private static Stream<BlockPos> getNearbyAttractingMagnets(BlockPos blockpos, ServerLevel world, int range) {
         PoiManager pointofinterestmanager = world.getPoiManager();
-        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.ATTRACTING_MAGNETS.get())), Predicates.alwaysTrue(), blockpos, range, PoiManager.Occupancy.ANY);
+        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.ATTRACTING_MAGNETS.key()), Predicates.alwaysTrue(), blockpos, range, PoiManager.Occupancy.ANY);
     }
 
     private static Stream<BlockPos> getNearbyRepellingMagnets(BlockPos blockpos, ServerLevel world, int range) {
         PoiManager pointofinterestmanager = world.getPoiManager();
-        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.REPELLING_MAGNETS.get())), Predicates.alwaysTrue(), blockpos, range, PoiManager.Occupancy.ANY);
+        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.REPELLING_MAGNETS.key()), Predicates.alwaysTrue(), blockpos, range, PoiManager.Occupancy.ANY);
     }
 
     public static void tickMagnetism(Entity entity) {

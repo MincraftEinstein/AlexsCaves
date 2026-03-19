@@ -93,7 +93,7 @@ public class SundropBlock extends DirectionalBlock {
         if (randomSource.nextInt(2) != 0 && serverLevel.hasChunkAt(posIn)) {
             PoiManager pointofinterestmanager = serverLevel.getPoiManager();
             int range = 30;
-            Optional<BlockPos> rainbowTarget = Optional.ofNullable(pointofinterestmanager.getRandom(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.SUNDROP.get())), blockPos -> canSendRainbowTo(serverLevel, posIn, blockPos, range), PoiManager.Occupancy.ANY, posIn, range, randomSource).orElse(null));
+            Optional<BlockPos> rainbowTarget = Optional.ofNullable(pointofinterestmanager.getRandom(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.SUNDROP.key()), blockPos -> canSendRainbowTo(serverLevel, posIn, blockPos, range), PoiManager.Occupancy.ANY, posIn, range, randomSource).orElse(null));
             if (rainbowTarget.isPresent() && serverLevel.hasChunkAt(rainbowTarget.get())) {
                 BlockPos target = rainbowTarget.get();
                 // TODO

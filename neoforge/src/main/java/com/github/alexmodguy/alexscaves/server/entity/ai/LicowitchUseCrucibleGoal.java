@@ -88,7 +88,7 @@ public class LicowitchUseCrucibleGoal extends Goal {
 
     private static Stream<BlockPos> getNearbyCrucibles(BlockPos blockpos, ServerLevel world, int range) {
         PoiManager pointofinterestmanager = world.getPoiManager();
-        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.CONVERSION_CRUCIBLE.get())), blockpos2 -> canWitchUseCrucibleAt(world, blockpos2, true), blockpos, range, PoiManager.Occupancy.ANY);
+        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.CONVERSION_CRUCIBLE.key()), blockpos2 -> canWitchUseCrucibleAt(world, blockpos2, true), blockpos, range, PoiManager.Occupancy.ANY);
     }
 
     private static boolean canWitchUseCrucibleAt(Level world, BlockPos pos, boolean inUse) {

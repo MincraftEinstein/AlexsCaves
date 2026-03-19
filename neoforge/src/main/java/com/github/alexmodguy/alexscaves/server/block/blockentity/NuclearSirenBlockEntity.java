@@ -128,9 +128,7 @@ public class NuclearSirenBlockEntity extends BlockEntity {
 
     private Stream<BlockPos> getNearbyCriticalFurnaces(ServerLevel world, int range) {
         PoiManager pointofinterestmanager = world.getPoiManager();
-        // TODO
-//        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.REPELLING_MAGNETS.get()))), this::isCriticalFurnace, this.getBlockPos(), range, PoiManager.Occupancy.ANY);
-        return Stream.of();
+        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.REPELLING_MAGNETS.key()), this::isCriticalFurnace, this.getBlockPos(), range, PoiManager.Occupancy.ANY);
     }
 
     private boolean isCriticalFurnace(BlockPos pos) {

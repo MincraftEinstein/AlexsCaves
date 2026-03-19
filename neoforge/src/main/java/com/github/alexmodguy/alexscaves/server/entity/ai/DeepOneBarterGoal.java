@@ -77,7 +77,7 @@ public class DeepOneBarterGoal extends Goal {
 
     private static Stream<BlockPos> getNearbyAltars(BlockPos blockpos, ServerLevel world, int range) {
         PoiManager pointofinterestmanager = world.getPoiManager();
-        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.ABYSSAL_ALTAR.get())), blockpos2 -> hasPearls(world, blockpos2, true), blockpos, range, PoiManager.Occupancy.ANY);
+        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.ABYSSAL_ALTAR.key()), blockpos2 -> hasPearls(world, blockpos2, true), blockpos, range, PoiManager.Occupancy.ANY);
     }
 
     private static boolean hasPearls(Level world, BlockPos pos, boolean timed) {

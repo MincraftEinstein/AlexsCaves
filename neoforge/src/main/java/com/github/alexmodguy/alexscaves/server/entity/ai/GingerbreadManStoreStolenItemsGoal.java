@@ -93,7 +93,7 @@ public class GingerbreadManStoreStolenItemsGoal extends Goal {
 
     private Stream<BlockPos> getNearbyBarrels(BlockPos blockpos, ServerLevel world, int range) {
         PoiManager pointofinterestmanager = world.getPoiManager();
-        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(BuiltInRegistries.POINT_OF_INTEREST_TYPE.getKey(ACPOIRegistry.GINGERBARREL.get())), blockpos2 -> doesBarrelHaveSpace(world, blockpos2, mob.getItemInHand(InteractionHand.OFF_HAND)), blockpos, range, PoiManager.Occupancy.ANY);
+        return pointofinterestmanager.findAll(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.GINGERBARREL.key()), blockpos2 -> doesBarrelHaveSpace(world, blockpos2, mob.getItemInHand(InteractionHand.OFF_HAND)), blockpos, range, PoiManager.Occupancy.ANY);
     }
 
     private static boolean doesBarrelHaveSpace(Level world, BlockPos pos, ItemStack addTo) {

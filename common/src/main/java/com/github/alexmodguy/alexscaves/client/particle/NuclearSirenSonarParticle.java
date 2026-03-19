@@ -5,34 +5,36 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.function.Consumer;
 
-public class GobthumperParticle extends TextureSheetParticle {
+public class NuclearSirenSonarParticle extends TextureSheetParticle {
 
+    private float xRot;
+    private float yRot;
     private float fadeR;
     private float fadeG;
     private float fadeB;
-
-    protected GobthumperParticle(ClientLevel world, double x, double y, double z) {
+    protected NuclearSirenSonarParticle(ClientLevel world, double x, double y, double z, float xRot, float yRot) {
         super(world, x, y, z, 0.0, 0.0, 0.0);
         this.xd = 0.0;
         this.yd = 0.0;
         this.zd = 0.0;
-        this.setSize(6.0F, 6.0F);
-        this.setColor(1F, 0.7F, 1F);
-        this.lifetime = 20;
+        this.setSize(0.4F, 0.4F);
+        this.setColor(1F, 1F, 1F);
+        this.lifetime = 8;
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
         this.quadSize = 0.4F;
         this.friction = 1F;
+        this.xRot = xRot;
+        this.yRot = yRot;
     }
 
     public void setFadeColor(int i) {
@@ -55,17 +57,20 @@ public class GobthumperParticle extends TextureSheetParticle {
         this.rCol += (fadeR - this.rCol) * 0.1F;
         this.gCol += (fadeG - this.gCol) * 0.1F;
         this.bCol += (fadeB - this.bCol) * 0.1F;
+        Vec3 motionVec = new Vec3(0, 0, 0.055F).xRot((float) Math.toRadians(xRot)).yRot(-(float) Math.toRadians(yRot));
+        this.xd += motionVec.x * f2;
+        this.yd += motionVec.y * f2;
+        this.zd += motionVec.z * f2;
         this.hasPhysics = this.age > 3;
         if (this.age++ >= this.lifetime) {
             this.remove();
         } else {
             this.move(this.xd, this.yd, this.zd);
-            this.xd *= this.friction;
-            this.yd *= this.friction;
-            this.zd *= this.friction;
+            this.xd *= (double) this.friction;
+            this.yd *= (double) this.friction;
+            this.zd *= (double) this.friction;
         }
     }
-
     @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
@@ -76,23 +81,23 @@ public class GobthumperParticle extends TextureSheetParticle {
     }
 
     public float getQuadSize(float scaleFactor) {
-        return this.quadSize * Mth.clamp(((float) this.age + scaleFactor) / (float) this.lifetime, 0.0F, 1.0F) * 6.0F;
+        return this.quadSize * Mth.clamp(((float) this.age + scaleFactor) / (float) this.lifetime, 0.0F, 1.0F) * 2.0F;
     }
 
     public void render(VertexConsumer vertexConsumer, Camera camera, float partialTick) {
         this.renderSignal(vertexConsumer, camera, partialTick, (quaternionf) -> {
-            quaternionf.rotateX((float) (-Math.PI * 0.5F));
+            quaternionf.rotateY(-(float) Math.toRadians(yRot)).rotateX(-(float) Math.toRadians(xRot));
         });
         this.renderSignal(vertexConsumer, camera, partialTick, (quaternionf) -> {
-            quaternionf.rotateX((float) (Math.PI * 0.5F));
+            quaternionf.rotateY(-(float) Math.PI - (float) Math.toRadians(yRot)).rotateX((float) Math.toRadians(xRot));
         });
     }
 
     private void renderSignal(VertexConsumer consumer, Camera camera, float partialTicks, Consumer<Quaternionf> rots) {
         Vec3 vec3 = camera.getPosition();
-        float f = (float) (Mth.lerp(partialTicks, this.xo, this.x) - vec3.x());
-        float f1 = (float) (Mth.lerp(partialTicks, this.yo, this.y) - vec3.y());
-        float f2 = (float) (Mth.lerp(partialTicks, this.zo, this.z) - vec3.z());
+        float f = (float) (Mth.lerp((double) partialTicks, this.xo, this.x) - vec3.x());
+        float f1 = (float) (Mth.lerp((double) partialTicks, this.yo, this.y) - vec3.y());
+        float f2 = (float) (Mth.lerp((double) partialTicks, this.zo, this.z) - vec3.z());
         Vector3f vector3f = (new Vector3f(0.5F, 0.5F, 0.5F)).normalize();
         Quaternionf quaternionf = (new Quaternionf()).setAngleAxis(0.0F, vector3f.x(), vector3f.y(), vector3f.z());
         rots.accept(quaternionf);
@@ -111,14 +116,14 @@ public class GobthumperParticle extends TextureSheetParticle {
         float f4 = this.getV0();
         float f5 = this.getV1();
         int j = this.getLightColor(partialTicks);
-        consumer.addVertex(avector3f[0].x(), avector3f[0].y(), avector3f[0].z()).setUv(f7, f5).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(j);
-        consumer.addVertex(avector3f[1].x(), avector3f[1].y(), avector3f[1].z()).setUv(f7, f4).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(j);
-        consumer.addVertex(avector3f[2].x(), avector3f[2].y(), avector3f[2].z()).setUv(f6, f4).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(j);
-        consumer.addVertex(avector3f[3].x(), avector3f[3].y(), avector3f[3].z()).setUv(f6, f5).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(j);
+        int packedColor = FastColor.ARGB32.color((int)(this.alpha * 255), (int)(this.rCol * 255), (int)(this.gCol * 255), (int)(this.bCol * 255));
+        consumer.addVertex(avector3f[0].x(), avector3f[0].y(), avector3f[0].z()).setUv(f7, f5).setColor(packedColor).setLight(j);
+        consumer.addVertex(avector3f[1].x(), avector3f[1].y(), avector3f[1].z()).setUv(f7, f4).setColor(packedColor).setLight(j);
+        consumer.addVertex(avector3f[2].x(), avector3f[2].y(), avector3f[2].z()).setUv(f6, f4).setColor(packedColor).setLight(j);
+        consumer.addVertex(avector3f[3].x(), avector3f[3].y(), avector3f[3].z()).setUv(f6, f5).setColor(packedColor).setLight(j);
     }
 
 
-    @OnlyIn(Dist.CLIENT)
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -127,17 +132,9 @@ public class GobthumperParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            GobthumperParticle particle = new GobthumperParticle(worldIn, x, y, z);
+            NuclearSirenSonarParticle particle = new NuclearSirenSonarParticle(worldIn, x, y, z, (float) xSpeed, (float) ySpeed);
             particle.pickSprite(spriteSet);
-            int gumwormColor;
-            if (xSpeed == 0) {
-                gumwormColor = 0X5AEDCB;
-            } else if (xSpeed == 1) {
-                gumwormColor = 0XFFCF54;
-            } else {
-                gumwormColor = 0XB23EF4;
-            }
-            particle.setFadeColor(gumwormColor);
+            particle.setFadeColor(0X00EE00);
             return particle;
         }
     }

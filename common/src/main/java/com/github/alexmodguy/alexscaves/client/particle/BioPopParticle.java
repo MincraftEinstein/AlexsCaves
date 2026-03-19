@@ -3,32 +3,32 @@ package com.github.alexmodguy.alexscaves.client.particle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-public class HappinessParticle extends TextureSheetParticle {
+public class BioPopParticle extends TextureSheetParticle {
 
-    private final SpriteSet sprites;
-    protected HappinessParticle(ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteSet) {
+    private SpriteSet spriteSet;
+
+    protected BioPopParticle(ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteSet) {
         super(world, x, y, z, xSpeed, ySpeed, zSpeed);
-        this.sprites = spriteSet;
-        this.setSpriteFromAge(this.sprites);
-        this.xd = xSpeed;
-        this.yd = ySpeed;
-        this.zd = zSpeed;
-        this.setSize(0.5F, 0.5F);
-        this.quadSize = 0.3F + world.random.nextFloat() * 0.3F;
-        this.lifetime = 10 + world.random.nextInt(20);
-        this.friction = 0.99F;
+        this.quadSize *= 0.75F + world.random.nextFloat() * 1.2F;
+        this.gravity = -0.02F - 0.03F * level.random.nextFloat();
+        this.speedUpWhenYMotionIsBlocked = true;
+        this.hasPhysics = true;
+        this.xd = xSpeed + level.random.nextFloat() * 0.1F - 0.05F;
+        this.yd = ySpeed + 0.05F + level.random.nextFloat() * 0.05F;
+        this.zd = zSpeed + level.random.nextFloat() * 0.1F - 0.05F;
+        this.spriteSet = spriteSet;
+        this.friction = 0.8F;
+        this.lifetime = 6 + world.random.nextInt(12);
     }
 
     public void tick() {
-        this.setSpriteFromAge(this.sprites);
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
-        float ageProgress = this.age / (float) lifetime;
-        this.gravity = -0.05F + 0.09F * ageProgress;
+        int ageAt = this.lifetime - 6;
+        int sprite = this.age >= ageAt ? Math.min(this.age - ageAt, 6) : 0;
+        this.setSprite(spriteSet.get(sprite, 7));
         if (this.age++ >= this.lifetime) {
             this.remove();
         } else {
@@ -41,14 +41,9 @@ public class HappinessParticle extends TextureSheetParticle {
 
     @Override
     public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+        return ParticleRenderType.PARTICLE_SHEET_LIT;
     }
 
-    public int getLightColor(float partialTicks) {
-        return 240;
-    }
-
-    @OnlyIn(Dist.CLIENT)
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -57,8 +52,10 @@ public class HappinessParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            HappinessParticle particle = new HappinessParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, spriteSet);
+            BioPopParticle particle = new BioPopParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
+            particle.setSprite(spriteSet.get(0, 1));
             return particle;
         }
     }
 }
+

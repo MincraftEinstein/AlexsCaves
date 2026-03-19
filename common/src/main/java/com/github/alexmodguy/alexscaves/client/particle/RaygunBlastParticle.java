@@ -4,45 +4,41 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.function.Consumer;
 
-public class NuclearSirenSonarParticle extends TextureSheetParticle {
+public class RaygunBlastParticle extends TextureSheetParticle {
 
-    private float xRot;
-    private float yRot;
-    private float fadeR;
-    private float fadeG;
-    private float fadeB;
-    protected NuclearSirenSonarParticle(ClientLevel world, double x, double y, double z, float xRot, float yRot) {
+    private Direction direction;
+
+    private float randomRot = 0;
+
+    protected RaygunBlastParticle(ClientLevel world, double x, double y, double z, Direction direction) {
         super(world, x, y, z, 0.0, 0.0, 0.0);
         this.xd = 0.0;
         this.yd = 0.0;
         this.zd = 0.0;
-        this.setSize(0.4F, 0.4F);
+        this.direction = direction;
+        this.hasPhysics = false;
+        this.setSize(1.0F, 1.0F);
         this.setColor(1F, 1F, 1F);
-        this.lifetime = 8;
+        this.lifetime = world.random.nextInt(20) + 20;
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
-        this.quadSize = 0.4F;
-        this.friction = 1F;
-        this.xRot = xRot;
-        this.yRot = yRot;
-    }
-
-    public void setFadeColor(int i) {
-        this.fadeR = (float) ((i & 16711680) >> 16) / 255.0F;
-        this.fadeG = (float) ((i & '\uff00') >> 8) / 255.0F;
-        this.fadeB = (float) ((i & 255) >> 0) / 255.0F;
+        this.randomRot = (float) (Math.PI * 2F * world.random.nextFloat());
+        this.quadSize = 0.2F + world.random.nextFloat() * 0.4F;
+        this.friction = 0F;
     }
 
     public void tick() {
@@ -53,45 +49,34 @@ public class NuclearSirenSonarParticle extends TextureSheetParticle {
         float f1 = this.age / (float) this.lifetime;
         float f2 = 1F - 0.1F * f1;
         friction = 1F - 0.65F * f1;
-        if (this.age > this.lifetime / 2) {
+        if (this.age > lifetime / 2) {
             this.setAlpha(1.0F - f * 2F);
         }
-        this.rCol += (fadeR - this.rCol) * 0.1F;
-        this.gCol += (fadeG - this.gCol) * 0.1F;
-        this.bCol += (fadeB - this.bCol) * 0.1F;
-        Vec3 motionVec = new Vec3(0, 0, 0.055F).xRot((float) Math.toRadians(xRot)).yRot(-(float) Math.toRadians(yRot));
-        this.xd += motionVec.x * f2;
-        this.yd += motionVec.y * f2;
-        this.zd += motionVec.z * f2;
-        this.hasPhysics = this.age > 3;
-        if (this.age++ >= this.lifetime) {
+        this.xd = 0;
+        this.yd = 0;
+        this.zd = 0;
+        BlockPos connectedTo = BlockPos.containing(this.x + direction.getStepX() * -0.1F, this.y + direction.getStepY() * -0.1F, this.z + direction.getStepZ() * -0.1F);
+        BlockState state = level.getBlockState(connectedTo);
+        if (this.age++ >= this.lifetime || state.isAir() || !state.isFaceSturdy(level, connectedTo, direction.getOpposite())) {
             this.remove();
-        } else {
-            this.move(this.xd, this.yd, this.zd);
-            this.xd *= (double) this.friction;
-            this.yd *= (double) this.friction;
-            this.zd *= (double) this.friction;
+        }else if(random.nextFloat() < 0.5F && this.age < this.lifetime / 2){
+            this.level.addParticle(ParticleTypes.SMOKE.getType(), x, y, z, 0, 0, 0);
         }
     }
+
     @Override
     public ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    public int getLightColor(float partialTicks) {
-        return 240;
-    }
-
-    public float getQuadSize(float scaleFactor) {
-        return this.quadSize * Mth.clamp(((float) this.age + scaleFactor) / (float) this.lifetime, 0.0F, 1.0F) * 2.0F;
-    }
-
     public void render(VertexConsumer vertexConsumer, Camera camera, float partialTick) {
         this.renderSignal(vertexConsumer, camera, partialTick, (quaternionf) -> {
-            quaternionf.rotateY(-(float) Math.toRadians(yRot)).rotateX(-(float) Math.toRadians(xRot));
+            quaternionf.mul(direction.getRotation());
+            quaternionf.rotateX(-(float) Math.PI * 0.5F);
         });
         this.renderSignal(vertexConsumer, camera, partialTick, (quaternionf) -> {
-            quaternionf.rotateY(-(float) Math.PI - (float) Math.toRadians(yRot)).rotateX((float) Math.toRadians(xRot));
+            quaternionf.mul(direction.getRotation());
+            quaternionf.rotateX((float) Math.PI - (float) Math.PI * 0.5F);
         });
     }
 
@@ -103,6 +88,7 @@ public class NuclearSirenSonarParticle extends TextureSheetParticle {
         Vector3f vector3f = (new Vector3f(0.5F, 0.5F, 0.5F)).normalize();
         Quaternionf quaternionf = (new Quaternionf()).setAngleAxis(0.0F, vector3f.x(), vector3f.y(), vector3f.z());
         rots.accept(quaternionf);
+        quaternionf.rotateZ(randomRot);
         Vector3f[] avector3f = new Vector3f[]{new Vector3f(-1.0F, -1.0F, 0.0F), new Vector3f(-1.0F, 1.0F, 0.0F), new Vector3f(1.0F, 1.0F, 0.0F), new Vector3f(1.0F, -1.0F, 0.0F)};
         float f3 = this.getQuadSize(partialTicks);
 
@@ -126,7 +112,6 @@ public class NuclearSirenSonarParticle extends TextureSheetParticle {
     }
 
 
-    @OnlyIn(Dist.CLIENT)
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -135,9 +120,26 @@ public class NuclearSirenSonarParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            NuclearSirenSonarParticle particle = new NuclearSirenSonarParticle(worldIn, x, y, z, (float) xSpeed, (float) ySpeed);
+            Direction direction = Direction.from3DDataValue((int)xSpeed);
+            RaygunBlastParticle particle = new RaygunBlastParticle(worldIn, x, y, z, direction);
             particle.pickSprite(spriteSet);
-            particle.setFadeColor(0X00EE00);
+            return particle;
+        }
+    }
+
+    public static class TremorzillaFactory implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteSet;
+
+        public TremorzillaFactory(SpriteSet spriteSet) {
+            this.spriteSet = spriteSet;
+        }
+
+        public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            Direction direction = Direction.from3DDataValue((int)xSpeed);
+            RaygunBlastParticle particle = new RaygunBlastParticle(worldIn, x, y, z, direction);
+            particle.pickSprite(spriteSet);
+            particle.quadSize = 1.0F + worldIn.random.nextFloat() * 0.5F;
+            particle.lifetime = 60 + worldIn.random.nextInt(20);
             return particle;
         }
     }

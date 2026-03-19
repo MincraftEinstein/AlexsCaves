@@ -3,34 +3,35 @@ package com.github.alexmodguy.alexscaves.client.particle;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
-public class BioPopParticle extends TextureSheetParticle {
+public class AcidBubbleParticle extends TextureSheetParticle {
 
     private SpriteSet spriteSet;
 
-    protected BioPopParticle(ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteSet) {
+    protected AcidBubbleParticle(ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed, SpriteSet spriteSet) {
         super(world, x, y, z, xSpeed, ySpeed, zSpeed);
-        this.quadSize *= 0.75F + world.random.nextFloat() * 1.2F;
-        this.gravity = -0.02F - 0.03F * level.random.nextFloat();
-        this.speedUpWhenYMotionIsBlocked = true;
+        this.quadSize *= 0.9F + world.random.nextFloat() * 0.5F;
         this.hasPhysics = true;
-        this.xd = xSpeed + level.random.nextFloat() * 0.1F - 0.05F;
-        this.yd = ySpeed + 0.05F + level.random.nextFloat() * 0.05F;
-        this.zd = zSpeed + level.random.nextFloat() * 0.1F - 0.05F;
+        this.xd = xSpeed;
+        this.yd = ySpeed;
+        this.zd = zSpeed;
         this.spriteSet = spriteSet;
-        this.friction = 0.8F;
-        this.lifetime = 6 + world.random.nextInt(12);
+        this.friction = 0.95F;
+        this.lifetime = 10 + world.random.nextInt(10);
     }
 
     public void tick() {
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
-        int ageAt = this.lifetime - 6;
-        int sprite = this.age >= ageAt ? Math.min(this.age - ageAt, 6) : 0;
-        this.setSprite(spriteSet.get(sprite, 7));
+        int ageAt = this.lifetime - 7;
+        int sprite = this.age >= ageAt ? Math.min(this.age - ageAt, 7) : 0;
+        this.setSprite(spriteSet.get(sprite, 8));
+        if (sprite > 0) {
+            this.xd = 0;
+            this.yd = 0;
+            this.zd = 0;
+        }
         if (this.age++ >= this.lifetime) {
             this.remove();
         } else {
@@ -43,10 +44,9 @@ public class BioPopParticle extends TextureSheetParticle {
 
     @Override
     public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_LIT;
+        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -55,10 +55,9 @@ public class BioPopParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            BioPopParticle particle = new BioPopParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
-            particle.setSprite(spriteSet.get(0, 1));
-            return particle;
+            AcidBubbleParticle heartparticle = new AcidBubbleParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, this.spriteSet);
+            heartparticle.setSprite(spriteSet.get(0, 1));
+            return heartparticle;
         }
     }
 }
-

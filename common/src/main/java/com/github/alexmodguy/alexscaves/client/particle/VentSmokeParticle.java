@@ -4,8 +4,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class VentSmokeParticle extends TextureSheetParticle {
 
@@ -58,7 +56,6 @@ public class VentSmokeParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class BlackFactory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -75,7 +72,6 @@ public class VentSmokeParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class WhiteFactory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -92,7 +88,6 @@ public class VentSmokeParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class GreenFactory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -109,7 +104,6 @@ public class VentSmokeParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class RedFactory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 

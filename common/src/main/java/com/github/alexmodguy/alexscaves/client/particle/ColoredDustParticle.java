@@ -1,12 +1,8 @@
 package com.github.alexmodguy.alexscaves.client.particle;
 
-import com.github.alexmodguy.alexscaves.client.render.misc.BlockColorFinder;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.world.level.block.state.BlockState;
 
 public class ColoredDustParticle extends TextureSheetParticle {
 

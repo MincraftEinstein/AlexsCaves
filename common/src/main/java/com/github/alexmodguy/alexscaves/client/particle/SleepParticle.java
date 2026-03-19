@@ -4,8 +4,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class SleepParticle extends TextureSheetParticle {
 
@@ -46,7 +44,6 @@ public class SleepParticle extends TextureSheetParticle {
         return ParticleRenderType.PARTICLE_SHEET_OPAQUE;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 

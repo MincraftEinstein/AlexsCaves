@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.item.*;
 import com.github.alexthe666.citadel.item.BlockItemWithSupplier;
@@ -154,25 +155,25 @@ public class ACBlockRegistry {
     public static final Supplier<Block> PEWEN_FENCE_GATE = registerBlockAndItem("pewen_fence_gate", () -> new FenceGateBlock(WoodType.CHERRY, BlockBehaviour.Properties.ofFullCopy(PEWEN_PLANKS.get()).strength(2.0F, 3.0F).sound(SoundType.CHERRY_WOOD).forceSolidOn()));
     public static final Supplier<Block> PEWEN_DOOR = register("pewen_door", () -> new DoorBlock(BlockSetType.CHERRY, BlockBehaviour.Properties.ofFullCopy(PEWEN_PLANKS.get()).strength(3.0F).sound(SoundType.CHERRY_WOOD).noOcclusion()));
     public static final Supplier<Block> PEWEN_BRANCH = registerBlockAndItem("pewen_branch", () -> new PewenBranchBlock());
-    public static final Supplier<Block> PEWEN_PINES = registerBlockAndItem("pewen_pines", () -> new PewenPinesBlock());
-    public static final Supplier<Block> POTTED_PEWEN_PINES = register("potted_pewen_pines", () -> new FlowerPotBlock(PEWEN_PINES.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final RegHolder<Block, Block> PEWEN_PINES = registerBlockAndItem("pewen_pines", () -> new PewenPinesBlock());
+    public static final RegHolder<Block, Block> POTTED_PEWEN_PINES = register("potted_pewen_pines", () -> new FlowerPotBlock(PEWEN_PINES.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
     // TODO re add tree grower
-    public static final Supplier<Block> PEWEN_SAPLING = registerBlockAndItem("pewen_sapling", () -> new SaplingBlock(null/*PewenGrower.GROWER*/, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
-    public static final Supplier<Block> POTTED_PEWEN_SAPLING = register("potted_pewen_sapling", () -> new FlowerPotBlock(PEWEN_SAPLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
-    public static final Supplier<Block> FIDDLEHEAD = registerBlockAndItem("fiddlehead", () -> new FiddleheadBlock());
-    public static final Supplier<Block> POTTED_FIDDLEHEAD = register("potted_fiddlehead", () -> new FlowerPotBlock(FIDDLEHEAD.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
-    public static final Supplier<Block> CURLY_FERN = registerBlockAndItem("curly_fern", () -> new DoublePlantWithRotationBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ)));
-    public static final Supplier<Block> POTTED_CURLY_FERN = register("potted_curly_fern", () -> new FlowerPotBlock(CURLY_FERN.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
-    public static final Supplier<Block> FLYTRAP = registerBlockAndItem("flytrap", () -> new FlytrapBlock());
-    public static final Supplier<Block> POTTED_FLYTRAP = register("potted_flytrap", () -> new PottedFlytrapBlock());
-    public static final Supplier<Block> CYCAD = registerBlockAndItem("cycad", () -> new CycadBlock());
-    public static final Supplier<Block> POTTED_CYCAD = register("potted_cycad", () -> new FlowerPotBlock(CYCAD.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final RegHolder<Block, Block> PEWEN_SAPLING = registerBlockAndItem("pewen_sapling", () -> new SaplingBlock(null/*PewenGrower.GROWER*/, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
+    public static final RegHolder<Block, Block> POTTED_PEWEN_SAPLING = register("potted_pewen_sapling", () -> new FlowerPotBlock(PEWEN_SAPLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final RegHolder<Block, Block> FIDDLEHEAD = registerBlockAndItem("fiddlehead", () -> new FiddleheadBlock());
+    public static final RegHolder<Block, Block> POTTED_FIDDLEHEAD = register("potted_fiddlehead", () -> new FlowerPotBlock(FIDDLEHEAD.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final RegHolder<Block, Block> CURLY_FERN = registerBlockAndItem("curly_fern", () -> new DoublePlantWithRotationBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().instabreak().sound(SoundType.GRASS).offsetType(BlockBehaviour.OffsetType.XZ)));
+    public static final RegHolder<Block, Block> POTTED_CURLY_FERN = register("potted_curly_fern", () -> new FlowerPotBlock(CURLY_FERN.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final RegHolder<Block, Block> FLYTRAP = registerBlockAndItem("flytrap", () -> new FlytrapBlock());
+    public static final RegHolder<Block, Block> POTTED_FLYTRAP = register("potted_flytrap", () -> new PottedFlytrapBlock());
+    public static final RegHolder<Block, Block> CYCAD = registerBlockAndItem("cycad", () -> new CycadBlock());
+    public static final RegHolder<Block, Block> POTTED_CYCAD = register("potted_cycad", () -> new FlowerPotBlock(CYCAD.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> ARCHAIC_VINE = registerBlockAndItem("archaic_vine", () -> new ArchaicVineBlock());
     public static final Supplier<Block> ARCHAIC_VINE_PLANT = register("archaic_vine_plant", () -> new ArchaicVinePlantBlock());
     public static final Supplier<Block> ANCIENT_LEAVES = registerBlockAndItem("ancient_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating((blockState, getter, pos) -> false)));
     // TODO re add tree grower
-    public static final Supplier<Block> ANCIENT_SAPLING = registerBlockAndItem("ancient_sapling", () -> new AncientSaplingBlock(null/*AncientTreeGrower.GROWER*/, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
-    public static final Supplier<Block> POTTED_ANCIENT_SAPLING = register("potted_ancient_sapling", () -> new FlowerPotBlock(ANCIENT_SAPLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final RegHolder<Block, Block> ANCIENT_SAPLING = registerBlockAndItem("ancient_sapling", () -> new AncientSaplingBlock(null/*AncientTreeGrower.GROWER*/, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
+    public static final RegHolder<Block, Block> POTTED_ANCIENT_SAPLING = register("potted_ancient_sapling", () -> new FlowerPotBlock(ANCIENT_SAPLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> TREE_STAR = registerBlockAndItem("tree_star", () -> new TreeStarBlock());
     public static final Supplier<Block> FERN_THATCH = registerBlockAndItem("fern_thatch", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.5F).sound(SoundType.GRASS).noOcclusion()));
     public static final Supplier<Block> PRIMAL_MAGMA = registerBlockAndItem("primal_magma", () -> new PrimalMagmaBlock());
@@ -195,8 +196,8 @@ public class ACBlockRegistry {
     public static final Supplier<Block> GEOTHERMAL_VENT_THIN = registerBlockAndItem("geothermal_vent_thin", () -> new ThinGeothermalVentBlock(8));
     // TODO when fluids
     public static final Supplier<Block> ACID = register("acid", () -> new AcidBlock(() -> Fluids.LAVA/*ACFluidRegistry.ACID_FLUID_SOURCE*/, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_LIGHT_GREEN).noCollission().strength(100.0F).lightLevel(state -> 7).emissiveRendering((state, world, pos) -> false).noLootTable().replaceable().liquid().pushReaction(PushReaction.DESTROY)));
-    public static final Supplier<Block> UNDERWEED = registerBlockAndItem("underweed", () -> new CavePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instabreak().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GRASS).noOcclusion().noCollission().replaceable(), false));
-    public static final Supplier<Block> POTTED_UNDERWEED = register("potted_underweed", () -> new FlowerPotBlock(UNDERWEED.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final RegHolder<Block, Block> UNDERWEED = registerBlockAndItem("underweed", () -> new CavePlantBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).instabreak().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GRASS).noOcclusion().noCollission().replaceable(), false));
+    public static final RegHolder<Block, Block> POTTED_UNDERWEED = register("potted_underweed", () -> new FlowerPotBlock(UNDERWEED.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> METAL_BARREL = registerBlockAndItem("metal_barrel", () -> new MetalBarrelBlock());
     public static final Supplier<Block> WASTE_DRUM = registerBlockAndItem("waste_drum", () -> new WasteDrumBlock(), 5);
     public static final Supplier<Block> RUSTY_SCRAP_METAL = registerBlockAndItem("rusty_scrap_metal", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(5F, 15.0F).sound(ACSoundTypes.SCRAP_METAL.get())));
@@ -302,8 +303,8 @@ public class ACBlockRegistry {
     public static final Supplier<Block> PEERING_COPROLITH = registerBlockAndItem("peering_coprolith", () -> new Block(PEERING_COPROLITH_PROPERTIES));
     public static final Supplier<Block> FORSAKEN_IDOL = registerBlockAndItem("forsaken_idol", () -> new ForsakenIdolBlock());
     public static final Supplier<Block> THORNWOOD_LOG = registerBlockAndItem("thornwood_log", () -> new StrippableLogBlock(THORNWOOD_LOG_PROPERTIES));
-    public static final Supplier<Block> THORNWOOD_BRANCH = registerBlockAndItem("thornwood_branch", () -> new ThornwoodBranchBlock());
-    public static final Supplier<Block> POTTED_THORNWOOD_BRANCH = register("potted_thornwood_branch", () -> new FlowerPotBlock(THORNWOOD_BRANCH.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final RegHolder<Block, Block> THORNWOOD_BRANCH = registerBlockAndItem("thornwood_branch", () -> new ThornwoodBranchBlock());
+    public static final RegHolder<Block, Block> POTTED_THORNWOOD_BRANCH = register("potted_thornwood_branch", () -> new FlowerPotBlock(THORNWOOD_BRANCH.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> THORNWOOD_WOOD = registerBlockAndItem("thornwood_wood", () -> new StrippableLogBlock(THORNWOOD_LOG_PROPERTIES));
     public static final Supplier<Block> STRIPPED_THORNWOOD_LOG = registerBlockAndItem("stripped_thornwood_log", () -> new RotatedPillarBlock(THORNWOOD_LOG_PROPERTIES));
     public static final Supplier<Block> STRIPPED_THORNWOOD_WOOD = registerBlockAndItem("stripped_thornwood_wood", () -> new RotatedPillarBlock(THORNWOOD_LOG_PROPERTIES));
@@ -321,8 +322,8 @@ public class ACBlockRegistry {
     public static final Supplier<Block> THORNWOOD_FENCE_GATE = registerBlockAndItem("thornwood_fence_gate", () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(THORNWOOD_PLANKS.get()).strength(2.0F, 3.0F).sound(SoundType.WOOD).forceSolidOn()));
     public static final Supplier<Block> THORNWOOD_DOOR = register("thornwood_door", () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(THORNWOOD_PLANKS.get()).strength(3.0F).sound(SoundType.WOOD).noOcclusion()));
     // TODO re add tree grower
-    public static final Supplier<Block> THORNWOOD_SAPLING = registerBlockAndItem("thornwood_sapling", () -> new CaveSaplingBlock(null/*ThornwoodGrower.GROWER*/, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS), true));
-    public static final Supplier<Block> POTTED_THORNWOOD_SAPLING = register("potted_thornwood_sapling", () -> new FlowerPotBlock(THORNWOOD_SAPLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
+    public static final RegHolder<Block, Block> THORNWOOD_SAPLING = registerBlockAndItem("thornwood_sapling", () -> new CaveSaplingBlock(null/*ThornwoodGrower.GROWER*/, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS), true));
+    public static final RegHolder<Block, Block> POTTED_THORNWOOD_SAPLING = register("potted_thornwood_sapling", () -> new FlowerPotBlock(THORNWOOD_SAPLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> MOTH_BALL = registerBlockAndItem("moth_ball", () -> new MothBallBlock());
     public static final Supplier<Block> BEHOLDER = registerBlockAndItem("beholder", () -> new BeholderBlock(), 3);
     public static final Supplier<Block> BLOCK_OF_CHOCOLATE = registerBlockAndItemEdible("block_of_chocolate", () -> new ChocolateBlock(CHOCOLATE_PROPERTIES), ACFoods.BLOCK_OF_CHOCOLATE);
@@ -420,25 +421,25 @@ public class ACBlockRegistry {
         registerPot(THORNWOOD_SAPLING, POTTED_THORNWOOD_SAPLING);
     }
 
-    private static void registerPot(Supplier<Block> plant, Supplier<Block> pottedPlant) {
+    private static void registerPot(RegHolder<Block, Block> plant, RegHolder<Block, Block> pottedPlant) {
         Services.REGISTRY_HELPER.registerPottedPlant(plant, pottedPlant);
     }
 
-    private static Supplier<Block> registerBlockAndItem(String name, Supplier<Block> block) {
+    private static RegHolder<Block, Block> registerBlockAndItem(String name, Supplier<Block> block) {
         return registerBlockAndItem(name, block, 0);
     }
 
-    private static Supplier<Block> registerBlockAndItem(String name, Supplier<Block> block, int itemType) {
+    private static RegHolder<Block, Block> registerBlockAndItem(String name, Supplier<Block> block, int itemType) {
         return Services.REGISTRY_HELPER.registerBlock(name, block);
     }
 
-    private static Supplier<Block> registerBlockAndItemEdible(String name, Supplier<Block> block, FoodProperties foodProperties) {
-        Supplier<Block> registered = register(name, block);
+    private static RegHolder<Block, Block> registerBlockAndItemEdible(String name, Supplier<Block> block, FoodProperties foodProperties) {
+        RegHolder<Block, Block> registered = register(name, block);
         Services.REGISTRY_HELPER.registerItem(name, () -> new BlockItemWithSupplier(registered, new Item.Properties().food(foodProperties)));
         return registered;
     }
 
-    public static Supplier<Block> register(String name, Supplier<Block> block) {
+    public static RegHolder<Block, Block> register(String name, Supplier<Block> block) {
         return Services.REGISTRY_HELPER.registerBlockNoItem(name, block);
     }
 
@@ -450,10 +451,8 @@ public class ACBlockRegistry {
             case 4 -> () -> new RadioactiveBlockItem(block, new Item.Properties(), 0.001F);
             case 5 -> () -> new RadioactiveOnDestroyedBlockItem(block, new Item.Properties(), 0.01F);
             case 6 -> () -> new BlockItemWithSupplier(block, new Item.Properties().rarity(Rarity.UNCOMMON));
-            case 7 ->
-                    () -> new BlockItemWithSupplier(block, new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant());
-            case 8 ->
-                    () -> new BlockItemWithSupplier(block, new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant()/*TODO .rarity(ACItemRegistry.getRarityNuclear())*/);
+            case 7 -> () -> new BlockItemWithSupplier(block, new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant());
+            case 8 -> () -> new BlockItemWithSupplier(block, new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant()/*TODO .rarity(ACItemRegistry.getRarityNuclear())*/);
             case 9 -> () -> new BlockItemWithISTER(block, new Item.Properties().rarity(Rarity.UNCOMMON));
             default -> () -> new BlockItemWithSupplier(block, new Item.Properties());
         };

@@ -5,7 +5,6 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -27,7 +26,6 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.HashMap;
@@ -74,18 +72,18 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     }
 
     @Override
-    public <T extends Item> Supplier<T> registerItem(String name, Supplier<T> type) {
-        return ITEMS.register(name, type);
+    public <T extends Item> RegHolder<Item, T> registerItem(String name, Supplier<T> type) {
+        return NeoRegHolder.of(ITEMS.register(name, type));
     }
 
     @Override
-    public <T extends Block> Supplier<T> registerBlockNoItem(String name, Supplier<T> type) {
-        return BLOCKS.register(name, type);
+    public <T extends Block> RegHolder<Block, T> registerBlockNoItem(String name, Supplier<T> type) {
+        return NeoRegHolder.of(BLOCKS.register(name, type));
     }
 
     @Override
-    public <T extends BlockEntityType<?>> Supplier<T> registerBlockEntity(String name, Supplier<T> type) {
-        return BLOCK_ENTITIES.register(name, type);
+    public <T extends BlockEntityType<?>> RegHolder<BlockEntityType<?>, T> registerBlockEntity(String name, Supplier<T> type) {
+        return NeoRegHolder.of(BLOCK_ENTITIES.register(name, type));
     }
 
 //    @Override
@@ -94,30 +92,28 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
 //    }
 
     @Override
-    public Supplier<Holder<Potion>> registerPotion(String name, Supplier<Potion> type) {
-        DeferredHolder<Potion, Potion> potionHolder = POTIONS.register(name, type);
-        return () -> potionHolder;
+    public RegHolder<Potion, Potion> registerPotion(String name, Supplier<Potion> type) {
+        return NeoRegHolder.of(POTIONS.register(name, type));
     }
 
     @Override
-    public Supplier<Holder<MobEffect>> registerMobEffect(String name, Supplier<MobEffect> type) {
-        DeferredHolder<MobEffect, MobEffect> effectHolder = MOB_EFFECTS.register(name, type);
-        return () -> effectHolder;
+    public RegHolder<MobEffect, MobEffect> registerMobEffect(String name, Supplier<MobEffect> type) {
+        return NeoRegHolder.of(MOB_EFFECTS.register(name, type));
     }
 
     @Override
-    public <T extends RecipeSerializer<?>> Supplier<T> registerRecipeSerializer(String name, Supplier<T> type) {
-        return RECIPE_SERIALIZERS.register(name, type);
+    public <T extends RecipeSerializer<?>> RegHolder<RecipeSerializer<?>, T> registerRecipeSerializer(String name, Supplier<T> type) {
+        return NeoRegHolder.of(RECIPE_SERIALIZERS.register(name, type));
     }
 
     @Override
-    public <T extends RecipeType<?>> Supplier<T> registerRecipeType(String name, Supplier<T> type) {
-        return RECIPE_TYPES.register(name, type);
+    public <T extends RecipeType<?>> RegHolder<RecipeType<?>, T> registerRecipeType(String name, Supplier<T> type) {
+        return NeoRegHolder.of(RECIPE_TYPES.register(name, type));
     }
 
     @Override
-    public <T extends MenuType<?>> Supplier<T> registerMenuType(String name, Supplier<T> type) {
-        return MENU_TYPES.register(name, type);
+    public <T extends MenuType<?>> RegHolder<MenuType<?>, T> registerMenuType(String name, Supplier<T> type) {
+        return NeoRegHolder.of(MENU_TYPES.register(name, type));
     }
 
 //    @Override
@@ -131,28 +127,28 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     }
 
     @Override
-    public <T extends CreativeModeTab> Supplier<T> registerCreativeModeTab(String name, Function<CreativeModeTab.Builder, T> type) {
-        return CREATIVE_MODE_TABS.register(name, () -> type.apply(CreativeModeTab.builder()));
+    public <T extends CreativeModeTab> RegHolder<CreativeModeTab, T> registerCreativeModeTab(String name, Function<CreativeModeTab.Builder, T> type) {
+        return NeoRegHolder.of(CREATIVE_MODE_TABS.register(name, () -> type.apply(CreativeModeTab.builder())));
     }
 
     @Override
-    public <T extends CriterionTrigger<?>> Supplier<T> registerTriggerType(String name, Supplier<T> type) {
-        return TRIGGER_TYPES.register(name, type);
+    public <T extends CriterionTrigger<?>> RegHolder<CriterionTrigger<?>, T> registerTriggerType(String name, Supplier<T> type) {
+        return NeoRegHolder.of(TRIGGER_TYPES.register(name, type));
     }
 
     @Override
-    public <T extends LootItemFunction> Supplier<LootItemFunctionType<T>> registerLootFunctionType(String name, MapCodec<T> codec) {
-        return LOOT_FUNCTION_TYPES.register(name, () -> new LootItemFunctionType<>(codec));
+    public <T extends LootItemFunction> RegHolder<LootItemFunctionType<?>, LootItemFunctionType<T>> registerLootFunctionType(String name, MapCodec<T> codec) {
+        return NeoRegHolder.of(LOOT_FUNCTION_TYPES.register(name, () -> new LootItemFunctionType<>(codec)));
     }
 
     @Override
-    public void registerPottedPlant(Supplier<Block> plant, Supplier<Block> pottedPlant) {
-        ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(((DeferredHolder<Block, Block>) plant).getId(), pottedPlant);
+    public void registerPottedPlant(RegHolder<Block, Block> plant, RegHolder<Block, Block> pottedPlant) {
+        ((FlowerPotBlock) Blocks.FLOWER_POT).addPlant(plant.id(), pottedPlant);
     }
 
     @Override
-    public <T extends ParticleType<?>> Supplier<T> registerParticle(String name, Supplier<T> particle) {
-        return PARTICLE_TYPES.register(name, particle);
+    public <T extends ParticleType<?>> RegHolder<ParticleType<?>, T> registerParticle(String name, Supplier<T> particle) {
+        return NeoRegHolder.of(PARTICLE_TYPES.register(name, particle));
     }
 
     @Override
@@ -161,7 +157,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     }
 
     @Override
-    public Supplier<SoundEvent> registerSound(String name, Supplier<SoundEvent> soundEvent) {
-        return SOUND_EVENTS.register(name, soundEvent);
+    public RegHolder<SoundEvent, SoundEvent> registerSound(String name, Supplier<SoundEvent> soundEvent) {
+        return NeoRegHolder.of(SOUND_EVENTS.register(name, soundEvent));
     }
 }

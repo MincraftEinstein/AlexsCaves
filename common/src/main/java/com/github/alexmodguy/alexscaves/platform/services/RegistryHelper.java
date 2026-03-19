@@ -5,7 +5,6 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.Holder;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.sounds.SoundEvent;
@@ -28,47 +27,47 @@ import java.util.function.Supplier;
 
 public interface RegistryHelper {
 
-    <T extends Item> Supplier<T> registerItem(String name, Supplier<T> type);
+    <T extends Item> RegHolder<Item, T> registerItem(String name, Supplier<T> type);
 
-    default <T extends Block> Supplier<T> registerBlock(String name, Supplier<T> type) {
-        Supplier<T> block = registerBlockNoItem(name, type);
+    default <T extends Block> RegHolder<Block, T> registerBlock(String name, Supplier<T> type) {
+        RegHolder<Block, T> block = registerBlockNoItem(name, type);
         registerItem(name, () -> new BlockItem(block.get(), new Item.Properties()));
         return block;
     }
 
-    <T extends Block> Supplier<T> registerBlockNoItem(String name, Supplier<T> type);
+    <T extends Block> RegHolder<Block, T> registerBlockNoItem(String name, Supplier<T> type);
 
-    <T extends BlockEntityType<?>> Supplier<T> registerBlockEntity(String name, Supplier<T> type);
+    <T extends BlockEntityType<?>> RegHolder<BlockEntityType<?>, T> registerBlockEntity(String name, Supplier<T> type);
 
     // TODO
 //    <T extends BlockEntity> BlockEntityType<T> createBlockEntity(BlockEntitySupplier<T> supplier, Block... blocks);
 
-    Supplier<Holder<Potion>> registerPotion(String name, Supplier<Potion> type);
+    RegHolder<Potion, Potion> registerPotion(String name, Supplier<Potion> type);
 
-    Supplier<Holder<MobEffect>> registerMobEffect(String name, Supplier<MobEffect> type);
+    RegHolder<MobEffect, MobEffect> registerMobEffect(String name, Supplier<MobEffect> type);
 
-    <T extends RecipeSerializer<?>> Supplier<T> registerRecipeSerializer(String name, Supplier<T> type);
+    <T extends RecipeSerializer<?>> RegHolder<RecipeSerializer<?>, T> registerRecipeSerializer(String name, Supplier<T> type);
 
-    <T extends RecipeType<?>> Supplier<T> registerRecipeType(String name, Supplier<T> type);
+    <T extends RecipeType<?>> RegHolder<RecipeType<?>, T> registerRecipeType(String name, Supplier<T> type);
 
-    <T extends MenuType<?>> Supplier<T> registerMenuType(String name, Supplier<T> type);
+    <T extends MenuType<?>> RegHolder<MenuType<?>, T> registerMenuType(String name, Supplier<T> type);
 
     // TODO
 //    <T extends AbstractContainerMenu> MenuType<T> createMenuType(MenuTypeSupplier<T> supplier);
 
     <T extends PoiType> RegHolder<PoiType, T> registerPOIType(String name, Supplier<T> type);
 
-    <T extends CreativeModeTab> Supplier<T> registerCreativeModeTab(String name, Function<CreativeModeTab.Builder, T> type);
+    <T extends CreativeModeTab> RegHolder<CreativeModeTab, T> registerCreativeModeTab(String name, Function<CreativeModeTab.Builder, T> type);
 
-    <T extends CriterionTrigger<?>> Supplier<T> registerTriggerType(String name, Supplier<T> type);
+    <T extends CriterionTrigger<?>> RegHolder<CriterionTrigger<?>, T> registerTriggerType(String name, Supplier<T> type);
 
-    <T extends LootItemFunction> Supplier<LootItemFunctionType<T>> registerLootFunctionType(String name, MapCodec<T> codec);
+    <T extends LootItemFunction> RegHolder<LootItemFunctionType<?>, LootItemFunctionType<T>> registerLootFunctionType(String name, MapCodec<T> codec);
 
-    void registerPottedPlant(Supplier<Block> plant, Supplier<Block> pottedPlant);
+    void registerPottedPlant(RegHolder<Block, Block> plant, RegHolder<Block, Block> pottedPlant);
 
-    <T extends ParticleType<?>> Supplier<T> registerParticle(String name, Supplier<T> particle);
+    <T extends ParticleType<?>> RegHolder<ParticleType<?>, T> registerParticle(String name, Supplier<T> particle);
 
     <T extends ParticleType<V>, V extends ParticleOptions> void registerParticleProvider(Supplier<T> particle, Function<SpriteSet, ParticleProvider<V>> provider);
 
-    Supplier<SoundEvent> registerSound(String name, Supplier<SoundEvent> soundEvent);
+    RegHolder<SoundEvent, SoundEvent> registerSound(String name, Supplier<SoundEvent> soundEvent);
 }

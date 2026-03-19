@@ -8,7 +8,6 @@ import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
@@ -35,21 +34,18 @@ import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
 public class FabricRegistryHelper implements RegistryHelper {
 
     @Override
-    public <T extends Item> Supplier<T> registerItem(String name, Supplier<T> type) {
-        T item = Registry.register(BuiltInRegistries.ITEM, id(name), type.get());
-        return () -> item;
+    public <T extends Item> RegHolder<Item, T> registerItem(String name, Supplier<T> type) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.ITEM, id(name), type.get()));
     }
 
     @Override
-    public <T extends Block> Supplier<T> registerBlockNoItem(String name, Supplier<T> type) {
-        T block = Registry.register(BuiltInRegistries.BLOCK, id(name), type.get());
-        return () -> block;
+    public <T extends Block> RegHolder<Block, T> registerBlockNoItem(String name, Supplier<T> type) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.BLOCK, id(name), type.get()));
     }
 
     @Override
-    public <T extends BlockEntityType<?>> Supplier<T> registerBlockEntity(String name, Supplier<T> type) {
-        T blockEntity = Registry.register(BuiltInRegistries.BLOCK_ENTITY_TYPE, id(name), type.get());
-        return () -> blockEntity;
+    public <T extends BlockEntityType<?>> RegHolder<BlockEntityType<?>, T> registerBlockEntity(String name, Supplier<T> type) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.BLOCK_ENTITY_TYPE, id(name), type.get()));
     }
 
 //    @Override
@@ -58,33 +54,28 @@ public class FabricRegistryHelper implements RegistryHelper {
 //    }
 
     @Override
-    public Supplier<Holder<Potion>> registerPotion(String name, Supplier<Potion> type) {
-        Holder<Potion> potion = Registry.registerForHolder(BuiltInRegistries.POTION, id(name), type.get());
-        return () -> potion;
+    public RegHolder<Potion, Potion> registerPotion(String name, Supplier<Potion> type) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.POTION, id(name), type.get()));
     }
 
     @Override
-    public Supplier<Holder<MobEffect>> registerMobEffect(String name, Supplier<MobEffect> type) {
-        Holder<MobEffect> effect = Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, id(name), type.get());
-        return () -> effect;
+    public RegHolder<MobEffect, MobEffect> registerMobEffect(String name, Supplier<MobEffect> type) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.MOB_EFFECT, id(name), type.get()));
     }
 
     @Override
-    public <T extends RecipeSerializer<?>> Supplier<T> registerRecipeSerializer(String name, Supplier<T> type) {
-        T serializer = Registry.register(BuiltInRegistries.RECIPE_SERIALIZER, id(name), type.get());
-        return () -> serializer;
+    public <T extends RecipeSerializer<?>> RegHolder<RecipeSerializer<?>, T> registerRecipeSerializer(String name, Supplier<T> type) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.RECIPE_SERIALIZER, id(name), type.get()));
     }
 
     @Override
-    public <T extends RecipeType<?>> Supplier<T> registerRecipeType(String name, Supplier<T> type) {
-        T recipeType = Registry.register(BuiltInRegistries.RECIPE_TYPE, id(name), type.get());
-        return () -> recipeType;
+    public <T extends RecipeType<?>> RegHolder<RecipeType<?>, T> registerRecipeType(String name, Supplier<T> type) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.RECIPE_TYPE, id(name), type.get()));
     }
 
     @Override
-    public <T extends MenuType<?>> Supplier<T> registerMenuType(String name, Supplier<T> type) {
-        T menuType = Registry.register(BuiltInRegistries.MENU, id(name), type.get());
-        return () -> menuType;
+    public <T extends MenuType<?>> RegHolder<MenuType<?>, T> registerMenuType(String name, Supplier<T> type) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.MENU, id(name), type.get()));
     }
 
 //    @Override
@@ -95,37 +86,33 @@ public class FabricRegistryHelper implements RegistryHelper {
     @Override
     public <T extends PoiType> RegHolder<PoiType, T> registerPOIType(String name, Supplier<T> type) {
         var id = id(name);
-         PointOfInterestHelper.register(id, type.get().maxTickets(), type.get().validRange(), type.get().matchingStates());
+        PointOfInterestHelper.register(id, type.get().maxTickets(), type.get().validRange(), type.get().matchingStates());
         var holder = BuiltInRegistries.POINT_OF_INTEREST_TYPE.getHolder(id).get();
         return FabRegHolder.of(holder);
     }
 
     @Override
-    public <T extends CreativeModeTab> Supplier<T> registerCreativeModeTab(String name, Function<CreativeModeTab.Builder, T> type) {
-        T tab = Registry.register(BuiltInRegistries.CREATIVE_MODE_TAB, id(name), type.apply(FabricItemGroup.builder()));
-        return () -> tab;
+    public <T extends CreativeModeTab> RegHolder<CreativeModeTab, T> registerCreativeModeTab(String name, Function<CreativeModeTab.Builder, T> type) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.CREATIVE_MODE_TAB, id(name), type.apply(FabricItemGroup.builder())));
     }
 
     @Override
-    public <T extends CriterionTrigger<?>> Supplier<T> registerTriggerType(String name, Supplier<T> type) {
-        T trigger = Registry.register(BuiltInRegistries.TRIGGER_TYPES, id(name), type.get());
-        return () -> trigger;
+    public <T extends CriterionTrigger<?>> RegHolder<CriterionTrigger<?>, T> registerTriggerType(String name, Supplier<T> type) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.TRIGGER_TYPES, id(name), type.get()));
     }
 
     @Override
-    public <T extends LootItemFunction> Supplier<LootItemFunctionType<T>> registerLootFunctionType(String name, MapCodec<T> codec) {
-        LootItemFunctionType<T> functionType = Registry.register(BuiltInRegistries.LOOT_FUNCTION_TYPE, name, new LootItemFunctionType<>(codec));
-        return () -> functionType;
+    public <T extends LootItemFunction> RegHolder<LootItemFunctionType<?>, LootItemFunctionType<T>> registerLootFunctionType(String name, MapCodec<T> codec) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.LOOT_FUNCTION_TYPE, id(name), new LootItemFunctionType<>(codec)));
     }
 
     @Override
-    public void registerPottedPlant(Supplier<Block> plant, Supplier<Block> pottedPlant) {
+    public void registerPottedPlant(RegHolder<Block, Block> plant, RegHolder<Block, Block> pottedPlant) {
     }
 
     @Override
-    public <T extends ParticleType<?>> Supplier<T> registerParticle(String name, Supplier<T> particle) {
-        T particleType = Registry.register(BuiltInRegistries.PARTICLE_TYPE, id(name), particle.get());
-        return () -> particleType;
+    public <T extends ParticleType<?>> RegHolder<ParticleType<?>, T> registerParticle(String name, Supplier<T> particle) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.PARTICLE_TYPE, id(name), particle.get()));
     }
 
     @Override
@@ -134,8 +121,7 @@ public class FabricRegistryHelper implements RegistryHelper {
     }
 
     @Override
-    public Supplier<SoundEvent> registerSound(String name, Supplier<SoundEvent> soundEvent) {
-        SoundEvent sound = Registry.register(BuiltInRegistries.SOUND_EVENT, id(name), soundEvent.get());
-        return () -> sound;
+    public RegHolder<SoundEvent, SoundEvent> registerSound(String name, Supplier<SoundEvent> soundEvent) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id(name), soundEvent.get()));
     }
 }

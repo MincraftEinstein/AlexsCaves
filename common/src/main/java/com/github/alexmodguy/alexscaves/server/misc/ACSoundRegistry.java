@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.misc;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import net.minecraft.sounds.SoundEvent;
 
@@ -14,7 +15,7 @@ public class ACSoundRegistry {
     public static final Supplier<SoundEvent> ABYSSAL_CHASM_MUSIC = createSoundEvent("abyssal_chasm_music");
     public static final Supplier<SoundEvent> FORLORN_HOLLOWS_MUSIC = createSoundEvent("forlorn_hollows_music");
     public static final Supplier<SoundEvent> CANDY_CAVITY_MUSIC = createSoundEvent("candy_cavity_music");
-    public static final Supplier<SoundEvent> LUXTRUCTOSAURUS_BOSS_MUSIC = createSoundEvent("luxtructosaurus_boss_music");
+    public static final RegHolder<SoundEvent, SoundEvent> LUXTRUCTOSAURUS_BOSS_MUSIC = createSoundEvent("luxtructosaurus_boss_music");
     public static final Supplier<SoundEvent> FUSIONC_MUSIC_DISC = createSoundEvent("fusion_music_disc");
     public static final Supplier<SoundEvent> TASTY_MUSIC_DISC = createSoundEvent("tasty_music_disc");
 
@@ -498,7 +499,7 @@ public class ACSoundRegistry {
     public static void init(){
     }
 
-    private static Supplier<SoundEvent> createSoundEvent(final String soundName) {
+    private static RegHolder<SoundEvent, SoundEvent> createSoundEvent(final String soundName) {
         return Services.REGISTRY_HELPER.registerSound(soundName, () -> SoundEvent.createVariableRangeEvent(AlexsCaves.id(soundName)));
     }
 }

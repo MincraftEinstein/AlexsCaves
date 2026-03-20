@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.entity.item;
 
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.MovingBlockData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

@@ -2,12 +2,8 @@ package com.github.alexmodguy.alexscaves.server.entity;
 
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.SpawnPlacementType;
-import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.material.FluidState;
-
-import javax.annotation.Nullable;
 
 /**
  * Custom spawn placement types for Alex's Caves fluids.

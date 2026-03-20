@@ -3,7 +3,6 @@ package com.github.alexmodguy.alexscaves.server.block.grower;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 

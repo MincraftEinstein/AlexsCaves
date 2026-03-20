@@ -2,8 +2,8 @@ package com.github.alexmodguy.alexscaves.client.render.blockentity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.SirenLightModel;
-import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
+import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.server.block.SirenLightBlock;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.SirenLightBlockEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;

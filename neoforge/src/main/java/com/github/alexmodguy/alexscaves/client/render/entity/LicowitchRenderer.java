@@ -32,7 +32,8 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class LicowitchRenderer extends MobRenderer<LicowitchEntity, LicowitchModel> {
     public static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/licowitch.png");

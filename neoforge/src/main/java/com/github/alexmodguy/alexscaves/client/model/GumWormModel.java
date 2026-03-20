@@ -1,19 +1,11 @@
 package com.github.alexmodguy.alexscaves.client.model;
 
-import com.github.alexmodguy.alexscaves.server.entity.living.CaniacEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.GumWormEntity;
-import com.github.alexmodguy.alexscaves.server.entity.living.GumbeeperEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
-import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
-import com.github.alexthe666.citadel.client.model.ModelAnimator;
 import com.github.alexthe666.citadel.client.model.basic.BasicModelPart;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.Minecraft;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.phys.Vec3;
 
 public class GumWormModel extends AdvancedEntityModel<GumWormEntity> {
     private final AdvancedModelBox main;

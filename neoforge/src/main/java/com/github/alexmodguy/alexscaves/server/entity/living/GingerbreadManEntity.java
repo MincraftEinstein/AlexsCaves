@@ -46,7 +46,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Optional;
 import java.util.UUID;

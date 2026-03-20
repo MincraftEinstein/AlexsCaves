@@ -2,8 +2,8 @@ package com.github.alexmodguy.alexscaves.client.render.blockentity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.TeslaBulbModel;
-import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
+import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.server.block.TeslaBulbBlock;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.TeslaBulbBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;

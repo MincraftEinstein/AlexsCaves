@@ -25,7 +25,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import net.neoforged.neoforge.common.NeoForge;
 
 @Mixin(ItemFrameRenderer.class)
 public abstract class ItemFrameRendererMixin {

@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.client.model;
 
-import com.github.alexmodguy.alexscaves.server.entity.living.CaniacEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.GumbeeperEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;

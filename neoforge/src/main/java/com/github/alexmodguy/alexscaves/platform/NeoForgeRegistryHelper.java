@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.platform;
 
 import com.github.alexmodguy.alexscaves.platform.services.RegistryHelper;
-import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTrigger;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.client.particle.ParticleProvider;

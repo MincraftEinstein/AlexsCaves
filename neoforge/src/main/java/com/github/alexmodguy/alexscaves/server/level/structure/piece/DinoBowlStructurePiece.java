@@ -3,7 +3,6 @@ package com.github.alexmodguy.alexscaves.server.level.structure.piece;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
-import com.github.alexmodguy.alexscaves.server.misc.VoronoiGenerator;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;

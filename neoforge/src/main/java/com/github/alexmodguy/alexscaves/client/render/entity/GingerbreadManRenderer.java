@@ -4,7 +4,7 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.GingerbreadManModel;
 import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.client.render.entity.layer.LicowitchPossessionLayer;
-import com.github.alexmodguy.alexscaves.server.entity.living.*;
+import com.github.alexmodguy.alexscaves.server.entity.living.GingerbreadManEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;

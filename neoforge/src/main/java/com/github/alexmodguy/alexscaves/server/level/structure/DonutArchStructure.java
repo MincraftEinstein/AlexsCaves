@@ -2,7 +2,6 @@ package com.github.alexmodguy.alexscaves.server.level.structure;
 
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.structure.piece.DonutArchStructurePiece;
-import com.github.alexmodguy.alexscaves.server.level.structure.piece.ForlornBridgeStructurePiece;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.Util;

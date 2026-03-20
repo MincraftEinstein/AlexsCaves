@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.level.feature;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
-import com.github.alexmodguy.alexscaves.server.block.PeppermintBlock;
 import com.github.alexmodguy.alexscaves.server.block.SprinklesBlock;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;

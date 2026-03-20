@@ -2,7 +2,6 @@ package com.github.alexmodguy.alexscaves.server.item;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Style;
-import net.minecraft.world.item.Rarity;
 
 import java.awt.*;
 import java.util.function.UnaryOperator;

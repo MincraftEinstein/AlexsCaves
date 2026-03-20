@@ -1,6 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.level.feature;
 
-import com.github.alexmodguy.alexscaves.server.block.*;
+import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
+import com.github.alexmodguy.alexscaves.server.block.CandyCanePoleBlock;
+import com.github.alexmodguy.alexscaves.server.block.SmallCandyCaneBlock;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.mojang.serialization.Codec;
 import net.minecraft.Util;

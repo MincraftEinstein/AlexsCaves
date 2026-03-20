@@ -26,6 +26,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
+import net.neoforged.neoforge.network.PacketDistributor;
 import org.apache.commons.io.IOUtils;
 import org.joml.Matrix4f;
 
@@ -33,7 +34,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-import net.neoforged.neoforge.network.PacketDistributor;
 
 public class SpelunkeryTableScreen extends AbstractContainerScreen<SpelunkeryTableMenu> {
 

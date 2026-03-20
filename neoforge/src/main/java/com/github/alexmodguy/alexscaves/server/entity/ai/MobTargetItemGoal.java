@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.entity.ai;
 
-import com.github.alexmodguy.alexscaves.server.entity.living.GingerbreadManEntity;
 import com.github.alexmodguy.alexscaves.server.entity.util.TargetsDroppedItems;
 import com.google.common.base.Predicate;
 import net.minecraft.commands.arguments.EntityAnchorArgument;

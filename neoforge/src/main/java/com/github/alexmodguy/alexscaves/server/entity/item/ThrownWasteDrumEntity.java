@@ -2,7 +2,6 @@ package com.github.alexmodguy.alexscaves.server.entity.item;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.living.BrainiacEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACDamageTypes;
 import net.minecraft.core.BlockPos;

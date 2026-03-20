@@ -1,13 +1,12 @@
 package com.github.alexmodguy.alexscaves.client.render.blockentity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.client.model.ConversionCrucibleModel;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
+import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.client.render.entity.SugarStaffHexRenderer;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.ConversionCrucibleBlockEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
-import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;

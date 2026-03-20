@@ -7,15 +7,12 @@ import com.github.alexmodguy.alexscaves.server.entity.util.GummyColors;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.material.Fluid;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 public class SweetishFishBucketItem extends ModFishBucketItem{
 

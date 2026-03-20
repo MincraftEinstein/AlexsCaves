@@ -1,9 +1,7 @@
 package com.github.alexmodguy.alexscaves.client.model;
 
-import com.github.alexmodguy.alexscaves.server.entity.living.GummyBearEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.LicowitchEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
-import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.model.AdvancedModelBox;
 import com.github.alexthe666.citadel.client.model.ModelAnimator;
@@ -13,7 +11,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
-import net.neoforged.neoforge.client.IArmPoseTransformer;
 
 public class LicowitchModel extends AdvancedEntityModel<LicowitchEntity> implements ArmedModel {
     

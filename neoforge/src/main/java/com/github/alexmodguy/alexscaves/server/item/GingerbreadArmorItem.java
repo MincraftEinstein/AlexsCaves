@@ -16,7 +16,6 @@ import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.Consumer;
 
 import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
 

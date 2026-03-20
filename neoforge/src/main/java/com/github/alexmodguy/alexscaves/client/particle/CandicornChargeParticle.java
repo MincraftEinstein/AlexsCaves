@@ -1,9 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.particle;
 
-import com.github.alexmodguy.alexscaves.client.render.entity.CandicornRenderer;
-import com.github.alexmodguy.alexscaves.client.render.entity.ForsakenRenderer;
 import com.github.alexmodguy.alexscaves.server.entity.living.CandicornEntity;
-import com.github.alexmodguy.alexscaves.server.entity.living.ForsakenEntity;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -11,7 +8,6 @@ import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;

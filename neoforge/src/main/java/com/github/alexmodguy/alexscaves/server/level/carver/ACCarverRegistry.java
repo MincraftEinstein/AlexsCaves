@@ -1,11 +1,11 @@
 package com.github.alexmodguy.alexscaves.server.level.carver;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.carver.CaveCarverConfiguration;
 import net.minecraft.world.level.levelgen.carver.WorldCarver;
-import net.neoforged.neoforge.registries.DeferredRegister;
-import net.minecraft.core.registries.Registries;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ACCarverRegistry {
 

@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.sound;
 
 import com.github.alexmodguy.alexscaves.server.entity.living.CandicornEntity;
-import com.github.alexmodguy.alexscaves.server.entity.living.GumWormEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.SoundInstance;

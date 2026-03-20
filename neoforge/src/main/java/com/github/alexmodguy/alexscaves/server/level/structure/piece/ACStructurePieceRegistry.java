@@ -3,8 +3,8 @@ package com.github.alexmodguy.alexscaves.server.level.structure.piece;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class ACStructurePieceRegistry {
     public static final DeferredRegister<StructurePieceType> DEF_REG = DeferredRegister.create(Registries.STRUCTURE_PIECE, AlexsCaves.MOD_ID);

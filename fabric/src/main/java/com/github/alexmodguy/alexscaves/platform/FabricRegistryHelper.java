@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.platform;
 
 import com.github.alexmodguy.alexscaves.platform.services.RegistryHelper;
-import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTrigger;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;

@@ -19,8 +19,6 @@ import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.StructurePiece;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
-import net.minecraft.world.phys.Vec3;
-import org.apache.commons.lang3.mutable.MutableBoolean;
 
 public class DonutArchStructurePiece extends StructurePiece {
     protected final BlockPos centerPos;

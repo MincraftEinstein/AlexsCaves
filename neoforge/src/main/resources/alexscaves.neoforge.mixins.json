@@ -38,9 +38,9 @@
     "SwampHutPieceMixin"
   ],
   "client": [
+    "client.AdvancementsScreenAccessor",
     "client.AdvancementTabAccessor",
     "client.AdvancementTabMixin",
-    "client.AdvancementsScreenAccessor",
     "client.BiomeAmbientSoundsHandlerInstanceMixin",
     "client.BiomeAmbientSoundsHandlerMixin",
     "client.CameraAccessor",

@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.server.message.ArmorKeyMessage;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
@@ -18,6 +19,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
@@ -27,11 +29,9 @@ import javax.annotation.Nullable;
 
 public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRender, KeybindUsingArmor, UpdatesStackTags {
 
-    private final ACArmorMaterial acMaterial;
 
-    public DarknessArmorItem(ACArmorMaterial armorMaterial, Type slot) {
-        super(armorMaterial.getHolder(), slot, new Properties().durability(armorMaterial.getDurabilityForType(slot)).rarity(ACItemRegistry.getRarityDemonic()));
-        this.acMaterial = armorMaterial;
+    public DarknessArmorItem(RegHolder<ArmorMaterial, ArmorMaterial> armorMaterial, Type slot) {
+        super(armorMaterial, slot, new Item.Properties().durability(slot.getDurability(15)).rarity(ACItemRegistry.getRarityDemonic()));
     }
 
     private static boolean canChargeUp(LivingEntity entity, boolean creative) {

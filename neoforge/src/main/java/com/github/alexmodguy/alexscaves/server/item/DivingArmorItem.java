@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
@@ -18,24 +20,22 @@ import net.neoforged.neoforge.common.NeoForgeMod;
 import javax.annotation.Nullable;
 
 public class DivingArmorItem extends ArmorItem {
-    private final ACArmorMaterial acMaterial;
 
-    public DivingArmorItem(ACArmorMaterial armorMaterial, Type slot) {
-        super(armorMaterial.getHolder(), slot, new Properties().durability(armorMaterial.getDurabilityForType(slot)).attributes(createDivingAttributes(armorMaterial, slot)));
-        this.acMaterial = armorMaterial;
+    public DivingArmorItem(RegHolder<ArmorMaterial, ArmorMaterial> armorMaterial, Type slot) {
+        super(armorMaterial, slot, new Item.Properties().durability(slot.getDurability(20)).attributes(createDivingAttributes(armorMaterial.get(), slot)));
     }
 
-    private static ItemAttributeModifiers createDivingAttributes(ACArmorMaterial armorMaterial, Type slot) {
-        ResourceLocation id = AlexsCaves.id("armor_diving_" + slot.getName());
-        EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(slot.getSlot());
+    private static ItemAttributeModifiers createDivingAttributes(ArmorMaterial armorMaterial, Type type) {
+        ResourceLocation id = AlexsCaves.id("armor_diving_" + type.getName());
+        EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(type.getSlot());
         ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
-        builder.add(Attributes.ARMOR, new AttributeModifier(id, armorMaterial.getDefenseForType(slot), AttributeModifier.Operation.ADD_VALUE), slotGroup);
-        if (slot == Type.LEGGINGS) {
+        builder.add(Attributes.ARMOR, new AttributeModifier(id, armorMaterial.getDefense(type), AttributeModifier.Operation.ADD_VALUE), slotGroup);
+        if (type == Type.LEGGINGS) {
             builder.add(NeoForgeMod.SWIM_SPEED, new AttributeModifier(id, 0.5D, AttributeModifier.Operation.ADD_VALUE), slotGroup);
-        } else if (slot == Type.CHESTPLATE) {
-            builder.add(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(id, armorMaterial.getToughness(), AttributeModifier.Operation.ADD_VALUE), slotGroup);
+        } else if (type == Type.CHESTPLATE) {
+            builder.add(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(id, armorMaterial.toughness(), AttributeModifier.Operation.ADD_VALUE), slotGroup);
         }
-        float knockbackResist = armorMaterial.getKnockbackResistance();
+        float knockbackResist = armorMaterial.knockbackResistance();
         if (knockbackResist > 0) {
             builder.add(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(id, knockbackResist, AttributeModifier.Operation.ADD_VALUE), slotGroup);
         }

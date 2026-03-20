@@ -13,7 +13,6 @@ import com.github.alexmodguy.alexscaves.server.entity.ACFrogRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.event.CommonEvents;
 import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
-import com.github.alexmodguy.alexscaves.server.item.ACArmorMaterial;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.feature.ACFeatureRegistry;
@@ -40,8 +39,6 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 import net.neoforged.neoforge.common.world.chunk.TicketController;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
-import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -80,7 +77,6 @@ public class AlexsCavesNeoForge {
         NeoForge.EVENT_BUS.addListener(ACEffectRegistry::registerBrewingRecipes);
         ACBlockEntityRegistry.DEF_REG.register(modEventBus);
         ACItemRegistry.DEF_REG.register(modEventBus);
-        ACArmorMaterial.ARMOR_MATERIALS.register(modEventBus);
         ACEntityRegistry.DEF_REG.register(modEventBus);
         ACEntityDataRegistry.DEF_REG.register(modEventBus);
         ACAttachmentRegistry.DEF_REG.register(modEventBus);

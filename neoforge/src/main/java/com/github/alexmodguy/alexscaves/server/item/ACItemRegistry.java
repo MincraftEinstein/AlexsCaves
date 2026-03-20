@@ -27,7 +27,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -82,12 +81,12 @@ public class ACItemRegistry {
         return RARITY_RAINBOW_CACHE;
     }
     
-    public static final ACArmorMaterial PRIMORDIAL_ARMOR_MATERIAL = new ACArmorMaterial("primordial", 20, new int[]{3, 4, 3, 2}, 25, SoundEvents.ARMOR_EQUIP_LEATHER, 0F);
-    public static final ACArmorMaterial HAZMAT_SUIT_ARMOR_MATERIAL = new ACArmorMaterial("hazmat_suit", 20, new int[]{2, 4, 5, 2}, 25, SoundEvents.ARMOR_EQUIP_IRON, 0.5F);
-    public static final ACArmorMaterial DIVING_SUIT_ARMOR_MATERIAL = new ACArmorMaterial("diving_suit", 20, new int[]{2, 6, 5, 2}, 25, SoundEvents.ARMOR_EQUIP_IRON, 0.0F);
-    public static final ACArmorMaterial DARKNESS_ARMOR_MATERIAL = new ACArmorMaterial("darkness", 15, new int[]{4, 5, 1, 1}, 40, SoundEvents.ARMOR_EQUIP_LEATHER, 0.5F);
-    public static final ACArmorMaterial RAINBOUNCE_ARMOR_MATERIAL = new ACArmorMaterial("rainbounce", 6, new int[]{2, 2, 1, 2}, 40, SoundEvents.ARMOR_EQUIP_GENERIC, 0.0F);
-    public static final ACArmorMaterial GINGERBREAD_ARMOR_MATERIAL = new ACArmorMaterial("gingerbread", 10, new int[]{2, 4, 5, 2}, 25, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F);
+//    public static final ACArmorMaterial PRIMORDIAL_ARMOR_MATERIAL = new ACArmorMaterial("primordial", 20, new int[]{3, 4, 3, 2}, 25, SoundEvents.ARMOR_EQUIP_LEATHER, 0F);
+//    public static final ACArmorMaterial HAZMAT_SUIT_ARMOR_MATERIAL = new ACArmorMaterial("hazmat_suit", 20, new int[]{2, 4, 5, 2}, 25, SoundEvents.ARMOR_EQUIP_IRON, 0.5F);
+//    public static final ACArmorMaterial DIVING_SUIT_ARMOR_MATERIAL = new ACArmorMaterial("diving_suit", 20, new int[]{2, 6, 5, 2}, 25, SoundEvents.ARMOR_EQUIP_IRON, 0.0F);
+//    public static final ACArmorMaterial DARKNESS_ARMOR_MATERIAL = new ACArmorMaterial("darkness", 15, new int[]{4, 5, 1, 1}, 40, SoundEvents.ARMOR_EQUIP_LEATHER, 0.5F);
+//    public static final ACArmorMaterial RAINBOUNCE_ARMOR_MATERIAL = new ACArmorMaterial("rainbounce", 6, new int[]{2, 2, 1, 2}, 40, SoundEvents.ARMOR_EQUIP_GENERIC, 0.0F);
+//    public static final ACArmorMaterial GINGERBREAD_ARMOR_MATERIAL = new ACArmorMaterial("gingerbread", 10, new int[]{2, 4, 5, 2}, 25, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F);
     public static final DeferredRegister<Item> DEF_REG = DeferredRegister.create(Registries.ITEM, AlexsCaves.MOD_ID);
     public static final DeferredHolder<Item, Item> ADVANCEMENT_TAB_ICON = DEF_REG.register("advancement_tab_icon", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
     public static final DeferredHolder<Item, Item> CAVE_TABLET = DEF_REG.register("cave_tablet", () -> new CaveInfoItem(new Item.Properties(), true));
@@ -130,9 +129,9 @@ public class ACItemRegistry {
     public static final DeferredHolder<Item, Item> HEAVY_BONE = DEF_REG.register("heavy_bone", () -> new Item(new Item.Properties().stacksTo(16)));
     public static final DeferredHolder<Item, Item> PRIMITIVE_CLUB = DEF_REG.register("primitive_club", () -> new PrimitiveClubItem(new Item.Properties().durability(120)));
     public static final DeferredHolder<Item, Item> PRIMITIVE_CLUB_SPRITE = DEF_REG.register("primitive_club_inventory", () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> PRIMORDIAL_HELMET = DEF_REG.register("primordial_helmet", () -> new PrimordialArmorItem(PRIMORDIAL_ARMOR_MATERIAL, ArmorItem.Type.HELMET));
-    public static final DeferredHolder<Item, Item> PRIMORDIAL_TUNIC = DEF_REG.register("primordial_tunic", () -> new PrimordialArmorItem(PRIMORDIAL_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE));
-    public static final DeferredHolder<Item, Item> PRIMORDIAL_PANTS = DEF_REG.register("primordial_pants", () -> new PrimordialArmorItem(PRIMORDIAL_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS));
+    public static final DeferredHolder<Item, Item> PRIMORDIAL_HELMET = DEF_REG.register("primordial_helmet", () -> new PrimordialArmorItem(ACArmorMaterials.PRIMORDIAL, ArmorItem.Type.HELMET));
+    public static final DeferredHolder<Item, Item> PRIMORDIAL_TUNIC = DEF_REG.register("primordial_tunic", () -> new PrimordialArmorItem(ACArmorMaterials.PRIMORDIAL, ArmorItem.Type.CHESTPLATE));
+    public static final DeferredHolder<Item, Item> PRIMORDIAL_PANTS = DEF_REG.register("primordial_pants", () -> new PrimordialArmorItem(ACArmorMaterials.PRIMORDIAL, ArmorItem.Type.LEGGINGS));
     public static final DeferredHolder<Item, Item> LIMESTONE_SPEAR = DEF_REG.register("limestone_spear", () -> new LimestoneSpearItem(new Item.Properties().stacksTo(16)));
     public static final DeferredHolder<Item, Item> LIMESTONE_SPEAR_SPRITE = DEF_REG.register("limestone_spear_inventory", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> OMINOUS_CATALYST = DEF_REG.register("ominous_catalyst", () -> new Item(new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant()));
@@ -156,10 +155,10 @@ public class ACItemRegistry {
     public static final DeferredHolder<Item, Item> GREEN_SOYLENT = DEF_REG.register("green_soylent", () -> new RadiationRemovingFoodItem(new Item.Properties().food(ACFoods.SOYLENT_GREEN)));
     public static final DeferredHolder<Item, Item> TOXIC_PASTE = DEF_REG.register("toxic_paste", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> POLYMER_PLATE = DEF_REG.register("polymer_plate", () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> HAZMAT_MASK = DEF_REG.register("hazmat_mask", () -> new HazmatArmorItem(HAZMAT_SUIT_ARMOR_MATERIAL, ArmorItem.Type.HELMET));
-    public static final DeferredHolder<Item, Item> HAZMAT_CHESTPLATE = DEF_REG.register("hazmat_chestplate", () -> new HazmatArmorItem(HAZMAT_SUIT_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE));
-    public static final DeferredHolder<Item, Item> HAZMAT_LEGGINGS = DEF_REG.register("hazmat_leggings", () -> new HazmatArmorItem(HAZMAT_SUIT_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS));
-    public static final DeferredHolder<Item, Item> HAZMAT_BOOTS = DEF_REG.register("hazmat_boots", () -> new HazmatArmorItem(HAZMAT_SUIT_ARMOR_MATERIAL, ArmorItem.Type.BOOTS));
+    public static final DeferredHolder<Item, Item> HAZMAT_MASK = DEF_REG.register("hazmat_mask", () -> new HazmatArmorItem(ACArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.HELMET));
+    public static final DeferredHolder<Item, Item> HAZMAT_CHESTPLATE = DEF_REG.register("hazmat_chestplate", () -> new HazmatArmorItem(ACArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.CHESTPLATE));
+    public static final DeferredHolder<Item, Item> HAZMAT_LEGGINGS = DEF_REG.register("hazmat_leggings", () -> new HazmatArmorItem(ACArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.LEGGINGS));
+    public static final DeferredHolder<Item, Item> HAZMAT_BOOTS = DEF_REG.register("hazmat_boots", () -> new HazmatArmorItem(ACArmorMaterials.HAZMAT_SUIT, ArmorItem.Type.BOOTS));
     public static final DeferredHolder<Item, Item> FISSILE_CORE = DEF_REG.register("fissile_core", () -> new RadioactiveItem(new Item.Properties().rarity(Rarity.UNCOMMON), 0.001F));
     public static final DeferredHolder<Item, Item> CHARRED_REMNANT = DEF_REG.register("charred_remnant", () -> new RadioactiveItem(new Item.Properties(), 0.0005F));
     public static final DeferredHolder<Item, Item> REMOTE_DETONATOR = DEF_REG.register("remote_detonator", () -> new RemoteDetonatorItem());
@@ -185,10 +184,10 @@ public class ACItemRegistry {
     public static final DeferredHolder<Item, Item> DEEP_SEA_SUSHI_ROLL = DEF_REG.register("deep_sea_sushi_roll", () -> new Item(new Item.Properties().food(ACFoods.DEEP_SEA_SUSHI_ROLL)));
     public static final DeferredHolder<Item, Item> SEA_GLASS_SHARDS = DEF_REG.register("sea_glass_shards", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> SUBMARINE = DEF_REG.register("submarine", () -> new SubmarineItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
-    public static final DeferredHolder<Item, Item> DIVING_HELMET = DEF_REG.register("diving_helmet", () -> new DivingArmorItem(DIVING_SUIT_ARMOR_MATERIAL, ArmorItem.Type.HELMET));
-    public static final DeferredHolder<Item, Item> DIVING_CHESTPLATE = DEF_REG.register("diving_chestplate", () -> new DivingArmorItem(DIVING_SUIT_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE));
-    public static final DeferredHolder<Item, Item> DIVING_LEGGINGS = DEF_REG.register("diving_leggings", () -> new DivingArmorItem(DIVING_SUIT_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS));
-    public static final DeferredHolder<Item, Item> DIVING_BOOTS = DEF_REG.register("diving_boots", () -> new DivingArmorItem(DIVING_SUIT_ARMOR_MATERIAL, ArmorItem.Type.BOOTS));
+    public static final DeferredHolder<Item, Item> DIVING_HELMET = DEF_REG.register("diving_helmet", () -> new DivingArmorItem(ACArmorMaterials.DIVING_SUIT, ArmorItem.Type.HELMET));
+    public static final DeferredHolder<Item, Item> DIVING_CHESTPLATE = DEF_REG.register("diving_chestplate", () -> new DivingArmorItem(ACArmorMaterials.DIVING_SUIT, ArmorItem.Type.CHESTPLATE));
+    public static final DeferredHolder<Item, Item> DIVING_LEGGINGS = DEF_REG.register("diving_leggings", () -> new DivingArmorItem(ACArmorMaterials.DIVING_SUIT, ArmorItem.Type.LEGGINGS));
+    public static final DeferredHolder<Item, Item> DIVING_BOOTS = DEF_REG.register("diving_boots", () -> new DivingArmorItem(ACArmorMaterials.DIVING_SUIT, ArmorItem.Type.BOOTS));
     public static final DeferredHolder<Item, Item> FLOATER = DEF_REG.register("floater", () -> new FloaterItem());
     public static final DeferredHolder<Item, Item> GAZING_PEARL = DEF_REG.register("gazing_pearl", () -> new GazingPearlItem());
     public static final DeferredHolder<Item, Item> INK_BOMB = DEF_REG.register("ink_bomb", () -> new InkBombItem(new Item.Properties(), false));
@@ -218,8 +217,8 @@ public class ACItemRegistry {
     public static final DeferredHolder<Item, Item> VESPER_STEW = DEF_REG.register("vesper_stew", () -> new Item(new Item.Properties().food(ACFoods.VESPER_SOUP).stacksTo(1)));
     public static final DeferredHolder<Item, Item> PURE_DARKNESS = DEF_REG.register("pure_darkness", () -> new Item(new Item.Properties().rarity(getRarityDemonic())));
     public static final DeferredHolder<Item, Item> SHADOW_SILK = DEF_REG.register("shadow_silk", () -> new Item(new Item.Properties()));
-    public static final DeferredHolder<Item, Item> HOOD_OF_DARKNESS = DEF_REG.register("hood_of_darkness", () -> new DarknessArmorItem(DARKNESS_ARMOR_MATERIAL, ArmorItem.Type.HELMET));
-    public static final DeferredHolder<Item, Item> CLOAK_OF_DARKNESS = DEF_REG.register("cloak_of_darkness", () -> new DarknessArmorItem(DARKNESS_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE));
+    public static final DeferredHolder<Item, Item> HOOD_OF_DARKNESS = DEF_REG.register("hood_of_darkness", () -> new DarknessArmorItem(ACArmorMaterials.DARKNESS, ArmorItem.Type.HELMET));
+    public static final DeferredHolder<Item, Item> CLOAK_OF_DARKNESS = DEF_REG.register("cloak_of_darkness", () -> new DarknessArmorItem(ACArmorMaterials.DARKNESS, ArmorItem.Type.CHESTPLATE));
     public static final DeferredHolder<Item, Item> DARKENED_APPLE = DEF_REG.register("darkened_apple", () -> new DarkenedAppleItem());
     public static final DeferredHolder<Item, Item> DREADBOW = DEF_REG.register("dreadbow", () -> new DreadbowItem());
     public static final DeferredHolder<Item, Item> DREADBOW_SPRITE = DEF_REG.register("dreadbow_inventory", () -> new Item(new Item.Properties()));
@@ -255,7 +254,7 @@ public class ACItemRegistry {
     public static final DeferredHolder<Item, Item> SUNDAE = DEF_REG.register("sundae", () -> new Item(new Item.Properties().food(ACFoods.SUNDAE).rarity(getRaritySweet()).stacksTo(1)));
     public static final DeferredHolder<Item, Item> SHARPENED_CANDY_CANE = DEF_REG.register("sharpened_candy_cane", () -> new SharpenedCandyCaneItem(new Item.Properties().food(ACFoods.CANDY_CANE)));
     public static final DeferredHolder<Item, Item> PEPPERMINT_POWDER = DEF_REG.register("peppermint_powder", () -> new Item(new Item.Properties().food(ACFoods.PEPPERMINT_POWDER)));
-    public static final DeferredHolder<Item, Item> RAINBOUNCE_BOOTS = DEF_REG.register("rainbounce_boots", () -> new RainbounceBootsItem(RAINBOUNCE_ARMOR_MATERIAL));
+    public static final DeferredHolder<Item, Item> RAINBOUNCE_BOOTS = DEF_REG.register("rainbounce_boots", () -> new RainbounceBootsItem(ACArmorMaterials.RAINBOUNCE));
     public static final DeferredHolder<Item, Item> GUMBALL_PILE = DEF_REG.register("gumball_pile", () -> new Item(new Item.Properties().food(ACFoods.GUMBALL_PILE)));
     public static final DeferredHolder<Item, Item> SHOT_GUM = DEF_REG.register("shot_gum", () -> new ShotGumItem());
     public static final DeferredHolder<Item, Item> CARAMEL = DEF_REG.register("caramel", () -> new Item(new Item.Properties().food(ACFoods.CARAMEL)));
@@ -268,10 +267,10 @@ public class ACItemRegistry {
     public static final DeferredHolder<Item, Item> SUGAR_STAFF = DEF_REG.register("sugar_staff", () -> new SugarStaffItem(new Item.Properties().durability(100).rarity(Rarity.UNCOMMON)));
     public static final DeferredHolder<Item, Item> SUGAR_STAFF_SPRITE = DEF_REG.register("sugar_staff_inventory", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> GINGERBREAD_CRUMBS = DEF_REG.register("gingerbread_crumbs", () -> new Item(new Item.Properties().food(ACFoods.GINGERBREAD_CRUMBS)));
-    public static final DeferredHolder<Item, Item> GINGERBREAD_HELMET = DEF_REG.register("gingerbread_helmet", () -> new GingerbreadArmorItem(GINGERBREAD_ARMOR_MATERIAL, ArmorItem.Type.HELMET));
-    public static final DeferredHolder<Item, Item> GINGERBREAD_CHESTPLATE = DEF_REG.register("gingerbread_chestplate", () -> new GingerbreadArmorItem(GINGERBREAD_ARMOR_MATERIAL, ArmorItem.Type.CHESTPLATE));
-    public static final DeferredHolder<Item, Item> GINGERBREAD_LEGGINGS = DEF_REG.register("gingerbread_leggings", () -> new GingerbreadArmorItem(GINGERBREAD_ARMOR_MATERIAL, ArmorItem.Type.LEGGINGS));
-    public static final DeferredHolder<Item, Item> GINGERBREAD_BOOTS = DEF_REG.register("gingerbread_boots", () -> new GingerbreadArmorItem(GINGERBREAD_ARMOR_MATERIAL, ArmorItem.Type.BOOTS));
+    public static final DeferredHolder<Item, Item> GINGERBREAD_HELMET = DEF_REG.register("gingerbread_helmet", () -> new GingerbreadArmorItem(ACArmorMaterials.GINGERBREAD, ArmorItem.Type.HELMET));
+    public static final DeferredHolder<Item, Item> GINGERBREAD_CHESTPLATE = DEF_REG.register("gingerbread_chestplate", () -> new GingerbreadArmorItem(ACArmorMaterials.GINGERBREAD, ArmorItem.Type.CHESTPLATE));
+    public static final DeferredHolder<Item, Item> GINGERBREAD_LEGGINGS = DEF_REG.register("gingerbread_leggings", () -> new GingerbreadArmorItem(ACArmorMaterials.GINGERBREAD, ArmorItem.Type.LEGGINGS));
+    public static final DeferredHolder<Item, Item> GINGERBREAD_BOOTS = DEF_REG.register("gingerbread_boots", () -> new GingerbreadArmorItem(ACArmorMaterials.GINGERBREAD, ArmorItem.Type.BOOTS));
     public static final DeferredHolder<Item, Item> PURPLE_SODA_BOTTLE_ROCKET = DEF_REG.register("purple_soda_bottle_rocket", () -> new SodaBottleRocketItem());
     public static final DeferredHolder<Item, Item> FROSTMINT_SPEAR = DEF_REG.register("frostmint_spear", () -> new FrostmintSpearItem(new Item.Properties().stacksTo(16)));
     public static final DeferredHolder<Item, Item> FROSTMINT_SPEAR_SPRITE = DEF_REG.register("frostmint_spear_inventory", () -> new Item(new Item.Properties()));
@@ -334,11 +333,6 @@ public class ACItemRegistry {
     }
 
     public static void setup() {
-        PRIMORDIAL_ARMOR_MATERIAL.setRepairMaterial(Ingredient.of(TOUGH_HIDE.get()));
-        HAZMAT_SUIT_ARMOR_MATERIAL.setRepairMaterial(Ingredient.of(POLYMER_PLATE.get()));
-        DIVING_SUIT_ARMOR_MATERIAL.setRepairMaterial(Ingredient.of(Items.COPPER_INGOT));
-        DARKNESS_ARMOR_MATERIAL.setRepairMaterial(Ingredient.of(DARK_TATTERS.get()));
-        GINGERBREAD_ARMOR_MATERIAL.setRepairMaterial(Ingredient.of(GINGERBREAD_CRUMBS.get()));
         DispenserBlock.registerBehavior(SEEKING_ARROW.get(), new ACProjectileDispenseBehavior() {
             protected Projectile getProjectile(Level level, Position position, ItemStack itemStack) {
                 AbstractArrow abstractarrow = new SeekingArrowEntity(level, position.x(), position.y(), position.z());

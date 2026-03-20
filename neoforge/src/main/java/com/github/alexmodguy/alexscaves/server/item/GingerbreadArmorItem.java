@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -9,6 +10,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
@@ -25,19 +27,17 @@ public class GingerbreadArmorItem extends ArmorItem {
     private static final double MAX_SPEED_BOOST = 1.0D;
     private final Map<Integer, ItemAttributeModifiers> gingerbreadDurabilityDependentAttributes = new HashMap<>();
     private final ItemAttributeModifiers defaultItemAttributes;
-    private final ACArmorMaterial acMaterial;
 
-    public GingerbreadArmorItem(ACArmorMaterial armorMaterial, Type slot) {
-        super(armorMaterial.getHolder(), slot, new Properties().durability(armorMaterial.getDurabilityForType(slot)));
-        this.acMaterial = armorMaterial;
-        this.defaultItemAttributes = createGingerbreadAttributes(armorMaterial, slot, MIN_SPEED_BOOST);
+    public GingerbreadArmorItem(RegHolder<ArmorMaterial, ArmorMaterial> armorMaterial, Type slot) {
+        super(armorMaterial, slot, new Item.Properties().durability(slot.getDurability(10)));
+        this.defaultItemAttributes = createGingerbreadAttributes(armorMaterial.get(), slot, MIN_SPEED_BOOST);
     }
 
-    private static ItemAttributeModifiers createGingerbreadAttributes(ACArmorMaterial armorMaterial, Type slot, double speedBoost) {
+    private static ItemAttributeModifiers createGingerbreadAttributes(ArmorMaterial armorMaterial, Type slot, double speedBoost) {
         ResourceLocation id = id("armor_gingerbread_" + slot.getName());
         EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(slot.getSlot());
         return ItemAttributeModifiers.builder()
-                .add(Attributes.ARMOR, new AttributeModifier(id, armorMaterial.getDefenseForType(slot), AttributeModifier.Operation.ADD_VALUE), slotGroup)
+                .add(Attributes.ARMOR, new AttributeModifier(id, armorMaterial.getDefense(slot), AttributeModifier.Operation.ADD_VALUE), slotGroup)
                 .add(Attributes.MOVEMENT_SPEED, new AttributeModifier(id, speedBoost, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), slotGroup)
                 .build();
     }

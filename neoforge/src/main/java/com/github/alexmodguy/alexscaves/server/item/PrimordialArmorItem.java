@@ -2,12 +2,14 @@ package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
@@ -15,11 +17,9 @@ import javax.annotation.Nullable;
 
 public class PrimordialArmorItem extends ArmorItem {
 
-    private final ACArmorMaterial acMaterial;
 
-    public PrimordialArmorItem(ACArmorMaterial armorMaterial, Type slot) {
-        super(armorMaterial.getHolder(), slot, new Properties().durability(armorMaterial.getDurabilityForType(slot)));
-        this.acMaterial = armorMaterial;
+    public PrimordialArmorItem(RegHolder<ArmorMaterial, ArmorMaterial> armorMaterial, Type slot) {
+        super(armorMaterial, slot, new Item.Properties().durability(slot.getDurability(20)));
     }
 
     @Override

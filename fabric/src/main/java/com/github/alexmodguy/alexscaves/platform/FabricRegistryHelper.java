@@ -17,6 +17,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
@@ -134,5 +135,10 @@ public class FabricRegistryHelper implements RegistryHelper {
     @Override
     public <T extends DataComponentType<?>> Supplier<T> registerComponent(String name, Supplier<T> component) {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.DATA_COMPONENT_TYPE, id(name), component.get()));
+    }
+
+    @Override
+    public RegHolder<ArmorMaterial, ArmorMaterial> registerArmorMaterial(String name, Supplier<ArmorMaterial> material) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, id(name), material.get()));
     }
 }

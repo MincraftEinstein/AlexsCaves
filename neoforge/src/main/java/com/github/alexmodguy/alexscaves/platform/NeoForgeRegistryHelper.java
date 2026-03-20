@@ -14,6 +14,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
@@ -55,6 +56,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Registries.SOUND_EVENT, MOD_ID);
     public static final DeferredRegister<CriterionTrigger<?>> CRITERION_TRIGGERS = DeferredRegister.create(Registries.TRIGGER_TYPE, MOD_ID);
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, MOD_ID);
+    public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, MOD_ID);
     public static final Map<Supplier<? extends ParticleType<?>>, Function<SpriteSet, ? extends ParticleProvider<?>>> PARTICLE_PROVIDERS = new HashMap<>();
 
     public static void init(IEventBus modEventBus) {
@@ -74,6 +76,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
         LOOT_FUNCTION_TYPES.register(modEventBus);
         CRITERION_TRIGGERS.register(modEventBus);
         DATA_COMPONENTS.register(modEventBus);
+        ARMOR_MATERIALS.register(modEventBus);
     }
 
     @Override
@@ -174,5 +177,10 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     @Override
     public <T extends DataComponentType<?>> Supplier<T> registerComponent(String name, Supplier<T> component) {
         return NeoRegHolder.of(DATA_COMPONENTS.register(name, component));
+    }
+
+    @Override
+    public RegHolder<ArmorMaterial, ArmorMaterial> registerArmorMaterial(String name, Supplier<ArmorMaterial> material) {
+        return NeoRegHolder.of(ARMOR_MATERIALS.register(name, material));
     }
 }

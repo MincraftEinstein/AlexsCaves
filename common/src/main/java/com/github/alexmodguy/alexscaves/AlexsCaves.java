@@ -7,6 +7,7 @@ import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACSoundTypes;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.config.ACServerConfig;
+import com.github.alexmodguy.alexscaves.server.item.ACArmorMaterials;
 import com.github.alexmodguy.alexscaves.server.level.carver.ACCarverRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACDataComponentRegistry;
@@ -49,6 +50,7 @@ public class AlexsCaves {
         ACDataComponentRegistry.init();
         ACParticleRegistry.init();
         ACCarverRegistry.init();
+        ACArmorMaterials.init();
     }
 
     public static <T extends CustomPacketPayload> void registerS2C(CustomPacketPayload.Type<T> type, StreamCodec<RegistryFriendlyByteBuf, T> codec, S2CPayloadHandler<T> handler) {

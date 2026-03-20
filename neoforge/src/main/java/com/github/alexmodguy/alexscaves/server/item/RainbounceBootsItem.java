@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves.server.item;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -22,11 +24,8 @@ import javax.annotation.Nullable;
 
 public class RainbounceBootsItem extends ArmorItem implements CustomArmorPostRender {
 
-    private final ACArmorMaterial acMaterial;
-
-    public RainbounceBootsItem(ACArmorMaterial rainbounceArmorMaterial) {
-        super(rainbounceArmorMaterial.getHolder(), Type.BOOTS, new Properties().durability(rainbounceArmorMaterial.getDurabilityForType(Type.BOOTS)));
-        this.acMaterial = rainbounceArmorMaterial;
+    public RainbounceBootsItem(RegHolder<ArmorMaterial, ArmorMaterial> rainbounceArmorMaterial) {
+        super(rainbounceArmorMaterial, Type.BOOTS, new Item.Properties().durability(Type.BOOTS.getDurability(6)));
     }
 
     @Override

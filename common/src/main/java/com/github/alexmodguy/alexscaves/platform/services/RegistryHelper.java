@@ -12,9 +12,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -75,4 +73,6 @@ public interface RegistryHelper {
     <T extends CriterionTrigger<?>> RegHolder<CriterionTrigger<?>, T> registerCriterionTrigger(String name, Supplier<T> criterion);
 
     <T extends DataComponentType<?>> Supplier<T> registerComponent(String name, Supplier<T> component);
+
+    RegHolder<ArmorMaterial, ArmorMaterial> registerArmorMaterial(String name, Supplier<ArmorMaterial> material);
 }

@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -43,7 +42,7 @@ public class NaturalSpawnerMixin {
             if (!weightedrandomlist.isEmpty()) {
                 int i = chunkPos.getMinBlockX();
                 int j = chunkPos.getMinBlockZ();
-                while (randomSource.nextFloat() < AlexsCavesNeoForge.COMMON_CONFIG.caveCreatureSpawnCountModifier.get() * mobspawnsettings.getCreatureProbability()) {
+                while (randomSource.nextFloat() < AlexsCaves.COMMON_CONFIG.caveCreatureSpawnCountModifier.get() * mobspawnsettings.getCreatureProbability()) {
                     Optional<MobSpawnSettings.SpawnerData> optional = weightedrandomlist.getRandom(randomSource);
                     if (optional.isPresent()) {
                         MobSpawnSettings.SpawnerData mobspawnsettings$spawnerdata = optional.get();

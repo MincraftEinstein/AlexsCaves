@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin.client;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagnetUtil;
@@ -73,7 +74,7 @@ public abstract class CameraMixin {
         // Handle screen shake - must be done at TAIL after setPosition() is called
         // In ComputeCameraAngles event, move() effects are overwritten by subsequent setPosition()
         Entity player = Minecraft.getInstance().getCameraEntity();
-        if (player != null && AlexsCavesNeoForge.CLIENT_CONFIG.screenShaking.get()) {
+        if (player != null && AlexsCaves.CLIENT_CONFIG.screenShaking.get()) {
             float tremorAmount = ClientProxy.renderNukeSkyDarkFor > 0 ? 1.5F : 0F;
             if (player instanceof PossessesCamera watcherEntity) {
                 tremorAmount = watcherEntity.isPossessionBreakable()

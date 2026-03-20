@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.misc;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
@@ -67,7 +67,7 @@ public class CabinMapLootModifier implements IGlobalLootModifier {
     }
 
     private float getChance() {
-        return AlexsCavesNeoForge.COMMON_CONFIG.cabinMapLootChance.get().floatValue();
+        return AlexsCaves.COMMON_CONFIG.cabinMapLootChance.get().floatValue();
     }
 
     @Override

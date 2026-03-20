@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ai.AdvancedPathNavigateNoTeleport;
 import com.github.alexmodguy.alexscaves.server.entity.item.CrushedBlockEntity;
@@ -330,7 +330,7 @@ public abstract class SauropodBaseEntity extends DinosaurEntity implements Shake
                         double dist = Math.sqrt(mutableBlockPos.distSqr(center));
                         if (dist <= width && level().isLoaded(mutableBlockPos)) {
                             BlockState state = level().getBlockState(mutableBlockPos);
-                            if (state.is(ACTagRegistry.UNMOVEABLE) || state.isAir() || state.canBeReplaced() || state.getBlock().getExplosionResistance() > AlexsCavesNeoForge.COMMON_CONFIG.atlatitanMaxExplosionResistance.get()) {
+                            if (state.is(ACTagRegistry.UNMOVEABLE) || state.isAir() || state.canBeReplaced() || state.getBlock().getExplosionResistance() > AlexsCaves.COMMON_CONFIG.atlatitanMaxExplosionResistance.get()) {
                                 continue;
                             } else {
                                 BlockEntity te = level().getBlockEntity(mutableBlockPos);

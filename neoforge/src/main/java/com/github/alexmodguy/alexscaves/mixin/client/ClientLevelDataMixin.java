@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.mixin.client;
 
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.level.LevelHeightAccessor;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,7 +18,7 @@ public abstract class ClientLevelDataMixin  {
             ),
             cancellable = true)
     private void ac_getSkyDarken_timeOfDay(LevelHeightAccessor heightAccessor, CallbackInfoReturnable<Double> cir) {
-        if (AlexsCavesNeoForge.CLIENT_CONFIG.biomeSkyOverrides.get()) {
+        if (AlexsCaves.CLIENT_CONFIG.biomeSkyOverrides.get()) {
             cir.setReturnValue((double) -heightAccessor.getMaxBuildHeight());
 
         }

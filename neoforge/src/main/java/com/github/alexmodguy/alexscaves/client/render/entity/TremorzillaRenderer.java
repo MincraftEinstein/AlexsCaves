@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.TremorzillaBeamModel;
 import com.github.alexmodguy.alexscaves.client.model.TremorzillaModel;
@@ -99,7 +98,7 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
             poseStack.mulPose(Axis.XP.rotationDegrees((-(Mth.PI / 2F) + xRot) * Mth.RAD_TO_DEG));
             poseStack.mulPose(Axis.ZP.rotationDegrees(45));
             renderBeam(entity, poseStack, source, partialTicks, width, length, true, false);
-            if(AlexsCavesNeoForge.CLIENT_CONFIG.radiationGlowEffect.get()){
+            if(AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()){
                 renderBeam(entity, poseStack, source, partialTicks, width, length, true, true);
             }
             renderBeam(entity, poseStack, source, partialTicks, width, length, false, false);
@@ -134,7 +133,7 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
         if (inner) {
             vertices = 4;
             ResourceLocation resourceLocation = entity.getAltSkin() == 2 ? TEXTURE_TECTONIC_BEAM_INNER : entity.getAltSkin() == 1 ? TEXTURE_RETRO_BEAM_INNER : TEXTURE_BEAM_INNER;
-            if (AlexsCavesNeoForge.CLIENT_CONFIG.radiationGlowEffect.get() && glowSecondPass) {
+            if (AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get() && glowSecondPass) {
                 PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
                 vertexconsumer = source.getBuffer(ACRenderTypes.getTremorzillaBeam(resourceLocation, true));
                 endAlpha = 0.5F;
@@ -145,7 +144,7 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
         } else {
             vertices = 8;
             ResourceLocation resourceLocation = entity.getAltSkin() == 2 ? TEXTURE_TECTONIC_BEAM_OUTER : entity.getAltSkin() == 1 ? TEXTURE_RETRO_BEAM_OUTER : TEXTURE_BEAM_OUTER;
-            if (AlexsCavesNeoForge.CLIENT_CONFIG.radiationGlowEffect.get()) {
+            if (AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()) {
                 PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
                 vertexconsumer = source.getBuffer(ACRenderTypes.getTremorzillaBeam(resourceLocation, true));
             } else {
@@ -178,7 +177,7 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
         }
         if(inner){
             VertexConsumer endVertexConsumer;
-            if (AlexsCavesNeoForge.CLIENT_CONFIG.radiationGlowEffect.get() && glowSecondPass) {
+            if (AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get() && glowSecondPass) {
                 PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
                 endVertexConsumer = source.getBuffer(ACRenderTypes.getTremorzillaBeam(getEndBeamTexture(entity), true));
             } else {
@@ -247,7 +246,7 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
             this.getParentModel().renderToBuffer(matrixStackIn, normalGlowConsumer, packedLightIn, LivingEntityRenderer.getOverlayCoords(tremorzilla, 0.0F), ColorUtil.packColor(1.0F, 1.0F, 1.0F, normalAlpha));
             if (spikeDownAmount > 0) {
                 VertexConsumer spikeGlowConsumer;
-                if (AlexsCavesNeoForge.CLIENT_CONFIG.radiationGlowEffect.get()) {
+                if (AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()) {
                     PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
                     spikeGlowConsumer = bufferIn.getBuffer(ACRenderTypes.getTremorzillaBeam(tremorzilla.getAltSkin() == 2 ? TEXTURE_TECTONIC_GLOW_POWERED : tremorzilla.getAltSkin() == 1 ? TEXTURE_RETRO_GLOW_POWERED : TEXTURE_GLOW_POWERED, true));
                 } else {

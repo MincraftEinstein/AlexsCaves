@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
@@ -90,7 +89,7 @@ public class RaygunRenderHelper {
                 if(firstPersonPass == 0 || firstPersonPass == 1){
                     RaygunRenderHelper.renderRay(poseStack, bufferSource, vec3, useRaygunAmount, ageInTicks, false, blue);
                 }
-                if((firstPersonPass == 0 || firstPersonPass == 2) && AlexsCavesNeoForge.CLIENT_CONFIG.radiationGlowEffect.get()){
+                if((firstPersonPass == 0 || firstPersonPass == 2) && AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()){
                     RaygunRenderHelper.renderRay(poseStack, bufferSource, vec3, useRaygunAmount, ageInTicks, true, blue);
                 }
                 poseStack.popPose();

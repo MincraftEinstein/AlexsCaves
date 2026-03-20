@@ -29,7 +29,6 @@ import com.github.alexthe666.citadel.client.event.EventLivingRenderer;
 import com.github.alexthe666.citadel.client.event.EventPosePlayerHand;
 import com.github.alexthe666.citadel.client.event.EventRenderSplashText;
 import com.github.alexthe666.citadel.client.tick.ClientTickRateTracker;
-import com.github.alexthe666.citadel.server.tick.TickRateTracker;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -266,7 +265,7 @@ public class ClientEvents {
                     && WATCHER_SHADER.toString().equals(renderer.currentEffect().getName())) {
                 renderer.checkEntityPostEffect(null);
             } else if (player instanceof LivingEntity afflicted && afflicted.hasEffect(ACEffectRegistry.SUGAR_RUSH)
-                    && AlexsCavesNeoForge.CLIENT_CONFIG.sugarRushSaturationEffect.get()) {
+                    && AlexsCaves.CLIENT_CONFIG.sugarRushSaturationEffect.get()) {
                 if (renderer.currentEffect() == null
                         || !SUGAR_RUSH_SHADER.toString().equals(renderer.currentEffect().getName())) {
                     attemptLoadShader(SUGAR_RUSH_SHADER);
@@ -296,7 +295,7 @@ public class ClientEvents {
                     event.getPartialTick().getGameTimeDeltaPartialTick(false)));
         }
         if (event.getStage() == RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS
-                && AlexsCavesNeoForge.CLIENT_CONFIG.ambersolShines.get()) {
+                && AlexsCaves.CLIENT_CONFIG.ambersolShines.get()) {
             RenderSystem.runAsFancy(() -> AmbersolBlockRenderer.renderEntireBatch(event.getLevelRenderer(),
                     event.getPoseStack(), event.getRenderTick(), event.getCamera(),
                     event.getPartialTick().getGameTimeDeltaPartialTick(false)));
@@ -630,7 +629,7 @@ public class ClientEvents {
         if (event.getResult() != TriState.TRUE && player.hasEffect(ACEffectRegistry.SUGAR_RUSH)
                 && !AlexsCavesNeoForge.PROXY.isFirstPersonPlayer(player)) {
             float speedModifier = 0.35F;
-            if (AlexsCavesNeoForge.COMMON_CONFIG.sugarRushSlowsTime.get()
+            if (AlexsCaves.COMMON_CONFIG.sugarRushSlowsTime.get()
                     && AlexsCavesNeoForge.PROXY.isTickRateModificationActive(Minecraft.getInstance().level)) {
                 float tickRate = ClientTickRateTracker.getForClient(Minecraft.getInstance()).getClientTickRate()
                         / 50.0F;
@@ -677,8 +676,8 @@ public class ClientEvents {
             if (forgeGuiY < 53) {
                 forgeGuiY = 53;
             }
-            int j = screenWidth / 2 - AlexsCavesNeoForge.CLIENT_CONFIG.subterranodonIndicatorX.get();
-            int k = screenHeight - forgeGuiY - AlexsCavesNeoForge.CLIENT_CONFIG.subterranodonIndicatorY.get();
+            int j = screenWidth / 2 - AlexsCaves.CLIENT_CONFIG.subterranodonIndicatorX.get();
+            int k = screenHeight - forgeGuiY - AlexsCaves.CLIENT_CONFIG.subterranodonIndicatorY.get();
             float f = mount.getMeterAmount();
             float invProgress = 1 - f;
             int uOffset = 0;
@@ -727,8 +726,8 @@ public class ClientEvents {
             if (forgeGuiY < 53) {
                 forgeGuiY = 53;
             }
-            int j = screenWidth / 2 - AlexsCavesNeoForge.CLIENT_CONFIG.subterranodonIndicatorX.get() + 13;
-            int k = screenHeight - forgeGuiY - AlexsCavesNeoForge.CLIENT_CONFIG.subterranodonIndicatorY.get() + 9 - hudY;
+            int j = screenWidth / 2 - AlexsCaves.CLIENT_CONFIG.subterranodonIndicatorX.get() + 13;
+            int k = screenHeight - forgeGuiY - AlexsCaves.CLIENT_CONFIG.subterranodonIndicatorY.get() + 9 - hudY;
             float f = DarknessArmorItem.getMeterProgress(stack);
             float invProgress = 1 - f;
             int uvOffset = DarknessArmorItem.canChargeUp(stack) && f >= 1.0F ? 0 : 18;
@@ -880,7 +879,7 @@ public class ClientEvents {
             return;
         }
         if (event.getCamera().getFluidInCamera() == FogType.WATER
-                && AlexsCavesNeoForge.CLIENT_CONFIG.biomeWaterFogOverrides.get()) {
+                && AlexsCaves.CLIENT_CONFIG.biomeWaterFogOverrides.get()) {
             float farness = lastSampledWaterFogFarness;
             if (Minecraft.getInstance().player.hasEffect(ACEffectRegistry.DEEPSIGHT)) {
                 farness *= 1.0F + 1.5F
@@ -891,7 +890,7 @@ public class ClientEvents {
                 event.setFarPlaneDistance(defaultFarPlaneDistance * farness);
             }
         } else if (event.getMode() == FogRenderer.FogMode.FOG_TERRAIN
-                && AlexsCavesNeoForge.CLIENT_CONFIG.biomeSkyFogOverrides.get()) {
+                && AlexsCaves.CLIENT_CONFIG.biomeSkyFogOverrides.get()) {
             float nearness = lastSampledFogNearness;
             float primordialBossAmount = AlexsCavesNeoForge.PROXY.getPrimordialBossActiveAmount((float) event.getPartialTick());
             boolean flag = Math.abs(nearness) - 1.0F < 0.01F;
@@ -926,7 +925,7 @@ public class ClientEvents {
             event.setGreen(0.1F);
             event.setBlue(0.85F);
         } else if (event.getCamera().getFluidInCamera() == FogType.NONE
-                && AlexsCavesNeoForge.CLIENT_CONFIG.biomeSkyFogOverrides.get()) {
+                && AlexsCaves.CLIENT_CONFIG.biomeSkyFogOverrides.get()) {
             float override = ClientProxy.acSkyOverrideAmount;
             float setR = event.getRed();
             float setG = event.getGreen();
@@ -953,7 +952,7 @@ public class ClientEvents {
                 event.setBlue(setB);
             }
         } else if (event.getCamera().getFluidInCamera() == FogType.WATER
-                && AlexsCavesNeoForge.CLIENT_CONFIG.biomeWaterFogOverrides.get()) {
+                && AlexsCaves.CLIENT_CONFIG.biomeWaterFogOverrides.get()) {
             int i = Minecraft.getInstance().options.biomeBlendRadius().get();
             float override = ClientProxy.acSkyOverrideAmount;
             if (override != 0) {

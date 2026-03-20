@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.RaycatModel;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
@@ -43,7 +42,7 @@ public class RaycatRenderer extends MobRenderer<RaycatEntity, RaycatModel> imple
         if (translucent) {
             return RenderType.itemEntityTranslucentCull(resourcelocation);
         } else if (normal) {
-            return sepia ? null : AlexsCavesNeoForge.CLIENT_CONFIG.radiationGlowEffect.get() ? ACRenderTypes.getRadiationGlow(resourcelocation) : ACRenderTypes.entityTranslucent(resourcelocation);
+            return sepia ? null : AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get() ? ACRenderTypes.getRadiationGlow(resourcelocation) : ACRenderTypes.entityTranslucent(resourcelocation);
         } else {
             return outline ? RenderType.outline(resourcelocation) : null;
         }
@@ -62,7 +61,7 @@ public class RaycatRenderer extends MobRenderer<RaycatEntity, RaycatModel> imple
     }
 
     public void render(RaycatEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
-        if(!sepia && AlexsCavesNeoForge.CLIENT_CONFIG.radiationGlowEffect.get()){
+        if(!sepia && AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()){
             PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
         }
         float absorbAmount = entityIn.getAbsorbAmount(partialTicks);

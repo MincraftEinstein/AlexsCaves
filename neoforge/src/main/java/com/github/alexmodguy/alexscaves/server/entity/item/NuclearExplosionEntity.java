@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.TremorzillaEggBlock;
@@ -167,7 +166,7 @@ public class NuclearExplosionEntity extends Entity {
         carve.set(chunkCorner);
         carveBelow.set(chunkCorner);
         float itemDropModifier = 0.025F / Math.min(1, this.getSize());
-        if (AlexsCavesNeoForge.COMMON_CONFIG.nukeMaxBlockExplosionResistance.get() <= 0) {
+        if (AlexsCaves.COMMON_CONFIG.nukeMaxBlockExplosionResistance.get() <= 0) {
             return;
         }
         if (dummyExplosion == null) {
@@ -189,7 +188,7 @@ public class NuclearExplosionEntity extends Entity {
                             canSetToFire = true;
                             if(state.is(ACBlockRegistry.TREMORZILLA_EGG.get()) && state.getBlock() instanceof TremorzillaEggBlock tremorzillaEggBlock){
                                 tremorzillaEggBlock.spawnDinosaurs(level(), carve, state);
-                            }else if (AlexsCavesNeoForge.COMMON_CONFIG.nukesSpawnItemDrops.get() && random.nextFloat() < itemDropModifier && state.getFluidState().isEmpty()) {
+                            }else if (AlexsCaves.COMMON_CONFIG.nukesSpawnItemDrops.get() && random.nextFloat() < itemDropModifier && state.getFluidState().isEmpty()) {
                                 level().destroyBlock(carve, true);
                             } else {
                                 state.onBlockExploded(level(), carve, dummyExplosion);
@@ -205,7 +204,7 @@ public class NuclearExplosionEntity extends Entity {
     }
 
     private boolean isDestroyable(BlockState state) {
-        return (!state.is(ACTagRegistry.NUKE_PROOF) && state.getBlock().getExplosionResistance() < AlexsCavesNeoForge.COMMON_CONFIG.nukeMaxBlockExplosionResistance.get()) || state.is(ACBlockRegistry.TREMORZILLA_EGG.get());
+        return (!state.is(ACTagRegistry.NUKE_PROOF) && state.getBlock().getExplosionResistance() < AlexsCaves.COMMON_CONFIG.nukeMaxBlockExplosionResistance.get()) || state.is(ACBlockRegistry.TREMORZILLA_EGG.get());
     }
 
     private void hatchNearbyTremorzillaEggs() {

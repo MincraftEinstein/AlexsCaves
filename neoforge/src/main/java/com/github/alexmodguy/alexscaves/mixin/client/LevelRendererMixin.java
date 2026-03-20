@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin.client;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.server.block.EnergizedGalenaBlock;
@@ -107,7 +108,7 @@ public abstract class LevelRendererMixin {
         // AC CODE START
         float override = ClientProxy.acSkyOverrideAmount;
         float primordialBoss = AlexsCavesNeoForge.PROXY.getPrimordialBossActiveAmount(partialTick);
-        if (!AlexsCavesNeoForge.CLIENT_CONFIG.biomeSkyOverrides.get() || override <= 0.0F && primordialBoss <= 0.0F) {
+        if (!AlexsCaves.CLIENT_CONFIG.biomeSkyOverrides.get() || override <= 0.0F && primordialBoss <= 0.0F) {
             return;
         }
         ci.cancel();
@@ -144,7 +145,7 @@ public abstract class LevelRendererMixin {
 
                     // AC CODE START
                     // remove sunrises inside cave biomes.
-                    if (afloat != null && afloat.length >= 4 && AlexsCavesNeoForge.CLIENT_CONFIG.biomeSkyOverrides.get()) {
+                    if (afloat != null && afloat.length >= 4 && AlexsCaves.CLIENT_CONFIG.biomeSkyOverrides.get()) {
                         afloat[3] = afloat[3] * (1F - override);
                     }
                     // AC CODE END

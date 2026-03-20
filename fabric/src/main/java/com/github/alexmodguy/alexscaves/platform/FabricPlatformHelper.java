@@ -3,6 +3,8 @@ package com.github.alexmodguy.alexscaves.platform;
 import com.github.alexmodguy.alexscaves.platform.services.IPlatformHelper;
 import net.fabricmc.loader.api.FabricLoader;
 
+import java.nio.file.Path;
+
 public class FabricPlatformHelper implements IPlatformHelper {
 
     @Override
@@ -18,5 +20,10 @@ public class FabricPlatformHelper implements IPlatformHelper {
     @Override
     public boolean isDevelopmentEnvironment() {
         return FabricLoader.getInstance().isDevelopmentEnvironment();
+    }
+
+    @Override
+    public Path getGameDir() {
+        return FabricLoader.getInstance().getGameDir();
     }
 }

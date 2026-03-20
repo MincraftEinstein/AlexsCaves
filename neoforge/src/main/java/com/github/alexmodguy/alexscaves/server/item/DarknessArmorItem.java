@@ -57,7 +57,7 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
             return 0.0F;
         }
         CompoundTag tag = customData.copyTag();
-        return tag.getInt("CloakCharge") / (float) AlexsCavesNeoForge.COMMON_CONFIG.darknessCloakChargeTime.get();
+        return tag.getInt("CloakCharge") / (float) AlexsCaves.COMMON_CONFIG.darknessCloakChargeTime.get();
     }
 
     @SuppressWarnings("removal")
@@ -77,7 +77,7 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
                     CompoundTag tag = customData.copyTag();
                     int charge = tag.getInt("CloakCharge");
                     boolean flag = false;
-                    if (charge < AlexsCavesNeoForge.COMMON_CONFIG.darknessCloakChargeTime.get() && canChargeUp(stack)) {
+                    if (charge < AlexsCaves.COMMON_CONFIG.darknessCloakChargeTime.get() && canChargeUp(stack)) {
                         charge += 1;
                         tag.putInt("CloakCharge", charge);
                         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
@@ -122,7 +122,7 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
             CompoundTag tag = customData.copyTag();
             tag.putInt("CloakCharge", 0);
             itemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-            living.addEffect(new MobEffectInstance(ACEffectRegistry.DARKNESS_INCARNATE, AlexsCavesNeoForge.COMMON_CONFIG.darknessCloakFlightTime.get(), 0, false, false, false));
+            living.addEffect(new MobEffectInstance(ACEffectRegistry.DARKNESS_INCARNATE, AlexsCaves.COMMON_CONFIG.darknessCloakFlightTime.get(), 0, false, false, false));
         } else if (wearer instanceof Player player && !wearer.level().isClientSide) {
             player.displayClientMessage(Component.translatable("item.alexscaves.cloak_of_darkness.requires_darkness"), true);
         }

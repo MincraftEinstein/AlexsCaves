@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.misc.ACLootTableRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -39,7 +39,7 @@ public abstract class SwampHutPieceMixin extends ScatteredFeaturePiece {
             at = @At(value = "HEAD")
     )
     public void ac_calculateEntityAnimation(WorldGenLevel level, StructureManager structureManager, ChunkGenerator generator, RandomSource randomSource, BoundingBox boundingBox, ChunkPos chunkPos, BlockPos blockPos, CallbackInfo ci) {
-        if(AlexsCavesNeoForge.COMMON_CONFIG.lootChestInWitchHuts.get()) {
+        if(AlexsCaves.COMMON_CONFIG.lootChestInWitchHuts.get()) {
             if (this.updateAverageGroundHeight(level, boundingBox, 0)) {
                 if (!this.placedMainChest) {
                     this.placedMainChest = this.createChest(level, boundingBox, randomSource, 2, 2, 6, ACLootTableRegistry.WITCH_HUT_CHEST);

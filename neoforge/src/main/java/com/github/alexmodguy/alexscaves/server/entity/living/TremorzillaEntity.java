@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
@@ -22,7 +23,6 @@ import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -785,14 +785,14 @@ public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMou
                 while (walkThroughBeam < this.getMaxBeamBreakLength()) {
                     startClip = startClip.add(viewVec.scale(destructionScale * 1.5F));
                     if (!brokenClosestBlocks) {
-                        brokenClosestBlocks = this.breakBlocksAround(startClip, AlexsCavesNeoForge.COMMON_CONFIG.devastatingTremorzillaBeam.get() ? destructionScale : destructionScale * 0.75F, false, true, 0.08F);
+                        brokenClosestBlocks = this.breakBlocksAround(startClip, AlexsCaves.COMMON_CONFIG.devastatingTremorzillaBeam.get() ? destructionScale : destructionScale * 0.75F, false, true, 0.08F);
                         furthestBlockDist = (float) startClip.distanceTo(start);
                     }
                     this.hurtEntitiesAround(startClip, destructionScale + 1, 20.0F, 1.0F, true, true, false);
                     walkThroughBeam += destructionScale;
                 }
                 this.hurtEntitiesAround(endBeamPos, 6F, 20.0F, 1.0F, true, true, false);
-                if (AlexsCavesNeoForge.COMMON_CONFIG.devastatingTremorzillaBeam.get() && beamTime % 6 == 0) {
+                if (AlexsCaves.COMMON_CONFIG.devastatingTremorzillaBeam.get() && beamTime % 6 == 0) {
                     this.breakBlocksAround(endBeamPos, 4F, false, true, 0.08F);
                 }
             }

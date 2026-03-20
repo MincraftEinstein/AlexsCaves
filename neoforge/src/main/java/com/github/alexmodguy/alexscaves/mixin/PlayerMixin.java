@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexthe666.citadel.server.entity.IModifiesTime;
@@ -32,7 +33,7 @@ public abstract class PlayerMixin extends LivingEntity implements IModifiesTime 
             at = @At(value = "RETURN")
     )
     public void ac_getSpeed(CallbackInfoReturnable<Float> cir) {
-        if (AlexsCavesNeoForge.COMMON_CONFIG.sugarRushSlowsTime.get() && this.hasEffect(ACEffectRegistry.SUGAR_RUSH) && AlexsCavesNeoForge.PROXY.isTickRateModificationActive(this.level())) {
+        if (AlexsCaves.COMMON_CONFIG.sugarRushSlowsTime.get() && this.hasEffect(ACEffectRegistry.SUGAR_RUSH) && AlexsCavesNeoForge.PROXY.isTickRateModificationActive(this.level())) {
             cir.setReturnValue(cir.getReturnValue() * 3.0F);
         }
     }
@@ -44,7 +45,7 @@ public abstract class PlayerMixin extends LivingEntity implements IModifiesTime 
             at = @At(value = "RETURN")
     )
     public void ac_getFlyingSpeed(CallbackInfoReturnable<Float> cir) {
-        if (AlexsCavesNeoForge.COMMON_CONFIG.sugarRushSlowsTime.get() && this.hasEffect(ACEffectRegistry.SUGAR_RUSH) && AlexsCavesNeoForge.PROXY.isTickRateModificationActive(this.level())) {
+        if (AlexsCaves.COMMON_CONFIG.sugarRushSlowsTime.get() && this.hasEffect(ACEffectRegistry.SUGAR_RUSH) && AlexsCavesNeoForge.PROXY.isTickRateModificationActive(this.level())) {
             cir.setReturnValue(this.getSpeed() * 0.5F);
         }
     }

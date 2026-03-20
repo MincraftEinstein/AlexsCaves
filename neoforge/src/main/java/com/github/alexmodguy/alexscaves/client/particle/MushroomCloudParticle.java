@@ -68,7 +68,7 @@ public class MushroomCloudParticle extends Particle {
             }
         }
         if (age < BALL_FOR) {
-            if(!playedRinging && AlexsCavesNeoForge.CLIENT_CONFIG.nuclearBombFlash.get()){
+            if(!playedRinging && AlexsCaves.CLIENT_CONFIG.nuclearBombFlash.get()){
                 playedRinging = true;
                 playSound(ACSoundRegistry.NUCLEAR_EXPLOSION_RINGING.get(), 100, 50, 0.05F, true);
             }

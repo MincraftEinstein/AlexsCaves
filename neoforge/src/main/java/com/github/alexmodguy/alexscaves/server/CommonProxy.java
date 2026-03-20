@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.level.storage.ACWorldData;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.PathfindingConstants;
 import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
@@ -135,7 +135,7 @@ public class CommonProxy {
     public void initPathfinding() {
         // PathfindingConstants.isDebugMode = true;
         PathfindingConstants.pathfindingThreads = Math.max(PathfindingConstants.pathfindingThreads,
-                AlexsCavesNeoForge.COMMON_CONFIG.pathfindingThreads.get());
+                AlexsCaves.COMMON_CONFIG.pathfindingThreads.get());
     }
 
     public void removeBossBarRender(UUID bossBar) {

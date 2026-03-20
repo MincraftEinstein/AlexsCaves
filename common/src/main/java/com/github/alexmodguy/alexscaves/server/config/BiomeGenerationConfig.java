@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.config;
 
+import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexthe666.citadel.Citadel;
 import com.google.common.reflect.TypeToken;
@@ -8,20 +9,18 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
-import net.neoforged.fml.loading.FMLPaths;
 import org.apache.commons.io.FileUtils;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
-import java.util.Map;
 import java.util.function.Predicate;
 
 public class BiomeGenerationConfig {
+
     public static final Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).setPrettyPrinting().create();
 
     private static final String OVERWORLD = "minecraft:overworld";
@@ -53,7 +52,7 @@ public class BiomeGenerationConfig {
         return BIOMES.size();
     }
 
-    public static boolean isBiomeDisabledCompletely(ResourceKey<Biome> biome){
+    public static boolean isBiomeDisabledCompletely(ResourceKey<Biome> biome) {
         BiomeGenerationNoiseCondition noiseCondition = BIOMES.get(biome);
         return noiseCondition != null && noiseCondition.isDisabledCompletely();
     }
@@ -63,7 +62,8 @@ public class BiomeGenerationConfig {
         if (!configFile.exists()) {
             try {
                 FileUtils.write(configFile, GSON.toJson(defaults));
-            } catch (IOException e) {
+            }
+            catch (IOException e) {
                 Citadel.LOGGER.error("Biome Generation Config: Could not write " + configFile, e);
             }
         }
@@ -73,13 +73,16 @@ public class BiomeGenerationConfig {
                 Citadel.LOGGER.warn("Old Biome Generation Config format found for " + configName + ", replacing with new one.");
                 try {
                     FileUtils.write(configFile, GSON.toJson(defaults));
-                } catch (IOException e) {
+                }
+                catch (IOException e) {
                     Citadel.LOGGER.error("Biome Generation Config: Could not write " + configFile, e);
                 }
-            } else {
+            }
+            else {
                 return found;
             }
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             Citadel.LOGGER.error("Biome Generation Config: Could not load " + configFile, e);
         }
 
@@ -87,7 +90,7 @@ public class BiomeGenerationConfig {
     }
 
     private static File getConfigDirectory() {
-        Path configPath = FMLPaths.CONFIGDIR.get();
+        Path configPath = Services.PLATFORM_HELPER.getGameDir();
         Path jsonPath = Paths.get(configPath.toAbsolutePath().toString(), "alexscaves_biome_generation");
         return jsonPath.toFile();
     }

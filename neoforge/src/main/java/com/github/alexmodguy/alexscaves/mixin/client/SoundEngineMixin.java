@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin.client;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.sound.NuclearExplosionSound;
 import com.github.alexmodguy.alexscaves.client.sound.UnlimitedPitch;
@@ -40,7 +40,7 @@ public abstract class SoundEngineMixin {
             at = @At("RETURN"),
             cancellable = true)
     private void ac_calculateVolume(SoundInstance soundInstance, CallbackInfoReturnable<Float> cir) {
-        if(!(soundInstance instanceof NuclearExplosionSound) && ClientProxy.masterVolumeNukeModifier > 0 && AlexsCavesNeoForge.CLIENT_CONFIG.nuclearBombMufflesSounds.get()){
+        if(!(soundInstance instanceof NuclearExplosionSound) && ClientProxy.masterVolumeNukeModifier > 0 && AlexsCaves.CLIENT_CONFIG.nuclearBombMufflesSounds.get()){
             float f = Math.max(1.0F - ClientProxy.masterVolumeNukeModifier, 0.01F);
             cir.setReturnValue(cir.getReturnValue() * f);
         }
@@ -49,7 +49,7 @@ public abstract class SoundEngineMixin {
     @Inject(method = "Lnet/minecraft/client/sounds/SoundEngine;tickNonPaused()V",
             at = @At("TAIL"))
     private void ac_tickNonPaused(CallbackInfo ci) {
-        if((lastNukeSoundDampenBy != ClientProxy.masterVolumeNukeModifier || ClientProxy.masterVolumeNukeModifier > 0) && AlexsCavesNeoForge.CLIENT_CONFIG.nuclearBombMufflesSounds.get()){
+        if((lastNukeSoundDampenBy != ClientProxy.masterVolumeNukeModifier || ClientProxy.masterVolumeNukeModifier > 0) && AlexsCaves.CLIENT_CONFIG.nuclearBombMufflesSounds.get()){
             dampenSoundsFromNuke();
         }
     }

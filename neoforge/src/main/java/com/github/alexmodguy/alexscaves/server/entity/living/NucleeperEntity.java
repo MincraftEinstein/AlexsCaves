@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearSirenBlockEntity;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
@@ -12,7 +13,6 @@ import com.github.alexmodguy.alexscaves.server.misc.ACDamageTypes;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.google.common.base.Predicates;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -182,7 +182,7 @@ public class NucleeperEntity extends Monster implements ActivatesSirens, Powerab
                 } else {
                     this.setTriggered(false);
                 }
-            } else if (time < AlexsCavesNeoForge.COMMON_CONFIG.nucleeperFuseTime.get()) {
+            } else if (time < AlexsCaves.COMMON_CONFIG.nucleeperFuseTime.get()) {
                 this.setCloseTime(time + 1);
             } else if (this.isAlive()) {
                 this.setExploding(true);
@@ -195,7 +195,7 @@ public class NucleeperEntity extends Monster implements ActivatesSirens, Powerab
             AlexsCavesNeoForge.PROXY.playWorldSound(this, (byte) 1);
         }
         sirenAngle += (10F + 30F * closeProgress) % 360F;
-        closeProgress = (float) time / AlexsCavesNeoForge.COMMON_CONFIG.nucleeperFuseTime.get();
+        closeProgress = (float) time / AlexsCaves.COMMON_CONFIG.nucleeperFuseTime.get();
         if (this.catScareTime > 0) {
             this.catScareTime--;
         }

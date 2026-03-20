@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ai.GroundPathNavigatorNoSpin;
@@ -311,7 +312,7 @@ public class WatcherEntity extends Monster implements IAnimatedEntity, Possesses
             CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
             if (data != null) {
                 long timeElapsed = level().getGameTime() - data.getLong(LAST_POSSESSED_TIME_IDENTIFIER);
-                return timeElapsed >= AlexsCavesNeoForge.COMMON_CONFIG.watcherPossessionCooldown.get();
+                return timeElapsed >= AlexsCaves.COMMON_CONFIG.watcherPossessionCooldown.get();
             }
         }
         return true;
@@ -325,13 +326,13 @@ public class WatcherEntity extends Monster implements IAnimatedEntity, Possesses
             }
             if (possessedEntity instanceof Player player && player == AlexsCavesNeoForge.PROXY.getClientSidePlayer()) {
                 if (b == 77) {
-                    if(AlexsCavesNeoForge.COMMON_CONFIG.watcherPossession.get()){
+                    if(AlexsCaves.COMMON_CONFIG.watcherPossession.get()){
                         AlexsCavesNeoForge.PROXY.setRenderViewEntity(player, this);
                     }
                 } else {
                     level().addParticle(ACParticleRegistry.WATCHER_APPEARANCE.get(), player.getX(), player.getEyeY(), player.getZ(), 0, 0, 0);
                     player.level().playSound(player, player.getX(), player.getY(), player.getZ(), ACSoundRegistry.WATCHER_SCARE.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
-                    if(AlexsCavesNeoForge.COMMON_CONFIG.watcherPossession.get()) {
+                    if(AlexsCaves.COMMON_CONFIG.watcherPossession.get()) {
                         AlexsCavesNeoForge.PROXY.resetRenderViewEntity(player);
                     }
                 }

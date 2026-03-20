@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.ConversionCrucibleBlockEntity;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACDataComponentRegistry;
@@ -89,7 +89,7 @@ public class CaveInfoItem extends Item {
                     CaveBookProgress.saveCaveBookProgress(progress, player);
                     CaveBookProgress.Subcategory subcategory = progress.getLastUnlockedCategory(biomeStr);
                     Component biomeTitle = Component.translatable("biome." + biomeResourceKey.location().toString().replace(":", "."));
-                    if(AlexsCavesNeoForge.COMMON_CONFIG.onlyOneResearchNeeded.get()){
+                    if(AlexsCaves.COMMON_CONFIG.onlyOneResearchNeeded.get()){
                         player.displayClientMessage(Component.translatable("item.alexscaves.cave_codex.add_all", biomeTitle), true);
                     }else{
                         MutableComponent unlocked = Component.translatable("item.alexscaves.cave_codex.add", biomeTitle, Component.translatable("item.alexscaves.cave_book." + subcategory.toString().toLowerCase()));

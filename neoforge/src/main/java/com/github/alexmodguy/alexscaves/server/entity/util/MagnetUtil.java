@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.util;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.AbstractMovingBlockEntity;
@@ -10,7 +11,6 @@ import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.google.common.base.Predicates;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
@@ -70,7 +70,7 @@ public class MagnetUtil {
         Vec3 vec3 = getEntityMagneticDelta(entity);
         Direction dir = getEntityMagneticDirection(entity);
         MagneticEntityAccessor magneticAccessor = (MagneticEntityAccessor) entity;
-        boolean attatchesToMagnets = AlexsCavesNeoForge.COMMON_CONFIG.walkingOnMagnets.get() && attachesToMagnets(entity);
+        boolean attatchesToMagnets = AlexsCaves.COMMON_CONFIG.walkingOnMagnets.get() && attachesToMagnets(entity);
         float progress = magneticAccessor.getAttachmentProgress(1.0F);
         if (vec3 != Vec3.ZERO) {
             Direction standingOnDirection = getStandingOnMagnetSurface(entity);
@@ -179,7 +179,7 @@ public class MagnetUtil {
     }
 
     public static Direction getEntityMagneticDirection(Entity entity) {
-        if (entity instanceof MagneticEntityAccessor magnetic && AlexsCavesNeoForge.COMMON_CONFIG.walkingOnMagnets.get()) {
+        if (entity instanceof MagneticEntityAccessor magnetic && AlexsCaves.COMMON_CONFIG.walkingOnMagnets.get()) {
             return magnetic.getMagneticAttachmentFace();
         }
         return Direction.DOWN;

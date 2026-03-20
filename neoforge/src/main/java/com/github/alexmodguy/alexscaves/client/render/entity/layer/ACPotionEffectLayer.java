@@ -93,7 +93,7 @@ public class ACPotionEffectLayer extends RenderLayer {
             float headPitch) {
         if (entity instanceof LivingEntity living) {
             if (living.hasEffect(ACEffectRegistry.IRRADIATED)
-                    && AlexsCavesNeoForge.CLIENT_CONFIG.radiationGlowEffect.get()) {
+                    && AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()) {
                 PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
                 int level = living.getEffect(ACEffectRegistry.IRRADIATED).getAmplifier() + 1;
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(level >= IrradiatedEffect.BLUE_LEVEL
@@ -123,7 +123,7 @@ public class ACPotionEffectLayer extends RenderLayer {
                 poseStack.popPose();
             }
             if (living.hasEffect(ACEffectRegistry.DARKNESS_INCARNATE)
-                    && AlexsCavesNeoForge.CLIENT_CONFIG.radiationGlowEffect.get() && living.isAlive()) {
+                    && AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get() && living.isAlive()) {
                 VertexConsumer ivertexbuilder = bufferIn
                         .getBuffer(ACRenderTypes.entityTranslucent(getTextureLocation(entity)));
                 poseStack.pushPose();

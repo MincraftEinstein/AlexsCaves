@@ -294,19 +294,19 @@ public class CommonEvents {
             }
             if (event.getEntity() instanceof Drowned drowned && drowned.level().getBiome(drowned.blockPosition()).is(ACBiomeRegistry.ABYSSAL_CHASM)) {
                 if (drowned.getItemBySlot(EquipmentSlot.FEET).isEmpty() && drowned.getItemBySlot(EquipmentSlot.LEGS).isEmpty() && drowned.getItemBySlot(EquipmentSlot.CHEST).isEmpty() && drowned.getItemBySlot(EquipmentSlot.HEAD).isEmpty()) {
-                    if (drowned.getRandom().nextFloat() < AlexsCavesNeoForge.COMMON_CONFIG.drownedDivingGearSpawnChance.get()) {
+                    if (drowned.getRandom().nextFloat() < AlexsCaves.COMMON_CONFIG.drownedDivingGearSpawnChance.get()) {
                         drowned.setItemSlot(EquipmentSlot.HEAD, new ItemStack(ACItemRegistry.DIVING_HELMET.get()));
                         drowned.setDropChance(EquipmentSlot.HEAD, 0.5F);
                     }
-                    if (drowned.getRandom().nextFloat() < AlexsCavesNeoForge.COMMON_CONFIG.drownedDivingGearSpawnChance.get()) {
+                    if (drowned.getRandom().nextFloat() < AlexsCaves.COMMON_CONFIG.drownedDivingGearSpawnChance.get()) {
                         drowned.setItemSlot(EquipmentSlot.CHEST, new ItemStack(ACItemRegistry.DIVING_CHESTPLATE.get()));
                         drowned.setDropChance(EquipmentSlot.CHEST, 0.5F);
                     }
-                    if (drowned.getRandom().nextFloat() < AlexsCavesNeoForge.COMMON_CONFIG.drownedDivingGearSpawnChance.get()) {
+                    if (drowned.getRandom().nextFloat() < AlexsCaves.COMMON_CONFIG.drownedDivingGearSpawnChance.get()) {
                         drowned.setItemSlot(EquipmentSlot.LEGS, new ItemStack(ACItemRegistry.DIVING_LEGGINGS.get()));
                         drowned.setDropChance(EquipmentSlot.LEGS, 0.5F);
                     }
-                    if (drowned.getRandom().nextFloat() < AlexsCavesNeoForge.COMMON_CONFIG.drownedDivingGearSpawnChance.get()) {
+                    if (drowned.getRandom().nextFloat() < AlexsCaves.COMMON_CONFIG.drownedDivingGearSpawnChance.get()) {
                         drowned.setItemSlot(EquipmentSlot.FEET, new ItemStack(ACItemRegistry.DIVING_BOOTS.get()));
                         drowned.setDropChance(EquipmentSlot.FEET, 0.5F);
                     }
@@ -341,7 +341,7 @@ public class CommonEvents {
             event.getEntity().level().playSound(null, event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), ACSoundRegistry.SUGAR_RUSH_ENTER.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
         }
         // In 1.21, isAddedToWorld() is removed - use isAlive() && level() != null
-        if (event.getEntity() instanceof Player player && player.isAlive() && player.level() != null && event.getEffectInstance().getEffect().value() instanceof SugarRushEffect && AlexsCavesNeoForge.COMMON_CONFIG.sugarRushSlowsTime.get()) {
+        if (event.getEntity() instanceof Player player && player.isAlive() && player.level() != null && event.getEffectInstance().getEffect().value() instanceof SugarRushEffect && AlexsCaves.COMMON_CONFIG.sugarRushSlowsTime.get()) {
             float timeBetweenTicksIncrease = 2F;
             SugarRushEffect.enterSlowMotion(player, player.level(), Mth.ceil(event.getEffectInstance().getDuration() * timeBetweenTicksIncrease), timeBetweenTicksIncrease);
         }
@@ -353,7 +353,7 @@ public class CommonEvents {
             darknessIncarnateEffect.toggleFlight(event.getEntity(), false);
             event.getEntity().playSound(ACSoundRegistry.DARKNESS_INCARNATE_EXIT.get());
         }
-        if (event.getEntity() instanceof Player player && event.getEffectInstance().getEffect().value() instanceof SugarRushEffect && AlexsCavesNeoForge.COMMON_CONFIG.sugarRushSlowsTime.get()) {
+        if (event.getEntity() instanceof Player player && event.getEffectInstance().getEffect().value() instanceof SugarRushEffect && AlexsCaves.COMMON_CONFIG.sugarRushSlowsTime.get()) {
             SugarRushEffect.leaveSlowMotion(player, player.level());
         }
     }
@@ -367,7 +367,7 @@ public class CommonEvents {
 
     @SubscribeEvent
     public void onServerStopping(ServerStoppingEvent event) {
-        if (AlexsCavesNeoForge.COMMON_CONFIG.sugarRushSlowsTime.get()) {
+        if (AlexsCaves.COMMON_CONFIG.sugarRushSlowsTime.get()) {
             ServerTickRateTracker tracker = ServerTickRateTracker.getForServer(event.getServer());
             tracker.tickRateModifierList.clear();
         }
@@ -415,7 +415,7 @@ public class CommonEvents {
 
     @SubscribeEvent
     public void onVillagerTradeSetup(VillagerTradesEvent event) {
-        if (event.getType() == VillagerProfession.CARTOGRAPHER && AlexsCavesNeoForge.COMMON_CONFIG.cartographersSellCabinMaps.get()) {
+        if (event.getType() == VillagerProfession.CARTOGRAPHER && AlexsCaves.COMMON_CONFIG.cartographersSellCabinMaps.get()) {
             int level = 2;
             List<VillagerTrades.ItemListing> list = event.getTrades().get(level);
             list.add(new VillagerUndergroundCabinMapTrade(5, 10, 6));
@@ -425,14 +425,14 @@ public class CommonEvents {
 
     @SubscribeEvent
     public void onWanderingTradeSetup(WandererTradesEvent event) {
-        if (AlexsCavesNeoForge.COMMON_CONFIG.wanderingTradersSellCabinMaps.get()) {
+        if (AlexsCaves.COMMON_CONFIG.wanderingTradersSellCabinMaps.get()) {
             event.getGenericTrades().add(new VillagerUndergroundCabinMapTrade(8, 1, 10));
         }
     }
 
     @SubscribeEvent
     public void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-        if (AlexsCavesNeoForge.COMMON_CONFIG.warnGenerationIncompatibility.get() && !AlexsCavesNeoForge.MOD_GENERATION_CONFLICTS.isEmpty() && event.getEntity().level().isClientSide) {
+        if (AlexsCaves.COMMON_CONFIG.warnGenerationIncompatibility.get() && !AlexsCavesNeoForge.MOD_GENERATION_CONFLICTS.isEmpty() && event.getEntity().level().isClientSide) {
             for (String modid : AlexsCavesNeoForge.MOD_GENERATION_CONFLICTS) {
                 if (ModList.get().isLoaded(modid)) {
                     event.getEntity().sendSystemMessage(Component.translatable("alexscaves.startup_warning.generation_incompatible", modid).withStyle(ChatFormatting.RED));

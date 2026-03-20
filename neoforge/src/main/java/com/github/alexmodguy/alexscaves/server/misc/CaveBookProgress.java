@@ -1,8 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.misc;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
-import com.github.alexthe666.citadel.Citadel;
 import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
 import com.github.alexthe666.citadel.server.message.PropertiesMessage;
 import net.minecraft.nbt.CompoundTag;
@@ -72,7 +71,7 @@ public class CaveBookProgress {
             return false;
         } else {
             if(Subcategory.canUnlockNext(biomeCategory, prev)){
-                Subcategory unlocked = AlexsCavesNeoForge.COMMON_CONFIG.onlyOneResearchNeeded.get() ? Subcategory.getLastUnlockableFor(biomeCategory) : Subcategory.getByOrdinal(prev + 1);
+                Subcategory unlocked = AlexsCaves.COMMON_CONFIG.onlyOneResearchNeeded.get() ? Subcategory.getLastUnlockableFor(biomeCategory) : Subcategory.getByOrdinal(prev + 1);
                 unlockedPages.put(biomeCategory, unlocked);
                 return true;
             }

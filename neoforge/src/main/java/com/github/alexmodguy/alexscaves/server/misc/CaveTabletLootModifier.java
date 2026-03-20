@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.misc;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.config.BiomeGenerationConfig;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
@@ -77,22 +77,22 @@ public class CaveTabletLootModifier implements IGlobalLootModifier {
             return 0F;
         }
         if (biome.equals(ACBiomeRegistry.MAGNETIC_CAVES)) {
-            return AlexsCavesNeoForge.COMMON_CONFIG.magneticTabletLootChance.get().floatValue();
+            return AlexsCaves.COMMON_CONFIG.magneticTabletLootChance.get().floatValue();
         }
         if (biome.equals(ACBiomeRegistry.PRIMORDIAL_CAVES)) {
-            return AlexsCavesNeoForge.COMMON_CONFIG.primordialTabletLootChance.get().floatValue();
+            return AlexsCaves.COMMON_CONFIG.primordialTabletLootChance.get().floatValue();
         }
         if (biome.equals(ACBiomeRegistry.TOXIC_CAVES)) {
-            return AlexsCavesNeoForge.COMMON_CONFIG.toxicTabletLootChance.get().floatValue();
+            return AlexsCaves.COMMON_CONFIG.toxicTabletLootChance.get().floatValue();
         }
         if (biome.equals(ACBiomeRegistry.ABYSSAL_CHASM)) {
-            return AlexsCavesNeoForge.COMMON_CONFIG.abyssalTabletLootChance.get().floatValue();
+            return AlexsCaves.COMMON_CONFIG.abyssalTabletLootChance.get().floatValue();
         }
         if (biome.equals(ACBiomeRegistry.FORLORN_HOLLOWS)) {
-            return AlexsCavesNeoForge.COMMON_CONFIG.forlornTabletLootChance.get().floatValue();
+            return AlexsCaves.COMMON_CONFIG.forlornTabletLootChance.get().floatValue();
         }
         if (biome.equals(ACBiomeRegistry.CANDY_CAVITY)) {
-            return AlexsCavesNeoForge.COMMON_CONFIG.candyTabletLootChance.get().floatValue();
+            return AlexsCaves.COMMON_CONFIG.candyTabletLootChance.get().floatValue();
         }
         return 0F;
     }

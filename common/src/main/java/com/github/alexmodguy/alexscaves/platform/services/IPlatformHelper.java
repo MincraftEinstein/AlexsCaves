@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.platform.services;
 
+import java.nio.file.Path;
+
 public interface IPlatformHelper {
 
     /**
@@ -32,6 +34,8 @@ public interface IPlatformHelper {
     default Environment getEnvironmentName() {
         return isDevelopmentEnvironment() ? Environment.DEVELOPMENT : Environment.PRODUCTION;
     }
+
+    Path getGameDir();
 
     enum Platform {
         FABRIC("fabric"),

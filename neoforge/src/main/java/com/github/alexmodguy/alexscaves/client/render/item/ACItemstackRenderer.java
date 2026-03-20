@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.gui.book.widget.ItemWidget;
 import com.github.alexmodguy.alexscaves.client.model.*;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
@@ -117,7 +116,7 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
                     CaveMapRenderHelper.renderTwoHandedCaveMap(poseStack, bufferIn, combinedLightIn, partialTick, 0, 0, itemStackIn);
                 }
                 poseStack.popPose();
-            } else if(heldIn3d && AlexsCavesNeoForge.CLIENT_CONFIG.caveMapsVisibleInThirdPerson.get() && done){
+            } else if(heldIn3d && AlexsCaves.CLIENT_CONFIG.caveMapsVisibleInThirdPerson.get() && done){
                 poseStack.translate(left ? 0.15F : -0.15F, 0.25F, 0.05F);
                 poseStack.scale(1.5F, 1.5F, 1.5F);
                 CaveMapRenderHelper.renderCaveMap(poseStack, bufferIn, combinedLightIn, itemStackIn, true);

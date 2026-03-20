@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.mixin.client;
 
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.Holder;
@@ -33,7 +33,7 @@ public abstract class ClientLevelMixin extends Level {
             ),
             cancellable = true)
     private void ac_getSkyColor_timeOfDay(Vec3 position, float partialTick, CallbackInfoReturnable<Vec3> cir) {
-        if (AlexsCavesNeoForge.CLIENT_CONFIG.biomeSkyOverrides.get()) {
+        if (AlexsCaves.CLIENT_CONFIG.biomeSkyOverrides.get()) {
             if (ClientProxy.acSkyOverrideAmount > 0.0F) {
                 Vec3 prevVec3 = cir.getReturnValue();
                 Vec3 sampledVec3 = ClientProxy.acSkyOverrideColor;
@@ -49,7 +49,7 @@ public abstract class ClientLevelMixin extends Level {
             ),
             cancellable = true)
     private void ac_getSkyDarken_timeOfDay(float partialTick, CallbackInfoReturnable<Float> cir) {
-        if (AlexsCavesNeoForge.CLIENT_CONFIG.biomeSkyOverrides.get()) {
+        if (AlexsCaves.CLIENT_CONFIG.biomeSkyOverrides.get()) {
             float skyDarken = cir.getReturnValue();
             if (ClientProxy.acSkyOverrideAmount > 0.0F) {
                 cir.setReturnValue(Math.max(skyDarken, ClientProxy.acSkyOverrideAmount));

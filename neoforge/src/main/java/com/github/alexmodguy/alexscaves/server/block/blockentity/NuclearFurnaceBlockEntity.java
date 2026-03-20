@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
@@ -542,17 +543,17 @@ public class NuclearFurnaceBlockEntity extends BaseContainerBlockEntity implemen
     }
 
     public static RecipeType<? extends AbstractCookingRecipe> getRecipeType(){
-        if (AlexsCavesNeoForge.COMMON_CONFIG.nuclearFurnaceCustomType.get()) {
+        if (AlexsCaves.COMMON_CONFIG.nuclearFurnaceCustomType.get()) {
             return ACRecipeRegistry.NUCLEAR_FURNACE_TYPE.get();
         }
-        return AlexsCavesNeoForge.COMMON_CONFIG.nuclearFurnaceBlastingOnly.get() ? RecipeType.BLASTING : RecipeType.SMELTING;
+        return AlexsCaves.COMMON_CONFIG.nuclearFurnaceBlastingOnly.get() ? RecipeType.BLASTING : RecipeType.SMELTING;
     }
 
     public static float getSpeedReduction(){
-        if (AlexsCavesNeoForge.COMMON_CONFIG.nuclearFurnaceCustomType.get()) {
+        if (AlexsCaves.COMMON_CONFIG.nuclearFurnaceCustomType.get()) {
             return SPEED_REDUCTION;
         }
-        return AlexsCavesNeoForge.COMMON_CONFIG.nuclearFurnaceBlastingOnly.get() ? SPEED_REDUCTION : SPEED_REDUCTION * 0.5F;
+        return AlexsCaves.COMMON_CONFIG.nuclearFurnaceBlastingOnly.get() ? SPEED_REDUCTION : SPEED_REDUCTION * 0.5F;
     }
 
     public static int getMaxFissionTime() {

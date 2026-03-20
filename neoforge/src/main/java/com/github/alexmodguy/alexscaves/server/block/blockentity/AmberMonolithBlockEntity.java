@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.level.storage.ACWorldData;
@@ -187,7 +186,7 @@ public class AmberMonolithBlockEntity extends BlockEntity {
             int j = Math.max(spawnerData.maxCount - spawnerData.minCount, 0);
             spawnCount = j <= 0 ? spawnerData.minCount : level.random.nextInt(j) + spawnerData.minCount;
         }
-        int i = Math.max(1000, AlexsCavesNeoForge.COMMON_CONFIG.amberMonolithMeanTime.get());
+        int i = Math.max(1000, AlexsCaves.COMMON_CONFIG.amberMonolithMeanTime.get());
         spawnsMobIn = i / 2 + level.getRandom().nextInt(i);
         level.sendBlockUpdated(this.getBlockPos(), this.getBlockState(), this.getBlockState(), 2);
     }

@@ -47,7 +47,7 @@ public class CaveBiomeMapWorldWorker implements WorldWorkerManager.IWorker {
     private BlockPos lastBiomePos = null;
     private boolean complete;
     private int samples = 0;
-    private static final int SAMPLE_INCREMENT = AlexsCavesNeoForge.COMMON_CONFIG.caveMapSearchWidth.get();
+    private static final int SAMPLE_INCREMENT = AlexsCaves.COMMON_CONFIG.caveMapSearchWidth.get();
     private int width = 0;
     private int nextWidth = SAMPLE_INCREMENT;
     private BlockPos.MutableBlockPos nextPos = new BlockPos.MutableBlockPos();
@@ -66,7 +66,7 @@ public class CaveBiomeMapWorldWorker implements WorldWorkerManager.IWorker {
 
     @Override
     public boolean hasWork() {
-        boolean ret = !complete && samples < AlexsCavesNeoForge.COMMON_CONFIG.caveMapSearchAttempts.get() && !this.serverLevel.getServer().isStopped();
+        boolean ret = !complete && samples < AlexsCaves.COMMON_CONFIG.caveMapSearchAttempts.get() && !this.serverLevel.getServer().isStopped();
         if(!ret){
             onWorkComplete(getLastFoundBiome());
         }

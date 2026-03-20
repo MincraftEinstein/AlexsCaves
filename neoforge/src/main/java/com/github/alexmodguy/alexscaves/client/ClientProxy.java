@@ -37,7 +37,6 @@ import com.github.alexmodguy.alexscaves.server.misc.ACKeybindRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
 import com.github.alexthe666.citadel.client.tick.ClientTickRateTracker;
-import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -528,7 +527,7 @@ public class ClientProxy extends CommonProxy {
     }
 
     private void bakeModels(final ModelEvent.ModifyBakingResult e) {
-        if (AlexsCavesNeoForge.CLIENT_CONFIG.emissiveBlockModels.get()) {
+        if (AlexsCaves.CLIENT_CONFIG.emissiveBlockModels.get()) {
             long time = System.currentTimeMillis();
             for (ModelResourceLocation id : e.getModels().keySet()) {
                 if (FULLBRIGHTS.stream().anyMatch(str -> id.toString().startsWith(str))) {
@@ -1191,7 +1190,7 @@ public class ClientProxy extends CommonProxy {
         float screenEffectIntensity = Minecraft.getInstance().options.screenEffectScale().get().floatValue();
         float watcherPossessionStrength = getPossessionStrengthAmount(partialTick);
         float nukeFlashAmount = getNukeFlashAmount(partialTick);
-        if (nukeFlashAmount > 0 && (AlexsCavesNeoForge.CLIENT_CONFIG.nuclearBombFlash.get())) {
+        if (nukeFlashAmount > 0 && (AlexsCaves.CLIENT_CONFIG.nuclearBombFlash.get())) {
             int screenWidth = Minecraft.getInstance().getWindow().getGuiScaledWidth();
             int screenHeight = Minecraft.getInstance().getWindow().getGuiScaledHeight();
             RenderSystem.disableDepthTest();

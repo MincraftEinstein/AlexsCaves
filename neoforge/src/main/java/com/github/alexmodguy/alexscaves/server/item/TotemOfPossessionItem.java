@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
@@ -120,7 +121,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
             }
             return;
         }
-        if (!isBound(stack) || controlledEntity == null || !isEntityLookingAt(user, controlledEntity, 5F) && ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.SIGHTLESS, stack) == 0 || controlledEntity instanceof Player && !AlexsCavesNeoForge.COMMON_CONFIG.totemOfPossessionPlayers.get()) {
+        if (!isBound(stack) || controlledEntity == null || !isEntityLookingAt(user, controlledEntity, 5F) && ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.SIGHTLESS, stack) == 0 || controlledEntity instanceof Player && !AlexsCaves.COMMON_CONFIG.totemOfPossessionPlayers.get()) {
 
             user.stopUsingItem();
             if (level.isClientSide) {
@@ -289,7 +290,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity hurtMob, LivingEntity livingEntity1) {
-        if (hurtMob.getType().is(ACTagRegistry.RESISTS_TOTEM_OF_POSSESSION) || hurtMob instanceof Player && !AlexsCavesNeoForge.COMMON_CONFIG.totemOfPossessionPlayers.get()) {
+        if (hurtMob.getType().is(ACTagRegistry.RESISTS_TOTEM_OF_POSSESSION) || hurtMob instanceof Player && !AlexsCaves.COMMON_CONFIG.totemOfPossessionPlayers.get()) {
             if (livingEntity1 instanceof Player player) {
                 player.displayClientMessage(Component.translatable("item.alexscaves.totem_of_possession.invalid"), true);
             }

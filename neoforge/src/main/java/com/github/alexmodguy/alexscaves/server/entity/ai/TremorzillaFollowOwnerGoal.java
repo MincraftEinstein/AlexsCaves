@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.ai;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.entity.living.TremorzillaEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
@@ -86,7 +86,7 @@ public class TremorzillaFollowOwnerGoal extends Goal {
         this.tremorzilla.getLookControl().setLookAt(this.owner, 10.0F, (float)this.tremorzilla.getMaxHeadXRot());
         if (--this.timeToRecalcPath <= 0) {
             this.timeToRecalcPath = this.adjustedTickDelay(10);
-            if (this.tremorzilla.distanceToSqr(this.owner) >= TELEPORT_WHEN_DISTANCE_IS * TELEPORT_WHEN_DISTANCE_IS && AlexsCavesNeoForge.COMMON_CONFIG.devastatingTremorzillaBeam.get()) {
+            if (this.tremorzilla.distanceToSqr(this.owner) >= TELEPORT_WHEN_DISTANCE_IS * TELEPORT_WHEN_DISTANCE_IS && AlexsCaves.COMMON_CONFIG.devastatingTremorzillaBeam.get()) {
                 this.teleportToOwner();
             } else {
                 this.tremorzilla.getNavigation().moveTo(this.owner, this.speedModifier);

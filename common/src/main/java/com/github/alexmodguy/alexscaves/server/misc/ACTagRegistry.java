@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.misc;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -11,6 +10,8 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.material.Fluid;
+
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
 
 public class ACTagRegistry {
 
@@ -96,7 +97,7 @@ public class ACTagRegistry {
     public static final TagKey<Fluid> DOES_NOT_FLOW_INTO_WATERLOGGABLE_BLOCKS = registerFluidTag("does_not_flow_into_waterloggable_blocks");
 
     private static TagKey<EntityType<?>> registerEntityTag(String name) {
-        return TagKey.create(Registries.ENTITY_TYPE, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, name));
+        return TagKey.create(Registries.ENTITY_TYPE, id(name));
     }
 
     private static TagKey<Item> registerCommonItemTag(String name) {
@@ -104,26 +105,26 @@ public class ACTagRegistry {
     }
 
     private static TagKey<Item> registerItemTag(String name) {
-        return TagKey.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, name));
+        return TagKey.create(Registries.ITEM, id(name));
     }
 
     private static TagKey<Block> registerBlockTag(String name) {
-        return TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, name));
+        return TagKey.create(Registries.BLOCK, id(name));
     }
 
     private static TagKey<Biome> registerBiomeTag(String name) {
-        return TagKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, name));
+        return TagKey.create(Registries.BIOME, id(name));
     }
 
     private static TagKey<Structure> registerStructureTag(String name) {
-        return TagKey.create(Registries.STRUCTURE, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, name));
+        return TagKey.create(Registries.STRUCTURE, id(name));
     }
 
     private static TagKey<DamageType> registerDamageTypeTag(String name) {
-        return TagKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, name));
+        return TagKey.create(Registries.DAMAGE_TYPE, id(name));
     }
 
     private static TagKey<Fluid> registerFluidTag(String name) {
-        return TagKey.create(Registries.FLUID, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, name));
+        return TagKey.create(Registries.FLUID, id(name));
     }
 }

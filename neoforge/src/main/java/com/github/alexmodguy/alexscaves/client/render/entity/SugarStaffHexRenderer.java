@@ -18,7 +18,7 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
 public class SugarStaffHexRenderer extends EntityRenderer<SugarStaffHexEntity> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/sugar_staff_hex.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/sugar_staff_hex.png");
 
     public SugarStaffHexRenderer(EntityRendererProvider.Context context) {
         super(context);

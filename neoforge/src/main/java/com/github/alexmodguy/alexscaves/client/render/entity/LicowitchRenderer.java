@@ -35,7 +35,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.*;
 
 public class LicowitchRenderer extends MobRenderer<LicowitchEntity, LicowitchModel> {
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/licowitch.png");
+    public static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/licowitch.png");
 
     private static final Set<LicowitchEntity> allTeleportingLicowitchOnScreen = new HashSet<>();
 

@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class GumbeeperEnergySwirlLayer extends EnergySwirlLayer<GumbeeperEntity, GumbeeperModel> {
-    private static final ResourceLocation POWER_LOCATION = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumbeeper_charged.png");
+    private static final ResourceLocation POWER_LOCATION = AlexsCaves.id("textures/entity/gumbeeper_charged.png");
     private final GumbeeperModel model = new GumbeeperModel(1.0F);
 
     public GumbeeperEnergySwirlLayer(RenderLayerParent<GumbeeperEntity, GumbeeperModel> renderer) {

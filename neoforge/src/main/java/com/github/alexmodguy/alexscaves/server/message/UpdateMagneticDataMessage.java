@@ -20,7 +20,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class UpdateMagneticDataMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<UpdateMagneticDataMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "update_magnetic_data"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("update_magnetic_data"));
 
     public static final StreamCodec<FriendlyByteBuf, UpdateMagneticDataMessage> CODEC =
         StreamCodec.ofMember(UpdateMagneticDataMessage::write, UpdateMagneticDataMessage::read);

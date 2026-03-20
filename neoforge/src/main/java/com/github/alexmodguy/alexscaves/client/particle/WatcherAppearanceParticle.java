@@ -21,7 +21,7 @@ import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
 
 public class WatcherAppearanceParticle extends Particle {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/watcher_appearance.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/watcher_appearance.png");
     private final WatcherModel model = new WatcherModel();
     private final RenderType renderType = RenderType.entityTranslucent(TEXTURE);
 

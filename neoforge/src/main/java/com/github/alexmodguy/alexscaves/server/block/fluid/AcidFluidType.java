@@ -29,9 +29,9 @@ import java.util.function.Consumer;
 
 public class AcidFluidType extends FluidType {
 
-    public static final ResourceLocation FLUID_STILL = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "block/acid_still");
-    public static final ResourceLocation FLUID_FLOWING = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "block/acid_flowing");
-    public static final ResourceLocation OVERLAY = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/misc/under_acid.png");
+    public static final ResourceLocation FLUID_STILL = AlexsCaves.id("block/acid_still");
+    public static final ResourceLocation FLUID_FLOWING = AlexsCaves.id("block/acid_flowing");
+    public static final ResourceLocation OVERLAY = AlexsCaves.id("textures/misc/under_acid.png");
 
     public AcidFluidType(Properties properties) {
         super(properties);

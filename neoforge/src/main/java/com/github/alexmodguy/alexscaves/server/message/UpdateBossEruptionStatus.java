@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class UpdateBossEruptionStatus implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<UpdateBossEruptionStatus> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "update_boss_eruption_status"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("update_boss_eruption_status"));
 
     public static final StreamCodec<FriendlyByteBuf, UpdateBossEruptionStatus> CODEC =
         StreamCodec.ofMember(UpdateBossEruptionStatus::write, UpdateBossEruptionStatus::read);

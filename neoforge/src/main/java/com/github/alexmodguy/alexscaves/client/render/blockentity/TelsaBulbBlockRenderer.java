@@ -17,7 +17,7 @@ import net.minecraft.util.RandomSource;
 public class TelsaBulbBlockRenderer<T extends TeslaBulbBlockEntity> implements BlockEntityRenderer<T> {
 
     private static final TeslaBulbModel MODEL = new TeslaBulbModel();
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/tesla_bulb.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/tesla_bulb.png");
 
     protected final RandomSource random = RandomSource.create();
 

@@ -17,7 +17,7 @@ import net.minecraft.util.Mth;
 
 public class DarkArrowRenderer extends EntityRenderer<DarkArrowEntity> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/dark_arrow.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/dark_arrow.png");
     private static final DarkArrowModel MODEL = new DarkArrowModel();
 
     public DarkArrowRenderer(EntityRendererProvider.Context context) {

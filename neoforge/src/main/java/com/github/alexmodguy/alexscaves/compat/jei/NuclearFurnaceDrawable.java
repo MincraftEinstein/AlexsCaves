@@ -8,7 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class NuclearFurnaceDrawable implements IDrawable {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/gui/nuclear_furnace.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/gui/nuclear_furnace.png");
 
     @Override
     public int getWidth() {

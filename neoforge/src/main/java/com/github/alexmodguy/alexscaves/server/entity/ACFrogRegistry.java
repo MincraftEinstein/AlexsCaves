@@ -11,6 +11,6 @@ public class ACFrogRegistry {
 
     public static final DeferredRegister<FrogVariant> DEF_REG = DeferredRegister.create(Registries.FROG_VARIANT, AlexsCaves.MOD_ID);
 
-    public static final DeferredHolder<FrogVariant, FrogVariant> PRIMORDIAL = DEF_REG.register("primordial", () -> new FrogVariant(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/primordial_frog.png")));
+    public static final DeferredHolder<FrogVariant, FrogVariant> PRIMORDIAL = DEF_REG.register("primordial", () -> new FrogVariant(AlexsCaves.id("textures/entity/primordial_frog.png")));
 
 }

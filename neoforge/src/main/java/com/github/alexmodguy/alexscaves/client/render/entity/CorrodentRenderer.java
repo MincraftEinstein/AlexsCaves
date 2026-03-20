@@ -26,8 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CorrodentRenderer extends MobRenderer<CorrodentEntity, CorrodentModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/corrodent.png");
-    private static final ResourceLocation TEXTURE_EYES = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/corrodent_eyes.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/corrodent.png");
+    private static final ResourceLocation TEXTURE_EYES = AlexsCaves.id("textures/entity/corrodent_eyes.png");
     private static final Map<BlockPos, Integer> allDugBlocksOnScreen = new HashMap<>();
 
     public CorrodentRenderer(EntityRendererProvider.Context renderManagerIn) {

@@ -20,7 +20,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class UpdateItemTagMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<UpdateItemTagMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "update_item_tag"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("update_item_tag"));
 
     public static final StreamCodec<RegistryFriendlyByteBuf, UpdateItemTagMessage> CODEC =
         StreamCodec.ofMember(UpdateItemTagMessage::write, UpdateItemTagMessage::read);

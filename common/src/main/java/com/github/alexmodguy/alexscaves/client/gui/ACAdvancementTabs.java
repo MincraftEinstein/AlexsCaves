@@ -15,6 +15,8 @@ import net.minecraft.util.Mth;
 
 import java.util.Locale;
 
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
+
 public class ACAdvancementTabs {
 
     private static final float MAX_TRANSITION_TIME = 25F;
@@ -123,20 +125,20 @@ public class ACAdvancementTabs {
     }
 
     public enum Type {
-        DEFAULT(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "alexscaves/root"), 0,
+        DEFAULT(id("alexscaves/root"), 0,
                 ResourceLocation.withDefaultNamespace("textures/block/stone.png")),
-        MAGNETIC(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "alexscaves/discover_magnetic_caves"),
-                0X060607, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/block/galena.png")),
-        PRIMORDIAL(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "alexscaves/discover_primordial_caves"),
-                0XF2D860, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/block/limestone.png")),
-        TOXIC(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "alexscaves/discover_toxic_caves"), 0X7EFF00,
-                ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/block/radrock.png")),
-        ABYSSAL(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "alexscaves/discover_abyssal_chasm"), 0X011437,
-                ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/block/abyssmarine.png")),
-        FORLORN(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "alexscaves/discover_forlorn_hollows"),
-                0X15110E, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/block/guanostone.png")),
-        CANDY(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "alexscaves/discover_candy_cavity"), 0XF795CA,
-                ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/block/block_of_chocolate.png"));
+        MAGNETIC(id("alexscaves/discover_magnetic_caves"),
+                0X060607, id("textures/block/galena.png")),
+        PRIMORDIAL(id("alexscaves/discover_primordial_caves"),
+                0XF2D860, id("textures/block/limestone.png")),
+        TOXIC(id("alexscaves/discover_toxic_caves"), 0X7EFF00,
+                id("textures/block/radrock.png")),
+        ABYSSAL(id("alexscaves/discover_abyssal_chasm"), 0X011437,
+                id("textures/block/abyssmarine.png")),
+        FORLORN(id("alexscaves/discover_forlorn_hollows"),
+                0X15110E, id("textures/block/guanostone.png")),
+        CANDY(id("alexscaves/discover_candy_cavity"), 0XF795CA,
+                id("textures/block/block_of_chocolate.png"));
 
         ResourceLocation root;
 
@@ -155,7 +157,7 @@ public class ACAdvancementTabs {
 
         private ResourceLocation generateTexture(String type) {
             return this == DEFAULT ? null
-                    : ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID,
+                    : id(
                             "textures/misc/advancement/" + this.name().toLowerCase(Locale.ROOT) + "_" + type + ".png");
         }
 

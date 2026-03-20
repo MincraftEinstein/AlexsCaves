@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.NucleeperModel;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
@@ -21,14 +20,16 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
+
 public class NucleeperRenderer extends MobRenderer<NucleeperEntity, NucleeperModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/nucleeper/nucleeper.png");
-    private static final ResourceLocation TEXTURE_GLOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/nucleeper/nucleeper_glow.png");
-    private static final ResourceLocation TEXTURE_GLASS = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/nucleeper/nucleeper_glass.png");
-    private static final ResourceLocation TEXTURE_BUTTONS_0 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/nucleeper/nucleeper_buttons_0.png");
-    private static final ResourceLocation TEXTURE_BUTTONS_1 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/nucleeper/nucleeper_buttons_1.png");
-    private static final ResourceLocation TEXTURE_BUTTONS_2 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/nucleeper/nucleeper_buttons_2.png");
-    private static final ResourceLocation TEXTURE_EXPLODE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/nucleeper/nucleeper_explode.png");
+    private static final ResourceLocation TEXTURE = id("textures/entity/nucleeper/nucleeper.png");
+    private static final ResourceLocation TEXTURE_GLOW = id("textures/entity/nucleeper/nucleeper_glow.png");
+    private static final ResourceLocation TEXTURE_GLASS = id("textures/entity/nucleeper/nucleeper_glass.png");
+    private static final ResourceLocation TEXTURE_BUTTONS_0 = id("textures/entity/nucleeper/nucleeper_buttons_0.png");
+    private static final ResourceLocation TEXTURE_BUTTONS_1 = id("textures/entity/nucleeper/nucleeper_buttons_1.png");
+    private static final ResourceLocation TEXTURE_BUTTONS_2 = id("textures/entity/nucleeper/nucleeper_buttons_2.png");
+    private static final ResourceLocation TEXTURE_EXPLODE = id("textures/entity/nucleeper/nucleeper_explode.png");
 
 
     public NucleeperRenderer(EntityRendererProvider.Context renderManagerIn) {

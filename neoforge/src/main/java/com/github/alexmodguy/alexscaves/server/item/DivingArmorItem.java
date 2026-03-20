@@ -26,7 +26,7 @@ public class DivingArmorItem extends ArmorItem {
     }
 
     private static ItemAttributeModifiers createDivingAttributes(ACArmorMaterial armorMaterial, Type slot) {
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "armor_diving_" + slot.getName());
+        ResourceLocation id = AlexsCaves.id("armor_diving_" + slot.getName());
         EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(slot.getSlot());
         ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
         builder.add(Attributes.ARMOR, new AttributeModifier(id, armorMaterial.getDefenseForType(slot), AttributeModifier.Operation.ADD_VALUE), slotGroup);
@@ -51,9 +51,9 @@ public class DivingArmorItem extends ArmorItem {
     @Nullable
     public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
         if (slot == EquipmentSlot.LEGS) {
-            return ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/armor/diving_suit_1.png");
+            return AlexsCaves.id("textures/armor/diving_suit_1.png");
         } else {
-            return ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/armor/diving_suit_0.png");
+            return AlexsCaves.id("textures/armor/diving_suit_0.png");
         }
     }
 }

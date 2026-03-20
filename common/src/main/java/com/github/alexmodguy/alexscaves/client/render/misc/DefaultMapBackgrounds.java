@@ -61,7 +61,7 @@ public enum DefaultMapBackgrounds {
 
     public int getMapColor(int u, int v) {
         if(texture == null){
-            texture = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/misc/map/" + this.name().toLowerCase(Locale.ROOT) + "_background.png");
+            texture = AlexsCaves.id("textures/misc/map/" + this.name().toLowerCase(Locale.ROOT) + "_background.png");
         }
         MapBackgroundTexture backgroundTexture = getBackgroundTexture(this.ordinal(), texture);
         return backgroundTexture.getNativeImage() == null ? 0 : clampNativeImg(backgroundTexture.getNativeImage(), u, v);

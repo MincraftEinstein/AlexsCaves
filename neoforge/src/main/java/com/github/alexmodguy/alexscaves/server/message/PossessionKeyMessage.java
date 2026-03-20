@@ -13,7 +13,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class PossessionKeyMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<PossessionKeyMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "possession_key"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("possession_key"));
 
     public static final StreamCodec<FriendlyByteBuf, PossessionKeyMessage> CODEC =
         StreamCodec.ofMember(PossessionKeyMessage::write, PossessionKeyMessage::read);

@@ -15,7 +15,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class SundropRainbowMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<SundropRainbowMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "sundrop_rainbow"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("sundrop_rainbow"));
 
     public static final StreamCodec<FriendlyByteBuf, SundropRainbowMessage> CODEC =
         StreamCodec.ofMember(SundropRainbowMessage::write, SundropRainbowMessage::read);

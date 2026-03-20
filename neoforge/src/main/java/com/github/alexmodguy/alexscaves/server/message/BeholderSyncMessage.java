@@ -13,7 +13,7 @@ import java.util.UUID;
 public class BeholderSyncMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<BeholderSyncMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "beholder_sync"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("beholder_sync"));
 
     public static final StreamCodec<FriendlyByteBuf, BeholderSyncMessage> CODEC =
         StreamCodec.ofMember(BeholderSyncMessage::write, BeholderSyncMessage::read);

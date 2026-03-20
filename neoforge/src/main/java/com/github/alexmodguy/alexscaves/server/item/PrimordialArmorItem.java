@@ -31,9 +31,9 @@ public class PrimordialArmorItem extends ArmorItem {
     @Nullable
     public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
         if (slot == EquipmentSlot.LEGS) {
-            return ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/armor/primordial_armor_1.png");
+            return AlexsCaves.id("textures/armor/primordial_armor_1.png");
         } else {
-            return ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/armor/primordial_armor_0.png");
+            return AlexsCaves.id("textures/armor/primordial_armor_0.png");
         }
     }
 

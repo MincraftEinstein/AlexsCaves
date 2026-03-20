@@ -30,7 +30,7 @@ import java.util.UUID;
 
 public class BeholderEyeEntity extends Entity implements PossessesCamera {
 
-    public static final TicketController TICKET_CONTROLLER = new TicketController(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "beholder_eye"));
+    public static final TicketController TICKET_CONTROLLER = new TicketController(AlexsCaves.id("beholder_eye"));
 
     private static final int LOAD_CHUNK_DISTANCE = 2;
     private static final EntityDataAccessor<Optional<UUID>> USING_PLAYER_ID = SynchedEntityData.defineId(BeholderEyeEntity.class, EntityDataSerializers.OPTIONAL_UUID);

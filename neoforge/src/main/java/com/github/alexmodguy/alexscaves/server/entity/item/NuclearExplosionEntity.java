@@ -36,7 +36,7 @@ import java.util.Stack;
 
 public class NuclearExplosionEntity extends Entity {
 
-    public static final TicketController TICKET_CONTROLLER = new TicketController(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "nuclear_explosion"));
+    public static final TicketController TICKET_CONTROLLER = new TicketController(AlexsCaves.id("nuclear_explosion"));
 
     private static final int TREMORZILLA_EGG_HATCH_RADIUS = 36;
 

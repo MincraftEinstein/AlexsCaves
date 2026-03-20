@@ -28,10 +28,10 @@ import net.minecraft.world.phys.Vec3;
 
 public class MushroomCloudParticle extends Particle {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/mushroom_cloud.png");
-    private static final ResourceLocation TEXTURE_GLOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/mushroom_cloud_glow.png");
-    private static final ResourceLocation TEXTURE_PINK = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/mushroom_cloud_pink.png");
-    private static final ResourceLocation TEXTURE_PINK_GLOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/mushroom_cloud_pink_glow.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/particle/mushroom_cloud.png");
+    private static final ResourceLocation TEXTURE_GLOW = AlexsCaves.id("textures/particle/mushroom_cloud_glow.png");
+    private static final ResourceLocation TEXTURE_PINK = AlexsCaves.id("textures/particle/mushroom_cloud_pink.png");
+    private static final ResourceLocation TEXTURE_PINK_GLOW = AlexsCaves.id("textures/particle/mushroom_cloud_pink_glow.png");
     private static final MushroomCloudModel MODEL = new MushroomCloudModel();
     private static final int BALL_FOR = 10;
     private static final int GLOW_FOR = 20;

@@ -21,10 +21,10 @@ import net.minecraft.world.phys.Vec3;
 import java.util.HashMap;
 
 public class ForsakenRenderer extends MobRenderer<ForsakenEntity, ForsakenModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/forsaken.png");
-    private static final ResourceLocation TEXTURE_EYES = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/forsaken_eyes.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/forsaken.png");
+    private static final ResourceLocation TEXTURE_EYES = AlexsCaves.id("textures/entity/forsaken_eyes.png");
 
-    private static final ResourceLocation TEXTURE_DARKNESS = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/forsaken_darkness.png");
+    private static final ResourceLocation TEXTURE_DARKNESS = AlexsCaves.id("textures/entity/forsaken_darkness.png");
 
     private static final HashMap<Integer, Vec3> mouthParticlePositions = new HashMap<>();
 

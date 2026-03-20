@@ -20,13 +20,13 @@ public class UndergroundCabinStructure extends Structure {
     public static final MapCodec<UndergroundCabinStructure> CODEC = simpleCodec((settings) -> new UndergroundCabinStructure(settings));
 
     private static final ResourceLocation[] CABIN_NBT = new ResourceLocation[]{
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "underground_cabin_0"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "underground_cabin_1"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "underground_cabin_2"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "underground_cabin_3"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "underground_cabin_4"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "underground_cabin_5"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "underground_cabin_6")
+            AlexsCaves.id("underground_cabin_0"),
+            AlexsCaves.id("underground_cabin_1"),
+            AlexsCaves.id("underground_cabin_2"),
+            AlexsCaves.id("underground_cabin_3"),
+            AlexsCaves.id("underground_cabin_4"),
+            AlexsCaves.id("underground_cabin_5"),
+            AlexsCaves.id("underground_cabin_6")
     };
 
     public UndergroundCabinStructure(StructureSettings settings) {

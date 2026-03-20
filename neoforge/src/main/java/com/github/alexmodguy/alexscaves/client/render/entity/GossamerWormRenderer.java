@@ -16,7 +16,7 @@ import net.neoforged.neoforge.entity.PartEntity;
 import javax.annotation.Nullable;
 
 public class GossamerWormRenderer extends MobRenderer<GossamerWormEntity, GossamerWormModel> implements CustomBookEntityRenderer {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gossamer_worm.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/gossamer_worm.png");
 
     private boolean sepia;
 

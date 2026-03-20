@@ -9,9 +9,9 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class SubterranodonRenderer extends MobRenderer<SubterranodonEntity, SubterranodonModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/subterranodon.png");
-    private static final ResourceLocation TEXTURE_RETRO = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/subterranodon_retro.png");
-    private static final ResourceLocation TEXTURE_TECTONIC = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/subterranodon_tectonic.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/subterranodon.png");
+    private static final ResourceLocation TEXTURE_RETRO = AlexsCaves.id("textures/entity/subterranodon_retro.png");
+    private static final ResourceLocation TEXTURE_TECTONIC = AlexsCaves.id("textures/entity/subterranodon_tectonic.png");
 
     public SubterranodonRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new SubterranodonModel(), 0.5F);

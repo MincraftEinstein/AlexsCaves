@@ -16,7 +16,7 @@ import net.minecraft.util.Mth;
 
 public class LimestoneSpearRenderer extends EntityRenderer<LimestoneSpearEntity> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/limestone_spear.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/limestone_spear.png");
     private static final LimestoneSpearModel MODEL = new LimestoneSpearModel();
 
     public LimestoneSpearRenderer(EntityRendererProvider.Context renderManagerIn) {

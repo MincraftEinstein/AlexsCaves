@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.entity.ai.MobTarget3DGoal;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
@@ -57,7 +58,7 @@ public class BoundroidEntity extends Monster {
     public int stopSlammingFor = 0;
     private int stayOnGroundFor = 0;
 
-    private static final ResourceLocation REMOVED_GRAVITY_MODIFIER_ID = ResourceLocation.fromNamespaceAndPath("alexscaves", "remove_gravity_reduction");
+    private static final ResourceLocation REMOVED_GRAVITY_MODIFIER_ID = AlexsCaves.id("remove_gravity_reduction");
     private static final AttributeModifier REMOVED_GRAVITY_MODIFIER = new AttributeModifier(REMOVED_GRAVITY_MODIFIER_ID, -0.08, AttributeModifier.Operation.ADD_VALUE);
 
     public BoundroidEntity(EntityType<? extends Monster> entityType, Level level) {

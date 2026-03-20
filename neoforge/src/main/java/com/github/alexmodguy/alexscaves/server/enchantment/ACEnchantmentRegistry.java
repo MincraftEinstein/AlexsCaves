@@ -102,7 +102,7 @@ public class ACEnchantmentRegistry {
     public static final ResourceKey<Enchantment> SEEKCANDY = createKey("seekcandy");
     
     private static ResourceKey<Enchantment> createKey(String name) {
-        return ResourceKey.create(Registries.ENCHANTMENT, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, name));
+        return ResourceKey.create(Registries.ENCHANTMENT, AlexsCaves.id(name));
     }
     
     /**

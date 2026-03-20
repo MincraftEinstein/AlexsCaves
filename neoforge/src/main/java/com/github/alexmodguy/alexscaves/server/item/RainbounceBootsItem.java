@@ -37,7 +37,7 @@ public class RainbounceBootsItem extends ArmorItem implements CustomArmorPostRen
     @Override
     @Nullable
     public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        return ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/armor/rainbounce_boots.png");
+        return AlexsCaves.id("textures/armor/rainbounce_boots.png");
     }
 
     public static void onEntityLand(LivingEntity living, Vec3 vec3) {

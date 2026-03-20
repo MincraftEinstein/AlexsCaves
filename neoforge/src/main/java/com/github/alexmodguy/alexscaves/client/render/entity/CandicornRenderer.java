@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.CandicornModel;
 import com.github.alexmodguy.alexscaves.client.render.entity.layer.CandicornRiderLayer;
 import com.github.alexmodguy.alexscaves.client.render.entity.layer.LicowitchPossessionLayer;
@@ -11,12 +10,14 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
+
 public class CandicornRenderer extends MobRenderer<CandicornEntity, CandicornModel> {
-    private static final ResourceLocation TEXTURE_0 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/candicorn_0.png");
-    private static final ResourceLocation TEXTURE_1 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/candicorn_1.png");
-    private static final ResourceLocation TEXTURE_2 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/candicorn_2.png");
-    private static final ResourceLocation TEXTURE_3 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/candicorn_3.png");
-    private static final ResourceLocation TEXTURE_4 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/candicorn_4.png");
+    private static final ResourceLocation TEXTURE_0 = id("textures/entity/candicorn_0.png");
+    private static final ResourceLocation TEXTURE_1 = id("textures/entity/candicorn_1.png");
+    private static final ResourceLocation TEXTURE_2 = id("textures/entity/candicorn_2.png");
+    private static final ResourceLocation TEXTURE_3 = id("textures/entity/candicorn_3.png");
+    private static final ResourceLocation TEXTURE_4 = id("textures/entity/candicorn_4.png");
 
     public CandicornRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new CandicornModel(), 0.8F);

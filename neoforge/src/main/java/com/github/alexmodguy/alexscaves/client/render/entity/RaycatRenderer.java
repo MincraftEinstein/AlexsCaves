@@ -25,9 +25,9 @@ import javax.annotation.Nullable;
 
 public class RaycatRenderer extends MobRenderer<RaycatEntity, RaycatModel> implements CustomBookEntityRenderer {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/raycat.png");
-    private static final ResourceLocation TEXTURE_BODY = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/raycat_body.png");
-    private static final ResourceLocation TEXTURE_EYES = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/raycat_eyes.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/raycat.png");
+    private static final ResourceLocation TEXTURE_BODY = AlexsCaves.id("textures/entity/raycat_body.png");
+    private static final ResourceLocation TEXTURE_EYES = AlexsCaves.id("textures/entity/raycat_eyes.png");
 
     private static final float HALF_SQRT_3 = (float) (Math.sqrt(3.0D) / 2.0D);
     private boolean sepia;

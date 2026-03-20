@@ -26,8 +26,8 @@ import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 public class PurpleWitchMagicParticle extends AbstractTrailParticle {
 
-    private static final ResourceLocation CENTER_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/purple_witch_magic.png");
-    private static final ResourceLocation TRAIL_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/trail.png");
+    private static final ResourceLocation CENTER_TEXTURE = AlexsCaves.id("textures/particle/purple_witch_magic.png");
+    private static final ResourceLocation TRAIL_TEXTURE = AlexsCaves.id("textures/particle/trail.png");
 
     private final double xTarget;
     private final double yTarget;

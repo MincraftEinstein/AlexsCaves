@@ -22,8 +22,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
 public class BigSplashParticle extends Particle {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/splash.png");
-    private static final ResourceLocation TEXTURE_OVERLAY = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/splash_overlay.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/particle/splash.png");
+    private static final ResourceLocation TEXTURE_OVERLAY = AlexsCaves.id("textures/particle/splash_overlay.png");
     private static final SplashModel MODEL = new SplashModel();
     private float scale;
     private final int waterColor;

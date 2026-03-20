@@ -25,8 +25,8 @@ import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 public class ProtonParticle extends MagneticOrbitParticle {
 
-    private static final ResourceLocation CENTER_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/proton_core.png");
-    private static final ResourceLocation PROTON_TRAIL_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/teletor_trail.png");
+    private static final ResourceLocation CENTER_TEXTURE = AlexsCaves.id("textures/particle/proton_core.png");
+    private static final ResourceLocation PROTON_TRAIL_TEXTURE = AlexsCaves.id("textures/particle/teletor_trail.png");
 
     protected ProtonParticle(ClientLevel world, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
         super(world, x, y, z, xSpeed, ySpeed, zSpeed);

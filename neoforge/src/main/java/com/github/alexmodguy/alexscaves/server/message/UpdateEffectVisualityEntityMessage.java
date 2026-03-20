@@ -25,7 +25,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class UpdateEffectVisualityEntityMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<UpdateEffectVisualityEntityMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "update_effect_visuality_entity"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("update_effect_visuality_entity"));
 
     public static final StreamCodec<FriendlyByteBuf, UpdateEffectVisualityEntityMessage> CODEC =
         StreamCodec.ofMember(UpdateEffectVisualityEntityMessage::write, UpdateEffectVisualityEntityMessage::read);

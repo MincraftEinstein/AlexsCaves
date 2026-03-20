@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -17,6 +16,9 @@ import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
+
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
 
 public class GingerbreadArmorItem extends ArmorItem {
 
@@ -33,7 +35,7 @@ public class GingerbreadArmorItem extends ArmorItem {
     }
 
     private static ItemAttributeModifiers createGingerbreadAttributes(ACArmorMaterial armorMaterial, Type slot, double speedBoost) {
-        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "armor_gingerbread_" + slot.getName());
+        ResourceLocation id = id("armor_gingerbread_" + slot.getName());
         EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(slot.getSlot());
         return ItemAttributeModifiers.builder()
                 .add(Attributes.ARMOR, new AttributeModifier(id, armorMaterial.getDefenseForType(slot), AttributeModifier.Operation.ADD_VALUE), slotGroup)
@@ -47,7 +49,7 @@ public class GingerbreadArmorItem extends ArmorItem {
         } else {
             float scaledDurability = durabilityIn / (float) maxDurability;
             double speed = MIN_SPEED_BOOST + (MAX_SPEED_BOOST - MIN_SPEED_BOOST) * scaledDurability;
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "armor_gingerbread_" + type.getName() + "_durability_" + durabilityIn);
+            ResourceLocation id = id("armor_gingerbread_" + type.getName() + "_durability_" + durabilityIn);
             EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(type.getSlot());
             ItemAttributeModifiers attributes = ItemAttributeModifiers.builder()
                     .add(Attributes.ARMOR, new AttributeModifier(id, this.getDefense(), AttributeModifier.Operation.ADD_VALUE), slotGroup)
@@ -75,9 +77,9 @@ public class GingerbreadArmorItem extends ArmorItem {
     @Nullable
     public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
         if (slot == EquipmentSlot.LEGS) {
-            return ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/armor/gingerbread_armor_1.png");
+            return id("textures/armor/gingerbread_armor_1.png");
         } else {
-            return ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/armor/gingerbread_armor_0.png");
+            return id("textures/armor/gingerbread_armor_0.png");
         }
     }
 }

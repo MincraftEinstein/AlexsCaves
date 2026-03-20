@@ -22,9 +22,9 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 
 public class LuxtructosaurusRenderer extends MobRenderer<LuxtructosaurusEntity, LuxtructosaurusModel> implements CustomBookEntityRenderer {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/luxtructosaurus.png");
-    private static final ResourceLocation TEXTURE_ENRAGED = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/luxtructosaurus_enraged.png");
-    private static final ResourceLocation TEXTURE_ENRAGED_GLOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/luxtructosaurus_enraged_glow.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/luxtructosaurus.png");
+    private static final ResourceLocation TEXTURE_ENRAGED = AlexsCaves.id("textures/entity/luxtructosaurus_enraged.png");
+    private static final ResourceLocation TEXTURE_ENRAGED_GLOW = AlexsCaves.id("textures/entity/luxtructosaurus_enraged_glow.png");
 
     private static final HashMap<Integer, Vec3> mouthParticlePositions = new HashMap<>();
 

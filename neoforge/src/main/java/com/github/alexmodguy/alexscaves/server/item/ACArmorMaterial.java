@@ -71,7 +71,7 @@ public class ACArmorMaterial {
                     this.enchantability,
                     this.sound,
                     this.ingredient,
-                    List.of(new ArmorMaterial.Layer(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, this.name))),
+                    List.of(new ArmorMaterial.Layer(AlexsCaves.id(this.name))),
                     this.toughness,
                     this.knockbackResistance
             );

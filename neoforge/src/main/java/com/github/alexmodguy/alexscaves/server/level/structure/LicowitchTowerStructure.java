@@ -23,7 +23,7 @@ public class LicowitchTowerStructure extends Structure {
 
     public static final MapCodec<LicowitchTowerStructure> CODEC = simpleCodec((settings) -> new LicowitchTowerStructure(settings));
 
-    private static final ResourceLocation TOWER_NBT = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "licowitch_tower");
+    private static final ResourceLocation TOWER_NBT = AlexsCaves.id("licowitch_tower");
     private static final int Y = 0;
 
     public LicowitchTowerStructure(StructureSettings settings) {

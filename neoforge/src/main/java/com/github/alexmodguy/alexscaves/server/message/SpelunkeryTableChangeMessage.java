@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class SpelunkeryTableChangeMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<SpelunkeryTableChangeMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "spelunkery_table_change"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("spelunkery_table_change"));
 
     public static final StreamCodec<FriendlyByteBuf, SpelunkeryTableChangeMessage> CODEC =
         StreamCodec.ofMember(SpelunkeryTableChangeMessage::write, SpelunkeryTableChangeMessage::read);

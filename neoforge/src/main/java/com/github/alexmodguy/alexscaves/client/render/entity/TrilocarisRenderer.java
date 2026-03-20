@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class TrilocarisRenderer extends MobRenderer<TrilocarisEntity, TrilocarisModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/trilocaris.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/trilocaris.png");
 
     public TrilocarisRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new TrilocarisModel(), 0.3F);

@@ -31,7 +31,7 @@ import java.util.Optional;
 public class CaveBookScreen extends Screen {
 
     private static final CaveBookModel BOOK_MODEL = new CaveBookModel();
-    private static final ResourceLocation BOOK_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/gui/book/cave_book_model.png");
+    private static final ResourceLocation BOOK_TEXTURE = AlexsCaves.id("textures/gui/book/cave_book_model.png");
     public static final float MOUSE_LEAN_THRESHOLD = 0.75F;
     public static final int PAGE_SIZE_IN_LINES = 15;
 
@@ -72,7 +72,7 @@ public class CaveBookScreen extends Screen {
     public CaveBookScreen(String openTo) {
         super(Component.translatable("item.alexscaves.cave_book"));
         caveBookProgress = CaveBookProgress.getCaveBookProgress(Minecraft.getInstance().player);
-        currentEntryJSON = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, openTo);
+        currentEntryJSON = AlexsCaves.id(openTo);
         resetEntry();
     }
 

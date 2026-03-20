@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class MultipartEntityMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<MultipartEntityMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "multipart_entity"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("multipart_entity"));
 
     public static final StreamCodec<FriendlyByteBuf, MultipartEntityMessage> CODEC =
         StreamCodec.ofMember(MultipartEntityMessage::write, MultipartEntityMessage::read);

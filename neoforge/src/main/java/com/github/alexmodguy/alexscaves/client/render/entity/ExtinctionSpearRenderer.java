@@ -16,7 +16,7 @@ import net.minecraft.util.Mth;
 
 public class ExtinctionSpearRenderer extends EntityRenderer<ExtinctionSpearEntity> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/extinction_spear.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/extinction_spear.png");
     private static final ExtinctionSpearModel MODEL = new ExtinctionSpearModel();
 
     public ExtinctionSpearRenderer(EntityRendererProvider.Context renderManagerIn) {

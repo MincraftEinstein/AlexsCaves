@@ -11,10 +11,10 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class TremorsaurusRenderer extends MobRenderer<TremorsaurusEntity, TremorsaurusModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/tremorsaurus.png");
-    private static final ResourceLocation TEXTURE_PRINCESS = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/tremorsaurus_princess.png");
-    private static final ResourceLocation TEXTURE_RETRO = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/tremorsaurus_retro.png");
-    private static final ResourceLocation TEXTURE_TECTONIC = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/tremorsaurus_tectonic.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/tremorsaurus.png");
+    private static final ResourceLocation TEXTURE_PRINCESS = AlexsCaves.id("textures/entity/tremorsaurus_princess.png");
+    private static final ResourceLocation TEXTURE_RETRO = AlexsCaves.id("textures/entity/tremorsaurus_retro.png");
+    private static final ResourceLocation TEXTURE_TECTONIC = AlexsCaves.id("textures/entity/tremorsaurus_tectonic.png");
 
     public TremorsaurusRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new TremorsaurusModel(), 1.1F);

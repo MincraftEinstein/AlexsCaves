@@ -17,8 +17,8 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class BrainiacRenderer extends MobRenderer<BrainiacEntity, BrainiacModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/brainiac.png");
-    private static final ResourceLocation TEXTURE_EYES = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/brainiac_glow.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/brainiac.png");
+    private static final ResourceLocation TEXTURE_EYES = AlexsCaves.id("textures/entity/brainiac_glow.png");
 
     public BrainiacRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new BrainiacModel(), 0.25F);

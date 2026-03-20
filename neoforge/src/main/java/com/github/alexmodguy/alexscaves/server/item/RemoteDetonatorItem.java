@@ -41,7 +41,7 @@ import java.util.UUID;
 public class RemoteDetonatorItem extends Item {
 
     public static final TicketController TICKET_CONTROLLER = new TicketController(
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "remote_detonator"));
+            AlexsCaves.id("remote_detonator"));
 
     public RemoteDetonatorItem() {
         super(new Item.Properties().stacksTo(1));

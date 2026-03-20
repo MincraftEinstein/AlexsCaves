@@ -34,8 +34,8 @@ public class CraftingRecipeWidget extends BookWidget {
     @Expose(serialize = false, deserialize = false)
     private boolean smelting = false;
 
-    private static final ResourceLocation CRAFTING_GRID_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/gui/book/crafting_grid.png");
-    private static final ResourceLocation SMELTING_GRID_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/gui/book/smelting_grid.png");
+    private static final ResourceLocation CRAFTING_GRID_TEXTURE = AlexsCaves.id("textures/gui/book/crafting_grid.png");
+    private static final ResourceLocation SMELTING_GRID_TEXTURE = AlexsCaves.id("textures/gui/book/smelting_grid.png");
 
     public CraftingRecipeWidget(int displayPage, String recipeId, boolean sepia, int x, int y, float scale) {
         super(displayPage, Type.CRAFTING_RECIPE, x, y, scale);

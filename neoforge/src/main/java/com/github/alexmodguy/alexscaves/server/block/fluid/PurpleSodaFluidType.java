@@ -21,9 +21,9 @@ import java.util.function.Consumer;
 
 public class PurpleSodaFluidType extends FluidType {
 
-    public static final ResourceLocation FLUID_STILL = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "block/purple_soda_still");
-    public static final ResourceLocation FLUID_FLOWING = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "block/purple_soda_flowing");
-    public static final ResourceLocation OVERLAY = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/misc/under_purple_soda.png");
+    public static final ResourceLocation FLUID_STILL = AlexsCaves.id("block/purple_soda_still");
+    public static final ResourceLocation FLUID_FLOWING = AlexsCaves.id("block/purple_soda_flowing");
+    public static final ResourceLocation OVERLAY = AlexsCaves.id("textures/misc/under_purple_soda.png");
 
     public PurpleSodaFluidType(Properties properties) {
         super(properties);

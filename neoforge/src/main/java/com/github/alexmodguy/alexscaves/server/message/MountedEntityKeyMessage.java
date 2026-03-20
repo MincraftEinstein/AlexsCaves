@@ -13,7 +13,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class MountedEntityKeyMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<MountedEntityKeyMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "mounted_entity_key"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("mounted_entity_key"));
 
     public static final StreamCodec<FriendlyByteBuf, MountedEntityKeyMessage> CODEC =
         StreamCodec.ofMember(MountedEntityKeyMessage::write, MountedEntityKeyMessage::read);

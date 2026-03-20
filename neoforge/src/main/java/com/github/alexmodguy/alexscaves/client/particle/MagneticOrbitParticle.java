@@ -12,7 +12,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 public class MagneticOrbitParticle extends AbstractTrailParticle {
 
-    private static final ResourceLocation TRAIL_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/trail.png");
+    private static final ResourceLocation TRAIL_TEXTURE = AlexsCaves.id("textures/particle/trail.png");
     protected double orbitX;
     protected double orbitY;
     protected double orbitZ;

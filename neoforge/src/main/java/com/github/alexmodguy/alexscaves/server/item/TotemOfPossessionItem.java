@@ -50,15 +50,15 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
 
     public static ItemAttributeModifiers createAttributes() {
         return ItemAttributeModifiers.builder()
-            .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(
-                ResourceLocation.fromNamespaceAndPath("alexscaves", "totem_attack_damage"),
-                2.0D, AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND)
-            .add(Attributes.ATTACK_SPEED, new AttributeModifier(
-                ResourceLocation.fromNamespaceAndPath("alexscaves", "totem_attack_speed"),
-                -2.4D, AttributeModifier.Operation.ADD_VALUE),
-                EquipmentSlotGroup.MAINHAND)
-            .build();
+                .add(Attributes.ATTACK_DAMAGE, new AttributeModifier(
+                                AlexsCaves.id("totem_attack_damage"),
+                                2.0D, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND)
+                .add(Attributes.ATTACK_SPEED, new AttributeModifier(
+                                AlexsCaves.id("totem_attack_speed"),
+                                -2.4D, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND)
+                .build();
     }
 
     @Override

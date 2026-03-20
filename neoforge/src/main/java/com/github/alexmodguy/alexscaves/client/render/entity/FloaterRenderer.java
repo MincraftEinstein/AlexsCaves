@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 public class FloaterRenderer extends EntityRenderer<FloaterEntity> {
 
     private static final FloaterModel FLOATER_MODEL = new FloaterModel();
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/floater.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/floater.png");
 
     public FloaterRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn);

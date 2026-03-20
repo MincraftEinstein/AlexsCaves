@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class LicorootGrower {
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LICOROOT_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "licoroot_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LICOROOT_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, AlexsCaves.id("licoroot_tree"));
 
     public static final TreeGrower GROWER = new TreeGrower(
             "licoroot",

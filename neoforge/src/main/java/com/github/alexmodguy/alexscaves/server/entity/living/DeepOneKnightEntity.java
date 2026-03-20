@@ -45,7 +45,7 @@ public class DeepOneKnightEntity extends DeepOneBaseEntity {
     private boolean melee = random.nextBoolean();
     private static final EntityDimensions SWIMMING_SIZE = EntityDimensions.scalable(1.2F, 1.3F);
 
-    public static final ResourceKey<LootTable> BARTER_LOOT = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gameplay/deep_one_knight_barter"));
+    public static final ResourceKey<LootTable> BARTER_LOOT = ResourceKey.create(Registries.LOOT_TABLE, AlexsCaves.id("gameplay/deep_one_knight_barter"));
 
     public DeepOneKnightEntity(EntityType entityType, Level level) {
         super(entityType, level);

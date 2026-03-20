@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.level.structure;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.level.structure.piece.AbyssalRuinsStructurePiece;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.Util;
@@ -15,15 +14,17 @@ import net.minecraft.world.level.levelgen.structure.StructureType;
 
 import java.util.Optional;
 
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
+
 public class AbyssalRuinsStructure extends Structure {
 
     public static final MapCodec<AbyssalRuinsStructure> CODEC = simpleCodec(AbyssalRuinsStructure::new);
 
     private static final ResourceLocation[] RUINS_NBT = new ResourceLocation[]{
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "abyssal_ruins_0"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "abyssal_ruins_1"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "abyssal_ruins_2"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "abyssal_ruins_3"),
+            id("abyssal_ruins_0"),
+            id("abyssal_ruins_1"),
+            id("abyssal_ruins_2"),
+            id("abyssal_ruins_3"),
     };
 
     public AbyssalRuinsStructure(StructureSettings settings) {

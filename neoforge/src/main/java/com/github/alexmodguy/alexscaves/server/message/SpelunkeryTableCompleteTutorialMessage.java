@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class SpelunkeryTableCompleteTutorialMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<SpelunkeryTableCompleteTutorialMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "spelunkery_table_complete_tutorial"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("spelunkery_table_complete_tutorial"));
 
     public static final StreamCodec<FriendlyByteBuf, SpelunkeryTableCompleteTutorialMessage> CODEC =
         StreamCodec.ofMember(SpelunkeryTableCompleteTutorialMessage::write, SpelunkeryTableCompleteTutorialMessage::read);

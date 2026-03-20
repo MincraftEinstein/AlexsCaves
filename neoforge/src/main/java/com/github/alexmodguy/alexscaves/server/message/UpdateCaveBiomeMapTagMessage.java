@@ -20,7 +20,7 @@ import java.util.UUID;
 public class UpdateCaveBiomeMapTagMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<UpdateCaveBiomeMapTagMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "update_cave_biome_map_tag"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("update_cave_biome_map_tag"));
 
     public static final StreamCodec<FriendlyByteBuf, UpdateCaveBiomeMapTagMessage> CODEC =
         StreamCodec.ofMember(UpdateCaveBiomeMapTagMessage::write, UpdateCaveBiomeMapTagMessage::read);

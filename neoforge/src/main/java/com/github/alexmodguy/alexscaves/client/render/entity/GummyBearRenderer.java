@@ -20,12 +20,12 @@ import javax.annotation.Nullable;
 
 public class GummyBearRenderer extends MobRenderer<GummyBearEntity, GummyBearModel> implements CustomBookEntityRenderer {
     public static final GummyBearModel OUTSIDE_MODEL = new GummyBearModel(0.0F);
-    private static final ResourceLocation TEXTURE_RED = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gummy_bear_red.png");
-    private static final ResourceLocation TEXTURE_GREEN = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gummy_bear_green.png");
-    private static final ResourceLocation TEXTURE_YELLOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gummy_bear_yellow.png");
-    private static final ResourceLocation TEXTURE_BLUE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gummy_bear_blue.png");
-    private static final ResourceLocation TEXTURE_PINK = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gummy_bear_pink.png");
-    private static final ResourceLocation TEXTURE_INNARDS = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gummy_bear_innards.png");
+    private static final ResourceLocation TEXTURE_RED = AlexsCaves.id("textures/entity/gummy_bear_red.png");
+    private static final ResourceLocation TEXTURE_GREEN = AlexsCaves.id("textures/entity/gummy_bear_green.png");
+    private static final ResourceLocation TEXTURE_YELLOW = AlexsCaves.id("textures/entity/gummy_bear_yellow.png");
+    private static final ResourceLocation TEXTURE_BLUE = AlexsCaves.id("textures/entity/gummy_bear_blue.png");
+    private static final ResourceLocation TEXTURE_PINK = AlexsCaves.id("textures/entity/gummy_bear_pink.png");
+    private static final ResourceLocation TEXTURE_INNARDS = AlexsCaves.id("textures/entity/gummy_bear_innards.png");
     private boolean sepia = false;
 
     public GummyBearRenderer(EntityRendererProvider.Context renderManagerIn) {

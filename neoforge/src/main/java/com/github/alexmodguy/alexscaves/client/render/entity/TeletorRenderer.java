@@ -32,9 +32,9 @@ import java.util.UUID;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 public class TeletorRenderer extends MobRenderer<TeletorEntity, TeletorModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/teletor.png");
-    private static final ResourceLocation TEXTURE_GLOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/teletor_glow.png");
-    private static final ResourceLocation TRAIL_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/teletor_trail.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/teletor.png");
+    private static final ResourceLocation TEXTURE_GLOW = AlexsCaves.id("textures/entity/teletor_glow.png");
+    private static final ResourceLocation TRAIL_TEXTURE = AlexsCaves.id("textures/particle/teletor_trail.png");
 
     private Map<UUID, LightningRender> lightningRenderMap = new HashMap<>();
 

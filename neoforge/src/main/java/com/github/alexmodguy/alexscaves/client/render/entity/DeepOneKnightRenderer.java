@@ -17,9 +17,9 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class DeepOneKnightRenderer extends MobRenderer<DeepOneKnightEntity, DeepOneKnightModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/deep_one/deep_one_knight.png");
-    private static final ResourceLocation TEXTURE_NOON = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/deep_one/deep_one_knight_noon.png");
-    private static final ResourceLocation TEXTURE_GLOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/deep_one/deep_one_knight_glow.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/deep_one/deep_one_knight.png");
+    private static final ResourceLocation TEXTURE_NOON = AlexsCaves.id("textures/entity/deep_one/deep_one_knight_noon.png");
+    private static final ResourceLocation TEXTURE_GLOW = AlexsCaves.id("textures/entity/deep_one/deep_one_knight_glow.png");
 
     public DeepOneKnightRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new DeepOneKnightModel(), 0.45F);

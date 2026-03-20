@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 public class CopperValveBlockRenderer<T extends CopperValveBlockEntity> implements BlockEntityRenderer<T> {
 
     private static final CopperValveModel MODEL = new CopperValveModel();
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/copper_valve.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/copper_valve.png");
 
     protected final RandomSource random = RandomSource.create();
 

@@ -20,9 +20,9 @@ import org.joml.Matrix4f;
 
 public class FerrouslimeRenderer extends EntityRenderer<FerrouslimeEntity> implements CustomBookEntityRenderer {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/ferrouslime.png");
-    private static final ResourceLocation TEXTURE_EYES = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/ferrouslime_eyes.png");
-    private static final ResourceLocation TEXTURE_GEL = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/ferrouslime_gel.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/ferrouslime.png");
+    private static final ResourceLocation TEXTURE_EYES = AlexsCaves.id("textures/entity/ferrouslime_eyes.png");
+    private static final ResourceLocation TEXTURE_GEL = AlexsCaves.id("textures/entity/ferrouslime_gel.png");
     public static final FerrouslimeModel FERROUSLIME_MODEL = new FerrouslimeModel();
     private boolean sepia = false;
 

@@ -36,8 +36,8 @@ public class CaveMapRenderer {
     private static final Map<ItemStack, CaveMapRenderer> CAVE_MAPS_ITEM_FRAME = new HashMap<>();
     private static final Map<ItemStack, CaveMapRenderer> CAVE_MAPS_HAND = new HashMap<>();
     public static final ResourceLocation MAP_BACKGROUND = ResourceLocation.withDefaultNamespace("textures/map/map_background.png");
-    public static final RenderType CAVE_MAP_PLAYER_TEXTURE = RenderType.text(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/misc/map/cave_map_player.png"));
-    public static final RenderType CAVE_MAP_PLAYER_DIRECTION_TEXTURE = RenderType.text(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/misc/map/cave_map_player_direction.png"));
+    public static final RenderType CAVE_MAP_PLAYER_TEXTURE = RenderType.text(AlexsCaves.id("textures/misc/map/cave_map_player.png"));
+    public static final RenderType CAVE_MAP_PLAYER_DIRECTION_TEXTURE = RenderType.text(AlexsCaves.id("textures/misc/map/cave_map_player_direction.png"));
     private final RenderType renderType;
 
     public BlockPos target;

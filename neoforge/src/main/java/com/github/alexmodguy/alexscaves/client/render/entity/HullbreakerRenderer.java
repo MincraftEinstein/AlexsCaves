@@ -20,8 +20,8 @@ import net.neoforged.neoforge.entity.PartEntity;
 import javax.annotation.Nullable;
 
 public class HullbreakerRenderer extends MobRenderer<HullbreakerEntity, HullbreakerModel> implements CustomBookEntityRenderer {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/hullbreaker.png");
-    private static final ResourceLocation TEXTURE_GLOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/hullbreaker_glow.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/hullbreaker.png");
+    private static final ResourceLocation TEXTURE_GLOW = AlexsCaves.id("textures/entity/hullbreaker_glow.png");
     private boolean sepia;
 
     public HullbreakerRenderer(EntityRendererProvider.Context renderManagerIn) {

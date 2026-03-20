@@ -29,7 +29,7 @@ public class ACRecipeMaker {
         for (ResourceKey<Biome> biome : ACBiomeRegistry.ALEXS_CAVES_BIOMES) {
             ItemStack scroll = CaveInfoItem.create(ACItemRegistry.CAVE_CODEX.get(), biome);
             ItemStack map = CaveMapItem.createMap(biome);
-            ResourceLocation id = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "jei.cave_map_" + biome.location().getPath());
+            ResourceLocation id = AlexsCaves.id("jei.cave_map_" + biome.location().getPath());
             Ingredient paper = Ingredient.of(Items.PAPER);
             Ingredient scrollIngredient = Ingredient.of(scroll);
             

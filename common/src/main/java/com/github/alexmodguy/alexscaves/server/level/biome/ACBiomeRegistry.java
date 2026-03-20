@@ -1,12 +1,10 @@
 package com.github.alexmodguy.alexscaves.server.level.biome;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexthe666.citadel.server.world.ExpandedBiomes;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.dimension.LevelStem;
@@ -14,13 +12,16 @@ import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
 
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
+
 public class ACBiomeRegistry {
-    public static final ResourceKey<Biome> MAGNETIC_CAVES = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "magnetic_caves"));
-    public static final ResourceKey<Biome> PRIMORDIAL_CAVES = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "primordial_caves"));
-    public static final ResourceKey<Biome> TOXIC_CAVES = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "toxic_caves"));
-    public static final ResourceKey<Biome> ABYSSAL_CHASM = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "abyssal_chasm"));
-    public static final ResourceKey<Biome> FORLORN_HOLLOWS = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "forlorn_hollows"));
-    public static final ResourceKey<Biome> CANDY_CAVITY = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "candy_cavity"));
+
+    public static final ResourceKey<Biome> MAGNETIC_CAVES = ResourceKey.create(Registries.BIOME, id("magnetic_caves"));
+    public static final ResourceKey<Biome> PRIMORDIAL_CAVES = ResourceKey.create(Registries.BIOME, id("primordial_caves"));
+    public static final ResourceKey<Biome> TOXIC_CAVES = ResourceKey.create(Registries.BIOME, id("toxic_caves"));
+    public static final ResourceKey<Biome> ABYSSAL_CHASM = ResourceKey.create(Registries.BIOME, id("abyssal_chasm"));
+    public static final ResourceKey<Biome> FORLORN_HOLLOWS = ResourceKey.create(Registries.BIOME, id("forlorn_hollows"));
+    public static final ResourceKey<Biome> CANDY_CAVITY = ResourceKey.create(Registries.BIOME, id("candy_cavity"));
 
     public static final List<ResourceKey<Biome>> ALEXS_CAVES_BIOMES = List.of(MAGNETIC_CAVES, PRIMORDIAL_CAVES, TOXIC_CAVES, ABYSSAL_CHASM, FORLORN_HOLLOWS, CANDY_CAVITY);
     private static final Vec3 DEFAULT_LIGHT_COLOR = new Vec3(1, 1, 1);
@@ -41,9 +42,11 @@ public class ACBiomeRegistry {
     public static float getBiomeAmbientLight(Holder<Biome> value) {
         if (value.is(PRIMORDIAL_CAVES)) {
             return 0.125F;
-        }else if (value.is(TOXIC_CAVES)) {
+        }
+        else if (value.is(TOXIC_CAVES)) {
             return 0.01F;
-        }else if (value.is(CANDY_CAVITY)) {
+        }
+        else if (value.is(CANDY_CAVITY)) {
             return 0.125F;
         }
         return 0.0F;
@@ -92,7 +95,7 @@ public class ACBiomeRegistry {
         if (value.is(FORLORN_HOLLOWS)) {
             return FORLORN_HOLLOWS_LIGHT_COLOR;
         }
-        if(value.is(CANDY_CAVITY)){
+        if (value.is(CANDY_CAVITY)) {
             return CANDY_CAVITY_LIGHT_COLOR;
         }
         return DEFAULT_LIGHT_COLOR;
@@ -114,7 +117,7 @@ public class ACBiomeRegistry {
         if (value.equals(FORLORN_HOLLOWS)) {
             return 0X705632;
         }
-        if(value.equals(CANDY_CAVITY)){
+        if (value.equals(CANDY_CAVITY)) {
             return 0XFF5BC0;
         }
         return -1;
@@ -124,7 +127,8 @@ public class ACBiomeRegistry {
         int i = Minecraft.getInstance().options.biomeBlendRadius().get();
         if (i == 0) {
             return ACBiomeRegistry.getBiomeSkyOverride(player.level().getBiome(player.blockPosition()));
-        } else {
+        }
+        else {
             return BiomeSampler.sampleBiomesFloat(player.level(), player.position(), ACBiomeRegistry::getBiomeSkyOverride);
         }
     }

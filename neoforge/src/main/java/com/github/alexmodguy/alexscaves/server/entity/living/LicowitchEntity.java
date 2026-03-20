@@ -108,7 +108,7 @@ public class LicowitchEntity extends Monster implements IAnimatedEntity {
     }
 
     public static boolean isWithinTowerSpawnBounds(ServerLevelAccessor level, BlockPos pos) {
-        ResourceKey<Structure> structureKey = ResourceKey.create(Registries.STRUCTURE, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "licowitch_tower"));
+        ResourceKey<Structure> structureKey = ResourceKey.create(Registries.STRUCTURE, AlexsCaves.id("licowitch_tower"));
         Structure structure = level.registryAccess().registryOrThrow(Registries.STRUCTURE).get(structureKey);
         if (structure != null) {
             StructureStart structureStart = level.getLevel().structureManager().getStructureAt(pos, structure);

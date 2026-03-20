@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class ThornwoodGrower {
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> THORNWOOD_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "thornwood_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> THORNWOOD_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, AlexsCaves.id("thornwood_tree"));
 
     public static final TreeGrower GROWER = new TreeGrower(
             "thornwood",

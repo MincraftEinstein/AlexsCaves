@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.level.structure.piece;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACLootTableRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
@@ -28,20 +27,22 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemp
 
 import java.util.Set;
 
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
+
 public class GingerbreadHousePiece extends UndergroundTemplateStructurePiece {
 
-    public static final ResourceLocation TOWN_CENTER_TEMPLATE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gingerbread_town_center");
+    public static final ResourceLocation TOWN_CENTER_TEMPLATE = id("gingerbread_town_center");
     public static final ResourceLocation[] HOUSE_TEMPLATES = new ResourceLocation[]{
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gingerbread_house_0"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gingerbread_house_1"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gingerbread_house_2"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gingerbread_house_3"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gingerbread_house_4"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gingerbread_house_5"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gingerbread_house_6"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gingerbread_house_7"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gingerbread_house_8"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "gingerbread_house_9")
+            id("gingerbread_house_0"),
+            id("gingerbread_house_1"),
+            id("gingerbread_house_2"),
+            id("gingerbread_house_3"),
+            id("gingerbread_house_4"),
+            id("gingerbread_house_5"),
+            id("gingerbread_house_6"),
+            id("gingerbread_house_7"),
+            id("gingerbread_house_8"),
+            id("gingerbread_house_9")
     };
 
     public GingerbreadHousePiece(StructureTemplateManager manager, ResourceLocation resourceLocation, BlockPos pos, Rotation rotation) {

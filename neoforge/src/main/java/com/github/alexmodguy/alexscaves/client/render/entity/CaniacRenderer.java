@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class CaniacRenderer extends MobRenderer<CaniacEntity, CaniacModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/caniac.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/caniac.png");
 
     public CaniacRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new CaniacModel(), 0.65F);

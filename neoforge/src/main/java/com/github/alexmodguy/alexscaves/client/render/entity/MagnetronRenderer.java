@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.MagnetronModel;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
@@ -35,12 +34,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
 
 public class MagnetronRenderer extends MobRenderer<MagnetronEntity, MagnetronModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/magnetron.png");
-    private static final ResourceLocation TEXTURE_GLOW_RED = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/magnetron_glow_red.png");
-    private static final ResourceLocation TEXTURE_GLOW_BLUE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/magnetron_glow_blue.png");
-    private static final ResourceLocation TEXTURE_GLOW_EYES = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/magnetron_glow_eyes.png");
+
+    private static final ResourceLocation TEXTURE = id("textures/entity/magnetron.png");
+    private static final ResourceLocation TEXTURE_GLOW_RED = id("textures/entity/magnetron_glow_red.png");
+    private static final ResourceLocation TEXTURE_GLOW_BLUE = id("textures/entity/magnetron_glow_blue.png");
+    private static final ResourceLocation TEXTURE_GLOW_EYES = id("textures/entity/magnetron_glow_eyes.png");
     private Map<UUID, LightningRender> lightningRenderMap = new HashMap<>();
 
     public MagnetronRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -103,31 +104,40 @@ public class MagnetronRenderer extends MobRenderer<MagnetronEntity, MagnetronMod
                 if (part.getJoint() == MagnetronJoint.SHOULDER) {
                     if (part.left) {
                         lShoulder = part;
-                    } else {
+                    }
+                    else {
                         rShoulder = part;
                     }
-                } else if (part.getJoint() == MagnetronJoint.ELBOW) {
+                }
+                else if (part.getJoint() == MagnetronJoint.ELBOW) {
                     if (part.left) {
                         lElbow = part;
-                    } else {
+                    }
+                    else {
                         rElbow = part;
                     }
-                } else if (part.getJoint() == MagnetronJoint.HAND) {
+                }
+                else if (part.getJoint() == MagnetronJoint.HAND) {
                     if (part.left) {
                         lHand = part;
-                    } else {
+                    }
+                    else {
                         rHand = part;
                     }
-                } else if (part.getJoint() == MagnetronJoint.KNEE) {
+                }
+                else if (part.getJoint() == MagnetronJoint.KNEE) {
                     if (part.left) {
                         lKnee = part;
-                    } else {
+                    }
+                    else {
                         rKnee = part;
                     }
-                } else if (part.getJoint() == MagnetronJoint.FOOT) {
+                }
+                else if (part.getJoint() == MagnetronJoint.FOOT) {
                     if (part.left) {
                         lFoot = part;
-                    } else {
+                    }
+                    else {
                         rFoot = part;
                     }
                 }

@@ -527,32 +527,32 @@ public class ClientProxy extends CommonProxy {
     private void registerShaders(final RegisterShadersEvent e) {
         try {
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "rendertype_ferrouslime_gel"),
+                    AlexsCaves.id("rendertype_ferrouslime_gel"),
                     DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeFerrouslimeGelShader);
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "rendertype_hologram"),
+                    AlexsCaves.id("rendertype_hologram"),
                     DefaultVertexFormat.POSITION_COLOR), ACInternalShaders::setRenderTypeHologramShader);
             e.registerShader(
                     new ShaderInstance(e.getResourceProvider(),
-                            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "rendertype_irradiated"),
+                            AlexsCaves.id("rendertype_irradiated"),
                             DefaultVertexFormat.NEW_ENTITY),
                     ACInternalShaders::setRenderTypeIrradiatedShader);
             e.registerShader(
                     new ShaderInstance(e.getResourceProvider(),
-                            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "rendertype_blue_irradiated"),
+                            AlexsCaves.id("rendertype_blue_irradiated"),
                             DefaultVertexFormat.NEW_ENTITY),
                     ACInternalShaders::setRenderTypeBlueIrradiatedShader);
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "rendertype_bubbled"),
+                    AlexsCaves.id("rendertype_bubbled"),
                     DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeBubbledShader);
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "rendertype_sepia"),
+                    AlexsCaves.id("rendertype_sepia"),
                     DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeSepiaShader);
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "rendertype_red_ghost"),
+                    AlexsCaves.id("rendertype_red_ghost"),
                     DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeRedGhostShader);
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "rendertype_purple_witch"),
+                    AlexsCaves.id("rendertype_purple_witch"),
                     DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypePurpleWitchShader);
             AlexsCaves.LOGGER.info("registered internal shaders");
         }

@@ -26,7 +26,7 @@ import java.util.Optional;
 
 @JeiPlugin
 public class AlexsCavesPlugin implements IModPlugin {
-    public static final ResourceLocation MOD = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, AlexsCaves.MOD_ID);
+    public static final ResourceLocation MOD = AlexsCaves.id(AlexsCaves.MOD_ID);
     public static final RecipeType<SpelunkeryTableRecipe> SPELUNKERY_TABLE_RECIPE_TYPE = RecipeType.create(AlexsCaves.MOD_ID, "spelunkery_table", SpelunkeryTableRecipe.class);
     public static final RecipeType<AbstractCookingRecipe> NUCLEAR_FURNACE_RECIPE_TYPE = RecipeType.create(AlexsCaves.MOD_ID, "nuclear_furnace", AbstractCookingRecipe.class);
 
@@ -61,7 +61,7 @@ public class AlexsCavesPlugin implements IModPlugin {
     public void registerRuntime(IRuntimeRegistration registration) {
         if(Minecraft.getInstance().level != null){
             // byKey returns Optional<RecipeHolder<?>> in 1.21
-            Optional<RecipeHolder<?>> alexMealRecipeHolder = Minecraft.getInstance().level.getRecipeManager().byKey(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "alex_meal"));
+            Optional<RecipeHolder<?>> alexMealRecipeHolder = Minecraft.getInstance().level.getRecipeManager().byKey(AlexsCaves.id("alex_meal"));
             if(alexMealRecipeHolder.isPresent() && alexMealRecipeHolder.get().value() instanceof CraftingRecipe){
                 @SuppressWarnings("unchecked")
                 RecipeHolder<CraftingRecipe> craftingHolder = (RecipeHolder<CraftingRecipe>) (RecipeHolder<?>) alexMealRecipeHolder.get();

@@ -27,9 +27,9 @@ import org.joml.Vector3f;
 public class VoidBeingEyeParticle extends Particle {
 
     private static final ResourceLocation[] TEXTURES = new ResourceLocation[]{
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/void_eye_0.png"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/void_eye_1.png"),
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/void_eye_2.png")
+            AlexsCaves.id("textures/particle/void_eye_0.png"),
+            AlexsCaves.id("textures/particle/void_eye_1.png"),
+            AlexsCaves.id("textures/particle/void_eye_2.png")
     };
 
     private int textureIndex = 0;

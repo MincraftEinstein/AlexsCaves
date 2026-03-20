@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public class PewenGrower {
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PEWEN_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "pewen_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PEWEN_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, AlexsCaves.id("pewen_tree"));
 
     public static final TreeGrower GROWER = new TreeGrower(
             "pewen",

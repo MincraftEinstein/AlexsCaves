@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.WaterBoltModel;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
@@ -18,14 +17,15 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 public class WaterBoltRenderer extends EntityRenderer<WaterBoltEntity> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/deep_one/water_bolt.png");
-    private static final ResourceLocation OVERLAY_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/deep_one/water_bolt_overlay.png");
+    private static final ResourceLocation TEXTURE = id("textures/entity/deep_one/water_bolt.png");
+    private static final ResourceLocation OVERLAY_TEXTURE = id("textures/entity/deep_one/water_bolt_overlay.png");
+    private static final ResourceLocation TRAIL_TEXTURE = id("textures/particle/trail.png");
     private static final WaterBoltModel MODEL = new WaterBoltModel();
-    private static final ResourceLocation TRAIL_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/trail.png");
 
     public WaterBoltRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn);

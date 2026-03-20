@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class NuclearFurnaceScreen extends AbstractContainerScreen<NuclearFurnaceMenu> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/gui/nuclear_furnace.png");
+    public static final ResourceLocation TEXTURE = AlexsCaves.id("textures/gui/nuclear_furnace.png");
     public NuclearFurnaceScreen(NuclearFurnaceMenu furnaceMenu, Inventory inventory, Component component) {
         super(furnaceMenu, inventory, component);
         this.inventoryLabelY = this.imageHeight - 92;

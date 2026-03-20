@@ -15,8 +15,8 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class GloomothRenderer extends MobRenderer<GloomothEntity, GloomothModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID,  "textures/entity/gloomoth.png");
-    private static final ResourceLocation TEXTURE_EYESPOTS = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gloomoth_eyespots.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id( "textures/entity/gloomoth.png");
+    private static final ResourceLocation TEXTURE_EYESPOTS = AlexsCaves.id("textures/entity/gloomoth_eyespots.png");
 
     public GloomothRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new GloomothModel(), 0.35F);

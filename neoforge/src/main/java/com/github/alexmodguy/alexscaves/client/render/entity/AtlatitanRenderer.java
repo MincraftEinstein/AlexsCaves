@@ -17,9 +17,9 @@ import net.neoforged.neoforge.entity.PartEntity;
 import javax.annotation.Nullable;
 
 public class AtlatitanRenderer extends MobRenderer<AtlatitanEntity, AtlatitanModel> implements CustomBookEntityRenderer {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/atlatitan.png");
-    private static final ResourceLocation TEXTURE_RETRO = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/atlatitan_retro.png");
-    private static final ResourceLocation TEXTURE_TECTONIC = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/atlatitan_tectonic.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/atlatitan.png");
+    private static final ResourceLocation TEXTURE_RETRO = AlexsCaves.id("textures/entity/atlatitan_retro.png");
+    private static final ResourceLocation TEXTURE_TECTONIC = AlexsCaves.id("textures/entity/atlatitan_tectonic.png");
 
     private boolean sepia;
 

@@ -16,7 +16,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 public class ArmorKeyMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<ArmorKeyMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "armor_key"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("armor_key"));
 
     public static final StreamCodec<FriendlyByteBuf, ArmorKeyMessage> CODEC =
         StreamCodec.ofMember(ArmorKeyMessage::write, ArmorKeyMessage::read);

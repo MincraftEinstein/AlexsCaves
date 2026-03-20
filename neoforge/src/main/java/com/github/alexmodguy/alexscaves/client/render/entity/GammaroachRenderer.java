@@ -15,8 +15,8 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class GammaroachRenderer extends MobRenderer<GammaroachEntity, GammaroachModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gammaroach.png");
-    private static final ResourceLocation TEXTURE_EYES = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gammaroach_eyes.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/gammaroach.png");
+    private static final ResourceLocation TEXTURE_EYES = AlexsCaves.id("textures/entity/gammaroach_eyes.png");
 
     public GammaroachRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new GammaroachModel(), 0.5F);

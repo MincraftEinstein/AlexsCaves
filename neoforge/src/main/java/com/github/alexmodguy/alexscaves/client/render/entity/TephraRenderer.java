@@ -16,9 +16,9 @@ import net.minecraft.resources.ResourceLocation;
 
 public class TephraRenderer extends EntityRenderer<TephraEntity> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/tephra.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/tephra.png");
     private static final TephraModel MODEL = new TephraModel();
-    private static final ResourceLocation TRAIL_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/teletor_trail.png");
+    private static final ResourceLocation TRAIL_TEXTURE = AlexsCaves.id("textures/particle/teletor_trail.png");
 
     public TephraRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn);

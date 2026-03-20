@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 import javax.annotation.Nullable;
 
 public class UnderzealotRenderer extends MobRenderer<UnderzealotEntity, UnderzealotModel> implements CustomBookEntityRenderer {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/underzealot.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/underzealot.png");
 
     private boolean sepia = false;
     public UnderzealotRenderer(EntityRendererProvider.Context renderManagerIn) {

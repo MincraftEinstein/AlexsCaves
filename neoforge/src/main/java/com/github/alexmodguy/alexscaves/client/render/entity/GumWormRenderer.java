@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 public class GumWormRenderer extends MobRenderer<GumWormEntity, GumWormModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gum_worm.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/gum_worm.png");
 
     public GumWormRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new GumWormModel(), 1.2F);

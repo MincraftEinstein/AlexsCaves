@@ -31,7 +31,7 @@ import org.joml.Matrix4f;
 
 public class CandyCaneHookRenderer extends EntityRenderer<CandyCaneHookEntity> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/candy_cane_hook.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/candy_cane_hook.png");
     private static final CandyCaneHookModel MODEL = new CandyCaneHookModel();
 
     private static final float LICORICE_COLOR_1_R = 80 / 255F;

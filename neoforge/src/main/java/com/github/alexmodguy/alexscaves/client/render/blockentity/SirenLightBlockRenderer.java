@@ -22,8 +22,8 @@ import org.joml.Matrix4f;
 public class SirenLightBlockRenderer<T extends SirenLightBlockEntity> implements BlockEntityRenderer<T> {
 
     private static final SirenLightModel MODEL = new SirenLightModel();
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/siren_light.png");
-    private static final ResourceLocation COLOR_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/siren_light_color.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/siren_light.png");
+    private static final ResourceLocation COLOR_TEXTURE = AlexsCaves.id("textures/entity/siren_light_color.png");
 
 
     public SirenLightBlockRenderer(BlockEntityRendererProvider.Context rendererDispatcherIn) {

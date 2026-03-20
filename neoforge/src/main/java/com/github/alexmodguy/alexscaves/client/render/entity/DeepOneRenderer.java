@@ -20,8 +20,8 @@ import net.minecraft.resources.ResourceLocation;
 import javax.annotation.Nullable;
 
 public class DeepOneRenderer extends MobRenderer<DeepOneEntity, DeepOneModel> implements CustomBookEntityRenderer{
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/deep_one/deep_one.png");
-    private static final ResourceLocation TEXTURE_GLOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/deep_one/deep_one_glow.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/deep_one/deep_one.png");
+    private static final ResourceLocation TEXTURE_GLOW = AlexsCaves.id("textures/entity/deep_one/deep_one_glow.png");
 
     private boolean sepia;
     public DeepOneRenderer(EntityRendererProvider.Context renderManagerIn) {

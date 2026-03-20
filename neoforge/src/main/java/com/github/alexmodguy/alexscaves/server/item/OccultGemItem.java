@@ -39,7 +39,7 @@ import java.util.UUID;
 public class OccultGemItem extends Item {
 
     public static final TicketController TICKET_CONTROLLER = new TicketController(
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "occult_gem"));
+            AlexsCaves.id("occult_gem"));
 
     public OccultGemItem() {
         super(new Properties());

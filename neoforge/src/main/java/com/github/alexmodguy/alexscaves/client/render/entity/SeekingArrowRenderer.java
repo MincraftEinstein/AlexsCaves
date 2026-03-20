@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class SeekingArrowRenderer extends ArrowRenderer<SeekingArrowEntity> {
 
-    public static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/seeking_arrow.png");
+    public static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/seeking_arrow.png");
 
     public SeekingArrowRenderer(EntityRendererProvider.Context context) {
         super(context);

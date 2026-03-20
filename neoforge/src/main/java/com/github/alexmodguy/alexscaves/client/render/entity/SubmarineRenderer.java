@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.model.SubmarineModel;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
@@ -26,19 +25,21 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import org.joml.Matrix4f;
 
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
+
 public class SubmarineRenderer extends EntityRenderer<SubmarineEntity> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/submarine/submarine.png");
-    private static final ResourceLocation TEXTURE_EXPOSED = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/submarine/submarine_exposed.png");
-    private static final ResourceLocation TEXTURE_WEATHERED = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/submarine/submarine_weathered.png");
-    private static final ResourceLocation TEXTURE_OXIDIZED = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/submarine/submarine_oxidized.png");
-    private static final ResourceLocation TEXTURE_NEW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/submarine/submarine_new.png");
-    private static final ResourceLocation TEXTURE_LOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/submarine/submarine_low.png");
-    private static final ResourceLocation TEXTURE_MEDIUM = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/submarine/submarine_medium.png");
-    private static final ResourceLocation TEXTURE_HIGH = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/submarine/submarine_high.png");
-    private static final ResourceLocation TEXTURE_CRITICAL = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/submarine/submarine_critical.png");
-    private static final ResourceLocation TEXTURE_BUTTONS = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/submarine/submarine_buttons.png");
-    private static final ResourceLocation TEXTURE_GLOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/submarine/submarine_glow.png");
+    private static final ResourceLocation TEXTURE = id("textures/entity/submarine/submarine.png");
+    private static final ResourceLocation TEXTURE_EXPOSED = id("textures/entity/submarine/submarine_exposed.png");
+    private static final ResourceLocation TEXTURE_WEATHERED = id("textures/entity/submarine/submarine_weathered.png");
+    private static final ResourceLocation TEXTURE_OXIDIZED = id("textures/entity/submarine/submarine_oxidized.png");
+    private static final ResourceLocation TEXTURE_NEW = id("textures/entity/submarine/submarine_new.png");
+    private static final ResourceLocation TEXTURE_LOW = id("textures/entity/submarine/submarine_low.png");
+    private static final ResourceLocation TEXTURE_MEDIUM = id("textures/entity/submarine/submarine_medium.png");
+    private static final ResourceLocation TEXTURE_HIGH = id("textures/entity/submarine/submarine_high.png");
+    private static final ResourceLocation TEXTURE_CRITICAL = id("textures/entity/submarine/submarine_critical.png");
+    private static final ResourceLocation TEXTURE_BUTTONS = id("textures/entity/submarine/submarine_buttons.png");
+    private static final ResourceLocation TEXTURE_GLOW = id("textures/entity/submarine/submarine_glow.png");
     private static SubmarineModel MODEL = new SubmarineModel();
     private static final float HALF_SQRT_3 = (float) (Math.sqrt(3.0D) / 2.0D);
 

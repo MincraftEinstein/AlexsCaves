@@ -29,7 +29,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
 public class TubeWormParticle extends Particle {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/particle/tube_worm.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/particle/tube_worm.png");
     private static final TubeWormModel MODEL = new TubeWormModel();
     private BlockPos blockPos;
     private int checkScareCooldown;

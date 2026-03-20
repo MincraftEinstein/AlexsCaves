@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class WorldEventMessage implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<WorldEventMessage> TYPE = 
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "world_event"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("world_event"));
     public static final StreamCodec<FriendlyByteBuf, WorldEventMessage> CODEC = 
         StreamCodec.ofMember(WorldEventMessage::write, WorldEventMessage::read);
 

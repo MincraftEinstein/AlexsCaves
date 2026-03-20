@@ -14,8 +14,8 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class RadgillRenderer extends MobRenderer<RadgillEntity, RadgillModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/radgill.png");
-    private static final ResourceLocation TEXTURE_EYES = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/radgill_eyes.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/radgill.png");
+    private static final ResourceLocation TEXTURE_EYES = AlexsCaves.id("textures/entity/radgill_eyes.png");
 
     public RadgillRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new RadgillModel(), 0.25F);

@@ -15,7 +15,7 @@ import net.neoforged.neoforge.server.ServerLifecycleHooks;
 public class BeholderRotateMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<BeholderRotateMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "beholder_rotate"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("beholder_rotate"));
 
     public static final StreamCodec<FriendlyByteBuf, BeholderRotateMessage> CODEC =
         StreamCodec.ofMember(BeholderRotateMessage::write, BeholderRotateMessage::read);

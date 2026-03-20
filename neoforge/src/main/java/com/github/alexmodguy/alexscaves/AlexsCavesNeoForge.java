@@ -63,7 +63,7 @@ public class AlexsCavesNeoForge {
     public static CommonProxy PROXY = FMLEnvironment.dist.isClient() ? new ClientProxy() : new CommonProxy();
     private IEventBus modEventBus; // Store for client setup
     public static final TicketController TICKET_CONTROLLER = new TicketController(
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "default"),
+            AlexsCaves.id("default"),
             ACWorldData::clearLoadedChunksCallback);
 
     public static final List<String> MOD_GENERATION_CONFLICTS = new ArrayList<>();

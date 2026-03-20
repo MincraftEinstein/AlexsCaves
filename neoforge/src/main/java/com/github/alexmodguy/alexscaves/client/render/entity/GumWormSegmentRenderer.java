@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.GumWormSegmentModel;
 import com.github.alexmodguy.alexscaves.server.entity.living.GumWormEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.GumWormSegmentEntity;
@@ -20,12 +19,14 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix4f;
 
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
+
 public class GumWormSegmentRenderer extends EntityRenderer<GumWormSegmentEntity> {
 
-    private static final ResourceLocation TEXTURE_0 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gum_worm_segment_0.png");
-    private static final ResourceLocation TEXTURE_1 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gum_worm_segment_1.png");
-    private static final ResourceLocation TEXTURE_2 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gum_worm_segment_2.png");
-    private static final ResourceLocation TEXTURE_CONNECTOR = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gum_worm_connection.png");
+    private static final ResourceLocation TEXTURE_0 = id("textures/entity/gum_worm_segment_0.png");
+    private static final ResourceLocation TEXTURE_1 = id("textures/entity/gum_worm_segment_1.png");
+    private static final ResourceLocation TEXTURE_2 = id("textures/entity/gum_worm_segment_2.png");
+    private static final ResourceLocation TEXTURE_CONNECTOR = id("textures/entity/gum_worm_connection.png");
     private static final GumWormSegmentModel MODEL = new GumWormSegmentModel();
 
     public GumWormSegmentRenderer(EntityRendererProvider.Context renderManagerIn) {
@@ -35,7 +36,8 @@ public class GumWormSegmentRenderer extends EntityRenderer<GumWormSegmentEntity>
     public boolean shouldRender(GumWormSegmentEntity entity, Frustum camera, double x, double y, double z) {
         if (super.shouldRender(entity, camera, x, y, z)) {
             return true;
-        } else {
+        }
+        else {
             Entity nextWorm = entity.getFrontEntity();
             if (nextWorm != null) {
                 Vec3 vec3 = entity.position();
@@ -62,7 +64,7 @@ public class GumWormSegmentRenderer extends EntityRenderer<GumWormSegmentEntity>
         MODEL.renderToBuffer(poseStack, ivertexbuilder, packedLightIn, getOverlayCoords(entity, 0.0F), -1);
         super.render(entity, entityYaw, partialTicks, poseStack, bufferIn, packedLightIn);
         poseStack.popPose();
-        if(frontAttachedEntity != null){
+        if (frontAttachedEntity != null) {
             Vec3 centeredHeight = new Vec3(0, entity.getBbHeight() * 0.5F, 0);
             Vec3 from = new Vec3(0F, 0, -0.9F).xRot((float) Math.toRadians(180 - xRotLerp)).yRot(-(float) Math.toRadians(yRotLerp)).add(centeredHeight);
             Vec3 attachment = frontAttachedEntity.getPosition(partialTicks).add(0F, entity.getBbHeight() * 0.5F, 0);
@@ -70,9 +72,10 @@ public class GumWormSegmentRenderer extends EntityRenderer<GumWormSegmentEntity>
             float yUp = 0;
             float theirYRotLerp = Mth.lerp(partialTicks, frontAttachedEntity.yRotO, frontAttachedEntity.getYRot());
             float theirXRotLerp = frontAttachedEntity.getViewXRot(partialTicks);
-            if(frontAttachedEntity instanceof GumWormSegmentEntity){
+            if (frontAttachedEntity instanceof GumWormSegmentEntity) {
                 zBack = -0.9F;
-            }else if(frontAttachedEntity instanceof GumWormEntity){
+            }
+            else if (frontAttachedEntity instanceof GumWormEntity) {
                 zBack = -1.7F;
             }
             Vec3 to = attachment.add(new Vec3(0F, yUp, zBack).xRot(-(float) Math.toRadians(theirXRotLerp)).yRot(-(float) Math.toRadians(theirYRotLerp))).subtract(entity.getPosition(partialTicks));
@@ -107,7 +110,7 @@ public class GumWormSegmentRenderer extends EntityRenderer<GumWormSegmentEntity>
     }
 
     public ResourceLocation getTextureLocation(GumWormSegmentEntity entity) {
-        switch (entity.getIndex() % 3){
+        switch (entity.getIndex() % 3) {
             case 1:
                 return TEXTURE_1;
             case 2:

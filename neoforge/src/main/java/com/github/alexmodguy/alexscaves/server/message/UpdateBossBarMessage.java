@@ -13,7 +13,7 @@ import java.util.UUID;
 public class UpdateBossBarMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<UpdateBossBarMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "update_boss_bar"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("update_boss_bar"));
 
     public static final StreamCodec<FriendlyByteBuf, UpdateBossBarMessage> CODEC =
         StreamCodec.ofMember(UpdateBossBarMessage::write, UpdateBossBarMessage::read);

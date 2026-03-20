@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.component.CustomData;
@@ -60,8 +61,7 @@ public class SeaPigEntity extends WaterAnimal implements Bucketable {
 
     private float squishProgress;
     private float prevSquishProgress;
-    public static final ResourceKey<LootTable> DIGESTION_LOOT_TABLE = ResourceKey.create(Registries.LOOT_TABLE, 
-        ResourceLocation.fromNamespaceAndPath("alexscaves", "gameplay/sea_pig_digestion"));
+    public static final ResourceKey<LootTable> DIGESTION_LOOT_TABLE = ResourceKey.create(Registries.LOOT_TABLE, AlexsCaves.id("gameplay/sea_pig_digestion"));
 
     public SeaPigEntity(EntityType entityType, Level level) {
         super(entityType, level);

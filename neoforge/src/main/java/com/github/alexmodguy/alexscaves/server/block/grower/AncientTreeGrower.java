@@ -15,8 +15,8 @@ import java.util.Optional;
 
 public class AncientTreeGrower {
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "ancient_tree"));
-    public static final ResourceKey<ConfiguredFeature<?, ?>> GIANT_ANCIENT_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "giant_ancient_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ANCIENT_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, AlexsCaves.id("ancient_tree"));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> GIANT_ANCIENT_TREE = ResourceKey.create(Registries.CONFIGURED_FEATURE, AlexsCaves.id("giant_ancient_tree"));
 
     // TreeGrower is a record in 1.21, we create an instance with mega tree support
     public static final TreeGrower GROWER = new TreeGrower(

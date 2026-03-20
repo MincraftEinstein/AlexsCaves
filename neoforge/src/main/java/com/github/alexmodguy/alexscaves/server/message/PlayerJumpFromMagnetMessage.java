@@ -17,7 +17,7 @@ import java.lang.reflect.Field;
 public class PlayerJumpFromMagnetMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<PlayerJumpFromMagnetMessage> TYPE =
-        new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "player_jump_from_magnet"));
+        new CustomPacketPayload.Type<>(AlexsCaves.id("player_jump_from_magnet"));
 
     public static final StreamCodec<FriendlyByteBuf, PlayerJumpFromMagnetMessage> CODEC =
         StreamCodec.ofMember(PlayerJumpFromMagnetMessage::write, PlayerJumpFromMagnetMessage::read);

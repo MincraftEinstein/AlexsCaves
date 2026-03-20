@@ -111,7 +111,7 @@ public class ACItemRegistry {
     public static final DeferredHolder<Item, Item> SEEKING_ARROW = DEF_REG.register("seeking_arrow", () -> new SeekingArrowItem());
     public static final DeferredHolder<Item, Item> GALENA_GAUNTLET = DEF_REG.register("galena_gauntlet", () -> new GalenaGauntletItem());
     public static final DeferredHolder<Item, Item> RESISTOR_SHIELD = DEF_REG.register("resistor_shield", () -> new ResistorShieldItem());
-    public static final DeferredHolder<Item, Item> POLARITY_ARMOR_TRIM_SMITHING_TEMPLATE = DEF_REG.register("polarity_armor_trim_smithing_template", () -> SmithingTemplateItem.createArmorTrimTemplate(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "polarity")));
+    public static final DeferredHolder<Item, Item> POLARITY_ARMOR_TRIM_SMITHING_TEMPLATE = DEF_REG.register("polarity_armor_trim_smithing_template", () -> SmithingTemplateItem.createArmorTrimTemplate(AlexsCaves.id("polarity")));
     public static final DeferredHolder<Item, Item> PEWEN_DOOR = DEF_REG.register("pewen_door", () -> new DoubleHighBlockItem(ACBlockRegistry.PEWEN_DOOR.get(), (new Item.Properties())));
     public static final DeferredHolder<Item, Item> PEWEN_SIGN = DEF_REG.register("pewen_sign", () -> new SignItem((new Item.Properties()).stacksTo(16), ACBlockRegistry.PEWEN_SIGN.get(), ACBlockRegistry.PEWEN_WALL_SIGN.get()));
     public static final DeferredHolder<Item, Item> PEWEN_HANGING_SIGN = DEF_REG.register("pewen_hanging_sign", () -> new HangingSignItem(ACBlockRegistry.PEWEN_HANGING_SIGN.get(), ACBlockRegistry.PEWEN_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
@@ -168,7 +168,7 @@ public class ACItemRegistry {
     public static final DeferredHolder<Item, Item> MUSIC_DISC_FUSION_FRAGMENT = DEF_REG.register("disc_fragment_fusion", () -> new DiscFragmentItem(new Item.Properties()));
     // Music discs - in 1.21+, use jukeboxPlayable component in item properties
     // The jukebox songs are data-driven and defined in data/alexscaves/jukebox_song/
-    public static final ResourceKey<JukeboxSong> JUKEBOX_SONG_FUSION = ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "fusion"));
+    public static final ResourceKey<JukeboxSong> JUKEBOX_SONG_FUSION = ResourceKey.create(Registries.JUKEBOX_SONG, AlexsCaves.id("fusion"));
     public static final DeferredHolder<Item, Item> MUSIC_DISC_FUSION = DEF_REG.register("music_disc_fusion", () -> new Item(new Item.Properties().stacksTo(1).rarity(getRarityNuclear()).jukeboxPlayable(JUKEBOX_SONG_FUSION)));
     public static final DeferredHolder<Item, Item> LANTERNFISH_BUCKET = DEF_REG.register("lanternfish_bucket", () -> new ModFishBucketItem(ACEntityRegistry.LANTERNFISH, () -> Fluids.WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final DeferredHolder<Item, Item> LANTERNFISH = DEF_REG.register("lanternfish", () -> new Item(new Item.Properties().food(ACFoods.LANTERNFISH)));
@@ -277,7 +277,7 @@ public class ACItemRegistry {
     public static final DeferredHolder<Item, Item> FROSTMINT_SPEAR = DEF_REG.register("frostmint_spear", () -> new FrostmintSpearItem(new Item.Properties().stacksTo(16)));
     public static final DeferredHolder<Item, Item> FROSTMINT_SPEAR_SPRITE = DEF_REG.register("frostmint_spear_inventory", () -> new Item(new Item.Properties()));
     public static final DeferredHolder<Item, Item> MUSIC_DISC_TASTY_FRAGMENT = DEF_REG.register("disc_fragment_tasty", () -> new DiscFragmentItem(new Item.Properties()));
-    public static final ResourceKey<JukeboxSong> JUKEBOX_SONG_TASTY = ResourceKey.create(Registries.JUKEBOX_SONG, ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "tasty"));
+    public static final ResourceKey<JukeboxSong> JUKEBOX_SONG_TASTY = ResourceKey.create(Registries.JUKEBOX_SONG, AlexsCaves.id("tasty"));
     public static final DeferredHolder<Item, Item> MUSIC_DISC_TASTY = DEF_REG.register("music_disc_tasty", () -> new Item(new Item.Properties().stacksTo(1).rarity(getRaritySweet()).jukeboxPlayable(JUKEBOX_SONG_TASTY)));
     public static final DeferredHolder<Item, Item> ALEX_MEAL = DEF_REG.register("alex_meal", () -> new AlexMealItem());
     public static final DeferredHolder<Item, Item> BIOME_TREAT = DEF_REG.register("biome_treat", () -> new BiomeTreatItem());

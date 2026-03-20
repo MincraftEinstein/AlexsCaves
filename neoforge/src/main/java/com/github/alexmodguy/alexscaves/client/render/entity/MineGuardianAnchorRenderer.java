@@ -20,7 +20,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class MineGuardianAnchorRenderer extends EntityRenderer<MineGuardianAnchorEntity> {
 
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/mine_guardian_anchor.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/mine_guardian_anchor.png");
     private static final ResourceLocation TEXTURE_CHAIN = ResourceLocation.withDefaultNamespace("textures/block/chain.png");
     private static final MineGuardianAnchorModel MODEL = new MineGuardianAnchorModel();
 

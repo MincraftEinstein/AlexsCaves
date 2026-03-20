@@ -17,7 +17,7 @@ import net.minecraft.world.phys.AABB;
 
 public class RageEffect extends MobEffect {
 
-    private static final ResourceLocation RAGE_ATTACK_DAMAGE_ID = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "rage_attack_boost");
+    private static final ResourceLocation RAGE_ATTACK_DAMAGE_ID = AlexsCaves.id("rage_attack_boost");
 
     protected RageEffect() {
         super(MobEffectCategory.NEUTRAL, 0XBA2E2E);

@@ -15,8 +15,8 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class LanternfishRenderer extends MobRenderer<LanternfishEntity, LanternfishModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/lanternfish.png");
-    private static final ResourceLocation TEXTURE_GLOW = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/lanternfish_glow.png");
+    private static final ResourceLocation TEXTURE = AlexsCaves.id("textures/entity/lanternfish.png");
+    private static final ResourceLocation TEXTURE_GLOW = AlexsCaves.id("textures/entity/lanternfish_glow.png");
 
     public LanternfishRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new LanternfishModel(), 0.25F);

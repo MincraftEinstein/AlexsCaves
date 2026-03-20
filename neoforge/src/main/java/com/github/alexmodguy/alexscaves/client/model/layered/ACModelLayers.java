@@ -25,7 +25,7 @@ public class ACModelLayers {
     }
 
     private static ModelLayerLocation createLocation(String model, String layer) {
-        return new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, model), layer);
+        return new ModelLayerLocation(AlexsCaves.id(model), layer);
     }
 
 

@@ -1,8 +1,8 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.WatcherModel;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
+import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.server.entity.living.WatcherEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -21,12 +21,12 @@ import net.minecraft.world.entity.Pose;
 
 import javax.annotation.Nullable;
 
-import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
 
 public class WatcherRenderer extends MobRenderer<WatcherEntity, WatcherModel> {
-    private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/watcher.png");
-    private static final ResourceLocation TEXTURE_MOTH = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/watcher_moth.png");
-    private static final ResourceLocation TEXTURE_EYESPOTS = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/watcher_eyespots.png");
+    private static final ResourceLocation TEXTURE = id("textures/entity/watcher.png");
+    private static final ResourceLocation TEXTURE_MOTH = id("textures/entity/watcher_moth.png");
+    private static final ResourceLocation TEXTURE_EYESPOTS = id("textures/entity/watcher_eyespots.png");
 
     public WatcherRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new WatcherModel(), 0.5F);

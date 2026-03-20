@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
 import net.minecraft.resources.ResourceLocation;
 
 public class NucleeperEnergySwirlLayer  extends EnergySwirlLayer<NucleeperEntity, NucleeperModel> {
-    private static final ResourceLocation POWER_LOCATION = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/nucleeper/nucleeper_charged.png");
+    private static final ResourceLocation POWER_LOCATION = AlexsCaves.id("textures/entity/nucleeper/nucleeper_charged.png");
     private final NucleeperModel model = new NucleeperModel(1.0F);
 
     public NucleeperEnergySwirlLayer(RenderLayerParent<NucleeperEntity, NucleeperModel> renderer) {

@@ -17,18 +17,18 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
 public class GumballRenderer extends EntityRenderer<GumballEntity> {
-    private static final ResourceLocation TEXTURE_0 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_0.png");
-    private static final ResourceLocation TEXTURE_1 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_1.png");
-    private static final ResourceLocation TEXTURE_2 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_2.png");
-    private static final ResourceLocation TEXTURE_3 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_3.png");
-    private static final ResourceLocation TEXTURE_4 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_4.png");
-    private static final ResourceLocation TEXTURE_5 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_5.png");
-    private static final ResourceLocation TEXTURE_6 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_6.png");
-    private static final ResourceLocation TEXTURE_7 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_7.png");
-    private static final ResourceLocation TEXTURE_8 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_8.png");
-    private static final ResourceLocation TEXTURE_9 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_9.png");
-    private static final ResourceLocation TEXTURE_10 = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_10.png");
-    private static final ResourceLocation TEXTURE_EXPLODING = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/gumball/gumball_exploding.png");
+    private static final ResourceLocation TEXTURE_0 = AlexsCaves.id("textures/entity/gumball/gumball_0.png");
+    private static final ResourceLocation TEXTURE_1 = AlexsCaves.id("textures/entity/gumball/gumball_1.png");
+    private static final ResourceLocation TEXTURE_2 = AlexsCaves.id("textures/entity/gumball/gumball_2.png");
+    private static final ResourceLocation TEXTURE_3 = AlexsCaves.id("textures/entity/gumball/gumball_3.png");
+    private static final ResourceLocation TEXTURE_4 = AlexsCaves.id("textures/entity/gumball/gumball_4.png");
+    private static final ResourceLocation TEXTURE_5 = AlexsCaves.id("textures/entity/gumball/gumball_5.png");
+    private static final ResourceLocation TEXTURE_6 = AlexsCaves.id("textures/entity/gumball/gumball_6.png");
+    private static final ResourceLocation TEXTURE_7 = AlexsCaves.id("textures/entity/gumball/gumball_7.png");
+    private static final ResourceLocation TEXTURE_8 = AlexsCaves.id("textures/entity/gumball/gumball_8.png");
+    private static final ResourceLocation TEXTURE_9 = AlexsCaves.id("textures/entity/gumball/gumball_9.png");
+    private static final ResourceLocation TEXTURE_10 = AlexsCaves.id("textures/entity/gumball/gumball_10.png");
+    private static final ResourceLocation TEXTURE_EXPLODING = AlexsCaves.id("textures/entity/gumball/gumball_exploding.png");
 
     public GumballRenderer(EntityRendererProvider.Context context) {
         super(context);

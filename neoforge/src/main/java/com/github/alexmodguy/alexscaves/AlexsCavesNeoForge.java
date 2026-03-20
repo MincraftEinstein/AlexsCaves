@@ -16,7 +16,6 @@ import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACArmorMaterial;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
-import com.github.alexmodguy.alexscaves.server.level.carver.ACCarverRegistry;
 import com.github.alexmodguy.alexscaves.server.level.feature.ACFeatureRegistry;
 import com.github.alexmodguy.alexscaves.server.level.storage.ACWorldData;
 import com.github.alexmodguy.alexscaves.server.level.structure.ACStructureRegistry;
@@ -89,7 +88,6 @@ public class AlexsCavesNeoForge {
         ACAttachmentRegistry.DEF_REG.register(modEventBus);
         ACFeatureRegistry.DEF_REG.register(modEventBus);
         ACSurfaceRuleConditionRegistry.DEF_REG.register(modEventBus);
-        ACCarverRegistry.DEF_REG.register(modEventBus);
         ACStructureRegistry.DEF_REG.register(modEventBus);
         ACStructurePieceRegistry.DEF_REG.register(modEventBus);
         ACStructureProcessorRegistry.DEF_REG.register(modEventBus);

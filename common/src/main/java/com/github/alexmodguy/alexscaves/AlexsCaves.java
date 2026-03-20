@@ -6,6 +6,7 @@ import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACSoundTypes;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.config.ACServerConfig;
+import com.github.alexmodguy.alexscaves.server.level.carver.ACCarverRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACDataComponentRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
@@ -39,6 +40,7 @@ public class AlexsCaves {
         ACAdvancementTriggerRegistry.init();
         ACDataComponentRegistry.init();
         ACParticleRegistry.init();
+        ACCarverRegistry.init();
     }
 
     public static ResourceLocation id(String path) {

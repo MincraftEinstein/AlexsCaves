@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.ClientConstants;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.server.entity.item.SugarStaffHexEntity;
 import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
@@ -25,7 +25,7 @@ public class SugarStaffHexRenderer extends EntityRenderer<SugarStaffHexEntity> {
     }
 
     public void render(SugarStaffHexEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource multiBufferSource, int packedLight) {
-        PostEffectRegistry.renderEffectForNextTick(ClientProxy.PURPLE_WITCH_SHADER);
+        PostEffectRegistry.renderEffectForNextTick(ClientConstants.PURPLE_WITCH_SHADER);
         poseStack.pushPose();
         float despawnsIn = entity.getDespawnTime(partialTicks);
         float randomRotation = entity.getId() % 4 * 90;

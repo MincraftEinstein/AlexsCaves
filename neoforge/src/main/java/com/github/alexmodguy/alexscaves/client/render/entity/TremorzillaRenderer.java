@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.ClientConstants;
 import com.github.alexmodguy.alexscaves.client.model.TremorzillaBeamModel;
 import com.github.alexmodguy.alexscaves.client.model.TremorzillaModel;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
@@ -31,7 +31,10 @@ import org.joml.Matrix4f;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 
+import static com.github.alexmodguy.alexscaves.client.ClientConstants.IRRADIATED_SHADER;
+
 public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, TremorzillaModel> implements CustomBookEntityRenderer {
+
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/tremorzilla/tremorzilla.png");
     private static final ResourceLocation TEXTURE_RETRO = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/tremorzilla/tremorzilla_retro.png");
     private static final ResourceLocation TEXTURE_TECTONIC = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/tremorzilla/tremorzilla_tectonic.png");
@@ -60,6 +63,7 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
     private static final Vec3 MOUTH_TRANSFORM_POS = new Vec3(0, 1F, -1F);
     private static final TremorzillaBeamModel BEAM_END_MODEL = new TremorzillaBeamModel();
     private boolean sepia;
+
     public TremorzillaRenderer(EntityRendererProvider.Context renderManagerIn) {
         super(renderManagerIn, new TremorzillaModel(), 4.0F);
         this.addLayer(new LayerGlow());
@@ -75,7 +79,7 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
 
     public void render(TremorzillaEntity entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource source, int packedLight) {
         this.model.straighten = sepia;
-        this.shadowRadius = 4.0F * (float)entity.getScale();
+        this.shadowRadius = 4.0F * (float) entity.getScale();
         super.render(entity, entityYaw, partialTicks, poseStack, source, packedLight);
         float bodyYaw = Mth.rotLerp(partialTicks, entity.yBodyRotO, entity.yBodyRot);
         float beamProgress = entity.getBeamProgress(partialTicks);
@@ -98,7 +102,7 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
             poseStack.mulPose(Axis.XP.rotationDegrees((-(Mth.PI / 2F) + xRot) * Mth.RAD_TO_DEG));
             poseStack.mulPose(Axis.ZP.rotationDegrees(45));
             renderBeam(entity, poseStack, source, partialTicks, width, length, true, false);
-            if(AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()){
+            if (AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()) {
                 renderBeam(entity, poseStack, source, partialTicks, width, length, true, true);
             }
             renderBeam(entity, poseStack, source, partialTicks, width, length, false, false);
@@ -116,9 +120,11 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
         ResourceLocation resourcelocation = this.getTextureLocation(mob);
         if (translucent) {
             return RenderType.itemEntityTranslucentCull(resourcelocation);
-        } else if (normal) {
+        }
+        else if (normal) {
             return sepia ? ACRenderTypes.getBookWidget(resourcelocation, true) : RenderType.entityTranslucent(resourcelocation);
-        } else {
+        }
+        else {
             return outline ? RenderType.outline(resourcelocation) : null;
         }
     }
@@ -134,20 +140,23 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
             vertices = 4;
             ResourceLocation resourceLocation = entity.getAltSkin() == 2 ? TEXTURE_TECTONIC_BEAM_INNER : entity.getAltSkin() == 1 ? TEXTURE_RETRO_BEAM_INNER : TEXTURE_BEAM_INNER;
             if (AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get() && glowSecondPass) {
-                PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
+                PostEffectRegistry.renderEffectForNextTick(IRRADIATED_SHADER);
                 vertexconsumer = source.getBuffer(ACRenderTypes.getTremorzillaBeam(resourceLocation, true));
                 endAlpha = 0.5F;
-            } else {
+            }
+            else {
                 vertexconsumer = source.getBuffer(ACRenderTypes.getTremorzillaBeam(resourceLocation, false));
             }
             speed = 0.5F;
-        } else {
+        }
+        else {
             vertices = 8;
             ResourceLocation resourceLocation = entity.getAltSkin() == 2 ? TEXTURE_TECTONIC_BEAM_OUTER : entity.getAltSkin() == 1 ? TEXTURE_RETRO_BEAM_OUTER : TEXTURE_BEAM_OUTER;
             if (AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()) {
-                PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
+                PostEffectRegistry.renderEffectForNextTick(IRRADIATED_SHADER);
                 vertexconsumer = source.getBuffer(ACRenderTypes.getTremorzillaBeam(resourceLocation, true));
-            } else {
+            }
+            else {
                 vertexconsumer = source.getBuffer(ACRenderTypes.getTremorzillaBeam(resourceLocation, false));
             }
             width += 0.25F;
@@ -175,12 +184,13 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
             f5 = f8;
             f6 = f9;
         }
-        if(inner){
+        if (inner) {
             VertexConsumer endVertexConsumer;
             if (AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get() && glowSecondPass) {
-                PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
+                PostEffectRegistry.renderEffectForNextTick(IRRADIATED_SHADER);
                 endVertexConsumer = source.getBuffer(ACRenderTypes.getTremorzillaBeam(getEndBeamTexture(entity), true));
-            } else {
+            }
+            else {
                 endVertexConsumer = source.getBuffer(ACRenderTypes.getTremorzillaBeam(getEndBeamTexture(entity), false));
             }
             poseStack.pushPose();
@@ -197,7 +207,7 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
 
     private ResourceLocation getEndBeamTexture(TremorzillaEntity entity) {
         int time = entity.tickCount / 2 % 3;
-        switch (time){
+        switch (time) {
             case 0:
                 return entity.getAltSkin() == 2 ? TEXTURE_TECTONIC_BEAM_END_0 : entity.getAltSkin() == 1 ? TEXTURE_RETRO_BEAM_END_0 : TEXTURE_BEAM_END_0;
             case 1:
@@ -211,13 +221,14 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
     public boolean shouldRender(TremorzillaEntity entity, Frustum camera, double x, double y, double z) {
         if (super.shouldRender(entity, camera, x, y, z)) {
             return true;
-        } else {
+        }
+        else {
             for (PartEntity part : entity.getParts()) {
                 if (camera.isVisible(part.getBoundingBoxForCulling())) {
                     return true;
                 }
             }
-            if(entity.isFiring()){
+            if (entity.isFiring()) {
                 Vec3 endBeam = entity.getClientBeamEndPosition(1.0F);
                 if (endBeam != null) {
                     Vec3 vec3 = entity.getBeamShootFrom(1.0F);
@@ -247,9 +258,10 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
             if (spikeDownAmount > 0) {
                 VertexConsumer spikeGlowConsumer;
                 if (AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()) {
-                    PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
+                    PostEffectRegistry.renderEffectForNextTick(IRRADIATED_SHADER);
                     spikeGlowConsumer = bufferIn.getBuffer(ACRenderTypes.getTremorzillaBeam(tremorzilla.getAltSkin() == 2 ? TEXTURE_TECTONIC_GLOW_POWERED : tremorzilla.getAltSkin() == 1 ? TEXTURE_RETRO_GLOW_POWERED : TEXTURE_GLOW_POWERED, true));
-                } else {
+                }
+                else {
                     spikeGlowConsumer = normalGlowConsumer;
                 }
                 this.getParentModel().showSpikesBasedOnProgress(spikeDownAmount, 0.0F);

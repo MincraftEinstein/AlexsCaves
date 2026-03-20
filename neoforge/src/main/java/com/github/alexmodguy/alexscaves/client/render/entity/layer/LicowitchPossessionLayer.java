@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity.layer;
 
-import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.ClientConstants;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.server.entity.living.LicowitchEntity;
@@ -8,7 +8,6 @@ import com.github.alexmodguy.alexscaves.server.entity.util.PossessedByLicowitch;
 import com.github.alexthe666.citadel.client.model.AdvancedEntityModel;
 import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
@@ -54,7 +53,7 @@ public class LicowitchPossessionLayer<T extends LivingEntity & PossessedByLicowi
                     model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
                 }
                 float possessAlpha = (float) (0.35F + (1F + Math.sin(ageInTicks * 0.2F)) * 0.15F);
-                PostEffectRegistry.renderEffectForNextTick(ClientProxy.PURPLE_WITCH_SHADER);
+                PostEffectRegistry.renderEffectForNextTick(ClientConstants.PURPLE_WITCH_SHADER);
                 model.renderToBuffer(poseStack, bufferIn.getBuffer(RenderType.entityTranslucent(texture)), packedLightIn, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), ColorUtil.packColor(possessAlpha, 1.0F, 0.3F, 1.0F));
                 model.renderToBuffer(poseStack, bufferIn.getBuffer(ACRenderTypes.getPurpleWitch(texture)), packedLightIn, LivingEntityRenderer.getOverlayCoords(entity, 0), ColorUtil.packColor(1.0F, 1F, 1F, 1F));
             }

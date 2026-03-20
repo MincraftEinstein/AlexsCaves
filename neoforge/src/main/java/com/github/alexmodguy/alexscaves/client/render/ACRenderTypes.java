@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.client.render;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.ClientConstants;
 import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
 import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -25,7 +25,7 @@ public class ACRenderTypes extends RenderType {
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_PURPLE_WITCH_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypePurpleWitchShader);
 
     protected static final RenderStateShard.OutputStateShard IRRADIATED_OUTPUT = new RenderStateShard.OutputStateShard("irradiated_target", () -> {
-        RenderTarget target = PostEffectRegistry.getRenderTargetFor(ClientProxy.IRRADIATED_SHADER);
+        RenderTarget target = PostEffectRegistry.getRenderTargetFor(ClientConstants.IRRADIATED_SHADER);
         if (target != null) {
             target.copyDepthFrom(Minecraft.getInstance().getMainRenderTarget());
             target.bindWrite(false);
@@ -36,7 +36,7 @@ public class ACRenderTypes extends RenderType {
         Minecraft.getInstance().getMainRenderTarget().bindWrite(false);
     });
     protected static final RenderStateShard.OutputStateShard HOLOGRAM_OUTPUT = new RenderStateShard.OutputStateShard("hologram_target", () -> {
-        RenderTarget target = PostEffectRegistry.getRenderTargetFor(ClientProxy.HOLOGRAM_SHADER);
+        RenderTarget target = PostEffectRegistry.getRenderTargetFor(ClientConstants.HOLOGRAM_SHADER);
         if (target != null) {
             target.copyDepthFrom(Minecraft.getInstance().getMainRenderTarget());
             target.bindWrite(false);
@@ -46,7 +46,7 @@ public class ACRenderTypes extends RenderType {
     });
 
     protected static final RenderStateShard.OutputStateShard PURPLE_WITCH_OUTPUT = new RenderStateShard.OutputStateShard("purple_witch_target", () -> {
-        RenderTarget target = PostEffectRegistry.getRenderTargetFor(ClientProxy.PURPLE_WITCH_SHADER);
+        RenderTarget target = PostEffectRegistry.getRenderTargetFor(ClientConstants.PURPLE_WITCH_SHADER);
         if (target != null) {
             target.copyDepthFrom(Minecraft.getInstance().getMainRenderTarget());
             target.bindWrite(false);

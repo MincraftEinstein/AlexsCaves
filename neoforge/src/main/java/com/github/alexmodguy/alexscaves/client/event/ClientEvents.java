@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.client.event;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.client.ClientConstants;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.gui.ACAdvancementTabs;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.AmbersolBlockRenderer;
@@ -87,26 +88,10 @@ import com.github.alexmodguy.alexscaves.mixin.client.GameRendererAccessor;
 import java.util.Arrays;
 import java.util.UUID;
 
+import static com.github.alexmodguy.alexscaves.client.ClientConstants.*;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
 public class ClientEvents {
-
-    private static final ResourceLocation POTION_EFFECT_HUD_OVERLAYS = ResourceLocation
-            .fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/misc/potion_effect_hud_overlays.png");
-    private static final ResourceLocation BOSS_BAR_HUD_OVERLAYS = ResourceLocation
-            .fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/misc/boss_bar_hud_overlays.png");
-    private static final ResourceLocation DINOSAUR_HUD_OVERLAYS = ResourceLocation
-            .fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/misc/dinosaur_hud_overlays.png");
-    private static final ResourceLocation ARMOR_HUD_OVERLAYS = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID,
-            "textures/misc/armor_hud_overlays.png");
-    private static final ResourceLocation SUBMARINE_SHADER = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID,
-            "shaders/post/submarine_light.json");
-    private static final ResourceLocation WATCHER_SHADER = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID,
-            "shaders/post/watcher_perspective.json");
-    private static final ResourceLocation SUGAR_RUSH_SHADER = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID,
-            "shaders/post/sugar_rush.json");
-    private static final ResourceLocation TRAIL_TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID,
-            "textures/particle/teletor_trail.png");
 
     private static float lastSampledFogNearness = 0.0F;
     private static float lastSampledWaterFogFarness = 0.0F;
@@ -116,8 +101,6 @@ public class ClientEvents {
     public static PoseStack lastVanillaMapPoseStack;
     public static MultiBufferSource lastVanillaMapRenderBuffer;
     public static int lastVanillaMapRenderPackedLight;
-    private static final RenderType UNDERGROUND_CABIN_MAP_ICONS = RenderType.text(
-            ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/misc/underground_cabin_map_icons.png"));
 
     @SubscribeEvent
     public void setupEntityRotations(EventLivingRenderer.SetupRotations event) {

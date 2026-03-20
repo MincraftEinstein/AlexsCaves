@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.ClientConstants;
 import com.github.alexmodguy.alexscaves.client.model.LicowitchModel;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
@@ -71,7 +71,7 @@ public class LicowitchRenderer extends MobRenderer<LicowitchEntity, LicowitchMod
                 VertexConsumer textureBuffer = bufferSource.getBuffer(RenderType.entityTranslucentCull(LicowitchRenderer.TEXTURE));
                 TELEPORTING_MODEL.setupAnim(licowitch, licowitch.walkAnimation.position(partialTick), licowitch.walkAnimation.speed(partialTick), licowitch.tickCount + partialTick, netHeadYaw, headPitch);
                 TELEPORTING_MODEL.renderToBuffer(posestack, textureBuffer, 240, LivingEntityRenderer.getOverlayCoords(licowitch, 0.0F), ColorUtil.packColor(1.0F, 1.0F - (1F - progress), 1.0F, progress));
-                PostEffectRegistry.renderEffectForNextTick(ClientProxy.PURPLE_WITCH_SHADER);
+                PostEffectRegistry.renderEffectForNextTick(ClientConstants.PURPLE_WITCH_SHADER);
                 VertexConsumer witchEffectBuffer = bufferSource.getBuffer(ACRenderTypes.getPurpleWitch(LicowitchRenderer.TEXTURE));
                 TELEPORTING_MODEL.renderToBuffer(posestack, witchEffectBuffer, 240, LivingEntityRenderer.getOverlayCoords(licowitch, 0.0F), ColorUtil.packColor(1.0F, 0.0F, 1.0F, progress));
                 posestack.popPose();
@@ -180,7 +180,7 @@ public class LicowitchRenderer extends MobRenderer<LicowitchEntity, LicowitchMod
                 if (to != null) {
                     Vec3 vec3 = to.subtract(witch.getPosition(partialTicks));
                     if (vec3.length() > 0.5F) {
-                        PostEffectRegistry.renderEffectForNextTick(ClientProxy.PURPLE_WITCH_SHADER);
+                        PostEffectRegistry.renderEffectForNextTick(ClientConstants.PURPLE_WITCH_SHADER);
                         VertexConsumer textureBuffer2 = bufferIn.getBuffer(RenderType.entityTranslucentCull(LicowitchRenderer.this.getTextureLocation(witch)));
                         this.getParentModel().renderToBuffer(poseStack, textureBuffer2, packedLightIn, LivingEntityRenderer.getOverlayCoords(witch, 0.0F), ColorUtil.packColor(1.0F, 1.0F - progress, 1.0F, progress));
                         VertexConsumer witchEffectBuffer2 = bufferIn.getBuffer(ACRenderTypes.getPurpleWitch(LicowitchRenderer.this.getTextureLocation(witch)));

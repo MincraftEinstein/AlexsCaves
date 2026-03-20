@@ -2,7 +2,7 @@ package com.github.alexmodguy.alexscaves.client.render.entity.layer;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
-import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.ClientConstants;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
@@ -94,7 +94,7 @@ public class ACPotionEffectLayer extends RenderLayer {
         if (entity instanceof LivingEntity living) {
             if (living.hasEffect(ACEffectRegistry.IRRADIATED)
                     && AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()) {
-                PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
+                PostEffectRegistry.renderEffectForNextTick(ClientConstants.IRRADIATED_SHADER);
                 int level = living.getEffect(ACEffectRegistry.IRRADIATED).getAmplifier() + 1;
                 VertexConsumer ivertexbuilder = bufferIn.getBuffer(level >= IrradiatedEffect.BLUE_LEVEL
                         ? ACRenderTypes.getBlueRadiationGlow(getTextureLocation(entity))

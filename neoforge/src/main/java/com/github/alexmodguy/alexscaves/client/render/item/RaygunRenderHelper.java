@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.client.render.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.ClientConstants;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
 import com.github.alexmodguy.alexscaves.server.item.RaygunItem;
@@ -13,12 +13,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
@@ -27,6 +27,7 @@ public class RaygunRenderHelper {
 
     private static final ResourceLocation RAYGUN_RAY = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/raygun/raygun_ray.png");
     private static final ResourceLocation RAYGUN_BLUE_RAY = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/raygun/raygun_blue_ray.png");
+
     private static void renderRay(PoseStack poseStack, MultiBufferSource bufferSource, Vec3 vec3, float useAmount, float offset, boolean irradiated, boolean blue) {
         float f2 = -1.0F * (offset * 0.25F % 1.0F);
         poseStack.pushPose();
@@ -45,8 +46,8 @@ public class RaygunRenderHelper {
         float v1 = length * 1F + v;
         float endWidth = 1.3F;
         float startMiddle = 0;
-        if(irradiated){
-            PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
+        if (irradiated) {
+            PostEffectRegistry.renderEffectForNextTick(ClientConstants.IRRADIATED_SHADER);
         }
         VertexConsumer ivertexbuilder = bufferSource.getBuffer(ACRenderTypes.getRaygunRay(blue ? RAYGUN_BLUE_RAY : RAYGUN_RAY, irradiated));
         PoseStack.Pose matrixstack$entry = poseStack.last();
@@ -69,7 +70,7 @@ public class RaygunRenderHelper {
         p_229108_0_.addVertex(p_229108_1_, x, y, z).setColor(p_229108_6_, p_229108_7_, p_229108_8_, 255).setUv(u, v).setOverlay(OverlayTexture.NO_OVERLAY).setLight(240).setNormal(0.0F, 1.0F, 0.0F);
     }
 
-    public static void renderRaysFor(LivingEntity entity,  Vec3 rayFrom, PoseStack poseStack, MultiBufferSource bufferSource, float partialTick, boolean firstPerson, int firstPersonPass) {
+    public static void renderRaysFor(LivingEntity entity, Vec3 rayFrom, PoseStack poseStack, MultiBufferSource bufferSource, float partialTick, boolean firstPerson, int firstPersonPass) {
         if (entity.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof RaygunItem && entity.isUsingItem()) {
             ItemStack stack = entity.getItemInHand(InteractionHand.MAIN_HAND);
             float useRaygunAmount = RaygunItem.getUseTime(stack) / 5F;
@@ -86,10 +87,10 @@ public class RaygunRenderHelper {
                 Vec3 vec3 = rayPosition.subtract(rayFrom.add(gunPos));
                 poseStack.pushPose();
                 poseStack.translate(gunPos.x, gunPos.y, gunPos.z);
-                if(firstPersonPass == 0 || firstPersonPass == 1){
+                if (firstPersonPass == 0 || firstPersonPass == 1) {
                     RaygunRenderHelper.renderRay(poseStack, bufferSource, vec3, useRaygunAmount, ageInTicks, false, blue);
                 }
-                if((firstPersonPass == 0 || firstPersonPass == 2) && AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()){
+                if ((firstPersonPass == 0 || firstPersonPass == 2) && AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()) {
                     RaygunRenderHelper.renderRay(poseStack, bufferSource, vec3, useRaygunAmount, ageInTicks, true, blue);
                 }
                 poseStack.popPose();
@@ -111,10 +112,10 @@ public class RaygunRenderHelper {
                 Vec3 vec3 = rayPosition.subtract(rayFrom.add(gunPos));
                 poseStack.pushPose();
                 poseStack.translate(gunPos.x, gunPos.y, gunPos.z);
-                if(firstPersonPass == 0 || firstPersonPass == 1){
+                if (firstPersonPass == 0 || firstPersonPass == 1) {
                     RaygunRenderHelper.renderRay(poseStack, bufferSource, vec3, useRaygunAmount, ageInTicks, false, blue);
                 }
-                if(firstPersonPass == 0 || firstPersonPass == 2){
+                if (firstPersonPass == 0 || firstPersonPass == 2) {
                     RaygunRenderHelper.renderRay(poseStack, bufferSource, vec3, useRaygunAmount, ageInTicks, true, blue);
                 }
                 poseStack.popPose();
@@ -124,16 +125,17 @@ public class RaygunRenderHelper {
 
     private static Vec3 getGunOffset(LivingEntity entity, float partialTicks, boolean firstPerson, boolean left) {
         int i = left ? -1 : 1;
-        if(firstPerson){
+        if (firstPerson) {
             double d7 = 1000.0D / (double) Minecraft.getInstance().getEntityRenderDispatcher().options.fov().get().intValue();
-            Vec3 vec3 = Minecraft.getInstance().getEntityRenderDispatcher().camera.getNearPlane().getPointOnPlane((float)i * 0.35F, -0.25F);
+            Vec3 vec3 = Minecraft.getInstance().getEntityRenderDispatcher().camera.getNearPlane().getPointOnPlane((float) i * 0.35F, -0.25F);
             float f = entity.getAttackAnim(partialTicks);
             float f1 = Mth.sin(Mth.sqrt(f) * (float) Math.PI);
             vec3 = vec3.scale(d7);
             vec3 = vec3.yRot(f1 * 0.5F);
             vec3 = vec3.xRot(-f1 * 0.7F);
             return vec3;
-        }else{
+        }
+        else {
             float yBodyRot = Mth.lerp(partialTicks, entity.yBodyRotO, entity.yBodyRot);
             Vec3 offset = new Vec3(entity.getBbWidth() * -0.5F * i, entity.getBbHeight() * 0.8F, 0).yRot((float) Math.toRadians(-yBodyRot));
             Vec3 armViewExtra = entity.getViewVector(partialTicks).normalize().scale(1.5F);

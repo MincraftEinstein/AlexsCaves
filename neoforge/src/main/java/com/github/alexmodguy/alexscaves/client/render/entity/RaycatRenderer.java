@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.ClientConstants;
 import com.github.alexmodguy.alexscaves.client.model.RaycatModel;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.server.entity.living.RaycatEntity;
@@ -24,6 +24,7 @@ import org.joml.Matrix4f;
 import javax.annotation.Nullable;
 
 public class RaycatRenderer extends MobRenderer<RaycatEntity, RaycatModel> implements CustomBookEntityRenderer {
+
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/raycat.png");
     private static final ResourceLocation TEXTURE_BODY = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/raycat_body.png");
     private static final ResourceLocation TEXTURE_EYES = ResourceLocation.fromNamespaceAndPath(AlexsCaves.MOD_ID, "textures/entity/raycat_eyes.png");
@@ -41,9 +42,11 @@ public class RaycatRenderer extends MobRenderer<RaycatEntity, RaycatModel> imple
         ResourceLocation resourcelocation = this.getTextureLocation(raycatEntity);
         if (translucent) {
             return RenderType.itemEntityTranslucentCull(resourcelocation);
-        } else if (normal) {
+        }
+        else if (normal) {
             return sepia ? null : AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get() ? ACRenderTypes.getRadiationGlow(resourcelocation) : ACRenderTypes.entityTranslucent(resourcelocation);
-        } else {
+        }
+        else {
             return outline ? RenderType.outline(resourcelocation) : null;
         }
     }
@@ -61,8 +64,8 @@ public class RaycatRenderer extends MobRenderer<RaycatEntity, RaycatModel> imple
     }
 
     public void render(RaycatEntity entityIn, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn) {
-        if(!sepia && AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()){
-            PostEffectRegistry.renderEffectForNextTick(ClientProxy.IRRADIATED_SHADER);
+        if (!sepia && AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()) {
+            PostEffectRegistry.renderEffectForNextTick(ClientConstants.IRRADIATED_SHADER);
         }
         float absorbAmount = entityIn.getAbsorbAmount(partialTicks);
         Entity absorbTarget = entityIn.getAbsorbTarget();

@@ -5,6 +5,7 @@ import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACSoundTypes;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.config.ACServerConfig;
+import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -33,6 +34,7 @@ public class AlexsCaves {
         ACSoundTypes.init();
         ACBlockRegistry.init();
         ACPOIRegistry.init();
+        ACAdvancementTriggerRegistry.init();
     }
 
     public static ResourceLocation id(String path) {

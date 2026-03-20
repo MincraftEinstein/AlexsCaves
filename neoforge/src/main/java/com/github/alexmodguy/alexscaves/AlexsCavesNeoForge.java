@@ -101,7 +101,6 @@ public class AlexsCavesNeoForge {
         ACMenuRegistry.DEF_REG.register(modEventBus);
         ACRecipeRegistry.DEF_REG.register(modEventBus);
         ACRecipeRegistry.TYPE_DEF_REG.register(modEventBus);
-        ACAdvancementTriggerRegistry.DEF_REG.register(modEventBus);
         ACFrogRegistry.DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_DEF_REG.register(modEventBus);

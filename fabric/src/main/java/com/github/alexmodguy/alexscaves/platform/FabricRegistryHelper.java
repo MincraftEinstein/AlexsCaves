@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.platform;
 
 import com.github.alexmodguy.alexscaves.platform.services.RegistryHelper;
+import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTrigger;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -123,5 +124,10 @@ public class FabricRegistryHelper implements RegistryHelper {
     @Override
     public RegHolder<SoundEvent, SoundEvent> registerSound(String name, Supplier<SoundEvent> soundEvent) {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.SOUND_EVENT, id(name), soundEvent.get()));
+    }
+
+    @Override
+    public <T extends CriterionTrigger<?>> RegHolder<CriterionTrigger<?>, T> registerCriterionTrigger(String name, Supplier<T> criterion) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.TRIGGER_TYPES, id(name), criterion.get()));
     }
 }

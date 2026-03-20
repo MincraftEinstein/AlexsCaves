@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.platform;
 
 import com.github.alexmodguy.alexscaves.platform.services.RegistryHelper;
+import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTrigger;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.client.particle.ParticleProvider;
@@ -52,6 +53,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     public static final DeferredRegister<LootItemFunctionType<?>> LOOT_FUNCTION_TYPES = DeferredRegister.create(BuiltInRegistries.LOOT_FUNCTION_TYPE, MOD_ID);
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(Registries.PARTICLE_TYPE, MOD_ID);
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Registries.SOUND_EVENT, MOD_ID);
+    public static final DeferredRegister<CriterionTrigger<?>> CRITERION_TRIGGERS = DeferredRegister.create(Registries.TRIGGER_TYPE, MOD_ID);
     public static final Map<Supplier<? extends ParticleType<?>>, Function<SpriteSet, ? extends ParticleProvider<?>>> PARTICLE_PROVIDERS = new HashMap<>();
 
     public static void init(IEventBus modEventBus) {
@@ -69,6 +71,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
         PARTICLE_TYPES.register(modEventBus);
         TRIGGER_TYPES.register(modEventBus);
         LOOT_FUNCTION_TYPES.register(modEventBus);
+        CRITERION_TRIGGERS.register(modEventBus);
     }
 
     @Override
@@ -159,5 +162,10 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     @Override
     public RegHolder<SoundEvent, SoundEvent> registerSound(String name, Supplier<SoundEvent> soundEvent) {
         return NeoRegHolder.of(SOUND_EVENTS.register(name, soundEvent));
+    }
+
+    @Override
+    public <T extends CriterionTrigger<?>> RegHolder<CriterionTrigger<?>, T> registerCriterionTrigger(String name, Supplier<T> criterion) {
+        return NeoRegHolder.of(CRITERION_TRIGGERS.register(name, criterion));
     }
 }

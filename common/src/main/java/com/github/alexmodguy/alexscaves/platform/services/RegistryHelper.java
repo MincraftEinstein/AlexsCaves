@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.platform.services;
 
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
+import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTrigger;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.client.particle.ParticleProvider;
@@ -70,4 +71,6 @@ public interface RegistryHelper {
     <T extends ParticleType<V>, V extends ParticleOptions> void registerParticleProvider(Supplier<T> particle, Function<SpriteSet, ParticleProvider<V>> provider);
 
     RegHolder<SoundEvent, SoundEvent> registerSound(String name, Supplier<SoundEvent> soundEvent);
+
+    <T extends CriterionTrigger<?>> RegHolder<CriterionTrigger<?>, T> registerCriterionTrigger(String name, Supplier<T> criterion);
 }

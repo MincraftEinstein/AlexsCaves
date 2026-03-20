@@ -107,7 +107,6 @@ public class AlexsCavesNeoForge {
         ACLootTableRegistry.GLOBAL_LOOT_MODIFIER_DEF_REG.register(modEventBus);
         ACLootTableRegistry.LOOT_FUNCTION_DEF_REG.register(modEventBus);
         ACCreativeTabRegistry.DEF_REG.register(modEventBus);
-        ACDataComponentRegistry.init(modEventBus);
         ACPotPatternRegistry.init(); // Pot patterns are now data-driven in 1.21
         this.modEventBus = modEventBus; // Store for later use
         PROXY.commonInit(modEventBus);

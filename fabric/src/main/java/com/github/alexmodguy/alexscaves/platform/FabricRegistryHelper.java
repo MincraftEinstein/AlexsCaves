@@ -10,6 +10,7 @@ import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.core.Registry;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -129,5 +130,10 @@ public class FabricRegistryHelper implements RegistryHelper {
     @Override
     public <T extends CriterionTrigger<?>> RegHolder<CriterionTrigger<?>, T> registerCriterionTrigger(String name, Supplier<T> criterion) {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.TRIGGER_TYPES, id(name), criterion.get()));
+    }
+
+    @Override
+    public <T extends DataComponentType<?>> Supplier<T> registerComponent(String name, Supplier<T> component) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.DATA_COMPONENT_TYPE, id(name), component.get()));
     }
 }

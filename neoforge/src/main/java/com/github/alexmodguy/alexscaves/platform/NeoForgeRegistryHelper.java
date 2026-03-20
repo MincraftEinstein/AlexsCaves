@@ -6,6 +6,7 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -54,6 +55,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES = DeferredRegister.create(Registries.PARTICLE_TYPE, MOD_ID);
     public static final DeferredRegister<SoundEvent> SOUND_EVENTS = DeferredRegister.create(Registries.SOUND_EVENT, MOD_ID);
     public static final DeferredRegister<CriterionTrigger<?>> CRITERION_TRIGGERS = DeferredRegister.create(Registries.TRIGGER_TYPE, MOD_ID);
+    public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, MOD_ID);
     public static final Map<Supplier<? extends ParticleType<?>>, Function<SpriteSet, ? extends ParticleProvider<?>>> PARTICLE_PROVIDERS = new HashMap<>();
 
     public static void init(IEventBus modEventBus) {
@@ -72,6 +74,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
         TRIGGER_TYPES.register(modEventBus);
         LOOT_FUNCTION_TYPES.register(modEventBus);
         CRITERION_TRIGGERS.register(modEventBus);
+        DATA_COMPONENTS.register(modEventBus);
     }
 
     @Override
@@ -167,5 +170,10 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     @Override
     public <T extends CriterionTrigger<?>> RegHolder<CriterionTrigger<?>, T> registerCriterionTrigger(String name, Supplier<T> criterion) {
         return NeoRegHolder.of(CRITERION_TRIGGERS.register(name, criterion));
+    }
+
+    @Override
+    public <T extends DataComponentType<?>> Supplier<T> registerComponent(String name, Supplier<T> component) {
+        return NeoRegHolder.of(DATA_COMPONENTS.register(name, component));
     }
 }

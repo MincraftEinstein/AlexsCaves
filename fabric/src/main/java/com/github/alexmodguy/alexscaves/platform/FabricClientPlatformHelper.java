@@ -6,6 +6,7 @@ import com.github.alexmodguy.alexscaves.platform.services.IClientPlatformHelper;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 public class FabricClientPlatformHelper implements IClientPlatformHelper {
+    @SuppressWarnings("resource")
     @Override
     public int getPixelRGBA(TextureAtlasSprite sprite, int frameIndex, int x, int y) {
         var contents = sprite.contents();

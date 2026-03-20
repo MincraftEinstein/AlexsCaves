@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
@@ -212,10 +213,10 @@ public class TremorsaurusEntity extends DinosaurEntity implements KeybindUsingMo
             Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
             if (player != null && player.isPassengerOfSameVehicle(this)) {
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(2) && getMeterAmount() >= 1.0F) {
-                    AlexsCavesNeoForge.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
+                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
                 }
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(3) && (this.getAnimation() == NO_ANIMATION || this.getAnimation() == null)) {
-                    AlexsCavesNeoForge.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 3));
+                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 3));
                 }
             }
         }
@@ -550,7 +551,7 @@ public class TremorsaurusEntity extends DinosaurEntity implements KeybindUsingMo
     public boolean onFeedMixture(ItemStack itemStack, Player player) {
         if (itemStack.is(ACItemRegistry.SERENE_SALAD.get()) && this.hasEffect(ACEffectRegistry.STUNNED)) {
             this.removeEffect(ACEffectRegistry.STUNNED);
-            AlexsCavesNeoForge.sendMSGToAll(new UpdateEffectVisualityEntityMessage(this.getId(), this.getId(), 3, 0, true));
+            AlexsCaves.sendMSGToAll(new UpdateEffectVisualityEntityMessage(this.getId(), this.getId(), 3, 0, true));
             if (!level().isClientSide) {
                 this.setTameAttempts(this.getTameAttempts() + 1);
                 if (this.getTameAttempts() > 3 && this.getRandom().nextInt(2) == 0 || this.getTameAttempts() > 8) {

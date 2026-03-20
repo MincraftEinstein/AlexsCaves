@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.MultipleDinosaurEggsBlock;
@@ -269,12 +270,12 @@ public class SubterranodonEntity extends DinosaurEntity implements PackAnimal, F
             if (player != null && player.isPassengerOfSameVehicle(this)) {
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(0) && !AlexsCavesNeoForge.PROXY.isKeyDown(1) && controlUpTicks < 2 && getMeterAmount() > 0.1F) {
                     if (getMeterAmount() > 0.1F) {
-                        AlexsCavesNeoForge.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 0));
+                        AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 0));
                         controlUpTicks = 5;
                     }
                 }
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(1) && !AlexsCavesNeoForge.PROXY.isKeyDown(0) && controlDownTicks < 2) {
-                    AlexsCavesNeoForge.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 1));
+                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 1));
                     controlDownTicks = 5;
                 }
             }

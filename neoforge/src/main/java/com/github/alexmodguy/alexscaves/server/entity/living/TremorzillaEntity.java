@@ -329,10 +329,10 @@ public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMou
             Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
             if (player != null && player.isPassengerOfSameVehicle(this)) {
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(2) && getMeterAmount() >= 1.0F) {
-                    AlexsCavesNeoForge.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
+                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
                 }
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(3) && (this.getAnimation() == NO_ANIMATION || this.getAnimation() == null)) {
-                    AlexsCavesNeoForge.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 3));
+                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 3));
                 }
             }
             if (this.isFiring() && beamProgress > 0) {

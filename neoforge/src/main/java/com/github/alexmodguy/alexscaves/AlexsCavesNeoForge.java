@@ -27,8 +27,6 @@ import com.github.alexmodguy.alexscaves.server.message.*;
 import com.github.alexmodguy.alexscaves.server.misc.*;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.recipe.ACRecipeRegistry;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -42,10 +40,8 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 import net.neoforged.neoforge.common.world.chunk.TicketController;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
-import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -180,8 +176,7 @@ public class AlexsCavesNeoForge {
             if (!scarletHasPoi || !azureHasPoi) {
                 AlexsCaves.LOGGER.error("POI registration failed! Neodymium blocks are not registered as POI types!");
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             AlexsCaves.LOGGER.error("Failed to verify POI registration", e);
         }
     }
@@ -198,23 +193,9 @@ public class AlexsCavesNeoForge {
         event.enqueueWork(() -> PROXY.clientInit(this.modEventBus));
     }
 
-    public static <MSG extends CustomPacketPayload> void sendMSGToServer(MSG message) {
-        PacketDistributor.sendToServer(message);
-    }
-
-    public static <MSG extends CustomPacketPayload> void sendMSGToAll(MSG message) {
-        for (ServerPlayer player : ServerLifecycleHooks.getCurrentServer().getPlayerList().getPlayers()) {
-            sendNonLocal(message, player);
-        }
-    }
-
     private void loadComplete(FMLLoadCompleteEvent event) {
         event.enqueueWork(ACFluidRegistry::postInit);
         event.enqueueWork(ACLoadedMods::afterAllModsLoaded);
-    }
-
-    public static <MSG extends CustomPacketPayload> void sendNonLocal(MSG msg, ServerPlayer player) {
-        PacketDistributor.sendToPlayer(player, msg);
     }
 
     private void registerLayerDefinitions(final EntityRenderersEvent.RegisterLayerDefinitions event) {
@@ -231,12 +212,10 @@ public class AlexsCavesNeoForge {
                 while ((line = urlContents.readLine()) != null) {
                     MOD_GENERATION_CONFLICTS.add(line);
                 }
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 AlexsCaves.LOGGER.warn("Failed to load mod conflicts");
             }
-        }
-        else {
+        } else {
             AlexsCaves.LOGGER.warn("Failed to load mod conflicts");
         }
     }

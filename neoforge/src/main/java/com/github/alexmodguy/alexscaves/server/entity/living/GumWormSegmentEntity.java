@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
@@ -281,14 +282,14 @@ public class GumWormSegmentEntity extends Entity implements ICustomCollisions, K
             if (clientPlayer != null && clientPlayer.isPassengerOfSameVehicle(this)) {
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(4)){
                     clientPlayer.stopRiding();
-                    AlexsCavesNeoForge.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), clientPlayer.getId(), 0));
+                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), clientPlayer.getId(), 0));
                     postDismount(clientPlayer);
                 }
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(3)) {
                     if(this.getHeadEntity() instanceof GumWormEntity gumWorm){
                         gumWorm.onRidingPlayerAttack();
                     }
-                    AlexsCavesNeoForge.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), clientPlayer.getId(), 1));
+                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), clientPlayer.getId(), 1));
                 }
             }
         } else {

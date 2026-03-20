@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.TotemExplosion;
@@ -95,7 +94,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
         }
 
         if (level.isClientSide) {
-            AlexsCavesNeoForge.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
+            AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
         }
         if (stack.getDamageValue() >= stack.getMaxDamage()) {
             stack.shrink(1);
@@ -115,7 +114,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
             resetBound(stack);
             user.stopUsingItem();
             if (level.isClientSide) {
-                AlexsCavesNeoForge.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
+                AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
             }
             return;
         }
@@ -123,7 +122,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
 
             user.stopUsingItem();
             if (level.isClientSide) {
-                AlexsCavesNeoForge.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
+                AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
             }
             return;
         }
@@ -256,7 +255,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
         tag.putInt("ControllingEntityID", set);
         itemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
         if (prev != set) {
-            AlexsCavesNeoForge.sendMSGToAll(new UpdateItemTagMessage(player.getId(), itemStack));
+            AlexsCaves.sendMSGToAll(new UpdateItemTagMessage(player.getId(), itemStack));
         }
     }
 

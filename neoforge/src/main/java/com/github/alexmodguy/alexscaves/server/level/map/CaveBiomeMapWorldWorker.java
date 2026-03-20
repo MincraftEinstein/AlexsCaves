@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.level.map;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.item.CaveMapItem;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRarity;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
@@ -148,7 +147,7 @@ public class CaveBiomeMapWorldWorker implements WorldWorkerManager.IWorker {
             tag.putBoolean("Loading", false);
             tag.remove("MapUUID");
             map.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-            AlexsCavesNeoForge.sendMSGToAll(new UpdateCaveBiomeMapTagMessage(player.getUUID(), getTaskUUID(), tag));
+            AlexsCaves.sendMSGToAll(new UpdateCaveBiomeMapTagMessage(player.getUUID(), getTaskUUID(), tag));
         }
         complete = true;
     }

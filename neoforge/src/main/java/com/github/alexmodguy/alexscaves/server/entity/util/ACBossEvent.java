@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.util;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.message.UpdateBossBarMessage;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
@@ -21,12 +21,12 @@ public class ACBossEvent extends ServerBossEvent {
     }
 
     public void addPlayer(ServerPlayer serverPlayer) {
-        AlexsCavesNeoForge.sendNonLocal(new UpdateBossBarMessage(this.getId(), renderType), serverPlayer);
+        AlexsCaves.sendNonLocal(new UpdateBossBarMessage(this.getId(), renderType), serverPlayer);
         super.addPlayer(serverPlayer);
     }
 
     public void removePlayer(ServerPlayer serverPlayer) {
-        AlexsCavesNeoForge.sendNonLocal(new UpdateBossBarMessage(this.getId(), -1), serverPlayer);
+        AlexsCaves.sendNonLocal(new UpdateBossBarMessage(this.getId(), -1), serverPlayer);
         super.removePlayer(serverPlayer);
     }
 }

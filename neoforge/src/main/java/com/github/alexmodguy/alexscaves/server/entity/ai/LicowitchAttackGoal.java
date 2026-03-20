@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.ai;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.SpinningPeppermintEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.SugarStaffHexEntity;
@@ -177,7 +177,7 @@ public class LicowitchAttackGoal extends Goal {
                 summoned.setPos(summonSpot);
                 licowitch.level().addFreshEntity(summoned);
                 licowitch.addPossessedUUID(summoned.getUUID());
-                AlexsCavesNeoForge.sendMSGToAll(new WorldEventMessage(7, (int) summonSpot.x, (int) summonSpot.y, (int) summonSpot.z));
+                AlexsCaves.sendMSGToAll(new WorldEventMessage(7, (int) summonSpot.x, (int) summonSpot.y, (int) summonSpot.z));
                 flag = true;
                 licowitch.level().playSound((Player) null, licowitch.blockPosition(), ACSoundRegistry.LICOWITCH_CAST_SUMMON.get(), SoundSource.HOSTILE, 0.3F, 0.9F + licowitch.level().random.nextFloat() * 0.2F);
             }

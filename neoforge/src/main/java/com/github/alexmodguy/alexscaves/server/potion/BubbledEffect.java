@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.potion;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.message.UpdateEffectVisualityEntityMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.particles.ParticleTypes;
@@ -27,7 +27,7 @@ public class BubbledEffect extends MobEffect {
         if (!entity.level().isClientSide && entity.tickCount % 40 == 0) {
             MobEffectInstance instance = entity.getEffect(ACEffectRegistry.BUBBLED);
             if (instance != null) {
-                AlexsCavesNeoForge.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), entity.getId(), 1, instance.getDuration()));
+                AlexsCaves.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), entity.getId(), 1, instance.getDuration()));
             }
         }
         // In 1.21, MobType was removed, so we check canBreatheUnderwater instead
@@ -68,7 +68,7 @@ public class BubbledEffect extends MobEffect {
         if (!entity.level().isClientSide) {
             MobEffectInstance instance = entity.getEffect(ACEffectRegistry.BUBBLED);
             if (instance != null) {
-                AlexsCavesNeoForge.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), entity.getId(), 1, instance.getDuration()));
+                AlexsCaves.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), entity.getId(), 1, instance.getDuration()));
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.item;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.entity.util.KeybindUsingMount;
 import com.github.alexmodguy.alexscaves.server.message.MountedEntityKeyMessage;
@@ -156,15 +157,15 @@ public class SubmarineEntity extends Entity implements KeybindUsingMount {
             Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
             if (player != null && player.isPassengerOfSameVehicle(this)) {
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(0) && controlUpTicks < 2) {
-                    AlexsCavesNeoForge.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 0));
+                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 0));
                     controlUpTicks = 10;
                 }
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(1) && controlDownTicks < 2) {
-                    AlexsCavesNeoForge.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 1));
+                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 1));
                     controlDownTicks = 10;
                 }
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(2) && floodlightToggleCooldown <= 0) {
-                    AlexsCavesNeoForge.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
+                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
                     floodlightToggleCooldown = 5;
                 }
             }

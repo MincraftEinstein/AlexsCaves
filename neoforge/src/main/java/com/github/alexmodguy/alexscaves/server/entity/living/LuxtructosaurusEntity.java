@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.FissurePrimalMagmaBlock;
@@ -486,7 +485,7 @@ public class LuxtructosaurusEntity extends SauropodBaseEntity implements Enemy {
             ACWorldData worldData = ACWorldData.get(level());
             if (worldData != null) {
                 worldData.trackPrimordialBoss(this.getId(), erupting);
-                AlexsCavesNeoForge.sendMSGToAll(new UpdateBossEruptionStatus(this.getId(), worldData.isPrimordialBossActive(level())));
+                AlexsCaves.sendMSGToAll(new UpdateBossEruptionStatus(this.getId(), worldData.isPrimordialBossActive(level())));
             }
         }
     }

@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.AbyssalAltarBlock;
 import com.github.alexmodguy.alexscaves.server.entity.living.DeepOneBaseEntity;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
@@ -129,7 +129,7 @@ public class AbyssalAltarBlockEntity extends BaseContainerBlockEntity implements
         resetSlideAnimation();
         if(!level.isClientSide){
             BlockPos blockPos = this.getBlockPos();
-            AlexsCavesNeoForge.sendMSGToAll(new WorldEventMessage(6, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+            AlexsCaves.sendMSGToAll(new WorldEventMessage(6, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
         }
         if (entity instanceof Player) {
             placingPlayer = entity.getUUID();

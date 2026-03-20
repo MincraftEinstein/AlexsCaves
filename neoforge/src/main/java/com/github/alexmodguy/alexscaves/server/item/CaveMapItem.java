@@ -57,7 +57,7 @@ public class CaveMapItem extends Item implements UpdatesStackTags {
                 if (!tag.contains("MapUUID")) {
                     uuid = UUID.randomUUID();
                     tag.putUUID("MapUUID", uuid);
-                    AlexsCavesNeoForge.sendMSGToAll(new UpdateItemTagMessage(player.getId(), itemstack));
+                    AlexsCaves.sendMSGToAll(new UpdateItemTagMessage(player.getId(), itemstack));
                 } else {
                     uuid = tag.getUUID("MapUUID");
                 }
@@ -127,7 +127,7 @@ public class CaveMapItem extends Item implements UpdatesStackTags {
                             uuid = UUID.randomUUID();
                             tag.putUUID("MapUUID", uuid);
                             stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-                            AlexsCavesNeoForge.sendMSGToAll(new UpdateItemTagMessage(entity.getId(), stack));
+                            AlexsCaves.sendMSGToAll(new UpdateItemTagMessage(entity.getId(), stack));
                         } else {
                             uuid = tag.getUUID("MapUUID");
                         }

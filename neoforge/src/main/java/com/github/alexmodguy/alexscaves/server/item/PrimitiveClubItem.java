@@ -70,7 +70,7 @@ public class PrimitiveClubItem extends Item {
                 }
                 MobEffectInstance instance = new MobEffectInstance(ACEffectRegistry.STUNNED, stunDuration, 0, false, false);
                 if (hurtEntity.addEffect(instance)) {
-                    AlexsCavesNeoForge.sendMSGToAll(new UpdateEffectVisualityEntityMessage(hurtEntity.getId(), player.getId(), 3, instance.getDuration()));
+                    AlexsCaves.sendMSGToAll(new UpdateEffectVisualityEntityMessage(hurtEntity.getId(), player.getId(), 3, instance.getDuration()));
                     soundEvent = ACSoundRegistry.PRIMITIVE_CLUB_HIT.get();
                     int dazingEdgeLevel = ACEnchantmentHelper.getEnchantmentLevel(hurtEntity.level(), ACEnchantmentRegistry.DAZING_SWEEP, stack);
                     if (dazingEdgeLevel > 0) {
@@ -86,7 +86,7 @@ public class PrimitiveClubItem extends Item {
                                 MobEffectInstance instance2 = new MobEffectInstance(ACEffectRegistry.STUNNED, aoeStunDuration, 0, false, false);
                                 inflict.hurt(inflict.level().damageSources().mobAttack(player), 1.0F);
                                 if (inflict.addEffect(instance2)) {
-                                    AlexsCavesNeoForge.sendMSGToAll(new UpdateEffectVisualityEntityMessage(inflict.getId(), player.getId(), 3, instance2.getDuration()));
+                                    AlexsCaves.sendMSGToAll(new UpdateEffectVisualityEntityMessage(inflict.getId(), player.getId(), 3, instance2.getDuration()));
                                 }
                             }
                         }

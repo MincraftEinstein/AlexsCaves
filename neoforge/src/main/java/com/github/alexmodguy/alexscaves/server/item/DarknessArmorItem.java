@@ -84,7 +84,7 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
                         flag = true;
                     }
                     if (flag) {
-                        AlexsCavesNeoForge.sendNonLocal(new UpdateItemTagMessage(player.getId(), stack), (ServerPlayer) player);
+                        AlexsCaves.sendNonLocal(new UpdateItemTagMessage(player.getId(), stack), (ServerPlayer) player);
                     }
                 }
             }
@@ -109,7 +109,7 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
                         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
                     }
                 } else if (AlexsCavesNeoForge.PROXY.getClientSidePlayer() == entity && getMeterProgress(stack) >= 1.0F && AlexsCavesNeoForge.PROXY.isKeyDown(2)) {
-                    AlexsCavesNeoForge.sendMSGToServer(new ArmorKeyMessage(EquipmentSlot.CHEST.ordinal(), living.getId(), 2));
+                    AlexsCaves.sendMSGToServer(new ArmorKeyMessage(EquipmentSlot.CHEST.ordinal(), living.getId(), 2));
                     onKeyPacket(living, stack, 2);
                 }
             }

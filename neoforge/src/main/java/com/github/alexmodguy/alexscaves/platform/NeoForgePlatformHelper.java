@@ -1,8 +1,10 @@
 package com.github.alexmodguy.alexscaves.platform;
 
 import com.github.alexmodguy.alexscaves.platform.services.IPlatformHelper;
+import net.minecraft.server.MinecraftServer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
+import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 import java.nio.file.Path;
 
@@ -26,5 +28,10 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Override
     public Path getGameDir() {
         return FMLLoader.getGamePath();
+    }
+
+    @Override
+    public MinecraftServer getServer() {
+        return ServerLifecycleHooks.getCurrentServer();
     }
 }

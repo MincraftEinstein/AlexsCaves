@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.platform.services;
 
+import net.minecraft.server.MinecraftServer;
+
 import java.nio.file.Path;
 
 public interface IPlatformHelper {
@@ -36,6 +38,8 @@ public interface IPlatformHelper {
     }
 
     Path getGameDir();
+
+    MinecraftServer getServer();
 
     enum Platform {
         FABRIC("fabric"),

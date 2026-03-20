@@ -280,7 +280,7 @@ public class WatcherEntity extends Monster implements IAnimatedEntity, Possesses
                 player.setJumping(false);
                 Player clientSidePlayer = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
                 if (AlexsCavesNeoForge.PROXY.isKeyDown(-1) && player == clientSidePlayer) {
-                    AlexsCavesNeoForge.sendMSGToServer(new PossessionKeyMessage(this.getId(), player.getId(), 0));
+                    AlexsCaves.sendMSGToServer(new PossessionKeyMessage(this.getId(), player.getId(), 0));
                 }
             }
             if (prevPossessedEntity != living) {

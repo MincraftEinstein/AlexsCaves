@@ -81,7 +81,7 @@ public class BeholderEyeEntity extends Entity implements PossessesCamera {
                 Player clientSidePlayer = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
                 if (usingPlayer == clientSidePlayer) {
                     if (AlexsCavesNeoForge.PROXY.isKeyDown(4)) {
-                        AlexsCavesNeoForge.sendMSGToServer(new PossessionKeyMessage(this.getId(), usingPlayer.getId(), 0));
+                        AlexsCaves.sendMSGToServer(new PossessionKeyMessage(this.getId(), usingPlayer.getId(), 0));
                     }
                 }
 
@@ -111,7 +111,7 @@ public class BeholderEyeEntity extends Entity implements PossessesCamera {
         if (usingPlayer.level().equals(this.level())) {
             // Include entity spawn data so client can create the entity if it doesn't exist
             // This is necessary when viewing from far away (unloaded chunks)
-            AlexsCavesNeoForge.sendMSGToAll(new BeholderSyncMessage(
+            AlexsCaves.sendMSGToAll(new BeholderSyncMessage(
                 this.getId(), 
                 turnOn,
                 this.getX(),

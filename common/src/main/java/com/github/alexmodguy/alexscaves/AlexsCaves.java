@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves;
 
 import com.github.alexmodguy.alexscaves.client.config.ACClientConfig;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACSoundTypes;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
@@ -10,7 +11,10 @@ import com.github.alexmodguy.alexscaves.server.level.carver.ACCarverRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACDataComponentRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
@@ -45,5 +49,19 @@ public class AlexsCaves {
 
     public static ResourceLocation id(String path) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
+    }
+
+    public static <MSG extends CustomPacketPayload> void sendMSGToServer(MSG message) {
+        ConfigApiJava.network().send(message, null);
+    }
+
+    public static <MSG extends CustomPacketPayload> void sendNonLocal(MSG msg, ServerPlayer player) {
+        ConfigApiJava.network().send(msg, player);
+    }
+
+    public static <MSG extends CustomPacketPayload> void sendMSGToAll(MSG message) {
+        for (ServerPlayer player : Services.PLATFORM_HELPER.getServer().getPlayerList().getPlayers()) {
+            sendNonLocal(message, player);
+        }
     }
 }

@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.message.UpdateEffectVisualityEntityMessage;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -28,7 +28,7 @@ public class RadioactiveItem extends Item {
             if (!living.hasEffect(ACEffectRegistry.IRRADIATED) && level.random.nextFloat() < stackChance * hazmatMultiplier) {
                 MobEffectInstance instance = new MobEffectInstance(ACEffectRegistry.IRRADIATED, 1800);
                 living.addEffect(instance);
-                AlexsCavesNeoForge.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), entity.getId(), 0, instance.getDuration()));
+                AlexsCaves.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), entity.getId(), 0, instance.getDuration()));
             }
         }
     }

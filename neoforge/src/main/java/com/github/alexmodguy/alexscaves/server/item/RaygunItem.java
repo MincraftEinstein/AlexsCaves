@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
@@ -162,7 +163,7 @@ public class RaygunItem extends Item implements UpdatesStackTags, AlwaysCombinab
         Vec3 vec31 = xRay ? xRayVec : blockOnlyHitResult.getLocation();
         if (!hasCharge(stack)) {
             if (level.isClientSide) {
-                AlexsCavesNeoForge.sendMSGToServer(new UpdateItemTagMessage(living.getId(), stack));
+                AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(living.getId(), stack));
             }
             living.stopUsingItem();
             level.playSound((Player) null, living.getX(), living.getY(), living.getZ(), ACSoundRegistry.RAYGUN_EMPTY.get(), living.getSoundSource(), 1.0F, 1.0F);
@@ -237,7 +238,7 @@ public class RaygunItem extends Item implements UpdatesStackTags, AlwaysCombinab
                     boolean flag = entity instanceof TremorzillaEntity || entity.hurt(ACDamageTypes.causeRaygunDamage(level.registryAccess(), living), gamma ? 2F : 1.5F);
                     if (flag && entity instanceof LivingEntity livingEntity && !livingEntity.getType().is(ACTagRegistry.RESISTS_RADIATION)) {
                         if (livingEntity.addEffect(new MobEffectInstance(ACEffectRegistry.IRRADIATED, 800, radiationLevel))) {
-                            AlexsCavesNeoForge.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), living.getId(), gamma ? 4 : 0, 800));
+                            AlexsCaves.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), living.getId(), gamma ? 4 : 0, 800));
                         }
                     }
                 }
@@ -315,7 +316,7 @@ public class RaygunItem extends Item implements UpdatesStackTags, AlwaysCombinab
     public void releaseUsing(ItemStack stack, Level level, LivingEntity player, int useTimeLeft) {
         super.releaseUsing(stack, level, player, useTimeLeft);
         if (level.isClientSide) {
-            AlexsCavesNeoForge.sendMSGToServer(new UpdateItemTagMessage(player.getId(), stack));
+            AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(player.getId(), stack));
         }
         AlexsCavesNeoForge.PROXY.clearSoundCacheFor(player);
     }

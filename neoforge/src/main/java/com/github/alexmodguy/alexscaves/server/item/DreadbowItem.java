@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
@@ -106,7 +107,7 @@ public class DreadbowItem extends ProjectileWeaponItem implements UpdatesStackTa
 
             if (using && getPerfectShotTicks(stack) > 0) {
                 setPerfectShotTicks(stack, getPerfectShotTicks(stack) - 1);
-                AlexsCavesNeoForge.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
+                AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
             }
             boolean relentless = ACEnchantmentHelper.hasEnchantment(level, ACEnchantmentRegistry.RELENTLESS_DARKNESS, stack);
             int twilightPerfection = ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.TWILIGHT_PERFECTION, stack);
@@ -117,10 +118,10 @@ public class DreadbowItem extends ProjectileWeaponItem implements UpdatesStackTa
                 if(twilightPerfection > 0){
                     if(set >= maxLoadTime && useTime <= maxLoadTime){
                         setPerfectShotTicks(stack, 4 + (twilightPerfection - 1) * 3);
-                        AlexsCavesNeoForge.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
+                        AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
                     }else{
                         setPerfectShotTicks(stack, 0);
-                        AlexsCavesNeoForge.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
+                        AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
                     }
                 }
             }

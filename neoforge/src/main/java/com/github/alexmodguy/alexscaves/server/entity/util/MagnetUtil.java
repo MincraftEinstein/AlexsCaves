@@ -79,7 +79,7 @@ public class MagnetUtil {
                 boolean isJumping = isEntityJumping(living);
                 if (isJumping && standingOnDirection == dir) {
                     if (entity.level().isClientSide) {
-                        AlexsCavesNeoForge.sendMSGToServer(new PlayerJumpFromMagnetMessage(living.getId(), isJumping));
+                        AlexsCaves.sendMSGToServer(new PlayerJumpFromMagnetMessage(living.getId(), isJumping));
                     }
                     magneticAccessor.postMagnetJump();
                 }

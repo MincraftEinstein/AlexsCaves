@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.inventory;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.CaveInfoItem;
@@ -232,7 +232,7 @@ public class SpelunkeryTableMenu extends AbstractContainerMenu {
 
     public void makeStoneParticles(Level level, BlockPos blockPos) {
         if (!level.isClientSide) {
-            AlexsCavesNeoForge.sendMSGToAll(new WorldEventMessage(5, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+            AlexsCaves.sendMSGToAll(new WorldEventMessage(5, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
         }
     }
 

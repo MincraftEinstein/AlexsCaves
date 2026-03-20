@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.util;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.entity.item.FallingFrostmintEntity;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
@@ -227,7 +227,7 @@ public class FrostmintExplosion {
 
         boolean flag = this.interactsWithBlocks();
         if (particles && !level.isClientSide && level instanceof ServerLevel) {
-            AlexsCavesNeoForge.sendMSGToAll(new WorldEventMessage(fromSpear ? 9 : 8, (int) this.x, (int) this.y, (int) this.z));
+            AlexsCaves.sendMSGToAll(new WorldEventMessage(fromSpear ? 9 : 8, (int) this.x, (int) this.y, (int) this.z));
         }
 
         if (flag) {

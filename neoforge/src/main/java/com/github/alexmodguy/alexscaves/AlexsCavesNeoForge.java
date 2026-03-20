@@ -86,7 +86,6 @@ public class AlexsCavesNeoForge {
         ACBlockEntityRegistry.DEF_REG.register(modEventBus);
         ACItemRegistry.DEF_REG.register(modEventBus);
         ACArmorMaterial.ARMOR_MATERIALS.register(modEventBus);
-        ACParticleRegistry.DEF_REG.register(modEventBus);
         ACEntityRegistry.DEF_REG.register(modEventBus);
         ACEntityDataRegistry.DEF_REG.register(modEventBus);
         ACAttachmentRegistry.DEF_REG.register(modEventBus);

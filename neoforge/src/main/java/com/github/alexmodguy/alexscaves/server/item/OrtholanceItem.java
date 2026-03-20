@@ -7,7 +7,6 @@ import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry
 import com.github.alexmodguy.alexscaves.server.entity.item.WaveEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;

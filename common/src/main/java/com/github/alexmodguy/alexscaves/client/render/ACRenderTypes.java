@@ -13,8 +13,8 @@ import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 
-
 public class ACRenderTypes extends RenderType {
+
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_FEROUSSLIME_GEL_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeFerrouslimeGelShader);
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_HOLOGRAM_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeHologramShader);
     protected static final RenderStateShard.ShaderStateShard RENDERTYPE_IRRADIATED_SHADER = new RenderStateShard.ShaderStateShard(ACInternalShaders::getRenderTypeIrradiatedShader);
@@ -29,7 +29,8 @@ public class ACRenderTypes extends RenderType {
         if (target != null) {
             target.copyDepthFrom(Minecraft.getInstance().getMainRenderTarget());
             target.bindWrite(false);
-        } else {
+        }
+        else {
             AlexsCaves.LOGGER.warn("IRRADIATED_OUTPUT target is null!");
         }
     }, () -> {
@@ -172,6 +173,7 @@ public class ACRenderTypes extends RenderType {
                 .setOutputState(IRRADIATED_OUTPUT)
                 .createCompositeState(true));
     }
+
     public static RenderType getGelTriangles(ResourceLocation locationIn) {
         return create("ferrouslime_gel_triangles", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.TRIANGLES, 256, true, true, RenderType.CompositeState.builder()
                 .setTextureState(new RenderStateShard.TextureStateShard(locationIn, false, false))
@@ -253,7 +255,7 @@ public class ACRenderTypes extends RenderType {
     }
 
     public static RenderType getBookWidget(ResourceLocation locationIn, boolean sepia) {
-        if(sepia){
+        if (sepia) {
             return create("book_widget", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder()
                     .setShaderState(RENDERTYPE_SEPIA_SHADER)
                     .setCullState(NO_CULL)
@@ -262,7 +264,8 @@ public class ACRenderTypes extends RenderType {
                     .setLightmapState(LIGHTMAP)
                     .setOverlayState(OVERLAY)
                     .createCompositeState(true));
-        }else{
+        }
+        else {
             return RenderType.entityTranslucent(locationIn);
         }
 

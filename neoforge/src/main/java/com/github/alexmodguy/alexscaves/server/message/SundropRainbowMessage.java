@@ -4,19 +4,19 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
+import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SundropRainbowMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<SundropRainbowMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("sundrop_rainbow"));
 
-    public static final StreamCodec<FriendlyByteBuf, SundropRainbowMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SundropRainbowMessage> CODEC =
         StreamCodec.ofMember(SundropRainbowMessage::write, SundropRainbowMessage::read);
 
     @Override
@@ -40,11 +40,11 @@ public class SundropRainbowMessage implements CustomPacketPayload {
 
     public SundropRainbowMessage(){}
 
-    public static SundropRainbowMessage read(FriendlyByteBuf buf) {
+    public static SundropRainbowMessage read(RegistryFriendlyByteBuf buf) {
         return new SundropRainbowMessage(buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void write(SundropRainbowMessage message, FriendlyByteBuf buf) {
+    public static void write(SundropRainbowMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeInt(message.fromX);
         buf.writeInt(message.fromY);
         buf.writeInt(message.fromZ);
@@ -53,10 +53,10 @@ public class SundropRainbowMessage implements CustomPacketPayload {
         buf.writeInt(message.toZ);
     }
 
-    public static void handle(SundropRainbowMessage message, IPayloadContext context) {
+    public static void handle(SundropRainbowMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (context.flow().isClientbound()) {
-            context.enqueueWork(() -> {
+        if (context.networkSide().isClientbound()) {
+            context.execute(() -> {
                 Player playerSided = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
                 if (playerSided != null && playerSided.level() != null) {
                     BlockPos blockPos1 = new BlockPos(message.fromX, message.fromY, message.fromZ);

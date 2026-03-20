@@ -2,18 +2,18 @@ package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
-import net.minecraft.network.FriendlyByteBuf;
+import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class UpdateBossEruptionStatus implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<UpdateBossEruptionStatus> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("update_boss_eruption_status"));
 
-    public static final StreamCodec<FriendlyByteBuf, UpdateBossEruptionStatus> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, UpdateBossEruptionStatus> CODEC =
         StreamCodec.ofMember(UpdateBossEruptionStatus::write, UpdateBossEruptionStatus::read);
 
     @Override
@@ -28,18 +28,18 @@ public class UpdateBossEruptionStatus implements CustomPacketPayload {
     }
 
 
-    public static UpdateBossEruptionStatus read(FriendlyByteBuf buf) {
+    public static UpdateBossEruptionStatus read(RegistryFriendlyByteBuf buf) {
         return new UpdateBossEruptionStatus(buf.readInt(), buf.readBoolean());
     }
 
-    public static void write(UpdateBossEruptionStatus message, FriendlyByteBuf buf) {
+    public static void write(UpdateBossEruptionStatus message, RegistryFriendlyByteBuf buf) {
         buf.writeInt(message.entityId);
         buf.writeBoolean(message.erupting);
     }
 
-    public static void handle(UpdateBossEruptionStatus message, IPayloadContext context) {
+    public static void handle(UpdateBossEruptionStatus message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (!context.flow().isClientbound()) {
+        if (!context.networkSide().isClientbound()) {
             return;
         }
         Player playerSided = AlexsCavesNeoForge.PROXY.getClientSidePlayer();

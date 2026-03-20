@@ -2,18 +2,18 @@ package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.inventory.SpelunkeryTableMenu;
-import net.minecraft.network.FriendlyByteBuf;
+import me.fzzyhmstrs.fzzy_config.networking.api.ServerPlayNetworkContext;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SpelunkeryTableChangeMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<SpelunkeryTableChangeMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("spelunkery_table_change"));
 
-    public static final StreamCodec<FriendlyByteBuf, SpelunkeryTableChangeMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SpelunkeryTableChangeMessage> CODEC =
         StreamCodec.ofMember(SpelunkeryTableChangeMessage::write, SpelunkeryTableChangeMessage::read);
 
     @Override
@@ -29,15 +29,15 @@ public class SpelunkeryTableChangeMessage implements CustomPacketPayload {
     public SpelunkeryTableChangeMessage() {
     }
 
-    public static SpelunkeryTableChangeMessage read(FriendlyByteBuf buf) {
+    public static SpelunkeryTableChangeMessage read(RegistryFriendlyByteBuf buf) {
         return new SpelunkeryTableChangeMessage(buf.readBoolean());
     }
 
-    public static void write(SpelunkeryTableChangeMessage message, FriendlyByteBuf buf) {
+    public static void write(SpelunkeryTableChangeMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeBoolean(message.pass);
     }
 
-    public static void handle(SpelunkeryTableChangeMessage message, IPayloadContext context) {
+    public static void handle(SpelunkeryTableChangeMessage message, ServerPlayNetworkContext context) {
         // This packet is sent from client to server
         Player player = context.player();
         if (player != null) {

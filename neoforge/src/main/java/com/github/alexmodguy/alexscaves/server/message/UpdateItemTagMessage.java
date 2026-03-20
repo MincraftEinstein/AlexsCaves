@@ -3,6 +3,8 @@ package com.github.alexmodguy.alexscaves.server.message;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.item.UpdatesStackTags;
+import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
+import me.fzzyhmstrs.fzzy_config.networking.api.NetworkContext;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -14,7 +16,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class UpdateItemTagMessage implements CustomPacketPayload {
 
@@ -45,11 +46,11 @@ public class UpdateItemTagMessage implements CustomPacketPayload {
         ItemStack.STREAM_CODEC.encode(buf, message.itemStackFrom);
     }
 
-    public static void handle(UpdateItemTagMessage message, IPayloadContext context) {
-        context.enqueueWork(() -> {
+    public static void handle(UpdateItemTagMessage message, ClientPlayNetworkContext context) {
+        context.execute(() -> {
             Player playerSided = context.player();
             // For client-bound packets, use the client-side player
-            if (context.flow().isClientbound()) {
+            if (context.networkSide().isClientbound()) {
                 playerSided = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
             }
             if (playerSided != null) {

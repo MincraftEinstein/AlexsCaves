@@ -2,19 +2,19 @@ package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.entity.util.KeybindUsingMount;
-import net.minecraft.network.FriendlyByteBuf;
+import me.fzzyhmstrs.fzzy_config.networking.api.ServerPlayNetworkContext;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class MountedEntityKeyMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<MountedEntityKeyMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("mounted_entity_key"));
 
-    public static final StreamCodec<FriendlyByteBuf, MountedEntityKeyMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, MountedEntityKeyMessage> CODEC =
         StreamCodec.ofMember(MountedEntityKeyMessage::write, MountedEntityKeyMessage::read);
 
     @Override
@@ -34,19 +34,19 @@ public class MountedEntityKeyMessage implements CustomPacketPayload {
     public MountedEntityKeyMessage() {
     }
 
-    public static MountedEntityKeyMessage read(FriendlyByteBuf buf) {
+    public static MountedEntityKeyMessage read(RegistryFriendlyByteBuf buf) {
         return new MountedEntityKeyMessage(buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void write(MountedEntityKeyMessage message, FriendlyByteBuf buf) {
+    public static void write(MountedEntityKeyMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeInt(message.mountId);
         buf.writeInt(message.playerId);
         buf.writeInt(message.type);
     }
 
-    public static void handle(MountedEntityKeyMessage message, IPayloadContext context) {
+    public static void handle(MountedEntityKeyMessage message, ServerPlayNetworkContext context) {
         // This packet is sent from client to server
-        context.enqueueWork(() -> {
+        context.execute(() -> {
             Player playerSided = context.player();
             if (playerSided != null) {
                 Entity parent = playerSided.level().getEntity(message.mountId);

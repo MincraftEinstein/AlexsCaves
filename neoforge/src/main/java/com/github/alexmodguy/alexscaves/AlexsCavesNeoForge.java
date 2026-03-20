@@ -48,10 +48,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.github.alexmodguy.alexscaves.AlexsCaves.registerC2S;
+import static com.github.alexmodguy.alexscaves.AlexsCaves.registerS2C;
+
 @Mod(AlexsCaves.MOD_ID)
 public class AlexsCavesNeoForge {
 
-    public static final String VERSION = "1.0.0";
     // Initialize proxy based on dist
     public static CommonProxy PROXY = FMLEnvironment.dist.isClient() ? new ClientProxy() : new CommonProxy();
     private IEventBus modEventBus; // Store for client setup
@@ -64,6 +66,7 @@ public class AlexsCavesNeoForge {
     public AlexsCavesNeoForge(IEventBus modEventBus, ModContainer modContainer) {
         AlexsCaves.init();
         NeoForgeRegistryHelper.init(modEventBus);
+        registerPayloads();
         modContainer.registerConfig(ModConfig.Type.COMMON, AlexsCaves.COMMON_CONFIG_SPEC, "alexscaves-general.toml");
         modContainer.registerConfig(ModConfig.Type.CLIENT, AlexsCaves.CLIENT_CONFIG_SPEC, "alexscaves-client.toml");
         modEventBus.addListener(this::commonSetup);
@@ -72,7 +75,6 @@ public class AlexsCavesNeoForge {
         modEventBus.addListener(this::loadConfig);
         modEventBus.addListener(this::reloadConfig);
         modEventBus.addListener(this::registerLayerDefinitions);
-        modEventBus.addListener(this::registerPayloads);
         modEventBus.addListener(this::registerTicketControllers);
         NeoForge.EVENT_BUS.register(new CommonEvents());
         NeoForge.EVENT_BUS.addListener(ACEffectRegistry::registerBrewingRecipes);
@@ -112,36 +114,27 @@ public class AlexsCavesNeoForge {
         BiomeGenerationConfig.reloadConfig();
     }
 
-    private void registerPayloads(RegisterPayloadHandlersEvent event) {
-        final PayloadRegistrar registrar = event.registrar(AlexsCaves.MOD_ID).versioned(VERSION).optional();
+    private void registerPayloads() {
         // Server-to-client messages
-        registrar.playToClient(WorldEventMessage.TYPE, WorldEventMessage.CODEC, WorldEventMessage::handle);
-        registrar.playToClient(UpdateCaveBiomeMapTagMessage.TYPE, UpdateCaveBiomeMapTagMessage.CODEC,
-                UpdateCaveBiomeMapTagMessage::handle);
-        registrar.playToClient(UpdateBossEruptionStatus.TYPE, UpdateBossEruptionStatus.CODEC,
-                UpdateBossEruptionStatus::handle);
-        registrar.playToClient(UpdateBossBarMessage.TYPE, UpdateBossBarMessage.CODEC, UpdateBossBarMessage::handle);
-        registrar.playToClient(UpdateEffectVisualityEntityMessage.TYPE, UpdateEffectVisualityEntityMessage.CODEC,
-                UpdateEffectVisualityEntityMessage::handle);
-        registrar.playBidirectional(UpdateItemTagMessage.TYPE, UpdateItemTagMessage.CODEC, UpdateItemTagMessage::handle);
-        registrar.playToClient(BeholderSyncMessage.TYPE, BeholderSyncMessage.CODEC, BeholderSyncMessage::handle);
-        registrar.playToClient(SundropRainbowMessage.TYPE, SundropRainbowMessage.CODEC, SundropRainbowMessage::handle);
-        registrar.playToClient(SpelunkeryTableCompleteTutorialMessage.TYPE,
-                SpelunkeryTableCompleteTutorialMessage.CODEC, SpelunkeryTableCompleteTutorialMessage::handle);
-        registrar.playToClient(UpdateMagneticDataMessage.TYPE, UpdateMagneticDataMessage.CODEC,
-                UpdateMagneticDataMessage::handle);
+        registerS2C(WorldEventMessage.TYPE, WorldEventMessage.CODEC, WorldEventMessage::handle);
+        registerS2C(UpdateCaveBiomeMapTagMessage.TYPE, UpdateCaveBiomeMapTagMessage.CODEC, UpdateCaveBiomeMapTagMessage::handle);
+        registerS2C(UpdateBossEruptionStatus.TYPE, UpdateBossEruptionStatus.CODEC, UpdateBossEruptionStatus::handle);
+        registerS2C(UpdateBossBarMessage.TYPE, UpdateBossBarMessage.CODEC, UpdateBossBarMessage::handle);
+        registerS2C(UpdateEffectVisualityEntityMessage.TYPE, UpdateEffectVisualityEntityMessage.CODEC, UpdateEffectVisualityEntityMessage::handle);
+        registerS2C(UpdateItemTagMessage.TYPE, UpdateItemTagMessage.CODEC, UpdateItemTagMessage::handle);
+        registerS2C(BeholderSyncMessage.TYPE, BeholderSyncMessage.CODEC, BeholderSyncMessage::handle);
+        registerS2C(SundropRainbowMessage.TYPE, SundropRainbowMessage.CODEC, SundropRainbowMessage::handle);
+        registerS2C(SpelunkeryTableCompleteTutorialMessage.TYPE, SpelunkeryTableCompleteTutorialMessage.CODEC, SpelunkeryTableCompleteTutorialMessage::handle);
+        registerS2C(UpdateMagneticDataMessage.TYPE, UpdateMagneticDataMessage.CODEC, UpdateMagneticDataMessage::handle);
+
         // Client-to-server messages
-        registrar.playToServer(MultipartEntityMessage.TYPE, MultipartEntityMessage.CODEC,
-                MultipartEntityMessage::handle);
-        registrar.playToServer(SpelunkeryTableChangeMessage.TYPE, SpelunkeryTableChangeMessage.CODEC,
-                SpelunkeryTableChangeMessage::handle);
-        registrar.playToServer(PlayerJumpFromMagnetMessage.TYPE, PlayerJumpFromMagnetMessage.CODEC,
-                PlayerJumpFromMagnetMessage::handle);
-        registrar.playToServer(MountedEntityKeyMessage.TYPE, MountedEntityKeyMessage.CODEC,
-                MountedEntityKeyMessage::handle);
-        registrar.playToServer(PossessionKeyMessage.TYPE, PossessionKeyMessage.CODEC, PossessionKeyMessage::handle);
-        registrar.playToServer(BeholderRotateMessage.TYPE, BeholderRotateMessage.CODEC, BeholderRotateMessage::handle);
-        registrar.playToServer(ArmorKeyMessage.TYPE, ArmorKeyMessage.CODEC, ArmorKeyMessage::handle);
+        registerC2S(MultipartEntityMessage.TYPE, MultipartEntityMessage.CODEC, MultipartEntityMessage::handle);
+        registerC2S(SpelunkeryTableChangeMessage.TYPE, SpelunkeryTableChangeMessage.CODEC, SpelunkeryTableChangeMessage::handle);
+        registerC2S(PlayerJumpFromMagnetMessage.TYPE, PlayerJumpFromMagnetMessage.CODEC, PlayerJumpFromMagnetMessage::handle);
+        registerC2S(MountedEntityKeyMessage.TYPE, MountedEntityKeyMessage.CODEC, MountedEntityKeyMessage::handle);
+        registerC2S(PossessionKeyMessage.TYPE, PossessionKeyMessage.CODEC, PossessionKeyMessage::handle);
+        registerC2S(BeholderRotateMessage.TYPE, BeholderRotateMessage.CODEC, BeholderRotateMessage::handle);
+        registerC2S(ArmorKeyMessage.TYPE, ArmorKeyMessage.CODEC, ArmorKeyMessage::handle);
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {

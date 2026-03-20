@@ -12,6 +12,10 @@ import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry
 import com.github.alexmodguy.alexscaves.server.misc.ACDataComponentRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
+import me.fzzyhmstrs.fzzy_config.networking.api.C2SPayloadHandler;
+import me.fzzyhmstrs.fzzy_config.networking.api.S2CPayloadHandler;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,6 +49,14 @@ public class AlexsCaves {
         ACDataComponentRegistry.init();
         ACParticleRegistry.init();
         ACCarverRegistry.init();
+    }
+
+    public static <T extends CustomPacketPayload> void registerS2C(CustomPacketPayload.Type<T> type, StreamCodec<RegistryFriendlyByteBuf, T> codec, S2CPayloadHandler<T> handler) {
+        ConfigApiJava.network().registerS2C(type, codec, handler);
+    }
+
+    public static <T extends CustomPacketPayload> void registerC2S(CustomPacketPayload.Type<T> type, StreamCodec<RegistryFriendlyByteBuf, T> codec, C2SPayloadHandler<T> handler) {
+        ConfigApiJava.network().registerC2S(type, codec, handler);
     }
 
     public static ResourceLocation id(String path) {

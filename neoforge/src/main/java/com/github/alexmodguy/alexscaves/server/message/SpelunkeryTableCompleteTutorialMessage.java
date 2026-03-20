@@ -2,18 +2,18 @@ package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
-import net.minecraft.network.FriendlyByteBuf;
+import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class SpelunkeryTableCompleteTutorialMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<SpelunkeryTableCompleteTutorialMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("spelunkery_table_complete_tutorial"));
 
-    public static final StreamCodec<FriendlyByteBuf, SpelunkeryTableCompleteTutorialMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, SpelunkeryTableCompleteTutorialMessage> CODEC =
         StreamCodec.ofMember(SpelunkeryTableCompleteTutorialMessage::write, SpelunkeryTableCompleteTutorialMessage::read);
 
     @Override
@@ -29,17 +29,17 @@ public class SpelunkeryTableCompleteTutorialMessage implements CustomPacketPaylo
     public SpelunkeryTableCompleteTutorialMessage() {
     }
 
-    public static SpelunkeryTableCompleteTutorialMessage read(FriendlyByteBuf buf) {
+    public static SpelunkeryTableCompleteTutorialMessage read(RegistryFriendlyByteBuf buf) {
         return new SpelunkeryTableCompleteTutorialMessage(buf.readBoolean());
     }
 
-    public static void write(SpelunkeryTableCompleteTutorialMessage message, FriendlyByteBuf buf) {
+    public static void write(SpelunkeryTableCompleteTutorialMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeBoolean(message.completedTutorial);
     }
 
-    public static void handle(SpelunkeryTableCompleteTutorialMessage message, IPayloadContext context) {
+    public static void handle(SpelunkeryTableCompleteTutorialMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (context.flow().isClientbound()) {
+        if (context.networkSide().isClientbound()) {
             Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
             if (player != null) {
                 AlexsCavesNeoForge.PROXY.setSpelunkeryTutorialComplete(message.completedTutorial);

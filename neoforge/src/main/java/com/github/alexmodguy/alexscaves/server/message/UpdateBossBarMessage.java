@@ -2,10 +2,10 @@ package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
-import net.minecraft.network.FriendlyByteBuf;
+import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
 
@@ -14,7 +14,7 @@ public class UpdateBossBarMessage implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<UpdateBossBarMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("update_boss_bar"));
 
-    public static final StreamCodec<FriendlyByteBuf, UpdateBossBarMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, UpdateBossBarMessage> CODEC =
         StreamCodec.ofMember(UpdateBossBarMessage::write, UpdateBossBarMessage::read);
 
     @Override
@@ -29,18 +29,18 @@ public class UpdateBossBarMessage implements CustomPacketPayload {
     }
 
 
-    public static UpdateBossBarMessage read(FriendlyByteBuf buf) {
+    public static UpdateBossBarMessage read(RegistryFriendlyByteBuf buf) {
         return new UpdateBossBarMessage(buf.readUUID(), buf.readInt());
     }
 
-    public static void write(UpdateBossBarMessage message, FriendlyByteBuf buf) {
+    public static void write(UpdateBossBarMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeUUID(message.bossBar);
         buf.writeInt(message.renderType);
     }
 
-    public static void handle(UpdateBossBarMessage message, IPayloadContext context) {
+    public static void handle(UpdateBossBarMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (!context.flow().isClientbound()) {
+        if (!context.networkSide().isClientbound()) {
             return;
         }
         if (message.renderType == -1) {

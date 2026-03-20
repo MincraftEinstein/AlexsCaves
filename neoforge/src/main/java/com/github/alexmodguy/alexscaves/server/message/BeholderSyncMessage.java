@@ -2,10 +2,10 @@ package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
-import net.minecraft.network.FriendlyByteBuf;
+import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
 
@@ -14,7 +14,7 @@ public class BeholderSyncMessage implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<BeholderSyncMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("beholder_sync"));
 
-    public static final StreamCodec<FriendlyByteBuf, BeholderSyncMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, BeholderSyncMessage> CODEC =
         StreamCodec.ofMember(BeholderSyncMessage::write, BeholderSyncMessage::read);
 
     private final int beholderId;
@@ -41,7 +41,7 @@ public class BeholderSyncMessage implements CustomPacketPayload {
     @Override
     public Type<? extends CustomPacketPayload> type() { return TYPE; }
 
-    public static BeholderSyncMessage read(FriendlyByteBuf buf) {
+    public static BeholderSyncMessage read(RegistryFriendlyByteBuf buf) {
         int beholderId = buf.readInt();
         boolean active = buf.readBoolean();
         double x = buf.readDouble();
@@ -53,7 +53,7 @@ public class BeholderSyncMessage implements CustomPacketPayload {
         return new BeholderSyncMessage(beholderId, active, x, y, z, yRot, xRot, uuid);
     }
 
-    public static void write(BeholderSyncMessage message, FriendlyByteBuf buf) {
+    public static void write(BeholderSyncMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeInt(message.beholderId);
         buf.writeBoolean(message.active);
         buf.writeDouble(message.x);
@@ -67,10 +67,10 @@ public class BeholderSyncMessage implements CustomPacketPayload {
         }
     }
 
-    public static void handle(BeholderSyncMessage message, IPayloadContext context) {
+    public static void handle(BeholderSyncMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (context.flow().isClientbound()) {
-            context.enqueueWork(() -> {
+        if (context.networkSide().isClientbound()) {
+            context.execute(() -> {
                 AlexsCavesNeoForge.PROXY.handleBeholderSync(
                     message.beholderId, message.active,
                     message.x, message.y, message.z,

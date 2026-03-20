@@ -2,17 +2,17 @@ package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class WorldEventMessage implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<WorldEventMessage> TYPE = 
         new CustomPacketPayload.Type<>(AlexsCaves.id("world_event"));
-    public static final StreamCodec<FriendlyByteBuf, WorldEventMessage> CODEC = 
+    public static final StreamCodec<RegistryFriendlyByteBuf, WorldEventMessage> CODEC = 
         StreamCodec.ofMember(WorldEventMessage::write, WorldEventMessage::read);
 
     public int messageId;
@@ -29,11 +29,11 @@ public class WorldEventMessage implements CustomPacketPayload {
 
     public WorldEventMessage() {}
 
-    public static WorldEventMessage read(FriendlyByteBuf buf) {
+    public static WorldEventMessage read(RegistryFriendlyByteBuf buf) {
         return new WorldEventMessage(buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void write(WorldEventMessage message, FriendlyByteBuf buf) {
+    public static void write(WorldEventMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeInt(message.messageId);
         buf.writeInt(message.blockX);
         buf.writeInt(message.blockY);
@@ -43,10 +43,10 @@ public class WorldEventMessage implements CustomPacketPayload {
     @Override
     public Type<? extends CustomPacketPayload> type() { return TYPE; }
 
-    public static void handle(WorldEventMessage message, IPayloadContext context) {
-        context.enqueueWork(() -> {
+    public static void handle(WorldEventMessage message, ClientPlayNetworkContext context) {
+        context.execute(() -> {
             Player playerSided = context.player();
-            if (context.flow().isClientbound()) {
+            if (context.networkSide().isClientbound()) {
                 playerSided = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
             }
             if (playerSided != null && playerSided.level() != null) {

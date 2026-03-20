@@ -2,19 +2,19 @@ package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.entity.util.PossessesCamera;
-import net.minecraft.network.FriendlyByteBuf;
+import me.fzzyhmstrs.fzzy_config.networking.api.ServerPlayNetworkContext;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class PossessionKeyMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<PossessionKeyMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("possession_key"));
 
-    public static final StreamCodec<FriendlyByteBuf, PossessionKeyMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, PossessionKeyMessage> CODEC =
         StreamCodec.ofMember(PossessionKeyMessage::write, PossessionKeyMessage::read);
 
     @Override
@@ -34,19 +34,19 @@ public class PossessionKeyMessage implements CustomPacketPayload {
     public PossessionKeyMessage() {
     }
 
-    public static PossessionKeyMessage read(FriendlyByteBuf buf) {
+    public static PossessionKeyMessage read(RegistryFriendlyByteBuf buf) {
         return new PossessionKeyMessage(buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void write(PossessionKeyMessage message, FriendlyByteBuf buf) {
+    public static void write(PossessionKeyMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeInt(message.watcher);
         buf.writeInt(message.playerId);
         buf.writeInt(message.type);
     }
 
-    public static void handle(PossessionKeyMessage message, IPayloadContext context) {
+    public static void handle(PossessionKeyMessage message, ServerPlayNetworkContext context) {
         // This packet is sent from client to server
-        context.enqueueWork(() -> {
+        context.execute(() -> {
             Player playerSided = context.player();
             if (playerSided != null) {
                 Entity watcher = playerSided.level().getEntity(message.watcher);

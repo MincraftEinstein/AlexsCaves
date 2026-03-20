@@ -4,15 +4,15 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexthe666.citadel.server.message.PacketBufferUtils;
+import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
 
@@ -21,7 +21,7 @@ public class UpdateCaveBiomeMapTagMessage implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<UpdateCaveBiomeMapTagMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("update_cave_biome_map_tag"));
 
-    public static final StreamCodec<FriendlyByteBuf, UpdateCaveBiomeMapTagMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, UpdateCaveBiomeMapTagMessage> CODEC =
         StreamCodec.ofMember(UpdateCaveBiomeMapTagMessage::write, UpdateCaveBiomeMapTagMessage::read);
 
     @Override
@@ -38,19 +38,19 @@ public class UpdateCaveBiomeMapTagMessage implements CustomPacketPayload {
     }
 
 
-    public static UpdateCaveBiomeMapTagMessage read(FriendlyByteBuf buf) {
+    public static UpdateCaveBiomeMapTagMessage read(RegistryFriendlyByteBuf buf) {
         return new UpdateCaveBiomeMapTagMessage(buf.readUUID(), buf.readUUID(), PacketBufferUtils.readTag(buf));
     }
 
-    public static void write(UpdateCaveBiomeMapTagMessage message, FriendlyByteBuf buf) {
+    public static void write(UpdateCaveBiomeMapTagMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeUUID(message.userUUID);
         buf.writeUUID(message.caveBiomeMapUUID);
         PacketBufferUtils.writeTag(buf, message.tag);
     }
 
-    public static void handle(UpdateCaveBiomeMapTagMessage message, IPayloadContext context) {
+    public static void handle(UpdateCaveBiomeMapTagMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (!context.flow().isClientbound()) {
+        if (!context.networkSide().isClientbound()) {
             return;
         }
         Player playerSided = AlexsCavesNeoForge.PROXY.getClientSidePlayer();

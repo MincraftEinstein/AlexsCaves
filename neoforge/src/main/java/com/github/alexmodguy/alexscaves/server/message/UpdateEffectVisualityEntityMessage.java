@@ -5,8 +5,9 @@ import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.IrradiatedEffect;
+import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.core.Holder;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.effect.MobEffect;
@@ -14,7 +15,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
  * Message to sync effect visuals from server to client.
@@ -26,7 +26,7 @@ public class UpdateEffectVisualityEntityMessage implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<UpdateEffectVisualityEntityMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("update_effect_visuality_entity"));
 
-    public static final StreamCodec<FriendlyByteBuf, UpdateEffectVisualityEntityMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, UpdateEffectVisualityEntityMessage> CODEC =
         StreamCodec.ofMember(UpdateEffectVisualityEntityMessage::write, UpdateEffectVisualityEntityMessage::read);
 
     @Override
@@ -52,11 +52,11 @@ public class UpdateEffectVisualityEntityMessage implements CustomPacketPayload {
     }
 
 
-    public static UpdateEffectVisualityEntityMessage read(FriendlyByteBuf buf) {
+    public static UpdateEffectVisualityEntityMessage read(RegistryFriendlyByteBuf buf) {
         return new UpdateEffectVisualityEntityMessage(buf.readInt(), buf.readInt(), buf.readInt(), buf.readInt(), buf.readBoolean());
     }
 
-    public static void write(UpdateEffectVisualityEntityMessage message, FriendlyByteBuf buf) {
+    public static void write(UpdateEffectVisualityEntityMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeInt(message.entityID);
         buf.writeInt(message.fromEntityID);
         buf.writeInt(message.potionType);
@@ -64,9 +64,9 @@ public class UpdateEffectVisualityEntityMessage implements CustomPacketPayload {
         buf.writeBoolean(message.remove);
     }
 
-    public static void handle(UpdateEffectVisualityEntityMessage message, IPayloadContext context) {
+    public static void handle(UpdateEffectVisualityEntityMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (!context.flow().isClientbound()) {
+        if (!context.networkSide().isClientbound()) {
             return;
         }
         Player playerSided = AlexsCavesNeoForge.PROXY.getClientSidePlayer();

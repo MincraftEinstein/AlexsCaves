@@ -1,19 +1,19 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import net.minecraft.network.FriendlyByteBuf;
+import me.fzzyhmstrs.fzzy_config.networking.api.ServerPlayNetworkContext;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class MultipartEntityMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<MultipartEntityMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("multipart_entity"));
 
-    public static final StreamCodec<FriendlyByteBuf, MultipartEntityMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, MultipartEntityMessage> CODEC =
         StreamCodec.ofMember(MultipartEntityMessage::write, MultipartEntityMessage::read);
 
     @Override
@@ -33,19 +33,19 @@ public class MultipartEntityMessage implements CustomPacketPayload {
     public MultipartEntityMessage() {
     }
 
-    public static MultipartEntityMessage read(FriendlyByteBuf buf) {
+    public static MultipartEntityMessage read(RegistryFriendlyByteBuf buf) {
         return new MultipartEntityMessage(buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void write(MultipartEntityMessage message, FriendlyByteBuf buf) {
+    public static void write(MultipartEntityMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeInt(message.parentId);
         buf.writeInt(message.playerId);
         buf.writeInt(message.type);
     }
 
-    public static void handle(MultipartEntityMessage message, IPayloadContext context) {
+    public static void handle(MultipartEntityMessage message, ServerPlayNetworkContext context) {
         // This packet is sent from client to server
-        context.enqueueWork(() -> {
+        context.execute(() -> {
             Player player = context.player();
             if (player != null && !player.level().isClientSide) {
                 Entity parent = player.level().getEntity(message.parentId);

@@ -2,7 +2,8 @@ package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.item.KeybindUsingArmor;
-import net.minecraft.network.FriendlyByteBuf;
+import me.fzzyhmstrs.fzzy_config.networking.api.ServerPlayNetworkContext;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.util.Mth;
@@ -10,14 +11,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class ArmorKeyMessage implements CustomPacketPayload {
 
     public static final CustomPacketPayload.Type<ArmorKeyMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("armor_key"));
 
-    public static final StreamCodec<FriendlyByteBuf, ArmorKeyMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, ArmorKeyMessage> CODEC =
         StreamCodec.ofMember(ArmorKeyMessage::write, ArmorKeyMessage::read);
 
     @Override
@@ -37,19 +37,19 @@ public class ArmorKeyMessage implements CustomPacketPayload {
     public ArmorKeyMessage() {
     }
 
-    public static ArmorKeyMessage read(FriendlyByteBuf buf) {
+    public static ArmorKeyMessage read(RegistryFriendlyByteBuf buf) {
         return new ArmorKeyMessage(buf.readInt(), buf.readInt(), buf.readInt());
     }
 
-    public static void write(ArmorKeyMessage message, FriendlyByteBuf buf) {
+    public static void write(ArmorKeyMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeInt(message.equipmentSlot);
         buf.writeInt(message.playerId);
         buf.writeInt(message.type);
     }
 
-    public static void handle(ArmorKeyMessage message, IPayloadContext context) {
+    public static void handle(ArmorKeyMessage message, ServerPlayNetworkContext context) {
         // This packet is sent from client to server
-        context.enqueueWork(() -> {
+        context.execute(() -> {
             Player playerSided = context.player();
             if (playerSided != null) {
                 Entity keyPresser = playerSided.level().getEntity(message.playerId);

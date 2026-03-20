@@ -4,13 +4,13 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagneticEntityData;
+import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.core.Direction;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 /**
  * Message to sync magnetic entity data from server to client.
@@ -21,7 +21,7 @@ public class UpdateMagneticDataMessage implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<UpdateMagneticDataMessage> TYPE =
         new CustomPacketPayload.Type<>(AlexsCaves.id("update_magnetic_data"));
 
-    public static final StreamCodec<FriendlyByteBuf, UpdateMagneticDataMessage> CODEC =
+    public static final StreamCodec<RegistryFriendlyByteBuf, UpdateMagneticDataMessage> CODEC =
         StreamCodec.ofMember(UpdateMagneticDataMessage::write, UpdateMagneticDataMessage::read);
 
     @Override
@@ -45,7 +45,7 @@ public class UpdateMagneticDataMessage implements CustomPacketPayload {
         this(entity.getId(), data.getDeltaX(), data.getDeltaY(), data.getDeltaZ(), data.getAttachmentDirection());
     }
 
-    public static UpdateMagneticDataMessage read(FriendlyByteBuf buf) {
+    public static UpdateMagneticDataMessage read(RegistryFriendlyByteBuf buf) {
         int entityId = buf.readInt();
         float deltaX = buf.readFloat();
         float deltaY = buf.readFloat();
@@ -54,7 +54,7 @@ public class UpdateMagneticDataMessage implements CustomPacketPayload {
         return new UpdateMagneticDataMessage(entityId, deltaX, deltaY, deltaZ, dir);
     }
 
-    public static void write(UpdateMagneticDataMessage message, FriendlyByteBuf buf) {
+    public static void write(UpdateMagneticDataMessage message, RegistryFriendlyByteBuf buf) {
         buf.writeInt(message.entityId);
         buf.writeFloat(message.deltaX);
         buf.writeFloat(message.deltaY);
@@ -62,9 +62,9 @@ public class UpdateMagneticDataMessage implements CustomPacketPayload {
         buf.writeEnum(message.attachmentDirection);
     }
 
-    public static void handle(UpdateMagneticDataMessage message, IPayloadContext context) {
+    public static void handle(UpdateMagneticDataMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (!context.flow().isClientbound()) {
+        if (!context.networkSide().isClientbound()) {
             return;
         }
         Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();

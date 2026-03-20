@@ -8,8 +8,6 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class PlayerRainbowParticle extends RainbowParticle {
 
@@ -40,7 +38,7 @@ public class PlayerRainbowParticle extends RainbowParticle {
             }
             return entity.getPosition(partialTicks).add(0, 0.1, 0);
         }
-        return this.getPos();
+        return new Vec3(this.x, this.y, this.z);
     }
 
     @Override
@@ -78,7 +76,6 @@ public class PlayerRainbowParticle extends RainbowParticle {
         return 0.3F;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static class Factory implements ParticleProvider<SimpleParticleType> {
 
         public Factory() {

@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.client.render.misc;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -20,29 +21,29 @@ public class BlockColorFinder {
     public static int getBlockColor(BlockState blockState, @Nullable BlockAndTintGetter level, @Nullable BlockPos pos) {
         String blockName = blockState.toString();
         int colorizer = -1;
-        if(!blockState.is(ACBlockRegistry.BLOCK_OF_FROSTED_CHOCOLATE.get())){
-            try{
+        if (!blockState.is(ACBlockRegistry.BLOCK_OF_FROSTED_CHOCOLATE.get())) {
+            try {
                 colorizer = Minecraft.getInstance().getBlockColors().getColor(blockState, level, pos, 0);
-            }catch (Exception e){
+            } catch (Exception e) {
                 AlexsCaves.LOGGER.warn("Another mod did not use block colorizers correctly.");
             }
         }
         if (TEXTURES_TO_COLOR.containsKey(blockName)) {
-            if(colorizer == -1){
+            if (colorizer == -1) {
                 return TEXTURES_TO_COLOR.getInt(blockName);
-            }else{
+            } else {
                 return colorizer;
             }
         } else {
             int color = 0XFFFFFF;
-            if(colorizer == -1){
+            if (colorizer == -1) {
                 try {
                     Color texColour = getAverageColour(getTextureAtlas(blockState));
                     color = texColour.getRGB();
                 } catch (NullPointerException e) {
                     e.printStackTrace();
                 }
-            }else{
+            } else {
                 color = colorizer;
             }
             TEXTURES_TO_COLOR.put(blockName, color);
@@ -59,13 +60,13 @@ public class BlockColorFinder {
         int vMax = image.contents().height();
         for (float i = 0; i < uMax; i++)
             for (float j = 0; j < vMax; j++) {
-                int alpha = image.getPixelRGBA(0, (int) i, (int) j) >> 24 & 0xFF;
+                int alpha = Services.CLIENT_HELPER.getPixelRGBA(image, 0, (int) i, (int) j) >> 24 & 0xFF;
                 if (alpha == 0) {
                     continue;
                 }
-                red += image.getPixelRGBA(0, (int) i, (int) j) >> 0 & 0xFF;
-                green += image.getPixelRGBA(0, (int) i, (int) j) >> 8 & 0xFF;
-                blue += image.getPixelRGBA(0, (int) i, (int) j) >> 16 & 0xFF;
+                red += Services.CLIENT_HELPER.getPixelRGBA(image, 0, (int) i, (int) j) >> 0 & 0xFF;
+                green += Services.CLIENT_HELPER.getPixelRGBA(image, 0, (int) i, (int) j) >> 8 & 0xFF;
+                blue += Services.CLIENT_HELPER.getPixelRGBA(image, 0, (int) i, (int) j) >> 16 & 0xFF;
                 count++;
             }
         //Average color

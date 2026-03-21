@@ -29,7 +29,7 @@ import java.util.Optional;
 public class SackOfSatingItem extends Item {
 
     public SackOfSatingItem() {
-        super(new Item.Properties().stacksTo(1).rarity(ACItemRegistry.getRaritySweet()));
+        super(new Item.Properties().stacksTo(1).rarity(ACRarity.getRaritySweet()));
     }
 
     public static int getHunger(ItemStack itemStack) {

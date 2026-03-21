@@ -31,7 +31,7 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
 
 
     public DarknessArmorItem(RegHolder<ArmorMaterial, ArmorMaterial> armorMaterial, Type slot) {
-        super(armorMaterial, slot, new Item.Properties().durability(slot.getDurability(15)).rarity(ACItemRegistry.getRarityDemonic()));
+        super(armorMaterial, slot, new Item.Properties().durability(slot.getDurability(15)).rarity(ACRarity.getRarityDemonic()));
     }
 
     private static boolean canChargeUp(LivingEntity entity, boolean creative) {

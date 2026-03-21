@@ -17,7 +17,7 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 public class DesolateDaggerItem extends SwordItem {
     public DesolateDaggerItem() {
-        super(Tiers.DIAMOND, (new Item.Properties()).rarity(ACItemRegistry.getRarityDemonic()).attributes(createDaggerAttributes()));
+        super(Tiers.DIAMOND, (new Item.Properties()).rarity(ACRarity.getRarityDemonic()).attributes(createDaggerAttributes()));
     }
 
     private static ItemAttributeModifiers createDaggerAttributes() {

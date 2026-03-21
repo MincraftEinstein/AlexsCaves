@@ -87,7 +87,7 @@ public class LicowitchEntity extends Monster implements IAnimatedEntity {
 
     private int eatCooldown = 0;
     private int teleportCooldown = 0;
-    public static ItemStack hungerPotion = ACEffectRegistry.createSplashPotion(ACEffectRegistry.STRONG_HUNGER_POTION.get());
+    public static ItemStack hungerPotion = ACEffectRegistry.createSplashPotion(ACEffectRegistry.STRONG_HUNGER_POTION);
 
     public LicowitchEntity(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);

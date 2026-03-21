@@ -84,12 +84,12 @@ public class ACCreativeTabRegistry {
                 add(output, ACBlockRegistry.MAGNETIC_LIGHT.get());
                 add(output, ACBlockRegistry.MAGNETIC_LEVITATION_RAIL.get());
                 add(output, ACBlockRegistry.QUARRY.get());
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.MAGNETIZING_POTION.get()));
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION.get()));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.MAGNETIZING_POTION.get()));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION.get()));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.MAGNETIZING_POTION.get()));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION.get()));
+                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.MAGNETIZING_POTION));
+                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION));
+                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.MAGNETIZING_POTION));
+                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION));
+                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.MAGNETIZING_POTION));
+                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION));
                 // Enchantments are now data-driven in 1.21, added via creative tab events or datapacks
             })
             .build());
@@ -398,18 +398,18 @@ public class ACCreativeTabRegistry {
                 add(output, ACBlockRegistry.DEPTH_GLASS.get());
                 add(output, ACBlockRegistry.COPPER_VALVE.get());
                 add(output, ACBlockRegistry.ENIGMATIC_ENGINE.get());
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.DEEPSIGHT_POTION.get()));
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_DEEPSIGHT_POTION.get()));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.DEEPSIGHT_POTION.get()));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_DEEPSIGHT_POTION.get()));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.DEEPSIGHT_POTION.get()));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_DEEPSIGHT_POTION.get()));
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.GLOWING_POTION.get()));
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_GLOWING_POTION.get()));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.GLOWING_POTION.get()));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_GLOWING_POTION.get()));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.GLOWING_POTION.get()));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_GLOWING_POTION.get()));
+                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.DEEPSIGHT_POTION));
+                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_DEEPSIGHT_POTION));
+                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.DEEPSIGHT_POTION));
+                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_DEEPSIGHT_POTION));
+                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.DEEPSIGHT_POTION));
+                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_DEEPSIGHT_POTION));
+                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.GLOWING_POTION));
+                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_GLOWING_POTION));
+                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.GLOWING_POTION));
+                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_GLOWING_POTION));
+                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.GLOWING_POTION));
+                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_GLOWING_POTION));
                 // Enchantments are now data-driven in 1.21
             })
             .build());
@@ -490,15 +490,15 @@ public class ACCreativeTabRegistry {
                 add(output, ACBlockRegistry.UNDERWEED.get());
                 add(output, ACBlockRegistry.MOTH_BALL.get());
                 add(output, ACBlockRegistry.BEHOLDER.get());
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.HASTE_POTION.get()));
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_HASTE_POTION.get()));
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.STRONG_HASTE_POTION.get()));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.HASTE_POTION.get()));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_HASTE_POTION.get()));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.STRONG_HASTE_POTION.get()));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.HASTE_POTION.get()));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_HASTE_POTION.get()));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.STRONG_HASTE_POTION.get()));
+                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.HASTE_POTION));
+                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_HASTE_POTION));
+                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.STRONG_HASTE_POTION));
+                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.HASTE_POTION));
+                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_HASTE_POTION));
+                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.STRONG_HASTE_POTION));
+                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.HASTE_POTION));
+                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_HASTE_POTION));
+                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.STRONG_HASTE_POTION));
                 // Enchantments are now data-driven in 1.21
             })
             .build());
@@ -638,12 +638,12 @@ public class ACCreativeTabRegistry {
                 add(output, ACBlockRegistry.FROSTED_GINGERBREAD_BRICK_WALL.get());
                 add(output, ACBlockRegistry.CONFECTION_OVEN.get());
                 BuiltInRegistries.POTION.stream().filter(potion -> !potion.getEffects().isEmpty() && !potion.hasInstantEffects()).forEach(potion -> output.accept(ACEffectRegistry.createJellybean(potion)));
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.SUGAR_RUSH_POTION.get()));
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_SUGAR_RUSH_POTION.get()));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.SUGAR_RUSH_POTION.get()));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_SUGAR_RUSH_POTION.get()));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.SUGAR_RUSH_POTION.get()));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_SUGAR_RUSH_POTION.get()));
+                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.SUGAR_RUSH_POTION));
+                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_SUGAR_RUSH_POTION));
+                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.SUGAR_RUSH_POTION));
+                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_SUGAR_RUSH_POTION));
+                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.SUGAR_RUSH_POTION));
+                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_SUGAR_RUSH_POTION));
                 // Enchantments are now data-driven in 1.21
             })
             .build());

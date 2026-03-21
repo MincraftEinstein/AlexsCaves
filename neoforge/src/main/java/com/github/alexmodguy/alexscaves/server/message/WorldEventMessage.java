@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -45,7 +46,7 @@ public class WorldEventMessage implements CustomPacketPayload {
     public static void handle(WorldEventMessage message, ClientPlayNetworkContext context) {
         context.execute(() -> {
             Player playerSided = context.player();
-            if (context.networkSide().isClientbound()) {
+            if (ACNetUtils.isClientbound(context.networkSide())) {
                 playerSided = AlexsCaves.PROXY.getClientSidePlayer();
             }
             if (playerSided != null && playerSided.level() != null) {

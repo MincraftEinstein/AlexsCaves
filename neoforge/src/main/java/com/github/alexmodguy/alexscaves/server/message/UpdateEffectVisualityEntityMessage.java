@@ -4,6 +4,7 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.IrradiatedEffect;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.core.Holder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -65,7 +66,7 @@ public class UpdateEffectVisualityEntityMessage implements CustomPacketPayload {
 
     public static void handle(UpdateEffectVisualityEntityMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (!context.networkSide().isClientbound()) {
+        if (!ACNetUtils.isClientbound(context.networkSide())) {
             return;
         }
         Player playerSided = AlexsCaves.PROXY.getClientSidePlayer();

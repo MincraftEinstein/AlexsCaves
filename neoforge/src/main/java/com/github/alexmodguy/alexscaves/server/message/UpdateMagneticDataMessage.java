@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves.server.message;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagneticEntityData;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.core.Direction;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -63,7 +64,7 @@ public class UpdateMagneticDataMessage implements CustomPacketPayload {
 
     public static void handle(UpdateMagneticDataMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (!context.networkSide().isClientbound()) {
+        if (!ACNetUtils.isClientbound(context.networkSide())) {
             return;
         }
         Player player = AlexsCaves.PROXY.getClientSidePlayer();

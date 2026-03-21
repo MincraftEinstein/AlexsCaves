@@ -6,6 +6,7 @@ import me.fzzyhmstrs.fzzy_config.networking.api.C2SPayloadHandler;
 import me.fzzyhmstrs.fzzy_config.networking.api.S2CPayloadHandler;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -30,5 +31,13 @@ public interface ACNetUtils {
         for (ServerPlayer player : Services.PLATFORM_HELPER.getServer().getPlayerList().getPlayers()) {
             sendNonLocal(message, player);
         }
+    }
+
+    static boolean isClientbound(PacketFlow packetFlow) {
+        return packetFlow == PacketFlow.CLIENTBOUND;
+    }
+
+    static boolean isServerbound(PacketFlow packetFlow) {
+        return packetFlow == PacketFlow.SERVERBOUND;
     }
 }

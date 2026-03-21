@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -38,7 +39,7 @@ public class SpelunkeryTableCompleteTutorialMessage implements CustomPacketPaylo
 
     public static void handle(SpelunkeryTableCompleteTutorialMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (context.networkSide().isClientbound()) {
+        if (ACNetUtils.isClientbound(context.networkSide())) {
             Player player = AlexsCaves.PROXY.getClientSidePlayer();
             if (player != null) {
                 AlexsCaves.PROXY.setSpelunkeryTutorialComplete(message.completedTutorial);

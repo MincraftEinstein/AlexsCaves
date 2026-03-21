@@ -13,6 +13,7 @@ import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.IrradiatedEffect;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -162,7 +163,7 @@ public class RaygunItem extends Item implements UpdatesStackTags, AlwaysCombinab
         Vec3 vec31 = xRay ? xRayVec : blockOnlyHitResult.getLocation();
         if (!hasCharge(stack)) {
             if (level.isClientSide) {
-                AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(living.getId(), stack));
+                ACNetUtils.sendMSGToServer(new UpdateItemTagMessage(living.getId(), stack));
             }
             living.stopUsingItem();
             level.playSound((Player) null, living.getX(), living.getY(), living.getZ(), ACSoundRegistry.RAYGUN_EMPTY.get(), living.getSoundSource(), 1.0F, 1.0F);
@@ -237,7 +238,7 @@ public class RaygunItem extends Item implements UpdatesStackTags, AlwaysCombinab
                     boolean flag = entity instanceof TremorzillaEntity || entity.hurt(ACDamageTypes.causeRaygunDamage(level.registryAccess(), living), gamma ? 2F : 1.5F);
                     if (flag && entity instanceof LivingEntity livingEntity && !livingEntity.getType().is(ACTagRegistry.RESISTS_RADIATION)) {
                         if (livingEntity.addEffect(new MobEffectInstance(ACEffectRegistry.IRRADIATED, 800, radiationLevel))) {
-                            AlexsCaves.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), living.getId(), gamma ? 4 : 0, 800));
+                            ACNetUtils.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), living.getId(), gamma ? 4 : 0, 800));
                         }
                     }
                 }
@@ -315,7 +316,7 @@ public class RaygunItem extends Item implements UpdatesStackTags, AlwaysCombinab
     public void releaseUsing(ItemStack stack, Level level, LivingEntity player, int useTimeLeft) {
         super.releaseUsing(stack, level, player, useTimeLeft);
         if (level.isClientSide) {
-            AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(player.getId(), stack));
+            ACNetUtils.sendMSGToServer(new UpdateItemTagMessage(player.getId(), stack));
         }
         AlexsCaves.PROXY.clearSoundCacheFor(player);
     }

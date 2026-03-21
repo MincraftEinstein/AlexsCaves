@@ -5,6 +5,7 @@ import com.github.alexmodguy.alexscaves.server.item.CaveMapItem;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRarity;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.message.UpdateCaveBiomeMapTagMessage;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.google.common.base.Stopwatch;
 import net.minecraft.ChatFormatting;
 import net.minecraft.Util;
@@ -147,7 +148,7 @@ public class CaveBiomeMapWorldWorker implements WorldWorkerManager.IWorker {
             tag.putBoolean("Loading", false);
             tag.remove("MapUUID");
             map.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-            AlexsCaves.sendMSGToAll(new UpdateCaveBiomeMapTagMessage(player.getUUID(), getTaskUUID(), tag));
+            ACNetUtils.sendMSGToAll(new UpdateCaveBiomeMapTagMessage(player.getUUID(), getTaskUUID(), tag));
         }
         complete = true;
     }

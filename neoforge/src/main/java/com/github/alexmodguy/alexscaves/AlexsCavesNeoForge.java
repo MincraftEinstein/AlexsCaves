@@ -42,8 +42,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.github.alexmodguy.alexscaves.AlexsCaves.registerC2S;
-import static com.github.alexmodguy.alexscaves.AlexsCaves.registerS2C;
+import static com.github.alexmodguy.alexscaves.util.ACNetUtils.registerC2S;
+import static com.github.alexmodguy.alexscaves.util.ACNetUtils.registerS2C;
 
 @Mod(AlexsCaves.MOD_ID)
 public class AlexsCavesNeoForge {

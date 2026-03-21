@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.entity.util;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.message.MultipartEntityMessage;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -32,7 +32,7 @@ public abstract class ACMultipartEntity<T extends Entity> extends PartEntity<T> 
             return InteractionResult.PASS;
         } else {
             if (player.level().isClientSide) {
-                AlexsCaves.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 0));
+                ACNetUtils.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 0));
             }
             return parent.interact(player, hand);
         }
@@ -65,7 +65,7 @@ public abstract class ACMultipartEntity<T extends Entity> extends PartEntity<T> 
             Entity attacker = source.getEntity();
             if (attacker != null && attacker.level().isClientSide) {
                 // Client-side: send packet to server to handle the attack
-                AlexsCaves.sendMSGToServer(new MultipartEntityMessage(parent.getId(), attacker.getId(), 1));
+                ACNetUtils.sendMSGToServer(new MultipartEntityMessage(parent.getId(), attacker.getId(), 1));
                 return true;
             } else if (attacker == null || !attacker.level().isClientSide) {
                 // Server-side: directly apply damage to parent

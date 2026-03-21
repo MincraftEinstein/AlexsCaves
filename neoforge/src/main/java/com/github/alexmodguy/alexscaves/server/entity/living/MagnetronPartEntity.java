@@ -1,8 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagnetronJoint;
 import com.github.alexmodguy.alexscaves.server.message.MultipartEntityMessage;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -64,7 +64,7 @@ public class MagnetronPartEntity extends PartEntity<MagnetronEntity> {
         } else {
             this.playSound(SoundEvents.ITEM_BREAK);
             if (player.level().isClientSide) {
-                AlexsCaves.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 0));
+                ACNetUtils.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 0));
             }
             return parent.interact(player, hand);
         }
@@ -94,7 +94,7 @@ public class MagnetronPartEntity extends PartEntity<MagnetronEntity> {
         if (!this.isInvulnerableTo(source) && parent != null) {
             Entity player = source.getEntity();
             if (player != null && player.level().isClientSide) {
-                AlexsCaves.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 1));
+                ACNetUtils.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 1));
             }
         }
         return false;

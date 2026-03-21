@@ -15,6 +15,7 @@ import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.message.MountedEntityKeyMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
@@ -393,7 +394,7 @@ public class CandicornEntity extends TamableAnimal implements KeybindUsingMount,
             Player player = AlexsCaves.PROXY.getClientSidePlayer();
             if (player != null && player.isPassengerOfSameVehicle(this)) {
                 if (AlexsCaves.PROXY.isKeyDown(2) && getMeterAmount() >= 1.0F && this.isRunning()) {
-                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
+                    ACNetUtils.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
                 }
             }
             spawnPossessedParticles(getRandomX(0.5D), getRandomY(), getRandomZ(0.5D), this.level());

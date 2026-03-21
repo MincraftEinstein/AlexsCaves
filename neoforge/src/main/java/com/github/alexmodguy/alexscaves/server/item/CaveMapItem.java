@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves.server.item;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.level.storage.ACWorldData;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -56,7 +57,7 @@ public class CaveMapItem extends Item implements UpdatesStackTags {
                 if (!tag.contains("MapUUID")) {
                     uuid = UUID.randomUUID();
                     tag.putUUID("MapUUID", uuid);
-                    AlexsCaves.sendMSGToAll(new UpdateItemTagMessage(player.getId(), itemstack));
+                    ACNetUtils.sendMSGToAll(new UpdateItemTagMessage(player.getId(), itemstack));
                 } else {
                     uuid = tag.getUUID("MapUUID");
                 }
@@ -126,7 +127,7 @@ public class CaveMapItem extends Item implements UpdatesStackTags {
                             uuid = UUID.randomUUID();
                             tag.putUUID("MapUUID", uuid);
                             stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-                            AlexsCaves.sendMSGToAll(new UpdateItemTagMessage(entity.getId(), stack));
+                            ACNetUtils.sendMSGToAll(new UpdateItemTagMessage(entity.getId(), stack));
                         } else {
                             uuid = tag.getUUID("MapUUID");
                         }

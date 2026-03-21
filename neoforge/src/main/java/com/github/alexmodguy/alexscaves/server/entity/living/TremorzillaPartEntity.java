@@ -1,8 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.message.MultipartEntityMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACDamageTypes;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -53,7 +53,7 @@ public class TremorzillaPartEntity extends PartEntity<TremorzillaEntity> {
         } else {
             this.playSound(SoundEvents.ITEM_BREAK);
             if (player.level().isClientSide) {
-                AlexsCaves.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 0));
+                ACNetUtils.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 0));
             }
             return parent.interact(player, hand);
         }
@@ -91,7 +91,7 @@ public class TremorzillaPartEntity extends PartEntity<TremorzillaEntity> {
         if (!this.isInvulnerableTo(source) && parent != null) {
             Entity player = source.getEntity();
             if (player != null && !parent.isAlliedTo(player) && player.level().isClientSide) {
-                AlexsCaves.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 1));
+                ACNetUtils.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 1));
             }
         }
         return false;

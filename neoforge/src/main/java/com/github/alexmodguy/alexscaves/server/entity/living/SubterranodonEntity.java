@@ -12,6 +12,7 @@ import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.message.MountedEntityKeyMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.github.alexthe666.citadel.server.entity.collision.ICustomCollisions;
 import com.github.alexthe666.citadel.server.entity.pathfinding.raycoms.AdvancedPathNavigate;
 import net.minecraft.core.BlockPos;
@@ -269,12 +270,12 @@ public class SubterranodonEntity extends DinosaurEntity implements PackAnimal, F
             if (player != null && player.isPassengerOfSameVehicle(this)) {
                 if (AlexsCaves.PROXY.isKeyDown(0) && !AlexsCaves.PROXY.isKeyDown(1) && controlUpTicks < 2 && getMeterAmount() > 0.1F) {
                     if (getMeterAmount() > 0.1F) {
-                        AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 0));
+                        ACNetUtils.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 0));
                         controlUpTicks = 5;
                     }
                 }
                 if (AlexsCaves.PROXY.isKeyDown(1) && !AlexsCaves.PROXY.isKeyDown(0) && controlDownTicks < 2) {
-                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 1));
+                    ACNetUtils.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 1));
                     controlDownTicks = 5;
                 }
             }

@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.potion;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.message.UpdateEffectVisualityEntityMessage;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -18,7 +18,7 @@ public class MagnetizedEffect extends MobEffect {
         if (!entity.level().isClientSide && entity.tickCount % 20 == 0) {
             MobEffectInstance instance = entity.getEffect(ACEffectRegistry.MAGNETIZING);
             if (instance != null) {
-                AlexsCaves.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), entity.getId(), 2, instance.getDuration()));
+                ACNetUtils.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), entity.getId(), 2, instance.getDuration()));
             }
         }
         return true;
@@ -34,7 +34,7 @@ public class MagnetizedEffect extends MobEffect {
         if (!entity.level().isClientSide) {
             MobEffectInstance instance = entity.getEffect(ACEffectRegistry.MAGNETIZING);
             if (instance != null) {
-                AlexsCaves.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), entity.getId(), 2, instance.getDuration()));
+                ACNetUtils.sendMSGToAll(new UpdateEffectVisualityEntityMessage(entity.getId(), entity.getId(), 2, instance.getDuration()));
             }
         }
     }

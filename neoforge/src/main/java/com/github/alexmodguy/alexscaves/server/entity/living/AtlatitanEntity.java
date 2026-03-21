@@ -12,6 +12,7 @@ import com.github.alexmodguy.alexscaves.server.message.MountedEntityKeyMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -116,7 +117,7 @@ public class AtlatitanEntity extends SauropodBaseEntity implements KeybindUsingM
             Player player = AlexsCaves.PROXY.getClientSidePlayer();
             if (player != null && player.isPassengerOfSameVehicle(this)) {
                 if (AlexsCaves.PROXY.isKeyDown(2) && getMeterAmount() >= 1.0F) {
-                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
+                    ACNetUtils.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
                 }
             }
         }else{

@@ -8,6 +8,7 @@ import com.github.alexmodguy.alexscaves.server.entity.item.DarkArrowEntity;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.DarknessIncarnateEffect;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -106,7 +107,7 @@ public class DreadbowItem extends ProjectileWeaponItem implements UpdatesStackTa
 
             if (using && getPerfectShotTicks(stack) > 0) {
                 setPerfectShotTicks(stack, getPerfectShotTicks(stack) - 1);
-                AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
+                ACNetUtils.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
             }
             boolean relentless = ACEnchantmentHelper.hasEnchantment(level, ACEnchantmentRegistry.RELENTLESS_DARKNESS, stack);
             int twilightPerfection = ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.TWILIGHT_PERFECTION, stack);
@@ -117,10 +118,10 @@ public class DreadbowItem extends ProjectileWeaponItem implements UpdatesStackTa
                 if(twilightPerfection > 0){
                     if(set >= maxLoadTime && useTime <= maxLoadTime){
                         setPerfectShotTicks(stack, 4 + (twilightPerfection - 1) * 3);
-                        AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
+                        ACNetUtils.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
                     }else{
                         setPerfectShotTicks(stack, 0);
-                        AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
+                        ACNetUtils.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
                     }
                 }
             }

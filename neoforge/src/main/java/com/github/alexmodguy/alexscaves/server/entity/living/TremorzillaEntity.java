@@ -13,6 +13,7 @@ import com.github.alexmodguy.alexscaves.server.entity.util.*;
 import com.github.alexmodguy.alexscaves.server.message.MountedEntityKeyMessage;
 import com.github.alexmodguy.alexscaves.server.misc.*;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
@@ -328,10 +329,10 @@ public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMou
             Player player = AlexsCaves.PROXY.getClientSidePlayer();
             if (player != null && player.isPassengerOfSameVehicle(this)) {
                 if (AlexsCaves.PROXY.isKeyDown(2) && getMeterAmount() >= 1.0F) {
-                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
+                    ACNetUtils.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
                 }
                 if (AlexsCaves.PROXY.isKeyDown(3) && (this.getAnimation() == NO_ANIMATION || this.getAnimation() == null)) {
-                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 3));
+                    ACNetUtils.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 3));
                 }
             }
             if (this.isFiring() && beamProgress > 0) {

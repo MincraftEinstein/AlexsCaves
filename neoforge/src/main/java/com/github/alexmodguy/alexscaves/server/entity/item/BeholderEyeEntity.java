@@ -5,6 +5,7 @@ import com.github.alexmodguy.alexscaves.server.entity.util.PossessesCamera;
 import com.github.alexmodguy.alexscaves.server.message.BeholderSyncMessage;
 import com.github.alexmodguy.alexscaves.server.message.PossessionKeyMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.game.ClientboundLevelChunkWithLightPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -80,7 +81,7 @@ public class BeholderEyeEntity extends Entity implements PossessesCamera {
                 Player clientSidePlayer = AlexsCaves.PROXY.getClientSidePlayer();
                 if (usingPlayer == clientSidePlayer) {
                     if (AlexsCaves.PROXY.isKeyDown(4)) {
-                        AlexsCaves.sendMSGToServer(new PossessionKeyMessage(this.getId(), usingPlayer.getId(), 0));
+                        ACNetUtils.sendMSGToServer(new PossessionKeyMessage(this.getId(), usingPlayer.getId(), 0));
                     }
                 }
 
@@ -110,7 +111,7 @@ public class BeholderEyeEntity extends Entity implements PossessesCamera {
         if (usingPlayer.level().equals(this.level())) {
             // Include entity spawn data so client can create the entity if it doesn't exist
             // This is necessary when viewing from far away (unloaded chunks)
-            AlexsCaves.sendMSGToAll(new BeholderSyncMessage(
+            ACNetUtils.sendMSGToAll(new BeholderSyncMessage(
                 this.getId(), 
                 turnOn,
                 this.getX(),

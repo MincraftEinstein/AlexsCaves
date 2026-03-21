@@ -15,6 +15,7 @@ import com.github.alexmodguy.alexscaves.server.message.UpdateBossEruptionStatus;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.VoronoiGenerator;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -485,7 +486,7 @@ public class LuxtructosaurusEntity extends SauropodBaseEntity implements Enemy {
             ACWorldData worldData = ACWorldData.get(level());
             if (worldData != null) {
                 worldData.trackPrimordialBoss(this.getId(), erupting);
-                AlexsCaves.sendMSGToAll(new UpdateBossEruptionStatus(this.getId(), worldData.isPrimordialBossActive(level())));
+                ACNetUtils.sendMSGToAll(new UpdateBossEruptionStatus(this.getId(), worldData.isPrimordialBossActive(level())));
             }
         }
     }

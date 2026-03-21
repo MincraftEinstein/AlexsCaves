@@ -5,6 +5,7 @@ import com.github.alexmodguy.alexscaves.server.entity.util.KeybindUsingMount;
 import com.github.alexmodguy.alexscaves.server.message.MountedEntityKeyMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -156,15 +157,15 @@ public class SubmarineEntity extends Entity implements KeybindUsingMount {
             Player player = AlexsCaves.PROXY.getClientSidePlayer();
             if (player != null && player.isPassengerOfSameVehicle(this)) {
                 if (AlexsCaves.PROXY.isKeyDown(0) && controlUpTicks < 2) {
-                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 0));
+                    ACNetUtils.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 0));
                     controlUpTicks = 10;
                 }
                 if (AlexsCaves.PROXY.isKeyDown(1) && controlDownTicks < 2) {
-                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 1));
+                    ACNetUtils.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 1));
                     controlDownTicks = 10;
                 }
                 if (AlexsCaves.PROXY.isKeyDown(2) && floodlightToggleCooldown <= 0) {
-                    AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
+                    ACNetUtils.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
                     floodlightToggleCooldown = 5;
                 }
             }

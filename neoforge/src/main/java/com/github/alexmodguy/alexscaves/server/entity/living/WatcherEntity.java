@@ -9,6 +9,7 @@ import com.github.alexmodguy.alexscaves.server.entity.util.PossessesCamera;
 import com.github.alexmodguy.alexscaves.server.entity.util.WatcherPossessionAccessor;
 import com.github.alexmodguy.alexscaves.server.message.PossessionKeyMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
@@ -279,7 +280,7 @@ public class WatcherEntity extends Monster implements IAnimatedEntity, Possesses
                 player.setJumping(false);
                 Player clientSidePlayer = AlexsCaves.PROXY.getClientSidePlayer();
                 if (AlexsCaves.PROXY.isKeyDown(-1) && player == clientSidePlayer) {
-                    AlexsCaves.sendMSGToServer(new PossessionKeyMessage(this.getId(), player.getId(), 0));
+                    ACNetUtils.sendMSGToServer(new PossessionKeyMessage(this.getId(), player.getId(), 0));
                 }
             }
             if (prevPossessedEntity != living) {

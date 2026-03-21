@@ -94,10 +94,6 @@ public class ACEffectRegistry {
         return stack;
     }
 
-    public static ItemStack createJellybean(Potion potion) {
-        return createJellybean(Holder.direct(potion));
-    }
-
     public static ItemStack createJellybean(Holder<Potion> potion) {
         ItemStack stack = new ItemStack(ACItemRegistry.JELLY_BEAN.get());
         stack.set(DataComponents.POTION_CONTENTS, new PotionContents(asHolder(potion)));

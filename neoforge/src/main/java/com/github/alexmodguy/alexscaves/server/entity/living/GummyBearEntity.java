@@ -321,7 +321,7 @@ public class GummyBearEntity extends Animal implements IDancesToJukebox, IAnimat
     }
 
     public ItemStack createJellybean() {
-        Potion potion = BuiltInRegistries.POTION.get(digestingEffect);
+        Holder<Potion> potion = BuiltInRegistries.POTION.getHolder(digestingEffect).orElse(null);
         return potion == null ? new ItemStack(ACItemRegistry.JELLY_BEAN.get()) : ACEffectRegistry.createJellybean(potion);
     }
 
@@ -720,7 +720,7 @@ public class GummyBearEntity extends Animal implements IDancesToJukebox, IAnimat
     private class ProtectBabiesGoal extends NearestAttackableTargetGoal<Player> {
 
         public ProtectBabiesGoal() {
-            super(GummyBearEntity.this, Player.class, 20, true, true, (Predicate<LivingEntity>)null);
+            super(GummyBearEntity.this, Player.class, 20, true, true, (Predicate<LivingEntity>) null);
         }
 
         public boolean canUse() {
@@ -728,7 +728,7 @@ public class GummyBearEntity extends Animal implements IDancesToJukebox, IAnimat
                 return false;
             } else {
                 if (super.canUse()) {
-                    for(GummyBearEntity bear : GummyBearEntity.this.level().getEntitiesOfClass(GummyBearEntity.class, GummyBearEntity.this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D))) {
+                    for (GummyBearEntity bear : GummyBearEntity.this.level().getEntitiesOfClass(GummyBearEntity.class, GummyBearEntity.this.getBoundingBox().inflate(8.0D, 4.0D, 8.0D))) {
                         if (bear.isBaby()) {
                             return true;
                         }

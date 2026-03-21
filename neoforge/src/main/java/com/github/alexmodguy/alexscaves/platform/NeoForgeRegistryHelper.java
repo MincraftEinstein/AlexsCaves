@@ -18,6 +18,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
@@ -28,7 +29,9 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.HashMap;
@@ -68,8 +71,8 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
         ITEMS.register(modEventBus);
         BLOCKS.register(modEventBus);
         BLOCK_ENTITIES.register(modEventBus);
-        POTIONS.register(modEventBus);
         MOB_EFFECTS.register(modEventBus);
+        POTIONS.register(modEventBus);
         RECIPE_SERIALIZERS.register(modEventBus);
         RECIPE_TYPES.register(modEventBus);
         MENU_TYPES.register(modEventBus);
@@ -102,6 +105,11 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     @Override
     public void addSupportedBlocks(Consumer<BlockEntityExtender> consumer) {
         modEventBus.addListener((BlockEntityTypeAddBlocksEvent event) -> consumer.accept(event::modify));
+    }
+
+    @Override
+    public void registerPotionRecipes(Consumer<PotionBrewing.Builder> consumer) {
+        NeoForge.EVENT_BUS.addListener((RegisterBrewingRecipesEvent event) -> consumer.accept(event.getBuilder()));
     }
 
 //    @Override

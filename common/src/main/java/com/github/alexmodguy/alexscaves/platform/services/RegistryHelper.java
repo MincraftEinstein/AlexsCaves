@@ -17,6 +17,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
@@ -48,6 +49,8 @@ public interface RegistryHelper {
     interface BlockEntityExtender {
         void add(BlockEntityType<?> be, Block... blocks);
     }
+
+    void registerPotionRecipes(Consumer<PotionBrewing.Builder> consumer);
 
     // TODO
 //    <T extends BlockEntity> BlockEntityType<T> createBlockEntity(BlockEntitySupplier<T> supplier, Block... blocks);

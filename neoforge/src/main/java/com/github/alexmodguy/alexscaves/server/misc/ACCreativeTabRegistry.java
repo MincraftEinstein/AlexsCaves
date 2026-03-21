@@ -637,7 +637,7 @@ public class ACCreativeTabRegistry {
                 add(output, ACBlockRegistry.FROSTED_GINGERBREAD_BRICK_SLAB.get());
                 add(output, ACBlockRegistry.FROSTED_GINGERBREAD_BRICK_WALL.get());
                 add(output, ACBlockRegistry.CONFECTION_OVEN.get());
-                BuiltInRegistries.POTION.stream().filter(potion -> !potion.getEffects().isEmpty() && !potion.hasInstantEffects()).forEach(potion -> output.accept(ACEffectRegistry.createJellybean(potion)));
+                BuiltInRegistries.POTION.holders().filter(potion -> !potion.value().getEffects().isEmpty() && !potion.value().hasInstantEffects()).forEach(potion -> output.accept(ACEffectRegistry.createJellybean(potion)));
                 output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.SUGAR_RUSH_POTION));
                 output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_SUGAR_RUSH_POTION));
                 output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.SUGAR_RUSH_POTION));

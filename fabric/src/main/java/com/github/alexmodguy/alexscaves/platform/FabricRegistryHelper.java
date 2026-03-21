@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
+import net.fabricmc.fabric.api.registry.FabricBrewingRecipeRegistryBuilder;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.SpriteSet;
@@ -21,6 +22,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.alchemy.PotionBrewing;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
@@ -59,6 +61,11 @@ public class FabricRegistryHelper implements RegistryHelper {
             }
         });
 
+    }
+
+    @Override
+    public void registerPotionRecipes(Consumer<PotionBrewing.Builder> consumer) {
+        FabricBrewingRecipeRegistryBuilder.BUILD.register(consumer::accept);
     }
 
 //    @Override

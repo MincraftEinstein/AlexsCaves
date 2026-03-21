@@ -50,11 +50,12 @@ public class FertilizerItem extends Item {
 
     private static boolean applyFertilizer(ItemStack itemStack, Level level, BlockPos blockPos, Player player) {
         BlockState blockstate = level.getBlockState(blockPos);
-        var event = new net.neoforged.neoforge.event.entity.player.BonemealEvent(player, level, blockPos, blockstate, itemStack);
+        // TODO push bonemean event
+       /* var event = new net.neoforged.neoforge.event.entity.player.BonemealEvent(player, level, blockPos, blockstate, itemStack);
         net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(event);
         if (event.isCanceled()) {
             return event.isSuccessful();
-        }
+        }*/
         if (blockstate.getBlock() instanceof BonemealableBlock) {
             BonemealableBlock bonemealableblock = (BonemealableBlock) blockstate.getBlock();
             if (bonemealableblock.isValidBonemealTarget(level, blockPos, blockstate)) {

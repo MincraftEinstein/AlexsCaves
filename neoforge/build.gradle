@@ -59,7 +59,6 @@ dependencies {
     implementation("curse.maven:citadel-331936:7476597")
     implementation("me.fzzyhmstrs:fzzy_config:${fzzy_config_version}+neoforge")
 
-    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
     compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
     runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 }

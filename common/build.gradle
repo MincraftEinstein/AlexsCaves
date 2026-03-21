@@ -25,6 +25,8 @@ dependencies {
     compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
 
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
+
     compileOnly group: "curse.maven", name: "citadel-331936", version: "${neoforge_citadel_version}"
     compileOnly group: 'me.fzzyhmstrs', name: 'fzzy_config', version: "${fzzy_config_version}+neoforge"
     // TODO remove when fzzy port

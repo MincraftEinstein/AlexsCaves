@@ -23,6 +23,10 @@ dependencies {
         parchment("org.parchmentmc.data:parchment-${parchment_minecraft_version}:${parchment_version}@zip")
     }
 
+
+    modCompileOnly "mezz.jei:jei-${minecraft_version}-fabric-api:${jei_version}"
+    modRuntimeOnly "mezz.jei:jei-${minecraft_version}-fabric:${jei_version}"
+
     modImplementation "net.fabricmc:fabric-loader:${fabric_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_api_version}"
     modImplementation("com.terraformersmc:modmenu:${modmenu_version}")

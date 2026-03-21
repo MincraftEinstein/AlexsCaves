@@ -16,6 +16,8 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ArmorMaterial;
@@ -61,6 +63,11 @@ public class FabricRegistryHelper implements RegistryHelper {
             }
         });
 
+    }
+
+    @Override
+    public <T extends Entity> RegHolder<EntityType<?>, EntityType<T>> registerEntityType(String name, Supplier<EntityType<T>> entityTypeSupplier) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.ENTITY_TYPE, id(name), entityTypeSupplier.get()));
     }
 
     @Override

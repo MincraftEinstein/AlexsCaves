@@ -74,7 +74,7 @@ public class AlexsCavesNeoForge {
         // TODO move to common
         ACBlockEntityRegistry.init();
         ACItemRegistry.init();
-        ACEntityRegistry.DEF_REG.register(modEventBus);
+        ACEntityRegistry.init();
         ACEntityDataRegistry.DEF_REG.register(modEventBus);
         ACAttachmentRegistry.DEF_REG.register(modEventBus);
         ACFeatureRegistry.DEF_REG.register(modEventBus);

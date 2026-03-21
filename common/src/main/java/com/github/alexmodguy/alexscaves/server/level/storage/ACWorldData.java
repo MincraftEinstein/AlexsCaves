@@ -1,8 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.level.storage;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.server.entity.living.LuxtructosaurusEntity;
-import com.github.alexmodguy.alexscaves.server.level.map.CaveBiomeMapWorldWorker;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -15,9 +12,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.saveddata.SavedData;
 import net.minecraft.world.level.storage.DimensionDataStorage;
-import net.neoforged.neoforge.common.WorldWorkerManager;
-import net.neoforged.neoforge.common.world.chunk.TicketHelper;
-import net.neoforged.neoforge.common.world.chunk.TicketSet;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -28,13 +22,13 @@ import java.util.UUID;
 public class ACWorldData extends SavedData {
 
     private static final String IDENTIFIER = "alexscaves_world_data";
-    public static final Factory<ACWorldData> FACTORY = new Factory<>(ACWorldData::new, ACWorldData::load);
+    public static final Factory<ACWorldData> FACTORY = new Factory<>(ACWorldData::new, ACWorldData::load, null);
     private Map<UUID, Integer> deepOneReputations = new HashMap<>();
     private boolean primordialBossDefeatedOnce = false;
     private long firstPrimordialBossDefeatTimestamp = -1;
     private Set<Integer> trackedLuxtructosaurusIds = new ObjectArraySet();
-
-    private CaveBiomeMapWorldWorker lastMapWorker = null;
+    // TODO fix when CaveBiomeMapWorldWorker
+//    private CaveBiomeMapWorldWorker lastMapWorker = null;
 
     private ACWorldData() {
         super();
@@ -96,9 +90,10 @@ public class ACWorldData extends SavedData {
 
     public boolean isPrimordialBossActive(Level level){
         for(int i : trackedLuxtructosaurusIds){
-            if(level.getEntity(i) instanceof LuxtructosaurusEntity lux && lux.isAlive() && lux.isLoadedInWorld()){
+            // TODO Readd when LuxtructosaurusEntity
+         /*   if(level.getEntity(i) instanceof LuxtructosaurusEntity lux && lux.isAlive() && lux.isLoadedInWorld()){
                 return true;
-            }
+            }*/
         }
         return false;
     }
@@ -129,18 +124,21 @@ public class ACWorldData extends SavedData {
     }
 
     public void fillOutCaveMap(UUID uuid, ItemStack map, ServerLevel serverLevel, BlockPos center, Player player){
-        if(lastMapWorker != null){
+        // TODO fix when CaveBiomeMapWorldWorker
+       /* if(lastMapWorker != null){
             lastMapWorker.onWorkComplete(lastMapWorker.getLastFoundBiome());
         }
         lastMapWorker = new CaveBiomeMapWorldWorker(map, serverLevel, center, player, uuid);
-        WorldWorkerManager.addWorker(lastMapWorker);
+        WorldWorkerManager.addWorker(lastMapWorker);*/
     }
 
-    public boolean isCaveMapTicking(){
-        return lastMapWorker != null && lastMapWorker.hasWork();
-    }
+    // TODO fix when CaveBiomeMapWorldWorker
+//    public boolean isCaveMapTicking(){
+//        return lastMapWorker != null && lastMapWorker.hasWork();
+//    }
 
-    public static void clearLoadedChunksCallback(ServerLevel serverLevel, TicketHelper ticketHelper) {
+    // TODO fix when redoing chunk loading
+    /*public static void clearLoadedChunksCallback(ServerLevel serverLevel, TicketHelper ticketHelper) {
         //remove all forced chunks on server relog
         int i = 0;
         for(Map.Entry<UUID, TicketSet> entry : ticketHelper.getEntityTickets().entrySet()){
@@ -154,5 +152,5 @@ public class ACWorldData extends SavedData {
         if(i > 0){
             AlexsCaves.LOGGER.debug("unloaded {} forced chunks", i);
         }
-    }
+    }*/
 }

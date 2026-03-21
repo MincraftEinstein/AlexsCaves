@@ -16,7 +16,6 @@ import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.feature.ACFeatureRegistry;
-import com.github.alexmodguy.alexscaves.server.level.storage.ACWorldData;
 import com.github.alexmodguy.alexscaves.server.level.structure.ACStructureRegistry;
 import com.github.alexmodguy.alexscaves.server.level.structure.piece.ACStructurePieceRegistry;
 import com.github.alexmodguy.alexscaves.server.level.structure.processor.ACStructureProcessorRegistry;
@@ -54,9 +53,10 @@ public class AlexsCavesNeoForge {
     // Initialize proxy based on dist
     public static CommonProxy PROXY = FMLEnvironment.dist.isClient() ? new ClientProxy() : new CommonProxy();
     private IEventBus modEventBus; // Store for client setup
+    // TODO fix when redoing chunk loading
     public static final TicketController TICKET_CONTROLLER = new TicketController(
             AlexsCaves.id("default"),
-            ACWorldData::clearLoadedChunksCallback);
+            (x, y) -> {/*ACWorldData::clearLoadedChunksCallback*/});
 
     public static final List<String> MOD_GENERATION_CONFLICTS = new ArrayList<>();
 

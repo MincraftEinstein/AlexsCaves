@@ -71,7 +71,8 @@ public class AlexsCavesNeoForge {
         modEventBus.addListener(this::registerTicketControllers);
         NeoForge.EVENT_BUS.register(new CommonEvents());
         NeoForge.EVENT_BUS.addListener(ACEffectRegistry::registerBrewingRecipes);
-        ACBlockEntityRegistry.DEF_REG.register(modEventBus);
+        // TODO move to common
+        ACBlockEntityRegistry.init();
         ACItemRegistry.DEF_REG.register(modEventBus);
         ACEntityRegistry.DEF_REG.register(modEventBus);
         ACEntityDataRegistry.DEF_REG.register(modEventBus);

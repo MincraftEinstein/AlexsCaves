@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity;
 
-import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
+//import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.level.material.FluidState;
@@ -11,6 +11,8 @@ import net.minecraft.world.level.material.FluidState;
  */
 public class ACSpawnPlacementTypes {
 
+    // TODO fix when fluid api
+
     /**
      * Spawn placement type for entities that spawn in acid fluid.
      * Used by RadgillEntity in Toxic Caves.
@@ -19,8 +21,8 @@ public class ACSpawnPlacementTypes {
         if (entityType != null && level.getWorldBorder().isWithinBounds(pos)) {
             FluidState fluidState = level.getFluidState(pos);
             BlockPos blockpos = pos.above();
-            return fluidState.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get() 
-                    && !level.getBlockState(blockpos).isRedstoneConductor(level, blockpos);
+            return /*fluidState.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get() &&*/
+                    !level.getBlockState(blockpos).isRedstoneConductor(level, blockpos);
         }
         return false;
     };
@@ -33,8 +35,8 @@ public class ACSpawnPlacementTypes {
         if (entityType != null && level.getWorldBorder().isWithinBounds(pos)) {
             FluidState fluidState = level.getFluidState(pos);
             BlockPos blockpos = pos.above();
-            return fluidState.getFluidType() == ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get() 
-                    && !level.getBlockState(blockpos).isRedstoneConductor(level, blockpos);
+            return /*fluidState.getFluidType() == ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get() &&*/
+                    !level.getBlockState(blockpos).isRedstoneConductor(level, blockpos);
         }
         return false;
     };

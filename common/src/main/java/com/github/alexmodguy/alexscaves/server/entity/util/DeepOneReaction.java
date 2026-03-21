@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.util;
 
-import com.github.alexmodguy.alexscaves.server.entity.living.DeepOneBaseEntity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
 public enum DeepOneReaction {
@@ -38,7 +38,7 @@ public enum DeepOneReaction {
         return HELPFUL;
     }
 
-    public boolean validPlayer(DeepOneBaseEntity deepOne, Player player) {
+    public boolean validPlayer(Entity deepOne, Player player) {
         if (this == STALKING && player.getY() > deepOne.getY() + 15) {
             return false;
         }

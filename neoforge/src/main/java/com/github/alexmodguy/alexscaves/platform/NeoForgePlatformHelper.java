@@ -1,6 +1,9 @@
 package com.github.alexmodguy.alexscaves.platform;
 
+import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.platform.services.IPlatformHelper;
+import com.github.alexmodguy.alexscaves.server.CommonProxy;
+import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.minecraft.server.MinecraftServer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
@@ -33,5 +36,17 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     @Override
     public MinecraftServer getServer() {
         return ServerLifecycleHooks.getCurrentServer();
+    }
+
+
+    CommonProxy PROXY = null;
+
+
+    @Override
+    public CommonProxy getProxy() {
+        if (PROXY == null) {
+            PROXY = ConfigApiJava.platform().isClient() ? new ClientProxy() : IPlatformHelper.super.getProxy();
+        }
+        return PROXY;
     }
 }

@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.platform.services;
 
+import com.github.alexmodguy.alexscaves.server.CommonProxy;
 import net.minecraft.server.MinecraftServer;
 
 import java.nio.file.Path;
@@ -40,6 +41,12 @@ public interface IPlatformHelper {
     Path getGameDir();
 
     MinecraftServer getServer();
+
+    CommonProxy PROXY = new CommonProxy();
+
+    default CommonProxy getProxy() {
+        return PROXY;
+    }
 
     enum Platform {
         FABRIC("fabric"),

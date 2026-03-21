@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeRegistryHelper;
+import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.CommonProxy;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
@@ -33,7 +34,6 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
@@ -51,7 +51,7 @@ import static com.github.alexmodguy.alexscaves.AlexsCaves.registerS2C;
 public class AlexsCavesNeoForge {
 
     // Initialize proxy based on dist
-    public static CommonProxy PROXY = FMLEnvironment.dist.isClient() ? new ClientProxy() : new CommonProxy();
+    public static CommonProxy PROXY = Services.PLATFORM_HELPER.getProxy();
     private IEventBus modEventBus; // Store for client setup
     // TODO fix when redoing chunk loading
     public static final TicketController TICKET_CONTROLLER = new TicketController(

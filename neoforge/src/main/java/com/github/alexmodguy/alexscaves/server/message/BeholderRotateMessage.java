@@ -51,7 +51,7 @@ public class BeholderRotateMessage implements CustomPacketPayload {
         context.execute(() -> {
             Player playerSided = context.player();
             if (playerSided != null) {
-                Level serverLevel = ServerLifecycleHooks.getCurrentServer().getLevel(playerSided.level().dimension());
+                Level serverLevel = playerSided.getServer().getLevel(playerSided.level().dimension());
                 Entity watcher = serverLevel.getEntity(message.beholderId);
                 if (watcher instanceof BeholderEyeEntity beholderEye) {
                 }

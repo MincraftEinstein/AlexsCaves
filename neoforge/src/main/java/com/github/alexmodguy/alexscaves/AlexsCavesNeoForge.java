@@ -82,8 +82,6 @@ public class AlexsCavesNeoForge {
         ACStructureRegistry.DEF_REG.register(modEventBus);
         ACStructurePieceRegistry.DEF_REG.register(modEventBus);
         ACStructureProcessorRegistry.DEF_REG.register(modEventBus);
-        // TODO move to common
-        ACEffectRegistry.init();
         ACMenuRegistry.DEF_REG.register(modEventBus);
         ACRecipeRegistry.DEF_REG.register(modEventBus);
         ACRecipeRegistry.TYPE_DEF_REG.register(modEventBus);

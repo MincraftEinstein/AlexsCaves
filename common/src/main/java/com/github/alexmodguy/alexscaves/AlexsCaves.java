@@ -13,6 +13,7 @@ import com.github.alexmodguy.alexscaves.server.level.carver.ACCarverRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACDataComponentRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
@@ -48,6 +49,7 @@ public class AlexsCaves {
         ACParticleRegistry.init();
         ACCarverRegistry.init();
         ACArmorMaterials.init();
+        ACEffectRegistry.init();
     }
 
     public static ResourceLocation id(String path) {

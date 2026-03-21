@@ -2,6 +2,8 @@ package com.github.alexmodguy.alexscaves.platform;
 
 import com.github.alexmodguy.alexscaves.platform.services.RegistryHelper;
 import com.mojang.serialization.MapCodec;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.fabric.api.object.builder.v1.world.poi.PointOfInterestHelper;
@@ -31,6 +33,9 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import org.teamvoided.voidlib.attachments.AttachmentBuilder;
+import org.teamvoided.voidlib.attachments.AttachmentSupplier;
+import org.teamvoided.voidlib.attachments.FabricAttachmentSupplier;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -165,5 +170,32 @@ public class FabricRegistryHelper implements RegistryHelper {
     @Override
     public RegHolder<ArmorMaterial, ArmorMaterial> registerArmorMaterial(String name, Supplier<ArmorMaterial> material) {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, id(name), material.get()));
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    @Override
+    public <T, V> AttachmentSupplier<T, V> registerAttachment(String name, Supplier<AttachmentBuilder<T>> builderSupplier) {
+        AttachmentType<T> type = AttachmentRegistry.create(id(name), typeBuilder -> {
+            AttachmentBuilder<T> builder = builderSupplier.get();
+            typeBuilder.initializer(builder.defaultValue);
+
+            if (builder.codec != null) {
+                typeBuilder.persistent(builder.codec);
+            }
+
+            if (builder.copyOnDeath) {
+                typeBuilder.copyOnDeath();
+            }
+
+            if (builder.streamCodec != null) {
+                typeBuilder.syncWith(builder.streamCodec, (attachmentTarget, player) -> {
+                    if (builder.syncPredicate != null) {
+                        return builder.syncPredicate.test(attachmentTarget, player);
+                    }
+                    return true;
+                });
+            }
+        });
+        return new FabricAttachmentSupplier<>(type);
     }
 }

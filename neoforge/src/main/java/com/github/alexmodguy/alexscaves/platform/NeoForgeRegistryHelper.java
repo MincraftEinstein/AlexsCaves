@@ -31,10 +31,16 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
+import org.teamvoided.voidlib.attachments.AttachmentBuilder;
+import org.teamvoided.voidlib.attachments.AttachmentSupplier;
+import org.teamvoided.voidlib.attachments.NeoForgeAttachmentSupplier;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -65,6 +71,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     public static final DeferredRegister<CriterionTrigger<?>> CRITERION_TRIGGERS = DeferredRegister.create(Registries.TRIGGER_TYPE, MOD_ID);
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, MOD_ID);
     public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, MOD_ID);
+    public static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MOD_ID);
     public static final Map<Supplier<? extends ParticleType<?>>, Function<SpriteSet, ? extends ParticleProvider<?>>> PARTICLE_PROVIDERS = new HashMap<>();
 
     private static IEventBus modEventBus;
@@ -89,6 +96,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
         CRITERION_TRIGGERS.register(modEventBus);
         DATA_COMPONENTS.register(modEventBus);
         ARMOR_MATERIALS.register(modEventBus);
+        ATTACHMENTS.register(modEventBus);
     }
 
     @Override
@@ -209,5 +217,31 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     @Override
     public RegHolder<ArmorMaterial, ArmorMaterial> registerArmorMaterial(String name, Supplier<ArmorMaterial> material) {
         return NeoRegHolder.of(ARMOR_MATERIALS.register(name, material));
+    }
+
+    @Override
+    public <T, V> AttachmentSupplier<T, V> registerAttachment(String name, Supplier<AttachmentBuilder<T>> builderSupplier) {
+        DeferredHolder<AttachmentType<?>, AttachmentType<T>> registered = ATTACHMENTS.register(name, () -> {
+            AttachmentBuilder<T> builder = builderSupplier.get();
+            AttachmentType.Builder<T> typeBuilder = AttachmentType.builder(builder.defaultValue);
+            if (builder.codec != null) {
+                typeBuilder.serialize(builder.codec);
+            }
+
+            if (builder.copyOnDeath) {
+                typeBuilder.copyOnDeath();
+            }
+
+            if (builder.streamCodec != null) {
+                typeBuilder.sync((holder, player) -> {
+                    if (builder.syncPredicate != null) {
+                        return builder.syncPredicate.test(holder, player);
+                    }
+                    return true;
+                }, builder.streamCodec);
+            }
+            return typeBuilder.build();
+        });
+        return new NeoForgeAttachmentSupplier<>(registered);
     }
 }

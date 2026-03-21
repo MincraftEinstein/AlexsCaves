@@ -26,6 +26,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import org.teamvoided.voidlib.attachments.AttachmentBuilder;
+import org.teamvoided.voidlib.attachments.AttachmentSupplier;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -93,4 +95,6 @@ public interface RegistryHelper {
     <T extends DataComponentType<?>> Supplier<T> registerComponent(String name, Supplier<T> component);
 
     RegHolder<ArmorMaterial, ArmorMaterial> registerArmorMaterial(String name, Supplier<ArmorMaterial> material);
+
+    <T, V> AttachmentSupplier<T, V> registerAttachment(String name, Supplier<AttachmentBuilder<T>> builderSupplier);
 }

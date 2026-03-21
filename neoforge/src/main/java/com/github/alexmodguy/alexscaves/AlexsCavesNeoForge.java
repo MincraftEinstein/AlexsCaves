@@ -57,8 +57,9 @@ public class AlexsCavesNeoForge {
     public static final List<String> MOD_GENERATION_CONFLICTS = new ArrayList<>();
 
     public AlexsCavesNeoForge(IEventBus modEventBus, ModContainer modContainer) {
-        AlexsCaves.init();
+        // (ender) This has to be before init so all events register
         NeoForgeRegistryHelper.init(modEventBus);
+        AlexsCaves.init();
         registerPayloads();
         modContainer.registerConfig(ModConfig.Type.COMMON, AlexsCaves.COMMON_CONFIG_SPEC, "alexscaves-general.toml");
         modContainer.registerConfig(ModConfig.Type.CLIENT, AlexsCaves.CLIENT_CONFIG_SPEC, "alexscaves-client.toml");
@@ -140,7 +141,6 @@ public class AlexsCavesNeoForge {
             ACEffectRegistry.setup();
             ACItemRegistry.setup();
             // ACPotPatternRegistry.expandVanillaDefinitions(); // Pot patterns are now data-driven in 1.21
-            ACBlockEntityRegistry.expandVanillaDefinitions();
             // Debug: verify POI registration
             verifyPoiRegistration();
         });

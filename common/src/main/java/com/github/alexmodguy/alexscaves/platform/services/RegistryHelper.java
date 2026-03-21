@@ -12,7 +12,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -21,6 +24,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -37,6 +41,13 @@ public interface RegistryHelper {
     <T extends Block> RegHolder<Block, T> registerBlockNoItem(String name, Supplier<T> type);
 
     <T extends BlockEntityType<?>> RegHolder<BlockEntityType<?>, T> registerBlockEntity(String name, Supplier<T> type);
+
+    void addSupportedBlocks(Consumer<BlockEntityExtender> consumer);
+
+    @FunctionalInterface
+    interface BlockEntityExtender {
+        void add(BlockEntityType<?> be, Block... blocks);
+    }
 
     // TODO
 //    <T extends BlockEntity> BlockEntityType<T> createBlockEntity(BlockEntitySupplier<T> supplier, Block... blocks);

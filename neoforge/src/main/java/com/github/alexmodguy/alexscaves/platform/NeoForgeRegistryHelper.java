@@ -28,10 +28,12 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -59,7 +61,10 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, MOD_ID);
     public static final Map<Supplier<? extends ParticleType<?>>, Function<SpriteSet, ? extends ParticleProvider<?>>> PARTICLE_PROVIDERS = new HashMap<>();
 
+    private static IEventBus modEventBus;
+
     public static void init(IEventBus modEventBus) {
+        NeoForgeRegistryHelper.modEventBus = modEventBus;
         ITEMS.register(modEventBus);
         BLOCKS.register(modEventBus);
         BLOCK_ENTITIES.register(modEventBus);
@@ -92,6 +97,11 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     @Override
     public <T extends BlockEntityType<?>> RegHolder<BlockEntityType<?>, T> registerBlockEntity(String name, Supplier<T> type) {
         return NeoRegHolder.of(BLOCK_ENTITIES.register(name, type));
+    }
+
+    @Override
+    public void addSupportedBlocks(Consumer<BlockEntityExtender> consumer) {
+        modEventBus.addListener((BlockEntityTypeAddBlocksEvent event) -> consumer.accept(event::modify));
     }
 
 //    @Override

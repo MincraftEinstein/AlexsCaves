@@ -28,6 +28,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -48,6 +49,16 @@ public class FabricRegistryHelper implements RegistryHelper {
     @Override
     public <T extends BlockEntityType<?>> RegHolder<BlockEntityType<?>, T> registerBlockEntity(String name, Supplier<T> type) {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.BLOCK_ENTITY_TYPE, id(name), type.get()));
+    }
+
+    @Override
+    public void addSupportedBlocks(Consumer<BlockEntityExtender> consumer) {
+        consumer.accept((type, blocks) -> {
+            for (Block block : blocks) {
+                type.addSupportedBlock(block);
+            }
+        });
+
     }
 
 //    @Override

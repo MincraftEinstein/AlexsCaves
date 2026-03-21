@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.server.entity.item.BeholderEyeEntity;
 import me.fzzyhmstrs.fzzy_config.networking.api.ServerPlayNetworkContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -9,7 +8,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.server.ServerLifecycleHooks;
 
 public class BeholderRotateMessage implements CustomPacketPayload {
 
@@ -53,8 +51,9 @@ public class BeholderRotateMessage implements CustomPacketPayload {
             if (playerSided != null) {
                 Level serverLevel = playerSided.getServer().getLevel(playerSided.level().dimension());
                 Entity watcher = serverLevel.getEntity(message.beholderId);
-                if (watcher instanceof BeholderEyeEntity beholderEye) {
-                }
+                // TODO fix when BeholderEyeEntity if is an issue at all
+//                if (watcher instanceof BeholderEyeEntity beholderEye) {
+//                }
             }
         });
     }

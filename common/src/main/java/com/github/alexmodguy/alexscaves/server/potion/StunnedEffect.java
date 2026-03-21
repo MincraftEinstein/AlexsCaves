@@ -29,9 +29,10 @@ public class StunnedEffect extends MobEffect {
             entity.setXRot(30.0F);
             entity.xRotO = 30.0F;
             if (!mob.level().isClientSide) {
-                mob.goalSelector.setControlFlag(Goal.Flag.MOVE, false);
-                mob.goalSelector.setControlFlag(Goal.Flag.JUMP, false);
-                mob.goalSelector.setControlFlag(Goal.Flag.LOOK, false);
+                // TODO fix
+//                mob.goalSelector.setControlFlag(Goal.Flag.MOVE, false);
+//                mob.goalSelector.setControlFlag(Goal.Flag.JUMP, false);
+//                mob.goalSelector.setControlFlag(Goal.Flag.LOOK, false);
             }
         }
         return true;

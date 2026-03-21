@@ -74,7 +74,7 @@ public class AlexsCavesNeoForge {
         NeoForge.EVENT_BUS.addListener(ACEffectRegistry::registerBrewingRecipes);
         // TODO move to common
         ACBlockEntityRegistry.init();
-        ACItemRegistry.DEF_REG.register(modEventBus);
+        ACItemRegistry.init();
         ACEntityRegistry.DEF_REG.register(modEventBus);
         ACEntityDataRegistry.DEF_REG.register(modEventBus);
         ACAttachmentRegistry.DEF_REG.register(modEventBus);
@@ -139,7 +139,7 @@ public class AlexsCavesNeoForge {
             ACSurfaceRules.setup();
             ACPlayerCapes.setup();
             ACEffectRegistry.setup();
-            ACItemRegistry.setup();
+            ACItemRegistry.registerDispenserBehavior();
             // ACPotPatternRegistry.expandVanillaDefinitions(); // Pot patterns are now data-driven in 1.21
             // Debug: verify POI registration
             verifyPoiRegistration();

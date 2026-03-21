@@ -22,11 +22,11 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 import java.util.HashMap;
 import java.util.List;
@@ -43,10 +43,11 @@ public class CaveMapItem extends Item implements UpdatesStackTags {
         super(properties);
     }
 
-    @Override
+    // TODO fix when IClientItemExtensions
+ /*   @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
         consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
-    }
+    }*/
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -74,7 +75,8 @@ public class CaveMapItem extends Item implements UpdatesStackTags {
     }
 
     public static ItemStack createMap(ResourceKey<Biome> biomeResourceKey) {
-        ItemStack map = new ItemStack(ACItemRegistry.CAVE_MAP.get());
+        // TODO fix when ItemReg is ported
+        ItemStack map = new ItemStack(Items.APPLE/*ACItemRegistry.CAVE_MAP.get()*/);
         CompoundTag tag = new CompoundTag();
         tag.putString("BiomeTargetResourceKey", biomeResourceKey.location().toString());
         map.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));

@@ -98,7 +98,9 @@ public class AlexsCavesNeoForge {
         ACCreativeTabRegistry.DEF_REG.register(modEventBus);
         ACPotPatternRegistry.init(); // Pot patterns are now data-driven in 1.21
         this.modEventBus = modEventBus; // Store for later use
-        PROXY.commonInit(modEventBus);
+        if (PROXY instanceof ClientProxy cProxy) {
+            cProxy.commonInit(this.modEventBus);
+        }
         ACBiomeRegistry.init();
     }
 
@@ -179,7 +181,11 @@ public class AlexsCavesNeoForge {
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {
-        event.enqueueWork(() -> PROXY.clientInit(this.modEventBus));
+        event.enqueueWork(() -> {
+            if (PROXY instanceof ClientProxy cProxy) {
+                cProxy.clientInit(this.modEventBus);
+            }
+        });
     }
 
     private void loadComplete(FMLLoadCompleteEvent event) {

@@ -14,19 +14,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.IEventBus;
 
 import javax.annotation.Nullable;
 import java.util.UUID;
 
 public class CommonProxy {
-
-    public void commonInit(IEventBus modEventBus) {
-
-    }
-
-    public void clientInit(IEventBus modEventBus) {
-    }
 
     public void blockRenderingEntity(UUID id) {
     }

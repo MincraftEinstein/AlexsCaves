@@ -144,7 +144,6 @@ public class ClientProxy extends CommonProxy {
     }
 
     @SuppressWarnings("removal")
-    @Override
     public void commonInit(IEventBus modEventBus) {
         modEventBus.addListener(this::setupParticles);
         modEventBus.addListener(this::registerKeybinds);
@@ -160,7 +159,6 @@ public class ClientProxy extends CommonProxy {
     }
 
     @SuppressWarnings("removal")
-    @Override
     public void clientInit(IEventBus modEventBus) {
         NeoForge.EVENT_BUS.register(new ClientEvents());
         modEventBus.addListener(ClientLayerRegistry::addLayers);

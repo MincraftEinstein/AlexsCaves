@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.MagneticLevitationRailBlock;
@@ -373,11 +373,11 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements Min
             cancellable = true
     )
     public void ac_getPos(double x, double y, double z, CallbackInfoReturnable<Vec3> cir) {
-        double magLevAmount = prevMagLevProgress + (magLevProgress - prevMagLevProgress) * AlexsCavesNeoForge.PROXY.getPartialTicks();
+        double magLevAmount = prevMagLevProgress + (magLevProgress - prevMagLevProgress) * AlexsCaves.PROXY.getPartialTicks();
         if (magLevAmount >= 0.0F) {
-            double yClientSide = yOld + (this.getY() - yOld) * AlexsCavesNeoForge.PROXY.getPartialTicks();
+            double yClientSide = yOld + (this.getY() - yOld) * AlexsCaves.PROXY.getPartialTicks();
             Vec3 prev = cir.getReturnValue();
-            Vec3 modified = prev == null ? this.getPosition(AlexsCavesNeoForge.PROXY.getPartialTicks()) : new Vec3(prev.x, prev.y + (yClientSide - prev.y) * magLevAmount, prev.z);
+            Vec3 modified = prev == null ? this.getPosition(AlexsCaves.PROXY.getPartialTicks()) : new Vec3(prev.x, prev.y + (yClientSide - prev.y) * magLevAmount, prev.z);
             cir.setReturnValue(modified);
         }
     }
@@ -389,11 +389,11 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements Min
             cancellable = true
     )
     public void ac_getPosOffs(double x, double y, double z, double offset, CallbackInfoReturnable<Vec3> cir) {
-        double magLevAmount = prevMagLevProgress + (magLevProgress - prevMagLevProgress) * AlexsCavesNeoForge.PROXY.getPartialTicks();
+        double magLevAmount = prevMagLevProgress + (magLevProgress - prevMagLevProgress) * AlexsCaves.PROXY.getPartialTicks();
         if (magLevAmount >= 0.0F) {
-            double yClientSide = yOld + (this.getY() - yOld) * AlexsCavesNeoForge.PROXY.getPartialTicks();
+            double yClientSide = yOld + (this.getY() - yOld) * AlexsCaves.PROXY.getPartialTicks();
             Vec3 prev = cir.getReturnValue();
-            Vec3 modified = prev == null ? this.getPosition(AlexsCavesNeoForge.PROXY.getPartialTicks()) : new Vec3(prev.x, prev.y + (yClientSide - prev.y) * magLevAmount, prev.z);
+            Vec3 modified = prev == null ? this.getPosition(AlexsCaves.PROXY.getPartialTicks()) : new Vec3(prev.x, prev.y + (yClientSide - prev.y) * magLevAmount, prev.z);
             cir.setReturnValue(modified);
         }
     }

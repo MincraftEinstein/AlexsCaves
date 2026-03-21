@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
@@ -57,7 +56,7 @@ public class SundropRainbowMessage implements CustomPacketPayload {
         // This packet is sent from server to client
         if (context.networkSide().isClientbound()) {
             context.execute(() -> {
-                Player playerSided = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
+                Player playerSided = AlexsCaves.PROXY.getClientSidePlayer();
                 if (playerSided != null && playerSided.level() != null) {
                     BlockPos blockPos1 = new BlockPos(message.fromX, message.fromY, message.fromZ);
                     BlockPos blockPos2 = new BlockPos(message.toX, message.toY, message.toZ);

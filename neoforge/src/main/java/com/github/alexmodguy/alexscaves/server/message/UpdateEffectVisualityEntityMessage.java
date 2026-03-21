@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.IrradiatedEffect;
@@ -69,7 +68,7 @@ public class UpdateEffectVisualityEntityMessage implements CustomPacketPayload {
         if (!context.networkSide().isClientbound()) {
             return;
         }
-        Player playerSided = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
+        Player playerSided = AlexsCaves.PROXY.getClientSidePlayer();
         if (playerSided != null) {
             Entity entity = playerSided.level().getEntity(message.entityID);
             Entity senderEntity = playerSided.level().getEntity(message.fromEntityID);
@@ -83,11 +82,11 @@ public class UpdateEffectVisualityEntityMessage implements CustomPacketPayload {
                     case 1:
                         // For BUBBLED effect, use the client-side visual tracking system
                         // This avoids the issue where client-side MobEffect doesn't sync with server expiration
-                        boolean isNewEffect = !AlexsCavesNeoForge.PROXY.hasBubbledEffectVisual(message.entityID);
+                        boolean isNewEffect = !AlexsCaves.PROXY.hasBubbledEffectVisual(message.entityID);
                         if (message.remove) {
-                            AlexsCavesNeoForge.PROXY.setBubbledEffectTicks(message.entityID, 0);
+                            AlexsCaves.PROXY.setBubbledEffectTicks(message.entityID, 0);
                         } else {
-                            AlexsCavesNeoForge.PROXY.setBubbledEffectTicks(message.entityID, message.duration);
+                            AlexsCaves.PROXY.setBubbledEffectTicks(message.entityID, message.duration);
                             if (isNewEffect) {
                                 entity.playSound(ACSoundRegistry.SEA_STAFF_BUBBLE.get());
                             }

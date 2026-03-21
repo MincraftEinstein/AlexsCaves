@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity.layer;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.TremorzillaModel;
 import com.github.alexmodguy.alexscaves.client.render.entity.TremorzillaRenderer;
 import com.github.alexmodguy.alexscaves.server.entity.living.TremorzillaEntity;
@@ -36,9 +36,9 @@ public class TremorzillaRiderLayer extends RenderLayer<TremorzillaEntity, Tremor
                 poseStack.translate(0, 0.5F - burnProgress * 0.5F - swimProgress * 0.5F, 0.35F - burnProgress * 0.5F - swimProgress * 0.5F);
                 poseStack.mulPose(Axis.XN.rotationDegrees(190F - burnProgress * 40));
                 poseStack.mulPose(Axis.YN.rotationDegrees(360 - bodyYaw));
-                AlexsCavesNeoForge.PROXY.releaseRenderingEntity(passenger.getUUID());
+                AlexsCaves.PROXY.releaseRenderingEntity(passenger.getUUID());
                 renderPassenger(passenger, 0, 0, 0, 0, partialTicks, poseStack, bufferIn, packedLightIn);
-                AlexsCavesNeoForge.PROXY.blockRenderingEntity(passenger.getUUID());
+                AlexsCaves.PROXY.blockRenderingEntity(passenger.getUUID());
                 poseStack.popPose();
             }
 

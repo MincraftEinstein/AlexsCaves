@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.particle;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -58,7 +58,7 @@ public class SundropParticle extends TextureSheetParticle {
 
     public void remove() {
         super.remove();
-        ((ClientProxy) AlexsCavesNeoForge.PROXY).removeParticleAt(this.blockPos);
+        ((ClientProxy) AlexsCaves.PROXY).removeParticleAt(this.blockPos);
     }
 
     @Override

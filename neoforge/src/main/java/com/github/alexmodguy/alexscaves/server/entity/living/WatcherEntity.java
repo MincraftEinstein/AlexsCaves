@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ai.GroundPathNavigatorNoSpin;
 import com.github.alexmodguy.alexscaves.server.entity.ai.MobTarget3DGoal;
@@ -278,8 +277,8 @@ public class WatcherEntity extends Monster implements IAnimatedEntity, Possesses
             }
             if (living instanceof Player player && isPossessionBreakable) {
                 player.setJumping(false);
-                Player clientSidePlayer = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
-                if (AlexsCavesNeoForge.PROXY.isKeyDown(-1) && player == clientSidePlayer) {
+                Player clientSidePlayer = AlexsCaves.PROXY.getClientSidePlayer();
+                if (AlexsCaves.PROXY.isKeyDown(-1) && player == clientSidePlayer) {
                     AlexsCaves.sendMSGToServer(new PossessionKeyMessage(this.getId(), player.getId(), 0));
                 }
             }
@@ -324,16 +323,16 @@ public class WatcherEntity extends Monster implements IAnimatedEntity, Possesses
             if(possessedEntity == null && getPossessedEntityUUID() != null){
                 possessedEntity = level().getPlayerByUUID(getPossessedEntityUUID());
             }
-            if (possessedEntity instanceof Player player && player == AlexsCavesNeoForge.PROXY.getClientSidePlayer()) {
+            if (possessedEntity instanceof Player player && player == AlexsCaves.PROXY.getClientSidePlayer()) {
                 if (b == 77) {
                     if(AlexsCaves.COMMON_CONFIG.watcherPossession.get()){
-                        AlexsCavesNeoForge.PROXY.setRenderViewEntity(player, this);
+                        AlexsCaves.PROXY.setRenderViewEntity(player, this);
                     }
                 } else {
                     level().addParticle(ACParticleRegistry.WATCHER_APPEARANCE.get(), player.getX(), player.getEyeY(), player.getZ(), 0, 0, 0);
                     player.level().playSound(player, player.getX(), player.getY(), player.getZ(), ACSoundRegistry.WATCHER_SCARE.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
                     if(AlexsCaves.COMMON_CONFIG.watcherPossession.get()) {
-                        AlexsCavesNeoForge.PROXY.resetRenderViewEntity(player);
+                        AlexsCaves.PROXY.resetRenderViewEntity(player);
                     }
                 }
             }

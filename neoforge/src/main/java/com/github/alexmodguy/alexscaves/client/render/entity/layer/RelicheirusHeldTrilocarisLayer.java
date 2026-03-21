@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity.layer;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.RelicheirusModel;
 import com.github.alexmodguy.alexscaves.client.render.entity.RelicheirusRenderer;
 import com.github.alexmodguy.alexscaves.server.entity.living.RelicheirusEntity;
@@ -27,7 +27,7 @@ public class RelicheirusHeldTrilocarisLayer extends RenderLayer<RelicheirusEntit
         Entity heldMob = relicheirus.getHeldMob();
         if (heldMob instanceof TrilocarisEntity && relicheirus.getAnimation() == RelicheirusEntity.ANIMATION_EAT_TRILOCARIS && relicheirus.getAnimationTick() > 15) {
             float riderRot = heldMob.yRotO + (heldMob.getYRot() - heldMob.yRotO) * partialTicks;
-            AlexsCavesNeoForge.PROXY.releaseRenderingEntity(heldMob.getUUID());
+            AlexsCaves.PROXY.releaseRenderingEntity(heldMob.getUUID());
             matrixStackIn.pushPose();
             getParentModel().translateToMouth(matrixStackIn);
             matrixStackIn.translate(0, -1.34F, -1F);
@@ -37,7 +37,7 @@ public class RelicheirusHeldTrilocarisLayer extends RenderLayer<RelicheirusEntit
             matrixStackIn.translate(0, -heldMob.getBbHeight() * 0.5F, 0);
             renderEntity(heldMob, 0, 0, 0, 0, partialTicks, matrixStackIn, bufferIn, packedLightIn);
             matrixStackIn.popPose();
-            AlexsCavesNeoForge.PROXY.blockRenderingEntity(heldMob.getUUID());
+            AlexsCaves.PROXY.blockRenderingEntity(heldMob.getUUID());
         }
     }
 

@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.entity.ai.CorrodentAttackGoal;
 import com.github.alexmodguy.alexscaves.server.entity.ai.CorrodentDigRandomlyGoal;
 import com.github.alexmodguy.alexscaves.server.entity.ai.CorrodentFearLightGoal;
@@ -181,7 +181,7 @@ public class CorrodentEntity extends Monster implements ICustomCollisions, IAnim
                 this.setNoGravity(false);
             }
         }else if(this.isDigging() && isAlive()){
-            AlexsCavesNeoForge.PROXY.playWorldSound(this, (byte) 6);
+            AlexsCaves.PROXY.playWorldSound(this, (byte) 6);
         }
         prevSurfacePosition = surfacePosition;
         if (isMoving() || surfacePosition == null) {
@@ -331,7 +331,7 @@ public class CorrodentEntity extends Monster implements ICustomCollisions, IAnim
     // When not digging: uses vanilla collision logic
 
     public void remove(Entity.RemovalReason removalReason) {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
         if (allParts != null) {
             for (PartEntity part : allParts) {

@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.entity.util.KeybindUsingMount;
 import com.github.alexmodguy.alexscaves.server.message.MountedEntityKeyMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
@@ -154,23 +153,23 @@ public class SubmarineEntity extends Entity implements KeybindUsingMount {
         this.tickLerp();
         
         if (this.level().isClientSide) {
-            Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
+            Player player = AlexsCaves.PROXY.getClientSidePlayer();
             if (player != null && player.isPassengerOfSameVehicle(this)) {
-                if (AlexsCavesNeoForge.PROXY.isKeyDown(0) && controlUpTicks < 2) {
+                if (AlexsCaves.PROXY.isKeyDown(0) && controlUpTicks < 2) {
                     AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 0));
                     controlUpTicks = 10;
                 }
-                if (AlexsCavesNeoForge.PROXY.isKeyDown(1) && controlDownTicks < 2) {
+                if (AlexsCaves.PROXY.isKeyDown(1) && controlDownTicks < 2) {
                     AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 1));
                     controlDownTicks = 10;
                 }
-                if (AlexsCavesNeoForge.PROXY.isKeyDown(2) && floodlightToggleCooldown <= 0) {
+                if (AlexsCaves.PROXY.isKeyDown(2) && floodlightToggleCooldown <= 0) {
                     AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
                     floodlightToggleCooldown = 5;
                 }
             }
             if (this.isVehicle() && this.isInWaterOrBubble() && this.isAlive()) {
-                AlexsCavesNeoForge.PROXY.playWorldSound(this, (byte) 15);
+                AlexsCaves.PROXY.playWorldSound(this, (byte) 15);
             }
         }
         
@@ -265,7 +264,7 @@ public class SubmarineEntity extends Entity implements KeybindUsingMount {
     }
 
     public void remove(Entity.RemovalReason removalReason) {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
     }
 

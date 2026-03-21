@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.event;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.gui.ACAdvancementTabs;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.AmbersolBlockRenderer;
@@ -123,7 +122,7 @@ public class ClientEvents {
         }
 
         if (ClientProxy.blockedEntityRenders.contains(event.getEntity().getUUID())) {
-            if (!AlexsCavesNeoForge.PROXY.isFirstPersonPlayer(event.getEntity())) {
+            if (!AlexsCaves.PROXY.isFirstPersonPlayer(event.getEntity())) {
                 NeoForge.EVENT_BUS
                         .post(new RenderLivingEvent.Post(event.getEntity(), event.getRenderer(), event.getPartialTick(),
                                 event.getPoseStack(), event.getMultiBufferSource(), event.getPackedLight()));
@@ -160,7 +159,7 @@ public class ClientEvents {
             float trailA = DarknessIncarnateEffect.getIntensity(entity, partialTick, 20F);
             int packedLightIn = event.getPackedLight();
             while (samples < sampleSize) {
-                Vec3 sample = AlexsCavesNeoForge.PROXY.getDarknessTrailPosFor(entity, samples + 5, partialTick)
+                Vec3 sample = AlexsCaves.PROXY.getDarknessTrailPosFor(entity, samples + 5, partialTick)
                         .subtract(x, y, z).add(trailOffset);
                 float u1 = samples / (float) sampleSize;
                 float u2 = u1 + 1 / (float) sampleSize;
@@ -594,9 +593,9 @@ public class ClientEvents {
                 && CandyCaneHookItem.isActive(player.getItemInHand(InteractionHand.OFF_HAND))
                 && player.getVehicle() instanceof GumWormSegmentEntity) {
             float rightWiggle = -Math.min(player.xxa, 0F)
-                    * (float) Math.sin(player.tickCount + AlexsCavesNeoForge.PROXY.getPartialTicks()) * 25;
+                    * (float) Math.sin(player.tickCount + AlexsCaves.PROXY.getPartialTicks()) * 25;
             float leftWiggle = Math.max(player.xxa, 0F)
-                    * (float) Math.sin(player.tickCount + AlexsCavesNeoForge.PROXY.getPartialTicks()) * 25;
+                    * (float) Math.sin(player.tickCount + AlexsCaves.PROXY.getPartialTicks()) * 25;
             event.getModel().rightArm.xRot = (float) Math.toRadians(-100F + rightWiggle);
             event.getModel().leftArm.xRot = (float) Math.toRadians(-100F + leftWiggle);
             event.getModel().rightArm.yRot = (float) Math.toRadians(20F);
@@ -606,16 +605,16 @@ public class ClientEvents {
             event.setResult(TriState.TRUE);
         }
         if (event.getResult() != TriState.TRUE && player.hasEffect(ACEffectRegistry.SUGAR_RUSH)
-                && !AlexsCavesNeoForge.PROXY.isFirstPersonPlayer(player)) {
+                && !AlexsCaves.PROXY.isFirstPersonPlayer(player)) {
             float speedModifier = 0.35F;
             if (AlexsCaves.COMMON_CONFIG.sugarRushSlowsTime.get()
-                    && AlexsCavesNeoForge.PROXY.isTickRateModificationActive(Minecraft.getInstance().level)) {
+                    && AlexsCaves.PROXY.isTickRateModificationActive(Minecraft.getInstance().level)) {
                 float tickRate = ClientTickRateTracker.getForClient(Minecraft.getInstance()).getClientTickRate()
                         / 50.0F;
                 speedModifier *= tickRate;
             }
             float deltaSpeed = 1.0F;
-            float partialTicks = AlexsCavesNeoForge.PROXY.getPartialTicks();
+            float partialTicks = AlexsCaves.PROXY.getPartialTicks();
             float walkPos = player.walkAnimation.position(partialTicks);
             float walkSpeed = player.walkAnimation.speed(partialTicks);
             float headXRot = player.getViewXRot(partialTicks);
@@ -641,7 +640,7 @@ public class ClientEvents {
 
     @SubscribeEvent
     public void onPostRenderGuiOverlay(RenderGuiLayerEvent.Post event) {
-        Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
+        Player player = AlexsCaves.PROXY.getClientSidePlayer();
         int hudY = 0;
         if (event.getName().equals(VanillaGuiLayers.HOTBAR) && player.getVehicle() instanceof RidingMeterMount mount
                 && mount.hasRidingMeter()) {
@@ -871,7 +870,7 @@ public class ClientEvents {
         } else if (event.getMode() == FogRenderer.FogMode.FOG_TERRAIN
                 && AlexsCaves.CLIENT_CONFIG.biomeSkyFogOverrides.get()) {
             float nearness = lastSampledFogNearness;
-            float primordialBossAmount = AlexsCavesNeoForge.PROXY.getPrimordialBossActiveAmount((float) event.getPartialTick());
+            float primordialBossAmount = AlexsCaves.PROXY.getPrimordialBossActiveAmount((float) event.getPartialTick());
             boolean flag = Math.abs(nearness) - 1.0F < 0.01F;
             if (primordialBossAmount > 0.0F) {
                 flag = true;
@@ -918,7 +917,7 @@ public class ClientEvents {
                 setG = (float) (vec3.y - setG) * override + setG;
                 setB = (float) (vec3.z - setB) * override + setB;
             }
-            float primordialBossAmount = AlexsCavesNeoForge.PROXY.getPrimordialBossActiveAmount((float) event.getPartialTick());
+            float primordialBossAmount = AlexsCaves.PROXY.getPrimordialBossActiveAmount((float) event.getPartialTick());
             if (primordialBossAmount > 0.0F) {
                 flag = true;
                 setR = (0.8F - setR) * primordialBossAmount + setR;
@@ -1064,7 +1063,7 @@ public class ClientEvents {
     @SubscribeEvent
     public void onClientTick(ClientTickEvent.Post event) {
         Entity cameraEntity = Minecraft.getInstance().cameraEntity;
-        float partialTicks = AlexsCavesNeoForge.PROXY.getPartialTicks();
+        float partialTicks = AlexsCaves.PROXY.getPartialTicks();
         // Tick down bubbled effect visual timers
         ClientProxy.tickBubbledEffects();
         if (ClientProxy.shaderLoadAttemptCooldown > 0) {
@@ -1140,8 +1139,8 @@ public class ClientEvents {
                 beholderEye.setOldRots();
                 beholderEye.setEyeYRot(Minecraft.getInstance().player.getYHeadRot());
                 beholderEye.setEyeXRot(Minecraft.getInstance().player.getXRot());
-                if (AlexsCavesNeoForge.PROXY.isKeyDown(4)) {
-                    AlexsCavesNeoForge.PROXY.resetRenderViewEntity(Minecraft.getInstance().player);
+                if (AlexsCaves.PROXY.isKeyDown(4)) {
+                    AlexsCaves.PROXY.resetRenderViewEntity(Minecraft.getInstance().player);
                 }
             }
         } else if (ClientProxy.possessionStrengthAmount > 0F) {

@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
 import com.github.alexmodguy.alexscaves.client.gui.SpelunkeryTableScreen;
@@ -1272,7 +1271,7 @@ public class ClientProxy extends CommonProxy {
     }
 
     public static Vec3 processSkyColor(Vec3 colorIn, float partialTick) {
-        float primordialAmount = AlexsCavesNeoForge.PROXY.getPrimordialBossActiveAmount(partialTick);
+        float primordialAmount = AlexsCaves.PROXY.getPrimordialBossActiveAmount(partialTick);
         if (primordialAmount > 0.0F) {
             Vec3 targetColor = new Vec3(0.2F, 0.15F, 0.1F);
             colorIn = colorIn.add(targetColor.subtract(colorIn).scale(primordialAmount));

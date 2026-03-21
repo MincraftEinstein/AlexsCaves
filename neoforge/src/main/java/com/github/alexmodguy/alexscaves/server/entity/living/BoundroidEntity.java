@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.entity.ai.MobTarget3DGoal;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
@@ -157,7 +156,7 @@ public class BoundroidEntity extends Monster {
                 }
             }
         }else if(isAlive()){
-            AlexsCavesNeoForge.PROXY.playWorldSound(this, (byte) 12);
+            AlexsCaves.PROXY.playWorldSound(this, (byte) 12);
         }
         if (stopSlammingFor > 0) {
             stopSlammingFor--;
@@ -176,7 +175,7 @@ public class BoundroidEntity extends Monster {
     }
 
     public void remove(Entity.RemovalReason removalReason) {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
     }
 

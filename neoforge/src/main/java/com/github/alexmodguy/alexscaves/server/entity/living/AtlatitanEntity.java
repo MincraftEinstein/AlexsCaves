@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.PewenBranchBlock;
@@ -114,9 +113,9 @@ public class AtlatitanEntity extends SauropodBaseEntity implements KeybindUsingM
                 Vec3 particlePos = this.headPart.position().add((random.nextFloat() - 0.5F) * 2.0F * this.getScale(), random.nextFloat() * 2.0F * this.getScale(), (random.nextFloat() - 0.5F) * 2.0F * this.getScale()).add(this.getDeltaMovement());
                 this.level().addParticle(ACParticleRegistry.HAPPINESS.get(), particlePos.x, particlePos.y, particlePos.z, ((double) this.random.nextFloat() - 0.5D) * 0.1D, ((double) this.random.nextFloat() - 0.5D) * 0.1D, ((double) this.random.nextFloat() - 0.5D) * 0.1D);
             }
-            Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
+            Player player = AlexsCaves.PROXY.getClientSidePlayer();
             if (player != null && player.isPassengerOfSameVehicle(this)) {
-                if (AlexsCavesNeoForge.PROXY.isKeyDown(2) && getMeterAmount() >= 1.0F) {
+                if (AlexsCaves.PROXY.isKeyDown(2) && getMeterAmount() >= 1.0F) {
                     AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
                 }
             }

@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -50,7 +49,7 @@ public class SpearItem extends Item {
 
     @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCavesNeoForge.PROXY.getISTERProperties());
+        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
     }
 
     public UseAnim getUseAnimation(ItemStack stack) {

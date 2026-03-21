@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.particle;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.MushroomCloudModel;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
@@ -58,8 +57,8 @@ public class MushroomCloudParticle extends Particle {
     }
 
     public void tick() {
-        ((ClientProxy) AlexsCavesNeoForge.PROXY).renderNukeSkyDarkFor = 70;
-        ((ClientProxy) AlexsCavesNeoForge.PROXY).muteNonNukeSoundsFor = 50;
+        ((ClientProxy) AlexsCaves.PROXY).renderNukeSkyDarkFor = 70;
+        ((ClientProxy) AlexsCaves.PROXY).muteNonNukeSoundsFor = 50;
         boolean large = this.scale > 2.0F;
         if(age > BALL_FOR / 2 + 5){
             if(!playedExplosion){
@@ -72,7 +71,7 @@ public class MushroomCloudParticle extends Particle {
                 playedRinging = true;
                 playSound(ACSoundRegistry.NUCLEAR_EXPLOSION_RINGING.get(), 100, 50, 0.05F, true);
             }
-            ((ClientProxy) AlexsCavesNeoForge.PROXY).renderNukeFlashFor = 16;
+            ((ClientProxy) AlexsCaves.PROXY).renderNukeFlashFor = 16;
         } else if (age < lifetime - FADE_SPEED) {
             float life = (float) (Math.log(1 + (age - BALL_FOR) / (float) (lifetime - BALL_FOR))) * 2F;
             float explosionSpread = (12 * life + 4F) * scale;

@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ai.AdvancedPathNavigateNoTeleport;
@@ -145,7 +145,7 @@ public class FerrouslimeEntity extends Monster {
                 double particleZ = this.getZ() + (random.nextDouble() - 0.5F) * (slimeSize + 1.5F);
                 level().addParticle(ACParticleRegistry.FERROUSLIME.get(), particleX, particleY, particleZ, this.getId(), 0, 0);
             }
-            AlexsCavesNeoForge.PROXY.playWorldSound(this, (byte) 13);
+            AlexsCaves.PROXY.playWorldSound(this, (byte) 13);
         } else {
             LivingEntity living = this.getTarget();
             if (living != null && living.isAlive()) {
@@ -165,7 +165,7 @@ public class FerrouslimeEntity extends Monster {
     }
 
     public void remove(Entity.RemovalReason removalReason) {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         if (this.getHeadCount() >= 2 && this.isDeadOrDying()) {
             int ours = this.getHeadCount() / 2;
             int theirs = this.getHeadCount() - ours;

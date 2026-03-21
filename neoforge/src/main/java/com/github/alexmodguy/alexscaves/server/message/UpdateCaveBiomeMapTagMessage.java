@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexthe666.citadel.server.message.PacketBufferUtils;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
@@ -53,7 +52,7 @@ public class UpdateCaveBiomeMapTagMessage implements CustomPacketPayload {
         if (!context.networkSide().isClientbound()) {
             return;
         }
-        Player playerSided = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
+        Player playerSided = AlexsCaves.PROXY.getClientSidePlayer();
         if (playerSided != null) {
             Player player = playerSided.level().getPlayerByUUID(message.userUUID);
             if (player != null) {

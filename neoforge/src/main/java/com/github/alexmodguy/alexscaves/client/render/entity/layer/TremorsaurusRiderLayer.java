@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity.layer;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.TremorsaurusModel;
 import com.github.alexmodguy.alexscaves.client.render.entity.TremorsaurusRenderer;
 import com.github.alexmodguy.alexscaves.server.entity.living.TremorsaurusEntity;
@@ -32,14 +32,14 @@ public class TremorsaurusRiderLayer extends RenderLayer<TremorsaurusEntity, Trem
                 if (passenger == Minecraft.getInstance().player && Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
                     continue;
                 }
-                AlexsCavesNeoForge.PROXY.releaseRenderingEntity(passenger.getUUID());
+                AlexsCaves.PROXY.releaseRenderingEntity(passenger.getUUID());
                 poseStack.pushPose();
                 poseStack.translate(ridePos.x, ridePos.y - 1.65F + passenger.getBbHeight(), ridePos.z);
                 poseStack.mulPose(Axis.XN.rotationDegrees(180F));
                 poseStack.mulPose(Axis.YN.rotationDegrees(360 - bodyYaw));
                 renderPassenger(passenger, 0, 0, 0, 0, partialTicks, poseStack, bufferIn, packedLightIn);
                 poseStack.popPose();
-                AlexsCavesNeoForge.PROXY.blockRenderingEntity(passenger.getUUID());
+                AlexsCaves.PROXY.blockRenderingEntity(passenger.getUUID());
             }
 
         }

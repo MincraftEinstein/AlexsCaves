@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
@@ -31,7 +31,7 @@ public class GalenaGauntletItem extends Item {
 
     @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCavesNeoForge.PROXY.getISTERProperties());
+        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
@@ -59,7 +59,7 @@ public class GalenaGauntletItem extends Item {
             realPlayer.getCooldowns().addCooldown(this, 5);
 
         }
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(player);
+        AlexsCaves.PROXY.clearSoundCacheFor(player);
         player.playSound(ACSoundRegistry.GALENA_GAUNTLET_STOP.get());
     }
 
@@ -91,7 +91,7 @@ public class GalenaGauntletItem extends Item {
         if (living.getItemInHand(InteractionHand.MAIN_HAND) == stack) {
             otherHand = InteractionHand.OFF_HAND;
         }
-        AlexsCavesNeoForge.PROXY.playWorldSound(living, (byte) 11);
+        AlexsCaves.PROXY.playWorldSound(living, (byte) 11);
         ItemStack otherStack = living.getItemInHand(otherHand);
         boolean otherMagneticWeaponsInUse = false;
         boolean crystallization = ACEnchantmentHelper.hasEnchantment(level, ACEnchantmentRegistry.CRYSTALLIZATION, stack);

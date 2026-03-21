@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearSirenBlockEntity;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
@@ -192,7 +191,7 @@ public class NucleeperEntity extends Monster implements ActivatesSirens, Powerab
             }
         }
         if (this.isTriggered() && this.isAlive()) {
-            AlexsCavesNeoForge.PROXY.playWorldSound(this, (byte) 1);
+            AlexsCaves.PROXY.playWorldSound(this, (byte) 1);
         }
         sirenAngle += (10F + 30F * closeProgress) % 360F;
         closeProgress = (float) time / AlexsCaves.COMMON_CONFIG.nucleeperFuseTime.get();
@@ -212,7 +211,7 @@ public class NucleeperEntity extends Monster implements ActivatesSirens, Powerab
     }
 
     public void remove(Entity.RemovalReason removalReason) {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
     }
 

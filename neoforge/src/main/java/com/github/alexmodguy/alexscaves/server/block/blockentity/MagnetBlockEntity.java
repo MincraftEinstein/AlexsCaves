@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.MagnetBlock;
@@ -54,7 +54,7 @@ public class MagnetBlockEntity extends BlockEntity {
         entity.prevRangeVisuality = entity.rangeVisuality;
         entity.age++;
         if (level.isClientSide) {
-            if (entity.showRangeBox(AlexsCavesNeoForge.PROXY.getClientSidePlayer())) {
+            if (entity.showRangeBox(AlexsCaves.PROXY.getClientSidePlayer())) {
                 if (entity.rangeVisuality < 1.0F) {
                     entity.rangeVisuality += 0.2F;
                 }
@@ -68,7 +68,7 @@ public class MagnetBlockEntity extends BlockEntity {
                 entity.locallyActive = true;
             }
             if(entity.locallyActive && !entity.isRemoved()){
-                AlexsCavesNeoForge.PROXY.playWorldSound(entity, (byte)4);
+                AlexsCaves.PROXY.playWorldSound(entity, (byte)4);
             }
         } else {
             Direction direction = entity.getDirection();
@@ -192,7 +192,7 @@ public class MagnetBlockEntity extends BlockEntity {
     }
 
     public void setRemoved() {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.setRemoved();
     }
 

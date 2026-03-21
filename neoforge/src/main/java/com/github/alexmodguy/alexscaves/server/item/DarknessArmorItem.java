@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.server.message.ArmorKeyMessage;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
@@ -63,7 +62,7 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
     @SuppressWarnings("removal")
     @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCavesNeoForge.PROXY.getArmorProperties());
+        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getArmorProperties());
     }
 
     @Override
@@ -108,7 +107,7 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
                     if (modified) {
                         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
                     }
-                } else if (AlexsCavesNeoForge.PROXY.getClientSidePlayer() == entity && getMeterProgress(stack) >= 1.0F && AlexsCavesNeoForge.PROXY.isKeyDown(2)) {
+                } else if (AlexsCaves.PROXY.getClientSidePlayer() == entity && getMeterProgress(stack) >= 1.0F && AlexsCaves.PROXY.isKeyDown(2)) {
                     AlexsCaves.sendMSGToServer(new ArmorKeyMessage(EquipmentSlot.CHEST.ordinal(), living.getId(), 2));
                     onKeyPacket(living, stack, 2);
                 }

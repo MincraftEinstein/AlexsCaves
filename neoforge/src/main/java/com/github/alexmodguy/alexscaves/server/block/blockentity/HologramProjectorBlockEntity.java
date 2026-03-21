@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -58,7 +58,7 @@ public class HologramProjectorBlockEntity extends BlockEntity {
                 entity.markUpdated();
             }
             if (!entity.isRemoved() && level.isClientSide) {
-                AlexsCavesNeoForge.PROXY.playWorldSound(entity, (byte) 3);
+                AlexsCaves.PROXY.playWorldSound(entity, (byte) 3);
             }
         }
         if (entity.isPlayerRender() && entity.lastPlayerUUID == null) {
@@ -194,7 +194,7 @@ public class HologramProjectorBlockEntity extends BlockEntity {
     }
 
     public void setRemoved() {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         level.playSound((Player) null, this.getBlockPos(), ACSoundRegistry.HOLOGRAM_STOP.get(), SoundSource.BLOCKS);
         super.setRemoved();
     }

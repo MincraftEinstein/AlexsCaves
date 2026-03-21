@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.item;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
@@ -258,7 +258,7 @@ public class SodaBottleRocketEntity extends FireworkRocketEntity {
             for(int i = 0; i < this.random.nextInt(15) + 15; ++i) {
                 this.level().addParticle(ACParticleRegistry.PURPLE_SODA_BUBBLE.get(), this.getX() + this.random.nextGaussian() * 0.95D, this.getY() + this.random.nextGaussian() * 0.95D, this.getZ() + this.random.nextGaussian() * 0.95D, this.random.nextGaussian() * 0.15D, this.random.nextGaussian() * 0.15D, this.random.nextGaussian() * 0.15D);
             }
-            SoundEvent soundEvent = AlexsCavesNeoForge.PROXY.isFarFromCamera(this.getX(), this.getY(), this.getZ()) ? SoundEvents.FIREWORK_ROCKET_BLAST : SoundEvents.FIREWORK_ROCKET_BLAST_FAR;
+            SoundEvent soundEvent = AlexsCaves.PROXY.isFarFromCamera(this.getX(), this.getY(), this.getZ()) ? SoundEvents.FIREWORK_ROCKET_BLAST : SoundEvents.FIREWORK_ROCKET_BLAST_FAR;
             this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), soundEvent, SoundSource.AMBIENT, 20.0F, 0.95F + this.random.nextFloat() * 0.1F, true);
 
 

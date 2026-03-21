@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.particle;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.TubeWormModel;
 import com.github.alexmodguy.alexscaves.server.block.TubeWormBlock;
@@ -86,7 +85,7 @@ public class TubeWormParticle extends Particle {
 
     public void remove() {
         super.remove();
-        ((ClientProxy) AlexsCavesNeoForge.PROXY).removeParticleAt(this.blockPos);
+        ((ClientProxy) AlexsCaves.PROXY).removeParticleAt(this.blockPos);
     }
 
     public void render(VertexConsumer vertexConsumer, Camera camera, float partialTick) {

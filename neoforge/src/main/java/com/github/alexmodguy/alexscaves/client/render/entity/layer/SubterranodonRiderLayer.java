@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity.layer;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.SubterranodonModel;
 import com.github.alexmodguy.alexscaves.client.render.entity.SubterranodonRenderer;
 import com.github.alexmodguy.alexscaves.server.entity.living.SubterranodonEntity;
@@ -33,7 +33,7 @@ public class SubterranodonRiderLayer extends RenderLayer<SubterranodonEntity, Su
                 if (passenger == Minecraft.getInstance().player && Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
                     continue;
                 }
-                AlexsCavesNeoForge.PROXY.releaseRenderingEntity(passenger.getUUID());
+                AlexsCaves.PROXY.releaseRenderingEntity(passenger.getUUID());
                 poseStack.pushPose();
                 poseStack.translate(centerLegPos.x, centerLegPos.y + passenger.getBbHeight() - 1.25F * flight, centerLegPos.z + 2 * flight);
                 poseStack.mulPose(Axis.XP.rotationDegrees(70F * flight));
@@ -41,7 +41,7 @@ public class SubterranodonRiderLayer extends RenderLayer<SubterranodonEntity, Su
                 poseStack.mulPose(Axis.YN.rotationDegrees(360 - bodyYaw + flightRoll));
                 renderPassenger(passenger, 0, 0, 0, 0, partialTicks, poseStack, bufferIn, packedLightIn);
                 poseStack.popPose();
-                AlexsCavesNeoForge.PROXY.blockRenderingEntity(passenger.getUUID());
+                AlexsCaves.PROXY.blockRenderingEntity(passenger.getUUID());
             }
 
         }

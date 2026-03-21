@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearSirenBlockEntity;
@@ -292,7 +291,7 @@ public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMou
             if (this.getAnimationTick() > 25F) {
                 this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, lastYawBeforeWhip, 15);
             } else {
-                this.walkAnimation.setSpeed(1 + AlexsCavesNeoForge.PROXY.getPartialTicks());
+                this.walkAnimation.setSpeed(1 + AlexsCaves.PROXY.getPartialTicks());
                 this.yBodyRot = Mth.approachDegrees(this.yBodyRotO, lastYawBeforeWhip + negative * target, 70);
             }
         }
@@ -326,23 +325,23 @@ public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMou
             } else {
                 this.reapplyPosition();
             }
-            Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
+            Player player = AlexsCaves.PROXY.getClientSidePlayer();
             if (player != null && player.isPassengerOfSameVehicle(this)) {
-                if (AlexsCavesNeoForge.PROXY.isKeyDown(2) && getMeterAmount() >= 1.0F) {
+                if (AlexsCaves.PROXY.isKeyDown(2) && getMeterAmount() >= 1.0F) {
                     AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
                 }
-                if (AlexsCavesNeoForge.PROXY.isKeyDown(3) && (this.getAnimation() == NO_ANIMATION || this.getAnimation() == null)) {
+                if (AlexsCaves.PROXY.isKeyDown(3) && (this.getAnimation() == NO_ANIMATION || this.getAnimation() == null)) {
                     AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 3));
                 }
             }
             if (this.isFiring() && beamProgress > 0) {
                 if (!makingBeamSoundOnClient) {
-                    AlexsCavesNeoForge.PROXY.playWorldSound((Object) this, (byte) 16);
+                    AlexsCaves.PROXY.playWorldSound((Object) this, (byte) 16);
                     makingBeamSoundOnClient = true;
                 }
             }
             if (!isFiring() && makingBeamSoundOnClient) {
-                AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+                AlexsCaves.PROXY.clearSoundCacheFor(this);
                 makingBeamSoundOnClient = false;
             }
         } else {
@@ -660,7 +659,7 @@ public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMou
     }
 
     public void remove(Entity.RemovalReason removalReason) {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
     }
 

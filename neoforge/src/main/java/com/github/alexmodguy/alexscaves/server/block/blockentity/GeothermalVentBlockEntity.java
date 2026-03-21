@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.GeothermalVentBlock;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
@@ -24,7 +24,7 @@ public class GeothermalVentBlockEntity extends BlockEntity {
     }
 
     public static void particleTick(Level level, BlockPos pos, BlockState state, GeothermalVentBlockEntity blockEntity) {
-        Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
+        Player player = AlexsCaves.PROXY.getClientSidePlayer();
         if (player.distanceToSqr(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) > PARTICLE_DIST || level.random.nextBoolean()) {
             return;
         }

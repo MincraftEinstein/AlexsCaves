@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -61,7 +61,7 @@ public class GingerbreadArmorItem extends ArmorItem {
 
     @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCavesNeoForge.PROXY.getArmorProperties());
+        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getArmorProperties());
     }
 
     @Override

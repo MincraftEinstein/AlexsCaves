@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.item;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.QuarryBlock;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.QuarryBlockEntity;
@@ -119,7 +119,7 @@ public class QuarrySmasherEntity extends Entity {
                 this.reapplyPosition();
             }
             if(isAlive()){
-                AlexsCavesNeoForge.PROXY.playWorldSound(this, (byte) 14);
+                AlexsCaves.PROXY.playWorldSound(this, (byte) 14);
             }
         } else if (triggerAdvancement && tickCount % 20 == 0) {
             boolean flag = false;
@@ -388,7 +388,7 @@ public class QuarrySmasherEntity extends Entity {
     }
 
     public void remove(Entity.RemovalReason removalReason) {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
     }
 

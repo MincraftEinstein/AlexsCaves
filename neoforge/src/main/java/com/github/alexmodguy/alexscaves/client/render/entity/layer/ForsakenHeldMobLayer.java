@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity.layer;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.ForsakenModel;
 import com.github.alexmodguy.alexscaves.client.render.entity.ForsakenRenderer;
 import com.github.alexmodguy.alexscaves.server.entity.living.ForsakenEntity;
@@ -28,7 +28,7 @@ public class ForsakenHeldMobLayer extends RenderLayer<ForsakenEntity, ForsakenMo
     public void render(PoseStack matrixStackIn, MultiBufferSource bufferIn, int packedLightIn, ForsakenEntity forsaken, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         Entity heldMob = forsaken.getHeldMob();
         if (heldMob != null) {
-            AlexsCavesNeoForge.PROXY.releaseRenderingEntity(heldMob.getUUID());
+            AlexsCaves.PROXY.releaseRenderingEntity(heldMob.getUUID());
             float vehicleRot = forsaken.yBodyRotO + (forsaken.yBodyRot - forsaken.yBodyRotO) * partialTicks;
             float riderRot = 0;
             float animationIntensity = ACMath.cullAnimationTick(forsaken.getAnimationTick(), 1F, forsaken.getAnimation(), partialTicks, 25, 30) * 0.75F;
@@ -48,11 +48,11 @@ public class ForsakenHeldMobLayer extends RenderLayer<ForsakenEntity, ForsakenMo
             matrixStackIn.translate(handPosition.x, handPosition.y, handPosition.z);
             matrixStackIn.mulPose(Axis.ZP.rotationDegrees(180F));
             matrixStackIn.mulPose(Axis.YP.rotationDegrees(vehicleRot - riderRot));
-            if (!AlexsCavesNeoForge.PROXY.isFirstPersonPlayer(heldMob)) {
+            if (!AlexsCaves.PROXY.isFirstPersonPlayer(heldMob)) {
                 renderEntity(heldMob, 0, 0, 0, 0, partialTicks, matrixStackIn, bufferIn, packedLightIn);
             }
             matrixStackIn.popPose();
-            AlexsCavesNeoForge.PROXY.blockRenderingEntity(heldMob.getUUID());
+            AlexsCaves.PROXY.blockRenderingEntity(heldMob.getUUID());
         }
     }
 

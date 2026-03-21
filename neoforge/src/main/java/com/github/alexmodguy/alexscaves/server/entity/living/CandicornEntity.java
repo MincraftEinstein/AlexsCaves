@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
@@ -391,9 +390,9 @@ public class CandicornEntity extends TamableAnimal implements KeybindUsingMount,
                 this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(0.25D);
             }
         }else{
-            Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
+            Player player = AlexsCaves.PROXY.getClientSidePlayer();
             if (player != null && player.isPassengerOfSameVehicle(this)) {
-                if (AlexsCavesNeoForge.PROXY.isKeyDown(2) && getMeterAmount() >= 1.0F && this.isRunning()) {
+                if (AlexsCaves.PROXY.isKeyDown(2) && getMeterAmount() >= 1.0F && this.isRunning()) {
                     AlexsCaves.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), player.getId(), 2));
                 }
             }
@@ -447,7 +446,7 @@ public class CandicornEntity extends TamableAnimal implements KeybindUsingMount,
             this.setMeterAmount(0.0F);
         }
         if(this.isCharging() && isAlive()){
-            AlexsCavesNeoForge.PROXY.playWorldSound(this, (byte) 19);
+            AlexsCaves.PROXY.playWorldSound(this, (byte) 19);
         }
         tailYaw = Mth.approachDegrees(this.tailYaw, yBodyRot, 10);
 
@@ -455,7 +454,7 @@ public class CandicornEntity extends TamableAnimal implements KeybindUsingMount,
     }
 
     public void remove(Entity.RemovalReason removalReason) {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
     }
 

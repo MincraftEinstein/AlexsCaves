@@ -1,10 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.item.UpdatesStackTags;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
-import me.fzzyhmstrs.fzzy_config.networking.api.NetworkContext;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -51,7 +49,7 @@ public class UpdateItemTagMessage implements CustomPacketPayload {
             Player playerSided = context.player();
             // For client-bound packets, use the client-side player
             if (context.networkSide().isClientbound()) {
-                playerSided = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
+                playerSided = AlexsCaves.PROXY.getClientSidePlayer();
             }
             if (playerSided != null) {
                 Entity holder = playerSided.level().getEntity(message.entityId);

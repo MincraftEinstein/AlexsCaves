@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.network.chat.Component;
@@ -32,7 +32,7 @@ public class CaveBookItem extends Item {
         }
         playerIn.swing(handIn);
         if (worldIn.isClientSide) {
-            AlexsCavesNeoForge.PROXY.openBookGUI(itemStackIn);
+            AlexsCaves.PROXY.openBookGUI(itemStackIn);
         }
         return new InteractionResultHolder(InteractionResult.PASS, itemStackIn);
     }

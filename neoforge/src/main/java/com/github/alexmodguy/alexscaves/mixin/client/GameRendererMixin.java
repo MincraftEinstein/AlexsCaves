@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.mixin.client;
 
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.render.entity.SubmarineRenderer;
 import com.github.alexmodguy.alexscaves.client.render.entity.layer.ACPotionEffectLayer;
@@ -45,7 +45,7 @@ public abstract class GameRendererMixin {
             at = @At(value = "TAIL")
     )
     public void ac_tick(CallbackInfo ci) {
-        if (((ClientProxy) AlexsCavesNeoForge.PROXY).renderNukeSkyDarkFor > 0 && darkenWorldAmount < 1.0F) {
+        if (((ClientProxy) AlexsCaves.PROXY).renderNukeSkyDarkFor > 0 && darkenWorldAmount < 1.0F) {
             darkenWorldAmount = Math.min(darkenWorldAmount + 0.3F, 1.0F);
         }
     }
@@ -62,7 +62,7 @@ public abstract class GameRendererMixin {
     )
     public void ac_render(DeltaTracker deltaTracker, boolean renderLevel, CallbackInfo ci) {
         float partialTick = deltaTracker.getGameTimeDeltaPartialTick(true);
-        ((ClientProxy) AlexsCavesNeoForge.PROXY).preScreenRender(partialTick);
+        ((ClientProxy) AlexsCaves.PROXY).preScreenRender(partialTick);
     }
 
 

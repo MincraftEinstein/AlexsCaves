@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
@@ -32,7 +32,7 @@ public class ResistorShieldItem extends ShieldItem {
 
     @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCavesNeoForge.PROXY.getISTERProperties());
+        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
@@ -73,7 +73,7 @@ public class ResistorShieldItem extends ShieldItem {
                 living.playSound(ACSoundRegistry.RESITOR_SHIELD_SLAM.get());
             }
             if (i >= 10 && i % 5 == 0) {
-                AlexsCavesNeoForge.PROXY.playWorldSound(living, (byte) (scarlet ? 9 : 10));
+                AlexsCaves.PROXY.playWorldSound(living, (byte) (scarlet ? 9 : 10));
                 Vec3 particlesFrom = living.position().add(0, 0.2, 0);
                 float particleMax = 5 + living.getRandom().nextInt(5);
                 for (int particles = 0; particles < particleMax; particles++) {
@@ -110,7 +110,7 @@ public class ResistorShieldItem extends ShieldItem {
 
     public void releaseUsing(ItemStack stack, Level level, LivingEntity player, int useTimeLeft) {
         super.releaseUsing(stack, level, player, useTimeLeft);
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(player);
+        AlexsCaves.PROXY.clearSoundCacheFor(player);
     }
 
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int i, boolean held) {

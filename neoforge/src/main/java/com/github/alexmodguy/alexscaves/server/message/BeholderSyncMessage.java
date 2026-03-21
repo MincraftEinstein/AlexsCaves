@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -71,7 +70,7 @@ public class BeholderSyncMessage implements CustomPacketPayload {
         // This packet is sent from server to client
         if (context.networkSide().isClientbound()) {
             context.execute(() -> {
-                AlexsCavesNeoForge.PROXY.handleBeholderSync(
+                AlexsCaves.PROXY.handleBeholderSync(
                     message.beholderId, message.active,
                     message.x, message.y, message.z,
                     message.yRot, message.xRot, message.usingPlayerUUID

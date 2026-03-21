@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.gui;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.inventory.SpelunkeryTableMenu;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.CaveInfoItem;
@@ -301,7 +300,7 @@ public class SpelunkeryTableScreen extends AbstractContainerScreen<SpelunkeryTab
     }
 
     public boolean isFirstTimeUsing() {
-        return !AlexsCavesNeoForge.PROXY.isSpelunkeryTutorialComplete();
+        return !AlexsCaves.PROXY.isSpelunkeryTutorialComplete();
     }
 
     protected void containerTick() {

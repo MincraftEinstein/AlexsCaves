@@ -3,8 +3,6 @@ package com.github.alexmodguy.alexscaves;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeRegistryHelper;
-import com.github.alexmodguy.alexscaves.platform.Services;
-import com.github.alexmodguy.alexscaves.server.CommonProxy;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.config.BiomeGenerationConfig;
@@ -50,8 +48,6 @@ import static com.github.alexmodguy.alexscaves.AlexsCaves.registerS2C;
 @Mod(AlexsCaves.MOD_ID)
 public class AlexsCavesNeoForge {
 
-    // Initialize proxy based on dist
-    public static CommonProxy PROXY = Services.PLATFORM_HELPER.getProxy();
     private IEventBus modEventBus; // Store for client setup
     // TODO fix when redoing chunk loading
     public static final TicketController TICKET_CONTROLLER = new TicketController(
@@ -98,7 +94,7 @@ public class AlexsCavesNeoForge {
         ACCreativeTabRegistry.DEF_REG.register(modEventBus);
         ACPotPatternRegistry.init(); // Pot patterns are now data-driven in 1.21
         this.modEventBus = modEventBus; // Store for later use
-        if (PROXY instanceof ClientProxy cProxy) {
+        if (AlexsCaves.PROXY instanceof ClientProxy cProxy) {
             cProxy.commonInit(this.modEventBus);
         }
         ACBiomeRegistry.init();
@@ -136,7 +132,7 @@ public class AlexsCavesNeoForge {
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
-        PROXY.initPathfinding();
+        AlexsCaves.PROXY.initPathfinding();
         event.enqueueWork(() -> {
             ACSurfaceRules.setup();
             ACPlayerCapes.setup();
@@ -182,7 +178,7 @@ public class AlexsCavesNeoForge {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            if (PROXY instanceof ClientProxy cProxy) {
+            if (AlexsCaves.PROXY instanceof ClientProxy cProxy) {
                 cProxy.clientInit(this.modEventBus);
             }
         });

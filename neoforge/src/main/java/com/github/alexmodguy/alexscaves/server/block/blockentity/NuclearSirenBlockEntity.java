@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.NuclearSirenBlock;
@@ -98,7 +98,7 @@ public class NuclearSirenBlockEntity extends BlockEntity {
             }
         }else{
             if (powered) {
-                AlexsCavesNeoForge.PROXY.playWorldSound(entity, (byte) 0);
+                AlexsCaves.PROXY.playWorldSound(entity, (byte) 0);
             }
         }
     }
@@ -161,7 +161,7 @@ public class NuclearSirenBlockEntity extends BlockEntity {
     }
 
     public void setRemoved() {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.setRemoved();
     }
 

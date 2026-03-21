@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -44,9 +43,9 @@ public class UpdateBossBarMessage implements CustomPacketPayload {
             return;
         }
         if (message.renderType == -1) {
-            AlexsCavesNeoForge.PROXY.removeBossBarRender(message.bossBar);
+            AlexsCaves.PROXY.removeBossBarRender(message.bossBar);
         } else {
-            AlexsCavesNeoForge.PROXY.setBossBarRender(message.bossBar, message.renderType);
+            AlexsCaves.PROXY.setBossBarRender(message.bossBar, message.renderType);
         }
     }
 

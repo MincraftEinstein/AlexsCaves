@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagnetUtil;
 import com.github.alexmodguy.alexscaves.server.entity.util.PossessesCamera;
@@ -78,7 +77,7 @@ public abstract class CameraMixin {
             float tremorAmount = ClientProxy.renderNukeSkyDarkFor > 0 ? 1.5F : 0F;
             if (player instanceof PossessesCamera watcherEntity) {
                 tremorAmount = watcherEntity.isPossessionBreakable()
-                        ? AlexsCavesNeoForge.PROXY.getPossessionStrengthAmount(partialTicks)
+                        ? AlexsCaves.PROXY.getPossessionStrengthAmount(partialTicks)
                         : 0F;
             }
             if (tremorAmount == 0) {

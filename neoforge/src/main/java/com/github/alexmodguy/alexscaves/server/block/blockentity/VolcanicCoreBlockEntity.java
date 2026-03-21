@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.TephraEntity;
@@ -61,7 +61,7 @@ public class VolcanicCoreBlockEntity extends BlockEntity {
                 }
             }
         }
-        if (AlexsCavesNeoForge.PROXY.isPrimordialBossActive(level)) {
+        if (AlexsCaves.PROXY.isPrimordialBossActive(level)) {
             if (entity.tephraSpawnCooldown-- <= 0) {
                 entity.spawnTephra(true);
                 entity.tephraSpawnCooldown = 120 + level.random.nextInt(120);

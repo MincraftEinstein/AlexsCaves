@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
@@ -57,7 +56,7 @@ public class RaygunItem extends Item implements UpdatesStackTags, AlwaysCombinab
 
     @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCavesNeoForge.PROXY.getISTERProperties());
+        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
     }
 
     @Override
@@ -171,7 +170,7 @@ public class RaygunItem extends Item implements UpdatesStackTags, AlwaysCombinab
         }
         if (level.isClientSide) {
             setRayPosition(stack, vec3.x, vec3.y, vec3.z);
-            AlexsCavesNeoForge.PROXY.playWorldSound(living, (byte) 8);
+            AlexsCaves.PROXY.playWorldSound(living, (byte) 8);
             int efficency = ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.ENERGY_EFFICIENCY, stack);
             int divis = 2 + (int) Math.floor(efficency * 1.5F);
             if (time >= 1F && i % divis == 0 && (!(living instanceof Player) || !((Player) living).isCreative())) {
@@ -318,7 +317,7 @@ public class RaygunItem extends Item implements UpdatesStackTags, AlwaysCombinab
         if (level.isClientSide) {
             AlexsCaves.sendMSGToServer(new UpdateItemTagMessage(player.getId(), stack));
         }
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(player);
+        AlexsCaves.PROXY.clearSoundCacheFor(player);
     }
 
     public boolean isBarVisible(ItemStack stack) {
@@ -331,7 +330,7 @@ public class RaygunItem extends Item implements UpdatesStackTags, AlwaysCombinab
 
     public int getBarColor(ItemStack stack) {
         float pulseRate = (float) getCharge(stack) / (float) MAX_CHARGE * 2.0F;
-        float f = AlexsCavesNeoForge.PROXY.getPlayerTime() + AlexsCavesNeoForge.PROXY.getPartialTicks();
+        float f = AlexsCaves.PROXY.getPlayerTime() + AlexsCaves.PROXY.getPartialTicks();
         float f1 = 0.5F * (float) (1.0F + Math.sin(f * pulseRate));
         return Mth.hsvToRgb(0.3F, f1 * 0.6F + 0.2F, 1.0F);
     }

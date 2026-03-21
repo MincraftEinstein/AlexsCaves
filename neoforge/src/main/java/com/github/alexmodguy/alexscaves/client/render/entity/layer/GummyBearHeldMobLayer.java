@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity.layer;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.GummyBearModel;
 import com.github.alexmodguy.alexscaves.client.render.entity.GummyBearRenderer;
 import com.github.alexmodguy.alexscaves.server.entity.living.GummyBearEntity;
@@ -27,18 +27,18 @@ public class GummyBearHeldMobLayer extends RenderLayer<GummyBearEntity, GummyBea
         Entity heldMob = bear.getHeldMob();
         if (heldMob != null) {
             float bodyYaw = heldMob.yRotO + (heldMob.getYRot() - heldMob.yRotO) * partialTicks;
-            AlexsCavesNeoForge.PROXY.releaseRenderingEntity(heldMob.getUUID());
+            AlexsCaves.PROXY.releaseRenderingEntity(heldMob.getUUID());
             matrixStackIn.pushPose();
             getParentModel().translateToHand(HumanoidArm.RIGHT, matrixStackIn);
             matrixStackIn.translate(0.1F * bear.getScale(), 0.7F * bear.getScale(), -0.3F * bear.getScale());
             matrixStackIn.mulPose(Axis.XN.rotationDegrees(180F));
             matrixStackIn.mulPose(Axis.YN.rotationDegrees(-90F));
             matrixStackIn.mulPose(Axis.XN.rotationDegrees(-10F));
-            if (!AlexsCavesNeoForge.PROXY.isFirstPersonPlayer(heldMob)) {
+            if (!AlexsCaves.PROXY.isFirstPersonPlayer(heldMob)) {
                 renderEntity(heldMob, 0, 0, 0, 0, partialTicks, matrixStackIn, bufferIn, packedLightIn);
             }
             matrixStackIn.popPose();
-            AlexsCavesNeoForge.PROXY.blockRenderingEntity(heldMob.getUUID());
+            AlexsCaves.PROXY.blockRenderingEntity(heldMob.getUUID());
         }
     }
 

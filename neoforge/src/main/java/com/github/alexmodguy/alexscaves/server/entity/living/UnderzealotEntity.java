@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ai.*;
@@ -218,7 +218,7 @@ public class UnderzealotEntity extends Monster implements PackAnimal, IAnimatedE
             this.level().addParticle(ACParticleRegistry.VOID_BEING_CLOUD.get(), particleAt.x, particleAt.y, particleAt.z, 1F, carryingId, 5 + random.nextInt(4));
         } else if(b == 77){
             if(this.isAlive()){
-                AlexsCavesNeoForge.PROXY.playWorldSound(this, (byte) 5);
+                AlexsCaves.PROXY.playWorldSound(this, (byte) 5);
             }
         }else {
             super.handleEntityEvent(b);
@@ -226,7 +226,7 @@ public class UnderzealotEntity extends Monster implements PackAnimal, IAnimatedE
     }
 
     public void remove(Entity.RemovalReason removalReason) {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
     }
 

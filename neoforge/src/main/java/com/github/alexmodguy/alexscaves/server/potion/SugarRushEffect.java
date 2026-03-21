@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.potion;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
 import com.github.alexthe666.citadel.server.tick.modifier.LocalEntityTickRateModifier;
 import com.github.alexthe666.citadel.server.tick.modifier.TickRateModifier;
@@ -30,7 +30,7 @@ public class SugarRushEffect extends MobEffect {
     @Override
     public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         if(entity.level().isClientSide){
-            AlexsCavesNeoForge.PROXY.playWorldSound(entity, (byte)18);
+            AlexsCaves.PROXY.playWorldSound(entity, (byte)18);
         }
         return true;
     }

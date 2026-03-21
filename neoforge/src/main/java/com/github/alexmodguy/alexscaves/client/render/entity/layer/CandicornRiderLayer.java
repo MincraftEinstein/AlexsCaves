@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity.layer;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.CandicornModel;
 import com.github.alexmodguy.alexscaves.client.render.entity.CandicornRenderer;
 import com.github.alexmodguy.alexscaves.server.entity.living.CandicornEntity;
@@ -34,9 +34,9 @@ public class CandicornRiderLayer extends RenderLayer<CandicornEntity, CandicornM
                 poseStack.translate(0, 0.55F, 0.1F);
                 poseStack.mulPose(Axis.XN.rotationDegrees(180F));
                 poseStack.mulPose(Axis.YN.rotationDegrees(360 - bodyYaw));
-                AlexsCavesNeoForge.PROXY.releaseRenderingEntity(passenger.getUUID());
+                AlexsCaves.PROXY.releaseRenderingEntity(passenger.getUUID());
                 renderPassenger(passenger, 0, 0, 0, 0, partialTicks, poseStack, bufferIn, packedLightIn);
-                AlexsCavesNeoForge.PROXY.blockRenderingEntity(passenger.getUUID());
+                AlexsCaves.PROXY.blockRenderingEntity(passenger.getUUID());
                 poseStack.popPose();
             }
 

@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.level.storage.ACWorldData;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
 import net.minecraft.ChatFormatting;
@@ -45,7 +44,7 @@ public class CaveMapItem extends Item implements UpdatesStackTags {
 
     @Override
     public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCavesNeoForge.PROXY.getISTERProperties());
+        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
     }
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {

@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.NuclearFurnaceBlock;
@@ -222,12 +221,12 @@ public class NuclearFurnaceBlockEntity extends BaseContainerBlockEntity implemen
                 entity.destroyWhileCritical(true);
             }
         }else if(entity.isUndergoingFission() && !entity.isRemoved()){
-            AlexsCavesNeoForge.PROXY.playWorldSound(entity, (byte)7);
+            AlexsCaves.PROXY.playWorldSound(entity, (byte)7);
         }
     }
 
     public void setRemoved() {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.setRemoved();
     }
 

@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.entity.ai.NotorFlightGoal;
 import com.github.alexmodguy.alexscaves.server.entity.ai.NotorHologramGoal;
 import com.github.alexmodguy.alexscaves.server.entity.ai.NotorScanGoal;
@@ -128,7 +128,7 @@ public class NotorEntity extends PathfinderMob {
             beamProgress++;
         }
         if(hasBeam && this.isAlive()){
-            AlexsCavesNeoForge.PROXY.playWorldSound(this, (byte) 2);
+            AlexsCaves.PROXY.playWorldSound(this, (byte) 2);
         }
         if (!hasBeam && beamProgress > 0.0F) {
             if(beamProgress == 5.0F){
@@ -173,7 +173,7 @@ public class NotorEntity extends PathfinderMob {
     }
 
     public void remove(Entity.RemovalReason removalReason) {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
     }
 

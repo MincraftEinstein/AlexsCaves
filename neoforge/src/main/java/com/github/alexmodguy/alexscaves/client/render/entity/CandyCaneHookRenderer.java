@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.model.CandyCaneHookModel;
 import com.github.alexmodguy.alexscaves.server.entity.item.CandyCaneHookEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.GumWormSegmentEntity;
@@ -86,8 +85,8 @@ public class CandyCaneHookRenderer extends EntityRenderer<CandyCaneHookEntity> {
             float f1 = Mth.sin(Mth.sqrt(f) * (float) Math.PI);
             float f2 = Mth.lerp(partialTicks, player.yBodyRotO, player.yBodyRot) * ((float) Math.PI / 180F);
             boolean wormRiding = player.getItemInHand(InteractionHand.MAIN_HAND).getItem() instanceof CandyCaneHookItem && CandyCaneHookItem.isActive(player.getItemInHand(InteractionHand.MAIN_HAND)) && player.getItemInHand(InteractionHand.OFF_HAND).getItem() instanceof CandyCaneHookItem && CandyCaneHookItem.isActive(player.getItemInHand(InteractionHand.OFF_HAND)) && player.getVehicle() instanceof GumWormSegmentEntity;
-            float rightWiggle = -Math.min(player.xxa, 0F) * (float) Math.sin(player.tickCount + AlexsCavesNeoForge.PROXY.getPartialTicks());
-            float leftWiggle = Math.max(player.xxa, 0F) * (float) Math.sin(player.tickCount + AlexsCavesNeoForge.PROXY.getPartialTicks());
+            float rightWiggle = -Math.min(player.xxa, 0F) * (float) Math.sin(player.tickCount + AlexsCaves.PROXY.getPartialTicks());
+            float leftWiggle = Math.max(player.xxa, 0F) * (float) Math.sin(player.tickCount + AlexsCaves.PROXY.getPartialTicks());
             float wiggle = i == 1 ? rightWiggle : i == -1 ? leftWiggle : 0;
             double d0 = Mth.sin(f2);
             double d1 = Mth.cos(f2);

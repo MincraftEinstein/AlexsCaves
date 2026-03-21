@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.server.block.EnergizedGalenaBlock;
 import com.mojang.blaze3d.platform.GlStateManager;
@@ -107,7 +106,7 @@ public abstract class LevelRendererMixin {
             Runnable runnable, CallbackInfo ci) {
         // AC CODE START
         float override = ClientProxy.acSkyOverrideAmount;
-        float primordialBoss = AlexsCavesNeoForge.PROXY.getPrimordialBossActiveAmount(partialTick);
+        float primordialBoss = AlexsCaves.PROXY.getPrimordialBossActiveAmount(partialTick);
         if (!AlexsCaves.CLIENT_CONFIG.biomeSkyOverrides.get() || override <= 0.0F && primordialBoss <= 0.0F) {
             return;
         }

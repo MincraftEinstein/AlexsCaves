@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ai.*;
 import com.github.alexmodguy.alexscaves.server.entity.item.CandyCaneHookEntity;
@@ -241,7 +241,7 @@ public class GumWormEntity extends Monster implements ICustomCollisions, KaijuMo
                 this.reapplyPosition();
             }
             if(this.isDigging() && isAlive()){
-                AlexsCavesNeoForge.PROXY.playWorldSound(this, (byte) 17);
+                AlexsCaves.PROXY.playWorldSound(this, (byte) 17);
             }
             spawnDustParticles(false);
         }else{
@@ -577,7 +577,7 @@ public class GumWormEntity extends Monster implements ICustomCollisions, KaijuMo
     }
 
     public void remove(Entity.RemovalReason removalReason) {
-        AlexsCavesNeoForge.PROXY.clearSoundCacheFor(this);
+        AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
     }
 

@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves;
 import com.github.alexmodguy.alexscaves.client.config.ACClientConfig;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.platform.Services;
+import com.github.alexmodguy.alexscaves.server.CommonProxy;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACSoundTypes;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
@@ -39,6 +40,9 @@ public class AlexsCaves {
             .configure(ACClientConfig::new);
     public static final ACClientConfig CLIENT_CONFIG = CLIENT_PAIR.getLeft();
     public static final ModConfigSpec CLIENT_CONFIG_SPEC = CLIENT_PAIR.getRight();
+
+    // Initialize proxy based on dist
+    public static CommonProxy PROXY = Services.PLATFORM_HELPER.getProxy();
 
     public static void init() {
         LOGGER.info("Hello from Alex's Caves Multiloader Edition");

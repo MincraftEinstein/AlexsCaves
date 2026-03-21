@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity.layer;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientConstants;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
@@ -106,7 +105,7 @@ public class ACPotionEffectLayer extends RenderLayer {
                 poseStack.popPose();
             }
             // Check both the MobEffect (for local player) and client-side visual tracker (for remote entities)
-            if ((living.hasEffect(ACEffectRegistry.BUBBLED) || AlexsCavesNeoForge.PROXY.hasBubbledEffectVisual(living.getId())) && living.isAlive()) {
+            if ((living.hasEffect(ACEffectRegistry.BUBBLED) || AlexsCaves.PROXY.hasBubbledEffectVisual(living.getId())) && living.isAlive()) {
                 float bodyYaw = Mth.rotLerp(partialTicks, living.yBodyRotO, living.yBodyRot);
                 poseStack.pushPose();
                 float size = (float) Math.ceil(Math.max(living.getBbHeight(), living.getBbWidth()));

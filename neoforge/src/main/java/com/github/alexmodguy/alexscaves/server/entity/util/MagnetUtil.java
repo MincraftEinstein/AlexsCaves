@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.util;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.AbstractMovingBlockEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.MovingMetalBlockEntity;
@@ -351,7 +350,7 @@ public class MagnetUtil {
     }
 
     public static void turnEntityOnMagnet(Entity entity, double xBy, double yBy, Direction magneticAttachmentFace) {
-        float progress = ((MagneticEntityAccessor) entity).getAttachmentProgress(AlexsCavesNeoForge.PROXY.getPartialTicks());
+        float progress = ((MagneticEntityAccessor) entity).getAttachmentProgress(AlexsCaves.PROXY.getPartialTicks());
         float f = (float) xBy * 0.15F;
         float f1 = (float) yBy * 0.15F * (magneticAttachmentFace == Direction.UP ? -1F : 1F);
         float magnetOffset = (magneticAttachmentFace == Direction.UP ? -180 : -90) * progress;

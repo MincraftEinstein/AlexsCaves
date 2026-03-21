@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagneticEntityData;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
@@ -67,7 +66,7 @@ public class UpdateMagneticDataMessage implements CustomPacketPayload {
         if (!context.networkSide().isClientbound()) {
             return;
         }
-        Player player = AlexsCavesNeoForge.PROXY.getClientSidePlayer();
+        Player player = AlexsCaves.PROXY.getClientSidePlayer();
         if (player != null) {
             Entity entity = player.level().getEntity(message.entityId);
             if (entity != null) {

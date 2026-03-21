@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.entity.layer;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.TremorsaurusModel;
 import com.github.alexmodguy.alexscaves.client.render.entity.TremorsaurusRenderer;
 import com.github.alexmodguy.alexscaves.server.entity.living.SubterranodonEntity;
@@ -28,7 +28,7 @@ public class TremorsaurusHeldMobLayer extends RenderLayer<TremorsaurusEntity, Tr
         if (heldMob != null) {
             float riderRot = heldMob.yRotO + (heldMob.getYRot() - heldMob.yRotO) * partialTicks;
             boolean holdSideways = heldMob.getBbHeight() > heldMob.getBbWidth() + 0.2F;
-            AlexsCavesNeoForge.PROXY.releaseRenderingEntity(heldMob.getUUID());
+            AlexsCaves.PROXY.releaseRenderingEntity(heldMob.getUUID());
             matrixStackIn.pushPose();
             getParentModel().translateToMouth(matrixStackIn);
             matrixStackIn.translate(0, heldMob.getBbWidth() * 0.35F + 0.2F, -1F);
@@ -44,11 +44,11 @@ public class TremorsaurusHeldMobLayer extends RenderLayer<TremorsaurusEntity, Tr
                 matrixStackIn.mulPose(Axis.YP.rotationDegrees(90F));
             }
             matrixStackIn.translate(0, -heldMob.getBbHeight() * 0.5F, 0);
-            if (!AlexsCavesNeoForge.PROXY.isFirstPersonPlayer(heldMob)) {
+            if (!AlexsCaves.PROXY.isFirstPersonPlayer(heldMob)) {
                 renderEntity(heldMob, 0, 0, 0, 0, partialTicks, matrixStackIn, bufferIn, packedLightIn);
             }
             matrixStackIn.popPose();
-            AlexsCavesNeoForge.PROXY.blockRenderingEntity(heldMob.getUUID());
+            AlexsCaves.PROXY.blockRenderingEntity(heldMob.getUUID());
         }
     }
 

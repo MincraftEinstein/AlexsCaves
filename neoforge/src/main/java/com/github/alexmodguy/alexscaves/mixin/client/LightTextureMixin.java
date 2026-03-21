@@ -2,7 +2,6 @@ package com.github.alexmodguy.alexscaves.mixin.client;
 
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.server.entity.util.PossessesCamera;
 import com.github.alexmodguy.alexscaves.server.misc.ACLoadedMods;
@@ -79,7 +78,7 @@ public abstract class LightTextureMixin {
     private static void ac_getBrightness(DimensionType dimensionType, int lightTextureIndex, CallbackInfoReturnable<Float> cir) {
         if (AlexsCaves.CLIENT_CONFIG.biomeAmbientLight.get()) {
             float f = ClientProxy.lastBiomeAmbientLightAmountPrev + (ClientProxy.lastBiomeAmbientLightAmount - ClientProxy.lastBiomeAmbientLightAmountPrev) * Minecraft.getInstance().getTimer().getRealtimeDeltaTicks();
-            float primordialBossAmount = AlexsCavesNeoForge.PROXY.getPrimordialBossActiveAmount(Minecraft.getInstance().getTimer().getRealtimeDeltaTicks());
+            float primordialBossAmount = AlexsCaves.PROXY.getPrimordialBossActiveAmount(Minecraft.getInstance().getTimer().getRealtimeDeltaTicks());
             if (Minecraft.getInstance().getCameraEntity() instanceof PossessesCamera || Minecraft.getInstance().getCameraEntity() instanceof LivingEntity afflicted && afflicted.hasEffect(ACEffectRegistry.DARKNESS_INCARNATE)) {
                 f = Math.max(f, 0.35F);
             }

@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.particle;
 
-import com.github.alexmodguy.alexscaves.AlexsCavesNeoForge;
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -45,7 +45,7 @@ public class TephraParticle extends TextureSheetParticle {
         float f1 = 1.0F - f * 2F;
         if (ageProgress > 0.5F) {
             prevAlpha = alpha;
-            this.setAlpha(prevAlpha + (f1 - prevAlpha) * AlexsCavesNeoForge.PROXY.getPartialTicks());
+            this.setAlpha(prevAlpha + (f1 - prevAlpha) * AlexsCaves.PROXY.getPartialTicks());
         }
         if (this.age++ >= this.lifetime) {
             this.remove();

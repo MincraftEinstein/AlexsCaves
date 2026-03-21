@@ -18,7 +18,7 @@ public class ACBlockEntityRegistry {
 
     public static final Supplier<BlockEntityType<VolcanicCoreBlockEntity>> VOLCANIC_CORE = register("volcanic_core", () -> BlockEntityType.Builder.of(VolcanicCoreBlockEntity::new, ACBlockRegistry.VOLCANIC_CORE.get()).build(null));
     public static final Supplier<BlockEntityType<MagnetBlockEntity>> MAGNET = register("magnet", () -> BlockEntityType.Builder.of(MagnetBlockEntity::new, ACBlockRegistry.SCARLET_MAGNET.get(), ACBlockRegistry.AZURE_MAGNET.get()).build(null));
-    public static final Supplier<BlockEntityType<MagnetBlockEntity>> TESLA_BULB = register("tesla_bulb", () -> BlockEntityType.Builder.of(MagnetBlockEntity::new, ACBlockRegistry.TESLA_BULB.get()).build(null));
+    public static final Supplier<BlockEntityType<TeslaBulbBlockEntity>> TESLA_BULB = register("tesla_bulb", () -> BlockEntityType.Builder.of(TeslaBulbBlockEntity::new, ACBlockRegistry.TESLA_BULB.get()).build(null));
     public static final Supplier<BlockEntityType<HologramProjectorBlockEntity>> HOLOGRAM_PROJECTOR = register("hologram_projector", () -> BlockEntityType.Builder.of(HologramProjectorBlockEntity::new, ACBlockRegistry.HOLOGRAM_PROJECTOR.get()).build(null));
     public static final Supplier<BlockEntityType<QuarryBlockEntity>> QUARRY = register("quarry", () -> BlockEntityType.Builder.of(QuarryBlockEntity::new, ACBlockRegistry.QUARRY.get()).build(null));
     public static final Supplier<BlockEntityType<AmbersolBlockEntity>> AMBERSOL = register("ambersol", () -> BlockEntityType.Builder.of(AmbersolBlockEntity::new, ACBlockRegistry.AMBERSOL.get()).build(null));

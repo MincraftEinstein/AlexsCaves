@@ -3,7 +3,13 @@ package com.github.alexmodguy.alexscaves.platform;
 import com.github.alexmodguy.alexscaves.mixin.client.AnimatedTextureAccessor;
 import com.github.alexmodguy.alexscaves.mixin.client.SpriteContentsAccessor;
 import com.github.alexmodguy.alexscaves.platform.services.IClientPlatformHelper;
+import com.github.alexthe666.citadel.refabrciated.client.ClientExtensionsManager;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
+
+import java.util.function.Supplier;
 
 public class FabricClientPlatformHelper implements IClientPlatformHelper {
     @SuppressWarnings("resource")
@@ -18,5 +24,16 @@ public class FabricClientPlatformHelper implements IClientPlatformHelper {
         }
 
         return contentsAS.ac_originalImage().getPixelRGBA(x, y);
+    }
+
+    @Override
+    public void registerExtension(Supplier<? extends ItemLike> item, RenderExtension extensions) {
+        ClientExtensionsManager.ITEM_EXTENSIONS.put(item.get().asItem(), new IClientItemExtensions() {
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                var render = extensions.getCustomRenderer();
+                return render != null ? render : IClientItemExtensions.super.getCustomRenderer();
+            }
+        });
     }
 }

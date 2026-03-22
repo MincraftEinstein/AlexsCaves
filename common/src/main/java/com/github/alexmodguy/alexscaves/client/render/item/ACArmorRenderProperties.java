@@ -3,11 +3,11 @@ package com.github.alexmodguy.alexscaves.client.render.item;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.model.layered.*;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
+import com.github.alexmodguy.alexscaves.platform.services.IClientPlatformHelper;
 import com.github.alexmodguy.alexscaves.server.item.*;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexMultiConsumer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -18,9 +18,9 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
-public class ACArmorRenderProperties implements IClientItemExtensions {
+// TODO fix when citadel update
+public class ACArmorRenderProperties implements IClientPlatformHelper.RenderExtension {
 
     private static final ResourceLocation DARKNESS_ARMOR_GLOW = AlexsCaves.id("textures/armor/darkness_armor_glow.png");
     private static boolean init;
@@ -34,12 +34,12 @@ public class ACArmorRenderProperties implements IClientItemExtensions {
 
     public static void initializeModels() {
         init = true;
-        PRIMORDIAL_ARMOR_MODEL = new PrimordialArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.PRIMORDIAL_ARMOR));
-        HAZMAT_ARMOR_MODEL = new HazmatArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.HAZMAT_ARMOR));
-        DIVING_ARMOR_MODEL = new DivingArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.DIVING_ARMOR));
-        DARKNESS_ARMOR_MODEL = new DarknessArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.DARKNESS_ARMOR));
-        RAINBOUNCE_ARMOR_MODEL = new RainbounceArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.RAINBOUNCE_ARMOR));
-        GINGERBREAD_ARMOR_MODEL = new GingerbreadArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.GINGERBREAD_ARMOR));
+//        PRIMORDIAL_ARMOR_MODEL = new PrimordialArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.PRIMORDIAL_ARMOR));
+//        HAZMAT_ARMOR_MODEL = new HazmatArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.HAZMAT_ARMOR));
+//        DIVING_ARMOR_MODEL = new DivingArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.DIVING_ARMOR));
+//        DARKNESS_ARMOR_MODEL = new DarknessArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.DARKNESS_ARMOR));
+//        RAINBOUNCE_ARMOR_MODEL = new RainbounceArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.RAINBOUNCE_ARMOR));
+//        GINGERBREAD_ARMOR_MODEL = new GingerbreadArmorModel(Minecraft.getInstance().getEntityModels().bakeLayer(ACModelLayers.GINGERBREAD_ARMOR));
     }
 
     @Override
@@ -70,12 +70,12 @@ public class ACArmorRenderProperties implements IClientItemExtensions {
 
     public static void renderCustomArmor(PoseStack poseStack, MultiBufferSource multiBufferSource, int light, ItemStack itemStack, ArmorItem armorItem, Model armorModel, boolean legs, ResourceLocation texture) {
         // In 1.21, armorItem.getMaterial() returns Holder<ArmorMaterial>, so compare with .getHolder()
-        if(armorItem.getMaterial() == ACArmorMaterials.DARKNESS){
+        if (armorItem.getMaterial() == ACArmorMaterials.DARKNESS) {
             VertexConsumer vertexconsumer1 = itemStack.hasFoil() ? VertexMultiConsumer.create(multiBufferSource.getBuffer(RenderType.entityGlintDirect()), multiBufferSource.getBuffer(RenderType.entityTranslucent(texture))) : multiBufferSource.getBuffer(RenderType.entityTranslucent(texture));
             armorModel.renderToBuffer(poseStack, vertexconsumer1, light, OverlayTexture.NO_OVERLAY, -1);
             VertexConsumer vertexconsumer2 = multiBufferSource.getBuffer(ACRenderTypes.getEyesAlphaEnabled(DARKNESS_ARMOR_GLOW));
             armorModel.renderToBuffer(poseStack, vertexconsumer2, 240, OverlayTexture.NO_OVERLAY, -1);
-        }else if(armorItem.getMaterial() == ACArmorMaterials.RAINBOUNCE){
+        } else if (armorItem.getMaterial() == ACArmorMaterials.RAINBOUNCE) {
             VertexConsumer vertexconsumer1 = itemStack.hasFoil() ? VertexMultiConsumer.create(multiBufferSource.getBuffer(RenderType.entityGlintDirect()), multiBufferSource.getBuffer(ACRenderTypes.getTeslaBulb(texture))) : multiBufferSource.getBuffer(ACRenderTypes.getTeslaBulb(texture));
             armorModel.renderToBuffer(poseStack, vertexconsumer1, 240, OverlayTexture.NO_OVERLAY, -1);
         }

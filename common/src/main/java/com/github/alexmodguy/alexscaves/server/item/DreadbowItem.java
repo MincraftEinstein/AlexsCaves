@@ -59,12 +59,6 @@ public class DreadbowItem extends ProjectileWeaponItem implements UpdatesStackTa
         return null;
     }
 
-    //TODO fix when render
-   /* @Override
-    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
-    }*/
-
     @Override
     protected void shootProjectile(LivingEntity shooter, Projectile projectile, int index, float velocity, float inaccuracy, float angle, @Nullable LivingEntity target) {
         projectile.shootFromRotation(shooter, shooter.getXRot(), shooter.getYRot() + angle, 0.0F, velocity, inaccuracy);

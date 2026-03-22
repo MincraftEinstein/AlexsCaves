@@ -6,5 +6,6 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        AlexsCavesClient.init();
     }
 }

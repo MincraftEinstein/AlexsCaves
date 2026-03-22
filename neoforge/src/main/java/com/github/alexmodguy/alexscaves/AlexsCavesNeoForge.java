@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves;
 
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
+import com.github.alexmodguy.alexscaves.platform.NeoForgeClientPlatformHelper;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeRegistryHelper;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
@@ -93,7 +94,9 @@ public class AlexsCavesNeoForge {
         ACPotPatternRegistry.init(); // Pot patterns are now data-driven in 1.21
         this.modEventBus = modEventBus; // Store for later use
         if (AlexsCaves.PROXY instanceof ClientProxy cProxy) {
-            cProxy.commonInit(this.modEventBus);
+            cProxy.commonInit(modEventBus);
+            NeoForgeClientPlatformHelper.init(modEventBus);
+            AlexsCavesClient.init();
         }
         ACBiomeRegistry.init();
     }

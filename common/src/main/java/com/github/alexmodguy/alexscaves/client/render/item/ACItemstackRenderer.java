@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.client.gui.book.widget.ItemWidget;
 import com.github.alexmodguy.alexscaves.client.model.*;
 import com.github.alexmodguy.alexscaves.client.render.ACRenderTypes;
 import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
@@ -28,6 +27,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
 
@@ -46,7 +46,7 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation LIMESTONE_SPEAR_TEXTURE = id("textures/entity/limestone_spear.png");
     private static final LimestoneSpearModel LIMESTONE_SPEAR_MODEL = new LimestoneSpearModel();
     private static final ResourceLocation EXTINCTION_SPEAR_TEXTURE = id("textures/entity/extinction_spear.png");
-    private static final ExtinctionSpearModel EXTINCTION_SPEAR_MODEL = new ExtinctionSpearModel();
+//    private static final ExtinctionSpearModel EXTINCTION_SPEAR_MODEL = new ExtinctionSpearModel();
     private static final ResourceLocation SIREN_LIGHT_TEXTURE = id("textures/entity/siren_light.png");
     private static final ResourceLocation SIREN_LIGHT_COLOR_TEXTURE = id("textures/entity/siren_light_color.png");
     private static final SirenLightModel SIREN_LIGHT_MODEL = new SirenLightModel();
@@ -77,7 +77,7 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation SUGAR_STAFF_TEXTURE = id("textures/entity/sugar_staff.png");
     private static final SugarStaffModel SUGAR_STAFF_MODEL = new SugarStaffModel();
     private static final ResourceLocation FROSTMINT_SPEAR_TEXTURE = id("textures/entity/frostmint_spear.png");
-    private static final FrostmintSpearModel FROSTMINT_SPEAR_MODEL = new FrostmintSpearModel();
+//    private static final FrostmintSpearModel FROSTMINT_SPEAR_MODEL = new FrostmintSpearModel();
 
     public static boolean sepiaFlag = false;
 
@@ -226,11 +226,12 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
                     poseStack.translate(0, 0.5F, 0F);
                     poseStack.scale(0.75F, 0.75F, 0.75F);
                 }
-                EXTINCTION_SPEAR_MODEL.resetToDefaultPose();
-                VertexConsumer vertexconsumer1 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityCutoutNoCull(EXTINCTION_SPEAR_TEXTURE), itemStackIn.hasFoil());
-                EXTINCTION_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer1, 240, combinedOverlayIn, -1);
-                VertexConsumer vertexconsumer2 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityTranslucent(EXTINCTION_SPEAR_TEXTURE), itemStackIn.hasFoil());
-                EXTINCTION_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer2, 240, combinedOverlayIn, -1);
+                // TODO fix when item
+//                EXTINCTION_SPEAR_MODEL.resetToDefaultPose();
+//                VertexConsumer vertexconsumer1 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityCutoutNoCull(EXTINCTION_SPEAR_TEXTURE), itemStackIn.hasFoil());
+//                EXTINCTION_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer1, 240, combinedOverlayIn, -1);
+//                VertexConsumer vertexconsumer2 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityTranslucent(EXTINCTION_SPEAR_TEXTURE), itemStackIn.hasFoil());
+//                EXTINCTION_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer2, 240, combinedOverlayIn, -1);
                 poseStack.popPose();
             } else {
                 renderStaticItemSprite(spriteItem, transformType, combinedLightIn, combinedOverlayIn, poseStack, bufferIn, level);
@@ -264,7 +265,7 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
                 if (enchantmentLookup.isPresent()) {
                     var gammaRayHolder = enchantmentLookup.get().get(ACEnchantmentRegistry.GAMMA_RAY);
                     if (gammaRayHolder.isPresent()) {
-                        gamma = itemStackIn.getEnchantmentLevel(gammaRayHolder.get()) > 0;
+                        gamma = EnchantmentHelper.getItemEnchantmentLevel(gammaRayHolder.get(), itemStackIn) > 0;
                     }
                 }
             }
@@ -440,9 +441,10 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
                     poseStack.translate(0, 0.5F, 0F);
                     poseStack.scale(0.75F, 0.75F, 0.75F);
                 }
-                FROSTMINT_SPEAR_MODEL.resetToDefaultPose();
-                VertexConsumer vertexconsumer1 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityCutoutNoCull(FROSTMINT_SPEAR_TEXTURE), itemStackIn.hasFoil());
-                FROSTMINT_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer1, combinedLightIn, combinedOverlayIn, -1);
+                // TODO
+//                FROSTMINT_SPEAR_MODEL.resetToDefaultPose();
+//                VertexConsumer vertexconsumer1 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityCutoutNoCull(FROSTMINT_SPEAR_TEXTURE), itemStackIn.hasFoil());
+//                FROSTMINT_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer1, combinedLightIn, combinedOverlayIn, -1);
                 poseStack.popPose();
             } else {
                 renderStaticItemSprite(spriteItem, transformType, combinedLightIn, combinedOverlayIn, poseStack, bufferIn, level);
@@ -453,7 +455,7 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private void renderStaticItemSprite(ItemStack spriteItem, ItemDisplayContext transformType, int combinedLightIn, int combinedOverlayIn, PoseStack poseStack, MultiBufferSource bufferIn, ClientLevel level) {
         if(sepiaFlag){
             BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(spriteItem, Minecraft.getInstance().level, null, 0);
-            ItemWidget.renderSepiaItem(poseStack, bakedmodel, spriteItem, Minecraft.getInstance().renderBuffers().bufferSource());
+//            ItemWidget.renderSepiaItem(poseStack, bakedmodel, spriteItem, Minecraft.getInstance().renderBuffers().bufferSource());
         }else{
             Minecraft.getInstance().getItemRenderer().renderStatic(spriteItem, transformType, transformType == ItemDisplayContext.GROUND ? combinedLightIn : 240, combinedOverlayIn, poseStack, bufferIn, level, 0);
         }
@@ -462,7 +464,7 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private void renderStaticItemSpriteWithLighting(ItemStack spriteItem, ItemDisplayContext transformType, int combinedLightIn, int combinedOverlayIn, PoseStack poseStack, MultiBufferSource bufferIn, ClientLevel level) {
         if(sepiaFlag){
             BakedModel bakedmodel = Minecraft.getInstance().getItemRenderer().getModel(spriteItem, Minecraft.getInstance().level, null, 0);
-            ItemWidget.renderSepiaItem(poseStack, bakedmodel, spriteItem, Minecraft.getInstance().renderBuffers().bufferSource());
+//            ItemWidget.renderSepiaItem(poseStack, bakedmodel, spriteItem, Minecraft.getInstance().renderBuffers().bufferSource());
         }else{
             Minecraft.getInstance().getItemRenderer().renderStatic(spriteItem, transformType, transformType != ItemDisplayContext.GUI ? combinedLightIn : 240, combinedOverlayIn, poseStack, bufferIn, level, 0);
         }

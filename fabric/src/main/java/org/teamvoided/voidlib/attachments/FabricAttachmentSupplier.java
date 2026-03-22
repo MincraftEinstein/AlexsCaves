@@ -34,6 +34,14 @@ public record FabricAttachmentSupplier<T, V>(AttachmentType<T> type) implements 
     }
 
     @Override
+    public void remove(V holder) {
+        if (holder instanceof AttachmentTarget attachmentTarget) {
+            attachmentTarget.removeAttached(type);
+        }
+        throw new IllegalArgumentException("Object is not an AttachmentTarget");
+    }
+
+    @Override
     public void sync(V holder) {
         if (holder instanceof AttachmentTarget attachmentTarget) {
             attachmentTarget.modifyAttached(type, UnaryOperator.identity());

@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.function.BiPredicate;
 import java.util.function.Supplier;
 
-public class AttachmentBuilder<T> {
+public class AttachmentBuilder<T, V> {
 
     public final Supplier<T> defaultValue;
     @Nullable
@@ -17,30 +17,30 @@ public class AttachmentBuilder<T> {
     @Nullable
     public StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec;
     @Nullable
-    public BiPredicate<Object, ServerPlayer> syncPredicate;
+    public BiPredicate<V, ServerPlayer> syncPredicate;
     public boolean copyOnDeath;
 
     public AttachmentBuilder(Supplier<T> defaultValue) {
         this.defaultValue = defaultValue;
     }
 
-    public AttachmentBuilder<T> persistent(Codec<T> codec) {
+    public AttachmentBuilder<T, V> persistent(Codec<T> codec) {
         this.codec = codec;
         return this;
     }
 
-    public AttachmentBuilder<T> copyOnDeath() {
+    public AttachmentBuilder<T, V> copyOnDeath() {
         copyOnDeath = true;
         return this;
     }
 
-    public AttachmentBuilder<T> synced(StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec, BiPredicate<Object, ServerPlayer> predicate) {
+    public AttachmentBuilder<T, V> synced(StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec, BiPredicate<V, ServerPlayer> predicate) {
         this.streamCodec = streamCodec;
         syncPredicate = predicate;
         return this;
     }
 
-    public AttachmentBuilder<T> synced(StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
+    public AttachmentBuilder<T, V> synced(StreamCodec<? super RegistryFriendlyByteBuf, T> streamCodec) {
         return synced(streamCodec, (holder, player) -> true);
     }
 }

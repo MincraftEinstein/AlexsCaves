@@ -33,6 +33,14 @@ public record NeoForgeAttachmentSupplier<T, V>(Supplier<AttachmentType<T>> type)
     }
 
     @Override
+    public void remove(V holder) {
+        if (holder instanceof AttachmentHolder attachmentHolder) {
+            attachmentHolder.removeData(type);
+        }
+        throw new IllegalArgumentException("Object is not an AttachmentHolder");
+    }
+
+    @Override
     public void sync(V holder) {
         if (holder instanceof AttachmentHolder attachmentHolder) {
             attachmentHolder.syncData(type);

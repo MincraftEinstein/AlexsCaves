@@ -32,6 +32,7 @@ import org.teamvoided.voidlib.attachments.AttachmentSupplier;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 public interface RegistryHelper {
 
@@ -96,5 +97,5 @@ public interface RegistryHelper {
 
     RegHolder<ArmorMaterial, ArmorMaterial> registerArmorMaterial(String name, Supplier<ArmorMaterial> material);
 
-    <T, V> AttachmentSupplier<T, V> registerAttachment(String name, Supplier<AttachmentBuilder<T>> builderSupplier);
+    <T, V> AttachmentSupplier<T, V> registerAttachment(String name, Class<V> holderClass, Supplier<T> defaultValue, UnaryOperator<AttachmentBuilder<T, V>> builderSupplier);
 }

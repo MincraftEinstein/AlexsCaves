@@ -11,5 +11,7 @@ public interface AttachmentSupplier<T, V> {
 
     void set(V holder, T value);
 
+    void remove(V holder);
+
     void sync(V holder);
 }

@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves.platform;
 import com.github.alexmodguy.alexscaves.platform.services.RegistryHelper;
 import com.mojang.serialization.MapCodec;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentTarget;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
@@ -40,6 +41,7 @@ import org.teamvoided.voidlib.attachments.FabricAttachmentSupplier;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
 
@@ -172,11 +174,15 @@ public class FabricRegistryHelper implements RegistryHelper {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.ARMOR_MATERIAL, id(name), material.get()));
     }
 
-    @SuppressWarnings("UnstableApiUsage")
+    @SuppressWarnings({"UnstableApiUsage", "unchecked"})
     @Override
-    public <T, V> AttachmentSupplier<T, V> registerAttachment(String name, Supplier<AttachmentBuilder<T>> builderSupplier) {
+    public <T, V> AttachmentSupplier<T, V> registerAttachment(String name, Class<V> holderClass, Supplier<T> defaultValue, UnaryOperator<AttachmentBuilder<T, V>> builderSupplier) {
+        if (!AttachmentTarget.class.isAssignableFrom(holderClass)) {
+            throw new IllegalArgumentException("Holder class must implement AttachmentTarget");
+        }
+
         AttachmentType<T> type = AttachmentRegistry.create(id(name), typeBuilder -> {
-            AttachmentBuilder<T> builder = builderSupplier.get();
+            AttachmentBuilder<T, V> builder = builderSupplier.apply(new AttachmentBuilder<>(defaultValue));
             typeBuilder.initializer(builder.defaultValue);
 
             if (builder.codec != null) {
@@ -190,7 +196,7 @@ public class FabricRegistryHelper implements RegistryHelper {
             if (builder.streamCodec != null) {
                 typeBuilder.syncWith(builder.streamCodec, (attachmentTarget, player) -> {
                     if (builder.syncPredicate != null) {
-                        return builder.syncPredicate.test(attachmentTarget, player);
+                        return builder.syncPredicate.test((V) attachmentTarget, player);
                     }
                     return true;
                 });

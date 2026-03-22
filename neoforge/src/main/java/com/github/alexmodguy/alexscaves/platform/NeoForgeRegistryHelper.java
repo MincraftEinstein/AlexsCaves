@@ -32,6 +32,7 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.attachment.IAttachmentHolder;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
@@ -47,6 +48,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+import java.util.function.UnaryOperator;
 
 import static com.github.alexmodguy.alexscaves.AlexsCaves.MOD_ID;
 
@@ -219,10 +221,15 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
         return NeoRegHolder.of(ARMOR_MATERIALS.register(name, material));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public <T, V> AttachmentSupplier<T, V> registerAttachment(String name, Supplier<AttachmentBuilder<T>> builderSupplier) {
+    public <T, V> AttachmentSupplier<T, V> registerAttachment(String name, Class<V> holderClass, Supplier<T> defaultValue, UnaryOperator<AttachmentBuilder<T, V>> builderSupplier) {
+        if (!IAttachmentHolder.class.isAssignableFrom(holderClass)) {
+            throw new IllegalArgumentException("Holder class must implement IAttachmentHolder");
+        }
+
         DeferredHolder<AttachmentType<?>, AttachmentType<T>> registered = ATTACHMENTS.register(name, () -> {
-            AttachmentBuilder<T> builder = builderSupplier.get();
+            AttachmentBuilder<T, V> builder = builderSupplier.apply(new AttachmentBuilder<>(defaultValue));
             AttachmentType.Builder<T> typeBuilder = AttachmentType.builder(builder.defaultValue);
             if (builder.codec != null) {
                 typeBuilder.serialize(builder.codec);
@@ -235,7 +242,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
             if (builder.streamCodec != null) {
                 typeBuilder.sync((holder, player) -> {
                     if (builder.syncPredicate != null) {
-                        return builder.syncPredicate.test(holder, player);
+                        return builder.syncPredicate.test((V) holder, player);
                     }
                     return true;
                 }, builder.streamCodec);

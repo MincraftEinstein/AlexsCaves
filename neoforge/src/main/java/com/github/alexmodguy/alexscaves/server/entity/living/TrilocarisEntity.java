@@ -32,6 +32,7 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -196,7 +197,7 @@ public class TrilocarisEntity extends WaterAnimal implements Bucketable {
 
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ACItemRegistry.TRILOCARIS_BUCKET.get());
+        ItemStack stack = new ItemStack(Items.APPLE/*ACItemRegistry.TRILOCARIS_BUCKET.get()*/);
         if (this.hasCustomName()) {
             stack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }

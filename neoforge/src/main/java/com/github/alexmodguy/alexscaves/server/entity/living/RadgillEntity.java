@@ -40,6 +40,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -209,7 +210,7 @@ public class RadgillEntity extends WaterAnimal implements Bucketable {
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
         if (!type.consumesAction()) {
-            if (itemstack.getItem() == ACItemRegistry.ACID_BUCKET.get() && this.isAlive()) {
+            if (/*itemstack.getItem() == ACItemRegistry.ACID_BUCKET.get() &&*/ this.isAlive()) {
                 this.playSound(this.getPickupSound(), 1.0F, 1.0F);
                 ItemStack itemstack1 = this.getBucketItemStack();
                 this.saveToBucketTag(itemstack1);
@@ -247,7 +248,7 @@ public class RadgillEntity extends WaterAnimal implements Bucketable {
 
     @Override
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(ACItemRegistry.RADGILL_BUCKET.get());
+        ItemStack stack = new ItemStack(Items.APPLE/*ACItemRegistry.RADGILL_BUCKET.get()*/);
         if (this.hasCustomName()) {
             stack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }

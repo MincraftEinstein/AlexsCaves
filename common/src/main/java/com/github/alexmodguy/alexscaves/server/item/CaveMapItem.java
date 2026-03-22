@@ -75,8 +75,7 @@ public class CaveMapItem extends Item implements UpdatesStackTags {
     }
 
     public static ItemStack createMap(ResourceKey<Biome> biomeResourceKey) {
-        // TODO fix when ItemReg is ported
-        ItemStack map = new ItemStack(Items.APPLE/*ACItemRegistry.CAVE_MAP.get()*/);
+        ItemStack map = new ItemStack(ACItemRegistry.CAVE_MAP.get());
         CompoundTag tag = new CompoundTag();
         tag.putString("BiomeTargetResourceKey", biomeResourceKey.location().toString());
         map.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));

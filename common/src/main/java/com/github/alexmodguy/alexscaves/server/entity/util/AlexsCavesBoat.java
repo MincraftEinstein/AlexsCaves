@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.entity.util;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
+import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -13,9 +14,8 @@ public interface AlexsCavesBoat {
     AlexsCavesBoat.Type getACBoatType();
 
     enum Type {
-        // TODO fix when item
-        PEWEN("pewen", ACBlockRegistry.PEWEN_PLANKS, () -> Items.APPLE, () -> Items.APPLE /*ACItemRegistry.PEWEN_BOAT, ACItemRegistry.PEWEN_CHEST_BOAT*/),
-        THORNWOOD("thornwood", ACBlockRegistry.THORNWOOD_PLANKS, () -> Items.APPLE, () -> Items.APPLE/*ACItemRegistry.THORNWOOD_BOAT, ACItemRegistry.THORNWOOD_CHEST_BOAT*/);
+        PEWEN("pewen", ACBlockRegistry.PEWEN_PLANKS,  ACItemRegistry.PEWEN_BOAT, ACItemRegistry.PEWEN_CHEST_BOAT),
+        THORNWOOD("thornwood", ACBlockRegistry.THORNWOOD_PLANKS, ACItemRegistry.THORNWOOD_BOAT, ACItemRegistry.THORNWOOD_CHEST_BOAT);
 
         private final String name;
         private final Supplier<Block> plankSupplier;

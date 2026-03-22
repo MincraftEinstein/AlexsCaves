@@ -73,7 +73,6 @@ public class AlexsCavesNeoForge {
         NeoForge.EVENT_BUS.register(new CommonEvents());
         // TODO move to common
         ACBlockEntityRegistry.init();
-        ACItemRegistry.init();
         ACEntityRegistry.init();
         ACEntityDataRegistry.DEF_REG.register(modEventBus);
         ACFeatureRegistry.DEF_REG.register(modEventBus);
@@ -168,8 +167,8 @@ public class AlexsCavesNeoForge {
         event.register(TICKET_CONTROLLER);
         event.register(com.github.alexmodguy.alexscaves.server.entity.item.NuclearExplosionEntity.TICKET_CONTROLLER);
         event.register(com.github.alexmodguy.alexscaves.server.entity.item.BeholderEyeEntity.TICKET_CONTROLLER);
-        event.register(com.github.alexmodguy.alexscaves.server.item.OccultGemItem.TICKET_CONTROLLER);
-        event.register(com.github.alexmodguy.alexscaves.server.item.RemoteDetonatorItem.TICKET_CONTROLLER);
+//        event.register(com.github.alexmodguy.alexscaves.server.item.OccultGemItem.TICKET_CONTROLLER);
+//        event.register(com.github.alexmodguy.alexscaves.server.item.RemoteDetonatorItem.TICKET_CONTROLLER);
     }
 
     private void clientSetup(final FMLClientSetupEvent event) {

@@ -32,7 +32,7 @@ public class GummyColorLootFunction extends LootItemConditionalFunction {
         if(stack.is(ACTagRegistry.GUMMY_ITEMS) && context.hasParam(LootContextParams.THIS_ENTITY) && context.getParam(LootContextParams.THIS_ENTITY) instanceof HasGummyColors hasGummyColors){
             GummyColors color = hasGummyColors.getGummyColor();
             Item replaceItem = stack.getItem();
-            if(stack.is(ACItemRegistry.SWEETISH_FISH_RED_BUCKET.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_GREEN_BUCKET.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_YELLOW_BUCKET.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_BLUE_BUCKET.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_PINK_BUCKET.get())){
+          /*  if(stack.is(ACItemRegistry.SWEETISH_FISH_RED_BUCKET.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_GREEN_BUCKET.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_YELLOW_BUCKET.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_BLUE_BUCKET.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_PINK_BUCKET.get())){
                 switch (color){
                     case RED:
                         replaceItem = ACItemRegistry.SWEETISH_FISH_RED_BUCKET.get();
@@ -50,7 +50,7 @@ public class GummyColorLootFunction extends LootItemConditionalFunction {
                         replaceItem = ACItemRegistry.SWEETISH_FISH_PINK_BUCKET.get();
                         break;
                 }
-            }else if(stack.is(ACItemRegistry.SWEETISH_FISH_RED.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_GREEN.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_YELLOW.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_BLUE.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_PINK.get())){
+            }else*/ if(stack.is(ACItemRegistry.SWEETISH_FISH_RED.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_GREEN.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_YELLOW.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_BLUE.get()) || stack.is(ACItemRegistry.SWEETISH_FISH_PINK.get())){
                 switch (color){
                     case RED:
                         replaceItem = ACItemRegistry.SWEETISH_FISH_RED.get();

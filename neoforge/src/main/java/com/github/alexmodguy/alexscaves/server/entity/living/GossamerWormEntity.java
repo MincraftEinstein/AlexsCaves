@@ -31,6 +31,7 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
@@ -323,7 +324,7 @@ public class GossamerWormEntity extends WaterAnimal implements Bucketable {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(ACItemRegistry.GOSSAMER_WORM_BUCKET.get());
+        return new ItemStack(Items.APPLE/*ACItemRegistry.GOSSAMER_WORM_BUCKET.get()*/);
     }
 
     @Override

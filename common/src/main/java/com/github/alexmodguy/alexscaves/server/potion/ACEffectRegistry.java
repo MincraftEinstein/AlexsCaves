@@ -4,6 +4,7 @@ package com.github.alexmodguy.alexscaves.server.potion;
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.platform.Services;
 //import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
+import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.alchemy.PotionContents;
+import net.minecraft.world.item.alchemy.Potions;
 
 import java.util.Objects;
 import java.util.function.Supplier;
@@ -52,21 +54,20 @@ public class ACEffectRegistry {
 
     public static void init() {
         Services.REGISTRY_HELPER.registerPotionRecipes((builder) -> {
-            //TODO fix when items
-//            builder.addMix(Potions.AWKWARD, ACItemRegistry.FERROUSLIME_BALL.get(), asHolder(MAGNETIZING_POTION));
+            builder.addMix(Potions.AWKWARD, ACItemRegistry.FERROUSLIME_BALL.get(), asHolder(MAGNETIZING_POTION));
             builder.addMix(asHolder(MAGNETIZING_POTION), Items.REDSTONE, asHolder(LONG_MAGNETIZING_POTION));
 
-//            builder.addMix(Potions.AWKWARD, ACItemRegistry.LANTERNFISH.get(), asHolder(DEEPSIGHT_POTION));
+            builder.addMix(Potions.AWKWARD, ACItemRegistry.LANTERNFISH.get(), asHolder(DEEPSIGHT_POTION));
             builder.addMix(asHolder(DEEPSIGHT_POTION), Items.REDSTONE, asHolder(LONG_DEEPSIGHT_POTION));
 
-//            builder.addMix(Potions.AWKWARD, ACItemRegistry.BIOLUMINESSCENCE.get(), asHolder(GLOWING_POTION));
+            builder.addMix(Potions.AWKWARD, ACItemRegistry.BIOLUMINESSCENCE.get(), asHolder(GLOWING_POTION));
             builder.addMix(asHolder(GLOWING_POTION), Items.REDSTONE, asHolder(LONG_GLOWING_POTION));
 
-//            builder.addMix(Potions.AWKWARD, ACItemRegistry.CORRODENT_TEETH.get(), asHolder(HASTE_POTION));
+            builder.addMix(Potions.AWKWARD, ACItemRegistry.CORRODENT_TEETH.get(), asHolder(HASTE_POTION));
             builder.addMix(asHolder(HASTE_POTION), Items.REDSTONE, asHolder(LONG_HASTE_POTION));
             builder.addMix(asHolder(HASTE_POTION), Items.GLOWSTONE_DUST, asHolder(STRONG_HASTE_POTION));
 
-//            builder.addMix(Potions.STRONG_SWIFTNESS, ACItemRegistry.SWEET_TOOTH.get(), asHolder(SUGAR_RUSH_POTION));
+            builder.addMix(Potions.STRONG_SWIFTNESS, ACItemRegistry.SWEET_TOOTH.get(), asHolder(SUGAR_RUSH_POTION));
             builder.addMix(asHolder(SUGAR_RUSH_POTION), Items.REDSTONE, asHolder(LONG_SUGAR_RUSH_POTION));
         });
     }
@@ -95,9 +96,7 @@ public class ACEffectRegistry {
     }
 
     public static ItemStack createJellybean(Holder<Potion> potion) {
-        //TODO fix when items
-//        ItemStack stack = new ItemStack(ACItemRegistry.JELLY_BEAN.get());
-        ItemStack stack = new ItemStack(Items.APPLE);
+        ItemStack stack = new ItemStack(ACItemRegistry.JELLY_BEAN.get());
         stack.set(DataComponents.POTION_CONTENTS, new PotionContents(asHolder(potion)));
         return stack;
     }

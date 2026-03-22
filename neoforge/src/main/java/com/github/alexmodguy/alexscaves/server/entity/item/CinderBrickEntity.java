@@ -9,6 +9,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
@@ -60,6 +61,6 @@ public class CinderBrickEntity extends ThrowableItemProjectile {
 
     @Override
     protected Item getDefaultItem() {
-        return ACItemRegistry.CINDER_BRICK.get();
+        return Items.APPLE;/*ACItemRegistry.CINDER_BRICK.get();*/
     }
 }

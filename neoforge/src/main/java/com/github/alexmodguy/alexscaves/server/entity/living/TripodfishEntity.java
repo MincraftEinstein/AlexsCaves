@@ -33,6 +33,7 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
@@ -303,7 +304,7 @@ public class TripodfishEntity extends WaterAnimal implements Bucketable {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return new ItemStack(ACItemRegistry.TRIPODFISH_BUCKET.get());
+        return new ItemStack(Items.APPLE/*ACItemRegistry.TRIPODFISH_BUCKET.get()*/);
     }
 
     @Override

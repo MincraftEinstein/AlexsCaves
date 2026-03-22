@@ -10,6 +10,7 @@ import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.config.ACServerConfig;
 import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACArmorMaterials;
+import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.carver.ACCarverRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
@@ -54,6 +55,7 @@ public class AlexsCaves {
         LOGGER.info("Hello from Alex's Caves Multiloader Edition");
         ACSoundRegistry.init();
         ACSoundTypes.init();
+        ACItemRegistry.init();
         ACBlockRegistry.init();
         ACPOIRegistry.init();
         ACAdvancementTriggerRegistry.init();

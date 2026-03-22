@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.item;
 
 import net.minecraft.world.item.Rarity;
 
+// TODO fix when rarity
 public class ACRarity {
     // Custom item rarities - uses NeoForge extensible enum system
     // Defined in ACRarityEnumParams and registered via META-INF/enumextensions.json
@@ -13,29 +14,33 @@ public class ACRarity {
 
     public static Rarity getRarityDemonic() {
         if (RARITY_DEMONIC_CACHE == null) {
-            RARITY_DEMONIC_CACHE = Rarity.valueOf("ALEXSCAVES_DEMONIC");
+//            RARITY_DEMONIC_CACHE = Rarity.valueOf("ALEXSCAVES_DEMONIC");
         }
-        return RARITY_DEMONIC_CACHE;
+//        return RARITY_DEMONIC_CACHE;
+        return Rarity.EPIC;
     }
 
     public static Rarity getRarityNuclear() {
         if (RARITY_NUCLEAR_CACHE == null) {
-            RARITY_NUCLEAR_CACHE = Rarity.valueOf("ALEXSCAVES_NUCLEAR");
+//            RARITY_NUCLEAR_CACHE = Rarity.valueOf("ALEXSCAVES_NUCLEAR");
         }
-        return RARITY_NUCLEAR_CACHE;
+//        return RARITY_NUCLEAR_CACHE;
+        return Rarity.EPIC;
     }
 
     public static Rarity getRaritySweet() {
         if (RARITY_SWEET_CACHE == null) {
-            RARITY_SWEET_CACHE = Rarity.valueOf("ALEXSCAVES_SWEET");
+//            RARITY_SWEET_CACHE = Rarity.valueOf("ALEXSCAVES_SWEET");
         }
-        return RARITY_SWEET_CACHE;
+//        return RARITY_SWEET_CACHE;
+        return Rarity.EPIC;
     }
 
     public static Rarity getRarityRainbow() {
         if (RARITY_RAINBOW_CACHE == null) {
-            RARITY_RAINBOW_CACHE = Rarity.valueOf("ALEXSCAVES_RAINBOW");
+//            RARITY_RAINBOW_CACHE = Rarity.valueOf("ALEXSCAVES_RAINBOW");
         }
-        return RARITY_RAINBOW_CACHE;
+//        return RARITY_RAINBOW_CACHE;
+        return Rarity.EPIC;
     }
 }

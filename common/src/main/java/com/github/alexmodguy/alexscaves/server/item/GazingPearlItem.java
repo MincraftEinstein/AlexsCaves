@@ -69,8 +69,7 @@ public class GazingPearlItem extends Item {
         }
     }
 
-    // TODO fix when item
     public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-        return false;/*!oldStack.is(ACItemRegistry.GAZING_PEARL.get()) || !newStack.is(ACItemRegistry.GAZING_PEARL.get());*/
+        return !oldStack.is(ACItemRegistry.GAZING_PEARL.get()) || !newStack.is(ACItemRegistry.GAZING_PEARL.get());
     }
 }

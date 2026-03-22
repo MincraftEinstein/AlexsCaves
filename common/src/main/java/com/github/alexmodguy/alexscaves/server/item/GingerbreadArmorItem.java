@@ -1,0 +1,84 @@
+package com.github.alexmodguy.alexscaves.server.item;
+
+import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.platform.RegHolder;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.github.alexmodguy.alexscaves.AlexsCaves.id;
+
+public class GingerbreadArmorItem extends ArmorItem {
+
+    private static final double MIN_SPEED_BOOST = 0.1D;
+    private static final double MAX_SPEED_BOOST = 1.0D;
+    private final Map<Integer, ItemAttributeModifiers> gingerbreadDurabilityDependentAttributes = new HashMap<>();
+    private final ItemAttributeModifiers defaultItemAttributes;
+
+    public GingerbreadArmorItem(RegHolder<ArmorMaterial, ArmorMaterial> armorMaterial, Type slot) {
+        super(armorMaterial, slot, new Item.Properties().durability(slot.getDurability(10)));
+        this.defaultItemAttributes = createGingerbreadAttributes(armorMaterial.get(), slot, MIN_SPEED_BOOST);
+    }
+
+    private static ItemAttributeModifiers createGingerbreadAttributes(ArmorMaterial armorMaterial, Type slot, double speedBoost) {
+        ResourceLocation id = id("armor_gingerbread_" + slot.getName());
+        EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(slot.getSlot());
+        return ItemAttributeModifiers.builder()
+                .add(Attributes.ARMOR, new AttributeModifier(id, armorMaterial.getDefense(slot), AttributeModifier.Operation.ADD_VALUE), slotGroup)
+                .add(Attributes.MOVEMENT_SPEED, new AttributeModifier(id, speedBoost, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), slotGroup)
+                .build();
+    }
+
+    private ItemAttributeModifiers getOrCreateDurabilityAttributes(int durabilityIn, int maxDurability) {
+        if (gingerbreadDurabilityDependentAttributes.containsKey(durabilityIn)) {
+            return gingerbreadDurabilityDependentAttributes.get(durabilityIn);
+        } else {
+            float scaledDurability = durabilityIn / (float) maxDurability;
+            double speed = MIN_SPEED_BOOST + (MAX_SPEED_BOOST - MIN_SPEED_BOOST) * scaledDurability;
+            ResourceLocation id = id("armor_gingerbread_" + type.getName() + "_durability_" + durabilityIn);
+            EquipmentSlotGroup slotGroup = EquipmentSlotGroup.bySlot(type.getSlot());
+            ItemAttributeModifiers attributes = ItemAttributeModifiers.builder()
+                    .add(Attributes.ARMOR, new AttributeModifier(id, this.getDefense(), AttributeModifier.Operation.ADD_VALUE), slotGroup)
+                    .add(Attributes.MOVEMENT_SPEED, new AttributeModifier(id, speed, AttributeModifier.Operation.ADD_MULTIPLIED_BASE), slotGroup)
+                    .build();
+            gingerbreadDurabilityDependentAttributes.put(durabilityIn, attributes);
+            return attributes;
+        }
+    }
+
+    // TODO fix when render
+  /*  @Override
+    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
+        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getArmorProperties());
+    }*/
+
+    // TODO fix neo
+    public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack) {
+        if (stack.getDamageValue() > 0) {
+            return getOrCreateDurabilityAttributes(stack.getDamageValue(), stack.getMaxDamage());
+        }
+        return defaultItemAttributes;
+    }
+
+    // TODO fix when render
+    @Nullable
+    public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+        if (slot == EquipmentSlot.LEGS) {
+            return id("textures/armor/gingerbread_armor_1.png");
+        } else {
+            return id("textures/armor/gingerbread_armor_0.png");
+        }
+    }
+}

@@ -42,6 +42,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -190,7 +191,7 @@ public class SweetishFishEntity extends WaterAnimal implements Bucketable, HasGu
     public ItemStack getBucketItemStack() {
         ItemStack stack;
         switch (this.getGummyColor()){
-            case RED:
+           /* case RED:
                 stack = new ItemStack(ACItemRegistry.SWEETISH_FISH_RED_BUCKET.get());
                 break;
             case GREEN:
@@ -201,9 +202,9 @@ public class SweetishFishEntity extends WaterAnimal implements Bucketable, HasGu
                 break;
             case BLUE:
                 stack = new ItemStack(ACItemRegistry.SWEETISH_FISH_BLUE_BUCKET.get());
-                break;
+                break;*/
             default:
-                stack = new ItemStack(ACItemRegistry.SWEETISH_FISH_PINK_BUCKET.get());
+                stack = new ItemStack(Items.APPLE/*ACItemRegistry.SWEETISH_FISH_PINK_BUCKET.get()*/);
                 break;
         }
         if (this.hasCustomName()) {
@@ -217,7 +218,7 @@ public class SweetishFishEntity extends WaterAnimal implements Bucketable, HasGu
         ItemStack itemstack = player.getItemInHand(hand);
         InteractionResult type = super.mobInteract(player, hand);
         if (!type.consumesAction()) {
-            if (itemstack.getItem() == ACItemRegistry.PURPLE_SODA_BUCKET.get() && this.isAlive()) {
+            if (/*itemstack.getItem() == ACItemRegistry.PURPLE_SODA_BUCKET.get() &&*/ this.isAlive()) {
                 this.playSound(this.getPickupSound(), 1.0F, 1.0F);
                 ItemStack itemstack1 = this.getBucketItemStack();
                 this.saveToBucketTag(itemstack1);

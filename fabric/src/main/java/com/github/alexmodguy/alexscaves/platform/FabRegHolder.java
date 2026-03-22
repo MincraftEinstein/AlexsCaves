@@ -72,8 +72,8 @@ public class FabRegHolder<Reg, Type extends Reg> implements RegHolder<Reg, Type>
 
     @Deprecated
     @Override
-    public boolean is(Holder<Reg> holder) {
-        return holder.is(holder);
+    public boolean is(@NotNull Holder<Reg> holder) {
+        return this.holder.is(holder);
     }
 
     @Override

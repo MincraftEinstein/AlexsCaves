@@ -76,7 +76,6 @@ public class AlexsCavesNeoForge {
         ACItemRegistry.init();
         ACEntityRegistry.init();
         ACEntityDataRegistry.DEF_REG.register(modEventBus);
-        ACAttachmentRegistry.DEF_REG.register(modEventBus);
         ACFeatureRegistry.DEF_REG.register(modEventBus);
         ACSurfaceRuleConditionRegistry.DEF_REG.register(modEventBus);
         ACStructureRegistry.DEF_REG.register(modEventBus);
@@ -119,7 +118,6 @@ public class AlexsCavesNeoForge {
         registerS2C(BeholderSyncMessage.TYPE, BeholderSyncMessage.CODEC, BeholderSyncMessage::handle);
         registerS2C(SundropRainbowMessage.TYPE, SundropRainbowMessage.CODEC, SundropRainbowMessage::handle);
         registerS2C(SpelunkeryTableCompleteTutorialMessage.TYPE, SpelunkeryTableCompleteTutorialMessage.CODEC, SpelunkeryTableCompleteTutorialMessage::handle);
-        registerS2C(UpdateMagneticDataMessage.TYPE, UpdateMagneticDataMessage.CODEC, UpdateMagneticDataMessage::handle);
 
         // Client-to-server messages
         registerC2S(MultipartEntityMessage.TYPE, MultipartEntityMessage.CODEC, MultipartEntityMessage::handle);

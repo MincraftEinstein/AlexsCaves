@@ -8,6 +8,7 @@ import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACSoundTypes;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.config.ACServerConfig;
+import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACArmorMaterials;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.carver.ACCarverRegistry;
@@ -61,6 +62,7 @@ public class AlexsCaves {
         ACCarverRegistry.init();
         ACArmorMaterials.init();
         ACEffectRegistry.init();
+        ACAttachmentRegistry.init();
     }
 
     public static ResourceLocation id(String path) {

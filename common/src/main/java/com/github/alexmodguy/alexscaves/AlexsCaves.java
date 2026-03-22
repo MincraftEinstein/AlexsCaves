@@ -13,6 +13,7 @@ import com.github.alexmodguy.alexscaves.server.item.ACArmorMaterials;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.carver.ACCarverRegistry;
+import com.github.alexmodguy.alexscaves.server.message.*;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACDataComponentRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
@@ -30,6 +31,9 @@ import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+
+import static com.github.alexmodguy.alexscaves.util.ACNetUtils.registerC2S;
+import static com.github.alexmodguy.alexscaves.util.ACNetUtils.registerS2C;
 
 public class AlexsCaves {
 
@@ -65,6 +69,7 @@ public class AlexsCaves {
         ACArmorMaterials.init();
         ACEffectRegistry.init();
         ACAttachmentRegistry.init();
+        registerPayloads();
     }
 
     public static ResourceLocation id(String path) {
@@ -91,5 +96,28 @@ public class AlexsCaves {
             BIOME_COLORS.put(holder, color);
             return color;
         }
+    }
+
+    public static void registerPayloads() {
+        // TODO make not be a problem
+        // Server-to-client messages
+        registerS2C(WorldEventMessage.TYPE, WorldEventMessage.CODEC, WorldEventMessage::handle);
+//        registerS2C(UpdateCaveBiomeMapTagMessage.TYPE, UpdateCaveBiomeMapTagMessage.CODEC, UpdateCaveBiomeMapTagMessage::handle);
+        registerS2C(UpdateBossEruptionStatus.TYPE, UpdateBossEruptionStatus.CODEC, UpdateBossEruptionStatus::handle);
+        registerS2C(UpdateBossBarMessage.TYPE, UpdateBossBarMessage.CODEC, UpdateBossBarMessage::handle);
+        registerS2C(UpdateEffectVisualityEntityMessage.TYPE, UpdateEffectVisualityEntityMessage.CODEC, UpdateEffectVisualityEntityMessage::handle);
+        registerS2C(UpdateItemTagMessage.TYPE, UpdateItemTagMessage.CODEC, UpdateItemTagMessage::handle);
+        registerS2C(BeholderSyncMessage.TYPE, BeholderSyncMessage.CODEC, BeholderSyncMessage::handle);
+        registerS2C(SundropRainbowMessage.TYPE, SundropRainbowMessage.CODEC, SundropRainbowMessage::handle);
+        registerS2C(SpelunkeryTableCompleteTutorialMessage.TYPE, SpelunkeryTableCompleteTutorialMessage.CODEC, SpelunkeryTableCompleteTutorialMessage::handle);
+
+        // Client-to-server messages
+//        registerC2S(MultipartEntityMessage.TYPE, MultipartEntityMessage.CODEC, MultipartEntityMessage::handle);
+//        registerC2S(SpelunkeryTableChangeMessage.TYPE, SpelunkeryTableChangeMessage.CODEC, SpelunkeryTableChangeMessage::handle);
+        registerC2S(PlayerJumpFromMagnetMessage.TYPE, PlayerJumpFromMagnetMessage.CODEC, PlayerJumpFromMagnetMessage::handle);
+        registerC2S(MountedEntityKeyMessage.TYPE, MountedEntityKeyMessage.CODEC, MountedEntityKeyMessage::handle);
+        registerC2S(PossessionKeyMessage.TYPE, PossessionKeyMessage.CODEC, PossessionKeyMessage::handle);
+        registerC2S(BeholderRotateMessage.TYPE, BeholderRotateMessage.CODEC, BeholderRotateMessage::handle);
+        registerC2S(ArmorKeyMessage.TYPE, ArmorKeyMessage.CODEC, ArmorKeyMessage::handle);
     }
 }

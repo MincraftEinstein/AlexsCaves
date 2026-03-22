@@ -13,6 +13,7 @@
     "FrogMixin",
     "ItemEntityMixin",
     "LivingEntityMixin",
+    "MobEffectInstanceMixin",
     "MonsterMixin",
     "NaturalSpawnerMixin",
     "SwampHutPieceMixin"

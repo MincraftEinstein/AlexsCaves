@@ -38,35 +38,17 @@
     "SwampHutPieceMixin"
   ],
   "client": [
-    "client.AdvancementsScreenAccessor",
-    "client.AdvancementTabAccessor",
-    "client.AdvancementTabMixin",
-    "client.BiomeAmbientSoundsHandlerInstanceMixin",
-    "client.BiomeAmbientSoundsHandlerMixin",
-    "client.CameraAccessor",
     "client.CameraMixin",
-    "client.ClientChunkCacheStorageMixin",
-    "client.ClientLevelDataMixin",
     "client.ClientLevelMixin",
     "client.ClientPacketListenerMixin",
-    "client.GameRendererAccessor",
     "client.GameRendererMixin",
     "client.HumanoidArmorLayerMixin",
-    "client.ItemFrameRendererMixin",
     "client.LevelRendererMixin",
     "client.LightTextureMixin",
-    "client.LiquidBlockRendererMixin",
-    "client.LivingEntityRendererMixin",
     "client.LocalPlayerMixin",
     "client.MapRendererMapInstanceMixin",
     "client.MinecraftMixin",
-    "client.OptionsMixin",
-    "client.RidingMinecartSoundInstanceMixin",
-    "client.SoundEngineAccessor",
-    "client.SoundEngineMixin",
-    "client.SoundManagerAccessor",
-    "client.UnderwaterAmbientSoundHandlerMixin",
-    "client.UnderwaterAmbientSoundInstancesMixin"
+    "client.SoundEngineMixin"
   ],
   "injectors": {
     "defaultRequire": 1

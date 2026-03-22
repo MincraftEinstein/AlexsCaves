@@ -15,3 +15,4 @@ accessible field net/minecraft/world/level/chunk/LevelChunkSection biomes Lnet/m
 mutable field net/minecraft/world/level/chunk/LevelChunkSection biomes Lnet/minecraft/world/level/chunk/PalettedContainerRO;
 
 accessible class net/minecraft/client/renderer/texture/SpriteContents$AnimatedTexture
+accessible class net/minecraft/client/multiplayer/ClientChunkCache$Storage

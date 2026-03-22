@@ -5,7 +5,26 @@
   "target": "@env(DEFAULT)",
   "refmap": "alexscaves.refmap.json",
   "client": [
-    "client.AdvancementWidgetAccessor"
+    "client.AdvancementsScreenAccessor",
+    "client.AdvancementTabAccessor",
+    "client.AdvancementTabMixin",
+    "client.AdvancementWidgetAccessor",
+    "client.BiomeAmbientSoundsHandlerInstanceMixin",
+    "client.BiomeAmbientSoundsHandlerMixin",
+    "client.CameraAccessor",
+    "client.ClientChunkCacheStorageMixin",
+    "client.ClientLevelDataMixin",
+    "client.GameRendererAccessor",
+    "client.ItemFrameRendererMixin",
+    "client.LiquidBlockRendererMixin",
+    "client.LivingEntityRendererMixin",
+    "client.MinecartSoundInstanceMixin",
+    "client.OptionsMixin",
+    "client.RidingMinecartSoundInstanceMixin",
+    "client.SoundEngineAccessor",
+    "client.SoundManagerAccessor",
+    "client.UnderwaterAmbientSoundHandlerMixin",
+    "client.UnderwaterAmbientSoundInstancesMixin"
   ],
   "mixins": [
   ],

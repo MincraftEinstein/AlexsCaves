@@ -23,7 +23,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.BiomeTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -52,10 +51,8 @@ import java.util.stream.Collectors;
 
 public class ConversionCrucibleBlockEntity extends BlockEntity {
 
-    private static final Map<Optional<Holder.Reference<Biome>>, Integer> BIOME_COLORS = new HashMap<>();
     public static final int MAX_FILL_AMOUNT = 10;
     public static final int MAX_CONVERSION_TIME = 100;
-    private static final int PLAINS_FOG_COLOR = 12638463;
 
     private final List<RecursiveBlockPlacement> recursiveBlockPlacements = new ArrayList<>();
 
@@ -95,7 +92,7 @@ public class ConversionCrucibleBlockEntity extends BlockEntity {
             Registry<Biome> registry = level.registryAccess().registryOrThrow(Registries.BIOME);
             Optional<Holder.Reference<Biome>> biomeHolder = registry.getHolder(entity.convertingToBiome);
             if (biomeHolder.isPresent()) {
-                entity.biomeColor = calculateBiomeColor(biomeHolder);
+                entity.biomeColor = AlexsCaves.calculateBiomeColor(biomeHolder);
             } else {
                 entity.biomeColor = 0;
             }
@@ -607,25 +604,4 @@ public class ConversionCrucibleBlockEntity extends BlockEntity {
         }
     }
 
-    public static int calculateBiomeColor(Optional<Holder.Reference<Biome>> holder) {
-        if (BIOME_COLORS.containsKey(holder)) {
-            return BIOME_COLORS.get(holder);
-        } else {
-            int fogColor = holder.get().value().getFogColor();
-            int color;
-            if (ACBiomeRegistry.getBiomeTabletColor(holder.get().key()) != -1) {
-                color = ACBiomeRegistry.getBiomeTabletColor(holder.get().key());
-            } else if (fogColor == PLAINS_FOG_COLOR) {
-                color = holder.get().value().getGrassColor(0.0D, 0.0D);
-            } else {
-                fogColor = 0xff000000 | fogColor;
-                float[] hsb = Color.RGBtoHSB(fogColor >> 16 & 0xFF, fogColor >> 8 & 0xFF, fogColor & 0xFF, null);
-                float saturationModifier = 1.0F;
-                float brightnessModifier = 3.0F;
-                color = Color.HSBtoRGB(hsb[0], Mth.clamp(hsb[1] * saturationModifier, 0, 1), Mth.clamp(hsb[2] * brightnessModifier, 0, 1));
-            }
-            BIOME_COLORS.put(holder, color);
-            return color;
-        }
-    }
 }

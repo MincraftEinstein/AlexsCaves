@@ -16,7 +16,10 @@ import com.github.alexmodguy.alexscaves.server.entity.item.BeholderEyeEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.NuclearBombEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.SubmarineEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.*;
-import com.github.alexmodguy.alexscaves.server.entity.util.*;
+import com.github.alexmodguy.alexscaves.server.entity.util.HeadRotationEntityAccessor;
+import com.github.alexmodguy.alexscaves.server.entity.util.MagnetUtil;
+import com.github.alexmodguy.alexscaves.server.entity.util.PossessesCamera;
+import com.github.alexmodguy.alexscaves.server.entity.util.RidingMeterMount;
 import com.github.alexmodguy.alexscaves.server.item.*;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.BiomeSampler;
@@ -25,7 +28,6 @@ import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.DarknessIncarnateEffect;
 import com.github.alexmodguy.alexscaves.server.potion.DeepsightEffect;
 import com.github.alexthe666.citadel.client.event.EventGetOutlineColor;
-import com.github.alexthe666.citadel.client.event.EventLivingRenderer;
 import com.github.alexthe666.citadel.client.event.EventPosePlayerHand;
 import com.github.alexthe666.citadel.client.event.EventRenderSplashText;
 import com.github.alexthe666.citadel.client.tick.ClientTickRateTracker;
@@ -96,24 +98,6 @@ public class ClientEvents {
     public static PoseStack lastVanillaMapPoseStack;
     public static MultiBufferSource lastVanillaMapRenderBuffer;
     public static int lastVanillaMapRenderPackedLight;
-
-    @SubscribeEvent
-    public void setupEntityRotations(EventLivingRenderer.SetupRotations event) {
-        if (event.getEntity() instanceof MagneticEntityAccessor magnetic) {
-            float width = event.getEntity().getBbWidth();
-            float height = event.getEntity().getBbHeight();
-            float progress = magnetic.getAttachmentProgress(event.getPartialTicks());
-            float prevProg = 1F - progress;
-            float bodyRot = 180.0F - event.getBodyYRot();
-            if (magnetic.getMagneticAttachmentFace().getAxis() != Direction.Axis.Y) {
-                event.getPoseStack().mulPose(Axis.YN.rotationDegrees(bodyRot));
-            }
-            rotateForAngle(event.getEntity(), event.getPoseStack(), magnetic.getPrevMagneticAttachmentFace(), prevProg,
-                    width, height);
-            rotateForAngle(event.getEntity(), event.getPoseStack(), magnetic.getMagneticAttachmentFace(), progress,
-                    width, height);
-        }
-    }
 
     @SubscribeEvent
     public void preRenderLiving(RenderLivingEvent.Pre event) {
@@ -942,51 +926,6 @@ public class ClientEvents {
         }
     }
 
-    private void rotateForAngle(LivingEntity entity, PoseStack matrixStackIn, Direction rotate, float f, float width,
-            float height) {
-        boolean down = entity.zza < 0.0F;
-        switch (rotate) {
-            case DOWN:
-                break;
-            case UP:
-                matrixStackIn.translate(0.0D, height * f, 0.0D);
-                matrixStackIn.mulPose(Axis.XP.rotationDegrees(-180.0F * f));
-                matrixStackIn.mulPose(Axis.YP.rotationDegrees(-180.0F * f));
-                break;
-            case NORTH:
-                matrixStackIn.mulPose(Axis.XP.rotationDegrees(90.0F * f));
-                matrixStackIn.translate(0.0D, -0.25f * f, 0.0D);
-                if (down) {
-                    matrixStackIn.mulPose(Axis.YP.rotationDegrees(180.0F * f));
-                }
-                break;
-            case SOUTH:
-                matrixStackIn.mulPose(Axis.YP.rotationDegrees(180 * f));
-                matrixStackIn.mulPose(Axis.XP.rotationDegrees(90.0F * f));
-                matrixStackIn.translate(0.0D, -0.25f * f, 0.0D);
-                if (down) {
-                    matrixStackIn.mulPose(Axis.YP.rotationDegrees(180.0F * f));
-                }
-                break;
-            case WEST:
-                matrixStackIn.mulPose(Axis.YP.rotationDegrees(90 * f));
-                matrixStackIn.mulPose(Axis.XP.rotationDegrees(90.0F * f));
-                matrixStackIn.translate(0.0D, -0.25f * f, 0.0D);
-                if (down) {
-                    matrixStackIn.mulPose(Axis.YP.rotationDegrees(180.0F * f));
-                }
-                break;
-            case EAST:
-                matrixStackIn.mulPose(Axis.YP.rotationDegrees(-90 * f));
-                matrixStackIn.mulPose(Axis.XP.rotationDegrees(90.0F * f));
-                matrixStackIn.translate(0.0D, -0.25f * f, 0.0D);
-                if (down) {
-                    matrixStackIn.mulPose(Axis.YP.rotationDegrees(180.0F * f));
-                }
-                break;
-        }
-    }
-
     private static float calculateBiomeAmbientLight(Entity player) {
         int i = Minecraft.getInstance().options.biomeBlendRadius().get();
         if (i == 0) {
@@ -1050,7 +989,7 @@ public class ClientEvents {
         Vec3 vec3;
         if (i == 0) {
             vec3 = ((ClientLevel) player.level()).effects().getBrightnessDependentFogColor(Vec3.fromRGB24(player.level()
-                    .getBiomeManager().getNoiseBiomeAtPosition(player.blockPosition()).value().getWaterFogColor()),
+                            .getBiomeManager().getNoiseBiomeAtPosition(player.blockPosition()).value().getWaterFogColor()),
                     1.0F);
         } else {
             vec3 = ((ClientLevel) player.level()).effects()

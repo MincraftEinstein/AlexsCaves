@@ -27,6 +27,26 @@
     "client.UnderwaterAmbientSoundInstancesMixin"
   ],
   "mixins": [
+    "BiomeSourceMixin",
+    "ChunkStatusMixin",
+    "CoralFeatureMixin",
+    "EnchantRandomlyFunctionMixin",
+    "FlowingFluidMixin",
+    "FoodDataMixin",
+    "GeodeFeatureMixin",
+    "IllagerMixin",
+    "JigsawStructureMixin",
+    "KelpFeatureMixin",
+    "LakeFeatureMixin",
+    "MobMixin",
+    "MultifaceGrowthFeatureMixin",
+    "MultiNoiseBiomeSourceMixin",
+    "OceanMonumentStructureMixin",
+    "OreFeatureMixin",
+    "PlayerMixin",
+    "PotionUtilsMixin",
+    "SeagrassFeatureMixin",
+    "ShipwreckStructureMixin"
   ],
   "injectors": {
     "defaultRequire": 1

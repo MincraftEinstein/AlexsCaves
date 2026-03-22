@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  */
 @Mixin(EnchantRandomlyFunction.class)
 public class EnchantRandomlyFunctionMixin {
-    
+    // TODO ai hell
     /**
      * Modifies the enchantment selection to exclude Alex's Caves enchantments
      * from random loot generation (e.g., dungeon loot enchanted books).

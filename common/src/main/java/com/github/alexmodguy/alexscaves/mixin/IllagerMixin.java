@@ -27,6 +27,7 @@ public abstract class IllagerMixin {
 
     @Unique
     private static boolean isPossessed(Entity e) {
-        return e.getPersistentData().getBoolean("TotemPossessed");
+        //TODO fix when attachment
+        return false; //  e.getPersistentData().getBoolean("TotemPossessed");
     }
 }

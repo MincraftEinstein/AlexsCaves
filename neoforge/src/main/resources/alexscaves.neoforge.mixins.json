@@ -9,7 +9,7 @@
     "AbstractMinecartMixin",
     "CorrodentCollisionMixin",
     "FrogMixin",
-    "MobEffectInstanceMixin",
+    "neo.MobEffectInstanceMixin",
     "MonsterMixin",
     "NaturalSpawnerMixin",
     "SwampHutPieceMixin"

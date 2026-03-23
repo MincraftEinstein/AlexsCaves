@@ -1,4 +1,4 @@
-package com.github.alexmodguy.alexscaves.mixin;
+package com.github.alexmodguy.alexscaves.mixin.neo;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

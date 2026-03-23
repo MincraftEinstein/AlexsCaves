@@ -2,7 +2,6 @@ package com.github.alexmodguy.alexscaves.server.level.feature;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.GummyRingBlock;
-import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -24,10 +23,11 @@ public class FloatingGummyRingFeature extends Feature<NoneFeatureConfiguration> 
         boolean aboveSoda = false;
         BlockPos.MutableBlockPos scanPos = new BlockPos.MutableBlockPos();
         for (scanPos.set(context.origin()); scanPos.getY() > worldgenlevel.getMinBuildHeight(); scanPos.move(0, -1, 0)) {
-            if (worldgenlevel.getFluidState(scanPos).getFluidType() == ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get()) {
+            //TODO fix when fluid
+          /*  if (worldgenlevel.getFluidState(scanPos).getFluidType() == ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get()) {
                 aboveSoda = true;
                 break;
-            }
+            }*/
         }
         if (aboveSoda) {
             boolean sunk = randomsource.nextBoolean();

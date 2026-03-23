@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.level.feature;
 
-import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.level.feature.config.UndergroundRuinsFeatureConfiguration;
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
@@ -112,7 +111,9 @@ public class UndergroundRuinsFeature extends Feature<UndergroundRuinsFeatureConf
     }
 
     protected boolean canReplace(BlockState state, int already) {
-        return (state.isAir() || state.canBeReplaced()) && (state.getFluidState().getFluidType() != ACFluidRegistry.ACID_FLUID_TYPE.get() || already < 3);
+        // TODO fix when fluid
+        return (state.isAir() || state.canBeReplaced()) && (already < 3);
+//        return (state.isAir() || state.canBeReplaced()) && (state.getFluidState().getFluidType() != ACFluidRegistry.ACID_FLUID_TYPE.get() || already < 3);
     }
 
     protected boolean skipsOver(BlockState state, int already) {

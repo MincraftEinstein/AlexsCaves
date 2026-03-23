@@ -32,6 +32,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import org.teamvoided.voidlib.attachments.AttachmentBuilder;
@@ -75,6 +76,11 @@ public class FabricRegistryHelper implements RegistryHelper {
     @Override
     public <T extends Entity> RegHolder<EntityType<?>, EntityType<T>> registerEntityType(String name, Supplier<EntityType<T>> entityTypeSupplier) {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.ENTITY_TYPE, id(name), entityTypeSupplier.get()));
+    }
+
+    @Override
+    public <T extends Feature<?>> RegHolder<Feature<?>, T> registerFeature(String name, Supplier<T> supplier) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.FEATURE, id(name), supplier.get()));
     }
 
     @Override

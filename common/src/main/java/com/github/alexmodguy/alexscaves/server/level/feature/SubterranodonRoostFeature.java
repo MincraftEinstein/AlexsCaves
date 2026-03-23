@@ -3,8 +3,6 @@ package com.github.alexmodguy.alexscaves.server.level.feature;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.DinosaurEggBlock;
 import com.github.alexmodguy.alexscaves.server.block.MultipleDinosaurEggsBlock;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.living.SubterranodonEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.mojang.serialization.Codec;
@@ -90,12 +88,13 @@ public class SubterranodonRoostFeature extends Feature<NoneFeatureConfiguration>
                     level.setBlock(immutable, ACBlockRegistry.FERN_THATCH.get().defaultBlockState(), 3);
                     level.setBlock(immutable.above(), ACBlockRegistry.SUBTERRANODON_EGG.get().defaultBlockState().setValue(MultipleDinosaurEggsBlock.EGGS, 1 + randomSource.nextInt(3)).setValue(DinosaurEggBlock.NEEDS_PLAYER, true), 3);
                     Vec3 spawnMobAt = Vec3.atCenterOf(immutable.relative(direction).above());
-                    SubterranodonEntity subterranodon = ACEntityRegistry.SUBTERRANODON.get().create(level.getLevel());
+                    // TODO fix when entity
+                 /*   SubterranodonEntity subterranodon = ACEntityRegistry.SUBTERRANODON.get().create(level.getLevel());
                     subterranodon.setPos(spawnMobAt);
                     subterranodon.restrictTo(immutable.above(), 20 + randomSource.nextInt(20));
                     if (!level.collidesWithSuffocatingBlock(subterranodon, subterranodon.getBoundingBox())) {
                         level.addFreshEntity(subterranodon);
-                    }
+                    }*/
                 } else {
                     level.setBlock(cliff, set, 3);
                     if (decorate && randomSource.nextInt(5) == 0) {

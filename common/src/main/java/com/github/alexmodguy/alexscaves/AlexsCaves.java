@@ -77,6 +77,7 @@ public class AlexsCaves {
         ACEffectRegistry.init();
         ACAttachmentRegistry.init();
         ACCreativeTabRegistry.init();
+        ACFeatureRegistry.init();
         registerPayloads();
     }
 

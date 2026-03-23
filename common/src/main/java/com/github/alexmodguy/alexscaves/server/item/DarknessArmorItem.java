@@ -127,7 +127,7 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
         }
     }
 
-    // TODO fix when fix
+    // TODO IItemExtension
     @Nullable
     public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
         return AlexsCaves.id("textures/armor/darkness_armor.png");

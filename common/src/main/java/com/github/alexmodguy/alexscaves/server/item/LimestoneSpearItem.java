@@ -1,11 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
-import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -21,7 +18,7 @@ public class LimestoneSpearItem extends SpearItem {
             int i = this.getUseDuration(itemStack, livingEntity) - i1;
             float f = getPowerForTime(i);
             if (f > 0.1D) {
-                // TODO fix when chunk load
+                // TODO when entities
                 /*LimestoneSpearEntity spearEntity = new LimestoneSpearEntity(level, player, itemStack);
                 spearEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, f * 2.5F, 1.0F);
                 if (player.getAbilities().instabuild) {

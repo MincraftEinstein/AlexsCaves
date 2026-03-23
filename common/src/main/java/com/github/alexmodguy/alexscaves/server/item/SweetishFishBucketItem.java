@@ -14,6 +14,7 @@ import net.minecraft.world.item.TooltipFlag;
 
 import java.util.List;
 
+// TODO fix when fluids and entities
 /*public class SweetishFishBucketItem extends ModFishBucketItem{
 
     private final GummyColors color;

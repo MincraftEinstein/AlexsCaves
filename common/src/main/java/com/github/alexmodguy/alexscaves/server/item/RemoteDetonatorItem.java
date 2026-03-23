@@ -82,7 +82,7 @@ public class RemoteDetonatorItem extends Item {
                     loadChunksAround(dimensionLevel, player.getUUID(), globalPos.pos(), true);
                     BlockState blockState = dimensionLevel.getBlockState(globalPos.pos());
                     if(blockState.is(ACTagRegistry.REMOTE_DETONATOR_ACTIVATES)){
-                        // TODO
+                        // TODO IBlockStateExtension
 //                        blockState.onCaughtFire(dimensionLevel, globalPos.pos(), Direction.UP, player);
                         if(player.distanceToSqr(globalPos.pos().getCenter()) > 1000){
                             ACAdvancementTriggerRegistry.REMOTE_DETONATION.get().triggerForEntity(player);

@@ -26,7 +26,7 @@ public class PrimordialArmorItem extends ArmorItem {
         consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getArmorProperties());
     }*/
 
-//    @Override
+    // TODO IItemExtension
     @Nullable
     public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
         if (slot == EquipmentSlot.LEGS) {

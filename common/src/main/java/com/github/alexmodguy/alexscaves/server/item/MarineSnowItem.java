@@ -85,6 +85,7 @@ public class MarineSnowItem extends Item {
         if (GROWS_INTERACTIONS != null && DUPLICATES_INTERACTIONS != null) {
             return;
         }
+        // TODO change to data gen-able
         GROWS_INTERACTIONS = Util.make(Maps.newHashMap(), (map) -> {
             map.put(Blocks.DEAD_TUBE_CORAL_BLOCK, Blocks.TUBE_CORAL_BLOCK);
             map.put(Blocks.DEAD_BRAIN_CORAL_BLOCK, Blocks.BRAIN_CORAL_BLOCK);
@@ -107,6 +108,7 @@ public class MarineSnowItem extends Item {
             map.put(Blocks.DEAD_FIRE_CORAL_WALL_FAN, Blocks.FIRE_CORAL_WALL_FAN);
             map.put(Blocks.DEAD_HORN_CORAL_WALL_FAN, Blocks.HORN_CORAL_WALL_FAN);
         });
+        // TODO change to data gen-able
         DUPLICATES_INTERACTIONS = Util.make(Maps.newHashMap(), (map) -> {
             map.put(Blocks.TUBE_CORAL_BLOCK, new ItemStack(Blocks.TUBE_CORAL_BLOCK));
             map.put(Blocks.BRAIN_CORAL_BLOCK, new ItemStack(Blocks.BRAIN_CORAL_BLOCK));

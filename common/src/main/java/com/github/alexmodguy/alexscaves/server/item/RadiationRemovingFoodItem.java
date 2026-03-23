@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
@@ -23,8 +24,7 @@ public class RadiationRemovingFoodItem extends Item {
 
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
         MobEffectInstance mobEffectInstance = livingEntity.getEffect(ACEffectRegistry.IRRADIATED);
-        // TODO fix when fix
-        FoodProperties foodProperties = null;//this.getFoodProperties(stack, livingEntity);
+        FoodProperties foodProperties = stack.getOrDefault(DataComponents.FOOD, null);
         if (mobEffectInstance != null && foodProperties != null) {
             float f = Math.min(livingEntity.getMaxHealth(), livingEntity.getHealth() + (float) Math.ceil(foodProperties.nutrition() * 1.5F + 1));
             livingEntity.setHealth(f);

@@ -22,12 +22,6 @@ public class SugarStaffItem extends Item {
         super(properties);
     }
 
-    // TODO fix when rendering
-    /*@Override
-    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
-    }*/
-
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if(!level.isClientSide){

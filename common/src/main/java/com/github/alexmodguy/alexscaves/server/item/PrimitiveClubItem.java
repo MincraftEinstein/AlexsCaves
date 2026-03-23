@@ -98,8 +98,7 @@ public class PrimitiveClubItem extends Item {
         return true;
     }
 
-    public boolean mineBlock(ItemStack itemStack, Level level, BlockState state, BlockPos blockPos, LivingEntity
-            livingEntity) {
+    public boolean mineBlock(ItemStack itemStack, Level level, BlockState state, BlockPos blockPos, LivingEntity livingEntity) {
         if ((double) state.getDestroySpeed(level, blockPos) != 0.0D) {
             itemStack.hurtAndBreak(2, livingEntity, EquipmentSlot.MAINHAND);
         }
@@ -119,12 +118,6 @@ public class PrimitiveClubItem extends Item {
         }
         return createDefaultAttributes();
     }
-
-    // TODO fix when render
-    /*@Override
-    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
-    }*/
 
     // TODO fix neo
     /*@Override

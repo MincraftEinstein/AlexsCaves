@@ -46,7 +46,7 @@ public class DivingArmorItem extends ArmorItem {
         consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getArmorProperties());
     }*/
 
-    // TODO fix when fix
+    // TODO IItemExtension
     @Nullable
     public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
         if (slot == EquipmentSlot.LEGS) {

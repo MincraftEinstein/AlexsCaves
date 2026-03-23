@@ -430,7 +430,9 @@ public class ACBlockRegistry {
     }
 
     private static RegHolder<Block, Block> registerBlockAndItem(String name, Supplier<Block> block, int itemType) {
-        return Services.REGISTRY_HELPER.registerBlock(name, block);
+        RegHolder<Block, Block> registered = Services.REGISTRY_HELPER.registerBlockNoItem(name, block);
+        Services.REGISTRY_HELPER.registerItem(name, getBlockSupplier(itemType, registered));
+        return registered;
     }
 
     private static RegHolder<Block, Block> registerBlockAndItemEdible(String name, Supplier<Block> block, FoodProperties foodProperties) {
@@ -447,13 +449,11 @@ public class ACBlockRegistry {
         return switch (itemType) {
             case 1 -> () -> new BlockItemWithSupplierLore(block, new Item.Properties());
             case 2 -> () -> new BlockItemWithScaffolding(block, new Item.Properties());
-            case 3 -> () -> new BlockItemWithISTER(block, new Item.Properties());
             case 4 -> () -> new RadioactiveBlockItem(block, new Item.Properties(), 0.001F);
             case 5 -> () -> new RadioactiveOnDestroyedBlockItem(block, new Item.Properties(), 0.01F);
-            case 6 -> () -> new BlockItemWithSupplier(block, new Item.Properties().rarity(Rarity.UNCOMMON));
+            case 6, 9 -> () -> new BlockItemWithSupplier(block, new Item.Properties().rarity(Rarity.UNCOMMON));
             case 7 -> () -> new BlockItemWithSupplier(block, new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant());
             case 8 -> () -> new BlockItemWithSupplier(block, new Item.Properties().rarity(Rarity.UNCOMMON).fireResistant()/*TODO .rarity(ACItemRegistry.getRarityNuclear())*/);
-            case 9 -> () -> new BlockItemWithISTER(block, new Item.Properties().rarity(Rarity.UNCOMMON));
             default -> () -> new BlockItemWithSupplier(block, new Item.Properties());
         };
     }

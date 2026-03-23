@@ -45,11 +45,6 @@ public class SpearItem extends Item {
 
         return true;
     }
-    // TODO fix when render
-    /*@Override
-    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
-    }*/
 
     public UseAnim getUseAnimation(ItemStack stack) {
         return UseAnim.SPEAR;

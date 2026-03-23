@@ -31,14 +31,6 @@ public class ACItemRegistry {
         return Services.REGISTRY_HELPER.registerItem(name, itemSupplier);
     }
 
-    //    public static final ACArmorMaterial PRIMORDIAL_ARMOR_MATERIAL = new ACArmorMaterial("primordial", 20, new int[]{3, 4, 3, 2}, 25, SoundEvents.ARMOR_EQUIP_LEATHER, 0F);
-//    public static final ACArmorMaterial HAZMAT_SUIT_ARMOR_MATERIAL = new ACArmorMaterial("hazmat_suit", 20, new int[]{2, 4, 5, 2}, 25, SoundEvents.ARMOR_EQUIP_IRON, 0.5F);
-//    public static final ACArmorMaterial DIVING_SUIT_ARMOR_MATERIAL = new ACArmorMaterial("diving_suit", 20, new int[]{2, 6, 5, 2}, 25, SoundEvents.ARMOR_EQUIP_IRON, 0.0F);
-//    public static final ACArmorMaterial DARKNESS_ARMOR_MATERIAL = new ACArmorMaterial("darkness", 15, new int[]{4, 5, 1, 1}, 40, SoundEvents.ARMOR_EQUIP_LEATHER, 0.5F);
-//    public static final ACArmorMaterial RAINBOUNCE_ARMOR_MATERIAL = new ACArmorMaterial("rainbounce", 6, new int[]{2, 2, 1, 2}, 40, SoundEvents.ARMOR_EQUIP_GENERIC, 0.0F);
-//    public static final ACArmorMaterial GINGERBREAD_ARMOR_MATERIAL = new ACArmorMaterial("gingerbread", 10, new int[]{2, 4, 5, 2}, 25, SoundEvents.ARMOR_EQUIP_LEATHER, 0.0F);
-
-
     public static final Supplier<Item> ADVANCEMENT_TAB_ICON = register("advancement_tab_icon", () -> new Item(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));
     public static final Supplier<Item> CAVE_TABLET = register("cave_tablet", () -> new CaveInfoItem(new Item.Properties(), true));
     public static final Supplier<Item> CAVE_CODEX = register("cave_codex", () -> new CaveInfoItem(new Item.Properties(), false));
@@ -102,7 +94,7 @@ public class ACItemRegistry {
     public static final Supplier<Item> URANIUM_SHARD = register("uranium_shard", () -> new RadioactiveItem(new Item.Properties(), 0.001F));
     public static final Supplier<Item> SULFUR_DUST = register("sulfur_dust", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> RADON_BOTTLE = register("radon_bottle", () -> new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)));
-    // TODO
+    // TODO when entities
 //    public static final Supplier<Item> CINDER_BRICK = register("cinder_brick", () -> new ThrownProjectileItem(new Item.Properties(), player -> new CinderBrickEntity(player.level(), player), -20.0F, 0.65F, 0.9F));
     public static final Supplier<Item> SPELUNKIE = register("spelunkie", () -> new RadiationRemovingFoodItem(new Item.Properties().food(ACFoods.SPELUNKIE)));
     public static final Supplier<Item> SLAM = register("slam", () -> new RadiationRemovingFoodItem(new Item.Properties().food(ACFoods.SLAM)));
@@ -155,7 +147,7 @@ public class ACItemRegistry {
     public static final Supplier<Item> SEA_STAFF_SPRITE = register("sea_staff_inventory", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> ORTHOLANCE = register("ortholance", () -> new OrtholanceItem(new Item.Properties().durability(340).rarity(Rarity.UNCOMMON)));
     public static final Supplier<Item> ORTHOLANCE_SPRITE = register("ortholance_inventory", () -> new Item(new Item.Properties()));
-    // TODO
+    // TODO when entities
 //    public static final Supplier<Item> DEPTH_CHARGE = register("depth_charge", () -> new ThrownProjectileItem(new Item.Properties(), player -> new DepthChargeEntity(player.level(), player), -10.0F, 0.65F, 1.5F));
     public static final Supplier<Item> GUARDIAN_POTTERY_SHERD = register("guardian_pottery_sherd", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> HERO_POTTERY_SHERD = register("hero_pottery_sherd", () -> new Item(new Item.Properties()));
@@ -163,7 +155,7 @@ public class ACItemRegistry {
     public static final Supplier<Item> GAME_CONTROLLER = register("game_controller", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
     public static final Supplier<Item> STINKY_FISH = register("stinky_fish", () -> new Item(new Item.Properties().rarity(Rarity.RARE).food(ACFoods.STINKY_FISH)));
     public static final Supplier<Item> IMMORTAL_EMBRYO = register("immortal_embryo", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-    //TODO
+    //TODO when entities
 //    public static final Supplier<Item> GUANO = register("guano", () -> new ThrownProjectileItem(new Item.Properties(), player -> new GuanoEntity(player.level(), player), 0.0F, 1.0F, 1.0F));
     public static final Supplier<Item> MOTH_DUST = register("moth_dust", () -> new MothDustItem());
     public static final Supplier<Item> FERTILIZER = register("fertilizer", () -> new FertilizerItem());

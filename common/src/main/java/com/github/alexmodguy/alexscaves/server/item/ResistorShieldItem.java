@@ -29,12 +29,6 @@ public class ResistorShieldItem extends ShieldItem {
         super(new Item.Properties().stacksTo(1).durability(1000).rarity(Rarity.UNCOMMON));
     }
 
-    // TODO fix when render
-   /* @Override
-    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
-    }*/
-
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
         player.startUsingItem(interactionHand);

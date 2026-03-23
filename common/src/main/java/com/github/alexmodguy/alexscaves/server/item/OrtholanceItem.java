@@ -163,10 +163,4 @@ public class OrtholanceItem extends Item {
 
         return true;
     }
-
-    // TODO fix when render
-   /* @Override
-    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
-    }*/
 }

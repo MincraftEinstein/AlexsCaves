@@ -1,12 +1,10 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
-import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -24,15 +22,10 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class SeaStaffItem extends Item {
+
     public SeaStaffItem(Item.Properties properties) {
         super(properties);
     }
-
-    //TODO fix when render
-   /* @Override
-    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getISTERProperties());
-    }*/
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
@@ -43,7 +36,7 @@ public class SeaStaffItem extends Item {
             double dist = 128;
             Entity closestValid = getClosestLookingAtEntityFor(level, player, dist);
             int bolts = ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.TRIPLE_SPLASH, itemstack) > 0 ? 3 : 1;
-            for(int i = 0; i < bolts; i++){
+            for (int i = 0; i < bolts; i++) {
                 float shootRot = i == 0 ? 0 : i == 1 ? -50 : 50;
                 //TODO fix when entity
                /* WaterBoltEntity bolt = new WaterBoltEntity(level, player);
@@ -80,7 +73,8 @@ public class SeaStaffItem extends Item {
             if (!entity.equals(player) && !player.isAlliedTo(entity) && !entity.isAlliedTo(player) && entity instanceof Mob && player.hasLineOfSight(entity)) {
                 closestValid = entity;
             }
-        } else {
+        }
+        else {
             Vec3 at = hitresult.getLocation();
             AABB around = new AABB(at.add(-0.5F, -0.5F, -0.5F), at.add(0.5F, 0.5F, 0.5F)).inflate(15);
             for (Entity entity : level.getEntitiesOfClass(LivingEntity.class, around.inflate(dist))) {

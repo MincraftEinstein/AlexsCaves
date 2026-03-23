@@ -10,7 +10,7 @@ public class RadioactiveOnDestroyedBlockItem extends RadioactiveBlockItem {
         super(blockSupplier, props, randomChanceOfRadiation);
     }
 
-    // TODO
+    // TODO IItemExtension
 //    @Override
 //    public void onDestroyed(ItemEntity itemEntity, DamageSource damageSource){
 //        super.onDestroyed(itemEntity, damageSource);

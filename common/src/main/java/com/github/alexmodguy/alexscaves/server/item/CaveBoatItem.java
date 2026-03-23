@@ -1,8 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
-//import com.github.alexmodguy.alexscaves.server.entity.item.AlexsCavesBoatEntity;
-//import com.github.alexmodguy.alexscaves.server.entity.item.AlexsCavesChestBoatEntity;
-
 import com.github.alexmodguy.alexscaves.server.entity.util.AlexsCavesBoat;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;

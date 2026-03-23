@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -21,8 +22,7 @@ public class PrehistoricMixtureItem extends ACBowlFoodItem {
     }
 
     public InteractionResult interactLivingEntity(ItemStack itemStack, Player player, LivingEntity livingEntity, InteractionHand hand) {
-        // TODO fix later
-        FoodProperties foodProperties = null;//itemStack.getFoodProperties(livingEntity);
+        FoodProperties foodProperties = itemStack.getOrDefault(DataComponents.FOOD, null);
         if (!livingEntity.level().isClientSide && livingEntity instanceof Mob && canFeedMob(player, (Mob) livingEntity) && foodProperties != null) {
             livingEntity.heal(foodProperties.nutrition());
             // TODO fix when entity

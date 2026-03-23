@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Supplier;
 
+// TODO when fluids and entities
 public class ModFishBucketItem extends MobBucketItem {
 
     private final Supplier<? extends EntityType<?>> fishTypeSupplier;
@@ -59,8 +60,5 @@ public class ModFishBucketItem extends MobBucketItem {
     }
 
     protected void addExtraAttributes(Entity entity, ItemStack stack) {
-
     }
-
-
 }

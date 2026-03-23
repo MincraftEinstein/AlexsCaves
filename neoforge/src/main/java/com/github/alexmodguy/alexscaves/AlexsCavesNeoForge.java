@@ -14,7 +14,6 @@ import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.structure.ACStructureRegistry;
 import com.github.alexmodguy.alexscaves.server.level.structure.piece.ACStructurePieceRegistry;
-import com.github.alexmodguy.alexscaves.server.level.structure.processor.ACStructureProcessorRegistry;
 import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRuleConditionRegistry;
 import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRules;
 import com.github.alexmodguy.alexscaves.server.misc.*;
@@ -67,7 +66,6 @@ public class AlexsCavesNeoForge {
         ACSurfaceRuleConditionRegistry.DEF_REG.register(modEventBus);
         ACStructureRegistry.DEF_REG.register(modEventBus);
         ACStructurePieceRegistry.DEF_REG.register(modEventBus);
-        ACStructureProcessorRegistry.DEF_REG.register(modEventBus);
         // TODO move to common
         ACFrogRegistry.DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(modEventBus);

@@ -32,9 +32,10 @@ public class FloatingGummyRingFeature extends Feature<NoneFeatureConfiguration> 
         if (aboveSoda) {
             boolean sunk = randomsource.nextBoolean();
             if(sunk){
-                while(scanPos.getY() > worldgenlevel.getMinBuildHeight() && worldgenlevel.getFluidState(scanPos).getFluidType() == ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get()){
+                //TODO fix when fluid
+              /*  while(scanPos.getY() > worldgenlevel.getMinBuildHeight() && worldgenlevel.getFluidState(scanPos).getFluidType() == ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get()){
                     scanPos.move(0, -1, 0);
-                }
+                }*/
             }
             scanPos.move(0, 1, 0);
             if(worldgenlevel.getBlockState(scanPos).canBeReplaced()){

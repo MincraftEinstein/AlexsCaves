@@ -25,6 +25,8 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import org.teamvoided.voidlib.attachments.AttachmentBuilder;
@@ -54,6 +56,8 @@ public interface RegistryHelper {
     <T extends Entity> RegHolder<EntityType<?>, EntityType<T>> registerEntityType(String name, Supplier<EntityType<T>> entityTypeSupplier);
 
     <T extends Feature<?>> RegHolder<Feature<?>, T> registerFeature(String name, Supplier<T> supplier);
+
+    <T extends StructureProcessor> RegHolder<StructureProcessorType<?>, StructureProcessorType<T>> registerStructureProcessor(String name, Supplier<StructureProcessorType<T>> supplier);
 
     @FunctionalInterface
     interface BlockEntityExtender {

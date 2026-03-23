@@ -1,8 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.block.AbyssalAltarBlock;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -127,7 +127,7 @@ public class AbyssalAltarBlockEntity extends BaseContainerBlockEntity implements
         resetSlideAnimation();
         if (!level.isClientSide) {
             BlockPos blockPos = this.getBlockPos();
-            ACNetUtils.sendMSGToAll(new WorldEventMessage(6, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+            NetworkRegistry.sendMSGToAll(new WorldEventMessage(6, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
         }
         if (entity instanceof Player) {
             placingPlayer = entity.getUUID();

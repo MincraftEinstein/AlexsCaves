@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -40,7 +40,7 @@ public class UpdateBossBarMessage implements CustomPacketPayload {
 
     public static void handle(UpdateBossBarMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (!ACNetUtils.isClientbound(context.networkSide())) {
+        if (!NetworkRegistry.isClientbound(context.networkSide())) {
             return;
         }
         if (message.renderType == -1) {

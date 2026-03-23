@@ -1,12 +1,12 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.server.message.ArmorKeyMessage;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.DarknessIncarnateEffect;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -83,7 +83,7 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
                         flag = true;
                     }
                     if (flag) {
-                        ACNetUtils.sendNonLocal(new UpdateItemTagMessage(player.getId(), stack), (ServerPlayer) player);
+                        NetworkRegistry.sendNonLocal(new UpdateItemTagMessage(player.getId(), stack), (ServerPlayer) player);
                     }
                 }
             }
@@ -108,7 +108,7 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
                         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
                     }
                 } else if (AlexsCaves.PROXY.getClientSidePlayer() == entity && getMeterProgress(stack) >= 1.0F && AlexsCaves.PROXY.isKeyDown(2)) {
-                    ACNetUtils.sendMSGToServer(new ArmorKeyMessage(EquipmentSlot.CHEST.ordinal(), living.getId(), 2));
+                    NetworkRegistry.sendMSGToServer(new ArmorKeyMessage(EquipmentSlot.CHEST.ordinal(), living.getId(), 2));
                     onKeyPacket(living, stack, 2);
                 }
             }

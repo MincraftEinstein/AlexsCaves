@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ai.GroundPathNavigatorNoSpin;
 import com.github.alexmodguy.alexscaves.server.entity.ai.MobTarget3DGoal;
 import com.github.alexmodguy.alexscaves.server.entity.ai.WatcherAttackGoal;
@@ -9,7 +10,6 @@ import com.github.alexmodguy.alexscaves.server.entity.util.PossessesCamera;
 import com.github.alexmodguy.alexscaves.server.entity.util.WatcherPossessionAccessor;
 import com.github.alexmodguy.alexscaves.server.message.PossessionKeyMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.github.alexthe666.citadel.animation.Animation;
 import com.github.alexthe666.citadel.animation.AnimationHandler;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
@@ -280,7 +280,7 @@ public class WatcherEntity extends Monster implements IAnimatedEntity, Possesses
                 player.setJumping(false);
                 Player clientSidePlayer = AlexsCaves.PROXY.getClientSidePlayer();
                 if (AlexsCaves.PROXY.isKeyDown(-1) && player == clientSidePlayer) {
-                    ACNetUtils.sendMSGToServer(new PossessionKeyMessage(this.getId(), player.getId(), 0));
+                    NetworkRegistry.sendMSGToServer(new PossessionKeyMessage(this.getId(), player.getId(), 0));
                 }
             }
             if (prevPossessedEntity != living) {

@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.entity.ai;
 
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.SpinningPeppermintEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.SugarStaffHexEntity;
@@ -8,7 +9,6 @@ import com.github.alexmodguy.alexscaves.server.entity.util.PossessedByLicowitch;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.github.alexthe666.citadel.animation.IAnimatedEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -177,7 +177,7 @@ public class LicowitchAttackGoal extends Goal {
                 summoned.setPos(summonSpot);
                 licowitch.level().addFreshEntity(summoned);
                 licowitch.addPossessedUUID(summoned.getUUID());
-                ACNetUtils.sendMSGToAll(new WorldEventMessage(7, (int) summonSpot.x, (int) summonSpot.y, (int) summonSpot.z));
+                NetworkRegistry.sendMSGToAll(new WorldEventMessage(7, (int) summonSpot.x, (int) summonSpot.y, (int) summonSpot.z));
                 flag = true;
                 licowitch.level().playSound((Player) null, licowitch.blockPosition(), ACSoundRegistry.LICOWITCH_CAST_SUMMON.get(), SoundSource.HOSTILE, 0.3F, 0.9F + licowitch.level().random.nextFloat() * 0.2F);
             }

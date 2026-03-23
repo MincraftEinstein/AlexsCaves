@@ -1,8 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.github.alexthe666.citadel.server.message.PacketBufferUtils;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.core.component.DataComponents;
@@ -50,7 +50,7 @@ public class UpdateCaveBiomeMapTagMessage implements CustomPacketPayload {
 
     public static void handle(UpdateCaveBiomeMapTagMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (!ACNetUtils.isClientbound(context.networkSide())) {
+        if (!NetworkRegistry.isClientbound(context.networkSide())) {
             return;
         }
         Player playerSided = AlexsCaves.PROXY.getClientSidePlayer();

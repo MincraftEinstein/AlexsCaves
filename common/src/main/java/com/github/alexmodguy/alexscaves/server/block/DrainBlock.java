@@ -1,9 +1,9 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -80,7 +80,7 @@ public class DrainBlock extends TransparentBlock {
             if (!copyState.isEmpty()) {
                 int count = removeWaterBreadthFirstSearch(worldIn, highestWater);
                 if (count > 0) {
-                    ACNetUtils.sendMSGToAll(new WorldEventMessage(3, pos.getX(), pos.getY(), pos.getZ()));
+                    NetworkRegistry.sendMSGToAll(new WorldEventMessage(3, pos.getX(), pos.getY(), pos.getZ()));
                 }
                 BlockPos.MutableBlockPos lowestAir = new BlockPos.MutableBlockPos();
                 lowestAir.set(pos);
@@ -108,7 +108,7 @@ public class DrainBlock extends TransparentBlock {
                     }
                 }
                 if (flag) {
-                    ACNetUtils.sendMSGToAll(new WorldEventMessage(4, pos.getX(), pos.getY(), pos.getZ()));
+                    NetworkRegistry.sendMSGToAll(new WorldEventMessage(4, pos.getX(), pos.getY(), pos.getZ()));
                 }
             }
             worldIn.scheduleTick(pos, this, DRAIN_TIME);

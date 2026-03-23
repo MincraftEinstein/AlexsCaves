@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.message.MultipartEntityMessage;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
@@ -52,7 +52,7 @@ public class SauropodPartEntity extends PartEntity<SauropodBaseEntity> {
         } else {
             this.playSound(SoundEvents.ITEM_BREAK);
             if (player.level().isClientSide) {
-                ACNetUtils.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 0));
+                NetworkRegistry.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 0));
             }
             return parent.interact(player, hand);
         }
@@ -113,7 +113,7 @@ public class SauropodPartEntity extends PartEntity<SauropodBaseEntity> {
         if (!this.isInvulnerableTo(source) && parent != null) {
             Entity player = source.getEntity();
             if (player != null && !parent.isAlliedTo(player) && player.level().isClientSide) {
-                ACNetUtils.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 1));
+                NetworkRegistry.sendMSGToServer(new MultipartEntityMessage(parent.getId(), player.getId(), 1));
             }
         }
         return false;

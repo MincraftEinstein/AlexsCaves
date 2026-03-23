@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.FissurePrimalMagmaBlock;
 import com.github.alexmodguy.alexscaves.server.entity.ai.LookForwardsGoal;
@@ -15,7 +16,6 @@ import com.github.alexmodguy.alexscaves.server.message.UpdateBossEruptionStatus;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.VoronoiGenerator;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
@@ -486,7 +486,7 @@ public class LuxtructosaurusEntity extends SauropodBaseEntity implements Enemy {
             ACWorldData worldData = ACWorldData.get(level());
             if (worldData != null) {
                 worldData.trackPrimordialBoss(this.getId(), erupting);
-                ACNetUtils.sendMSGToAll(new UpdateBossEruptionStatus(this.getId(), worldData.isPrimordialBossActive(level())));
+                NetworkRegistry.sendMSGToAll(new UpdateBossEruptionStatus(this.getId(), worldData.isPrimordialBossActive(level())));
             }
         }
     }

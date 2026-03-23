@@ -1,8 +1,9 @@
 package com.github.alexmodguy.alexscaves.server.misc;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
+import com.github.alexthe666.citadel.server.entity.CitadelEntityData;
 import com.github.alexthe666.citadel.server.message.PropertiesMessage;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -45,9 +46,9 @@ public class CaveBookProgress {
         CitadelEntityData.setCitadelTag(player, tag);
         if (!player.level().isClientSide) {
             // TODO fix when not tired
-            ACNetUtils.sendMSGToAll(/*player, */new PropertiesMessage("CitadelTagUpdate", tag, player.getId()));
+            NetworkRegistry.sendMSGToAll(/*player, */new PropertiesMessage("CitadelTagUpdate", tag, player.getId()));
         } else {
-            ACNetUtils.sendMSGToServer(new PropertiesMessage("CitadelTagUpdate", tag, player.getId()));
+            NetworkRegistry.sendMSGToServer(new PropertiesMessage("CitadelTagUpdate", tag, player.getId()));
         }
     }
 

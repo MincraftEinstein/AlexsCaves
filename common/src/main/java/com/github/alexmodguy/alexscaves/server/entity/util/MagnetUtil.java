@@ -1,13 +1,13 @@
 package com.github.alexmodguy.alexscaves.server.entity.util;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.AbstractMovingBlockEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.MovingMetalBlockEntity;
 import com.github.alexmodguy.alexscaves.server.message.PlayerJumpFromMagnetMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.google.common.base.Predicates;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -79,7 +79,7 @@ public class MagnetUtil {
                 boolean isJumping = isEntityJumping(living);
                 if (isJumping && standingOnDirection == dir) {
                     if (entity.level().isClientSide) {
-                        ACNetUtils.sendMSGToServer(new PlayerJumpFromMagnetMessage(living.getId(), isJumping));
+                        NetworkRegistry.sendMSGToServer(new PlayerJumpFromMagnetMessage(living.getId(), isJumping));
                     }
                     magneticAccessor.postMagnetJump();
                 }

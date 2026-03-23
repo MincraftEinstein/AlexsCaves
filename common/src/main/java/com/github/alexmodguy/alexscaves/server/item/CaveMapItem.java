@@ -1,9 +1,9 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.level.storage.ACWorldData;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
@@ -22,7 +22,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
@@ -52,7 +51,7 @@ public class CaveMapItem extends Item implements UpdatesStackTags {
                 if (!tag.contains("MapUUID")) {
                     uuid = UUID.randomUUID();
                     tag.putUUID("MapUUID", uuid);
-                    ACNetUtils.sendMSGToAll(new UpdateItemTagMessage(player.getId(), itemstack));
+                    NetworkRegistry.sendMSGToAll(new UpdateItemTagMessage(player.getId(), itemstack));
                 } else {
                     uuid = tag.getUUID("MapUUID");
                 }
@@ -122,7 +121,7 @@ public class CaveMapItem extends Item implements UpdatesStackTags {
                             uuid = UUID.randomUUID();
                             tag.putUUID("MapUUID", uuid);
                             stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-                            ACNetUtils.sendMSGToAll(new UpdateItemTagMessage(entity.getId(), stack));
+                            NetworkRegistry.sendMSGToAll(new UpdateItemTagMessage(entity.getId(), stack));
                         } else {
                             uuid = tag.getUUID("MapUUID");
                         }

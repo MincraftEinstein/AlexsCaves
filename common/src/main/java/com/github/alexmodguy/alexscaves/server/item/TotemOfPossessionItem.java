@@ -1,13 +1,13 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.TotemExplosion;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.DustParticleOptions;
@@ -95,7 +95,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
         }
 
         if (level.isClientSide) {
-            ACNetUtils.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
+            NetworkRegistry.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
         }
         if (stack.getDamageValue() >= stack.getMaxDamage()) {
             stack.shrink(1);
@@ -115,7 +115,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
             resetBound(stack);
             user.stopUsingItem();
             if (level.isClientSide) {
-                ACNetUtils.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
+                NetworkRegistry.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
             }
             return;
         }
@@ -123,7 +123,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
 
             user.stopUsingItem();
             if (level.isClientSide) {
-                ACNetUtils.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
+                NetworkRegistry.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
             }
             return;
         }
@@ -256,7 +256,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
         tag.putInt("ControllingEntityID", set);
         itemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
         if (prev != set) {
-            ACNetUtils.sendMSGToAll(new UpdateItemTagMessage(player.getId(), itemStack));
+            NetworkRegistry.sendMSGToAll(new UpdateItemTagMessage(player.getId(), itemStack));
         }
     }
 

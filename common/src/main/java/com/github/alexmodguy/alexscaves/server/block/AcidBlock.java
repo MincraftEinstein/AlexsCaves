@@ -1,10 +1,10 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.item.HazmatArmorItem;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
 import com.github.alexmodguy.alexscaves.server.misc.*;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -108,7 +108,7 @@ public class AcidBlock extends LiquidBlock {
             BlockPos offset = pos.relative(direction);
             BlockState state1 = worldIn.getBlockState(offset);
             if (CORRODES_INTERACTIONS.containsKey(state1.getBlock())) {
-                ACNetUtils.sendMSGToAll(new WorldEventMessage(0, offset.getX(), offset.getY(), offset.getZ()));
+                NetworkRegistry.sendMSGToAll(new WorldEventMessage(0, offset.getX(), offset.getY(), offset.getZ()));
                 BlockState transform = CORRODES_INTERACTIONS.get(state1.getBlock()).defaultBlockState();
                 for (Property prop : state1.getProperties()) {
                     transform = transform.hasProperty(prop) ? transform.setValue(prop, state1.getValue(prop)) : transform;

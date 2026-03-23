@@ -2,8 +2,8 @@ package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import me.fzzyhmstrs.fzzy_config.networking.api.ClientPlayNetworkContext;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -55,7 +55,7 @@ public class SundropRainbowMessage implements CustomPacketPayload {
 
     public static void handle(SundropRainbowMessage message, ClientPlayNetworkContext context) {
         // This packet is sent from server to client
-        if (ACNetUtils.isClientbound(context.networkSide())) {
+        if (NetworkRegistry.isClientbound(context.networkSide())) {
             context.execute(() -> {
                 Player playerSided = AlexsCaves.PROXY.getClientSidePlayer();
                 if (playerSided != null && playerSided.level() != null) {

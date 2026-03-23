@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.FlyingMount;
 import com.github.alexmodguy.alexscaves.server.entity.util.KaijuMob;
@@ -10,7 +11,6 @@ import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.CandyCaneHookItem;
 import com.github.alexmodguy.alexscaves.server.message.MountedEntityKeyMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACLoadedMods;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.github.alexthe666.citadel.server.entity.collision.ICustomCollisions;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
@@ -282,14 +282,14 @@ public class GumWormSegmentEntity extends Entity implements ICustomCollisions, K
             if (clientPlayer != null && clientPlayer.isPassengerOfSameVehicle(this)) {
                 if (AlexsCaves.PROXY.isKeyDown(4)){
                     clientPlayer.stopRiding();
-                    ACNetUtils.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), clientPlayer.getId(), 0));
+                    NetworkRegistry.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), clientPlayer.getId(), 0));
                     postDismount(clientPlayer);
                 }
                 if (AlexsCaves.PROXY.isKeyDown(3)) {
                     if(this.getHeadEntity() instanceof GumWormEntity gumWorm){
                         gumWorm.onRidingPlayerAttack();
                     }
-                    ACNetUtils.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), clientPlayer.getId(), 1));
+                    NetworkRegistry.sendMSGToServer(new MountedEntityKeyMessage(this.getId(), clientPlayer.getId(), 1));
                 }
             }
         } else {

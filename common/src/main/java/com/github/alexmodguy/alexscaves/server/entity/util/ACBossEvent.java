@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.entity.util;
 
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.message.UpdateBossBarMessage;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
 import net.minecraft.server.level.ServerPlayer;
@@ -21,12 +21,12 @@ public class ACBossEvent extends ServerBossEvent {
     }
 
     public void addPlayer(ServerPlayer serverPlayer) {
-        ACNetUtils.sendNonLocal(new UpdateBossBarMessage(this.getId(), renderType), serverPlayer);
+        NetworkRegistry.sendNonLocal(new UpdateBossBarMessage(this.getId(), renderType), serverPlayer);
         super.addPlayer(serverPlayer);
     }
 
     public void removePlayer(ServerPlayer serverPlayer) {
-        ACNetUtils.sendNonLocal(new UpdateBossBarMessage(this.getId(), -1), serverPlayer);
+        NetworkRegistry.sendNonLocal(new UpdateBossBarMessage(this.getId(), -1), serverPlayer);
         super.removePlayer(serverPlayer);
     }
 }

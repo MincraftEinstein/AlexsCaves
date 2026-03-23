@@ -1,8 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.inventory.SpelunkeryTableMenu;
 import com.github.alexmodguy.alexscaves.server.message.SpelunkeryTableCompleteTutorialMessage;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -37,7 +37,7 @@ public class SpelunkeryTableBlock extends Block {
             player.openMenu(state.getMenuProvider(level, pos));
             player.awardStat(Stats.INTERACT_WITH_LOOM);
             if (player instanceof ServerPlayer serverPlayer) {
-                ACNetUtils.sendNonLocal(new SpelunkeryTableCompleteTutorialMessage(SpelunkeryTableMenu.hasCompletedTutorial(serverPlayer)), serverPlayer);
+                NetworkRegistry.sendNonLocal(new SpelunkeryTableCompleteTutorialMessage(SpelunkeryTableMenu.hasCompletedTutorial(serverPlayer)), serverPlayer);
             }
             return InteractionResult.CONSUME;
         }

@@ -2,9 +2,9 @@ package com.github.alexmodguy.alexscaves.server.block;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.message.SundropRainbowMessage;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -102,7 +102,7 @@ public class SundropBlock extends DirectionalBlock {
             Optional<BlockPos> rainbowTarget = Optional.ofNullable(pointofinterestmanager.getRandom(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.SUNDROP.key()), blockPos -> canSendRainbowTo(serverLevel, posIn, blockPos, range), PoiManager.Occupancy.ANY, posIn, range, randomSource).orElse(null));
             if (rainbowTarget.isPresent() && serverLevel.hasChunkAt(rainbowTarget.get())) {
                 BlockPos target = rainbowTarget.get();
-                ACNetUtils.sendMSGToAll(new SundropRainbowMessage(posIn.getX(), posIn.getY(), posIn.getZ(), target.getX(), target.getY(), target.getZ()));
+                NetworkRegistry.sendMSGToAll(new SundropRainbowMessage(posIn.getX(), posIn.getY(), posIn.getZ(), target.getX(), target.getY(), target.getZ()));
             }
         }
     }

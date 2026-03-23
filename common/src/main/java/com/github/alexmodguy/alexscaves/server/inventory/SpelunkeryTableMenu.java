@@ -1,13 +1,12 @@
 package com.github.alexmodguy.alexscaves.server.inventory;
 
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.CaveInfoItem;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.Container;
@@ -235,7 +234,7 @@ public class SpelunkeryTableMenu extends AbstractContainerMenu {
 
     public void makeStoneParticles(Level level, BlockPos blockPos) {
         if (!level.isClientSide) {
-            ACNetUtils.sendMSGToAll(new WorldEventMessage(5, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+            NetworkRegistry.sendMSGToAll(new WorldEventMessage(5, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
         }
     }
 

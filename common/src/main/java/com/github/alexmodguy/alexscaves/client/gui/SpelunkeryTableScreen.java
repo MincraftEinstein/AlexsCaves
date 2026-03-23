@@ -1,18 +1,17 @@
 package com.github.alexmodguy.alexscaves.client.gui;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.inventory.SpelunkeryTableMenu;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.CaveInfoItem;
 import com.github.alexmodguy.alexscaves.server.message.SpelunkeryTableChangeMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
-import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.GameRenderer;
@@ -361,12 +360,12 @@ public class SpelunkeryTableScreen extends AbstractContainerScreen<SpelunkeryTab
         if (resetTabletFromWin && level >= 3) {
             doneWithTutorial = true;
             menu.setTutorialComplete(Minecraft.getInstance().player, true);
-            ACNetUtils.sendMSGToServer(new SpelunkeryTableChangeMessage(true));
+            NetworkRegistry.sendMSGToServer(new SpelunkeryTableChangeMessage(true));
             level = 0;
             fullResetWords();
         } else if (finishedLevel && passLevelProgress >= 10.0F && attemptsLeft <= 0) {
             level = 0;
-            ACNetUtils.sendMSGToServer(new SpelunkeryTableChangeMessage(false));
+            NetworkRegistry.sendMSGToServer(new SpelunkeryTableChangeMessage(false));
             fullResetWords();
             Minecraft.getInstance().setScreen(null);
         }
@@ -565,7 +564,7 @@ public class SpelunkeryTableScreen extends AbstractContainerScreen<SpelunkeryTab
 
     public void onClose() {
         if (hasPaper() && hasTablet() && hasClickedAnyWord() && level < 3) {
-            ACNetUtils.sendMSGToServer(new SpelunkeryTableChangeMessage(false));
+            NetworkRegistry.sendMSGToServer(new SpelunkeryTableChangeMessage(false));
         }
         super.onClose();
     }

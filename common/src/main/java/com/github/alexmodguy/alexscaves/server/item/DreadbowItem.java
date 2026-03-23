@@ -1,12 +1,12 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.DarknessIncarnateEffect;
-import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -99,7 +99,7 @@ public class DreadbowItem extends ProjectileWeaponItem implements UpdatesStackTa
 
             if (using && getPerfectShotTicks(stack) > 0) {
                 setPerfectShotTicks(stack, getPerfectShotTicks(stack) - 1);
-                ACNetUtils.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
+                NetworkRegistry.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
             }
             boolean relentless = ACEnchantmentHelper.hasEnchantment(level, ACEnchantmentRegistry.RELENTLESS_DARKNESS, stack);
             int twilightPerfection = ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.TWILIGHT_PERFECTION, stack);
@@ -110,10 +110,10 @@ public class DreadbowItem extends ProjectileWeaponItem implements UpdatesStackTa
                 if(twilightPerfection > 0){
                     if(set >= maxLoadTime && useTime <= maxLoadTime){
                         setPerfectShotTicks(stack, 4 + (twilightPerfection - 1) * 3);
-                        ACNetUtils.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
+                        NetworkRegistry.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
                     }else{
                         setPerfectShotTicks(stack, 0);
-                        ACNetUtils.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
+                        NetworkRegistry.sendMSGToServer(new UpdateItemTagMessage(entity.getId(), stack));
                     }
                 }
             }

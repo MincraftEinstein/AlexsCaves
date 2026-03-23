@@ -20,10 +20,7 @@ import com.github.alexmodguy.alexscaves.server.level.structure.ACStructureRegist
 import com.github.alexmodguy.alexscaves.server.level.structure.piece.ACStructurePieceRegistry;
 import com.github.alexmodguy.alexscaves.server.level.structure.processor.ACStructureProcessorRegistry;
 import com.github.alexmodguy.alexscaves.server.message.*;
-import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
-import com.github.alexmodguy.alexscaves.server.misc.ACCreativeTabRegistry;
-import com.github.alexmodguy.alexscaves.server.misc.ACDataComponentRegistry;
-import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import com.github.alexmodguy.alexscaves.server.misc.*;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.recipe.ACRecipeRegistry;
 import net.minecraft.core.Holder;
@@ -36,9 +33,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.util.*;
+import java.util.List;
 
 import static com.github.alexmodguy.alexscaves.util.ACNetUtils.registerC2S;
 import static com.github.alexmodguy.alexscaves.util.ACNetUtils.registerS2C;
@@ -85,7 +83,10 @@ public class AlexsCaves {
         ACFeatureRegistry.init();
         ACStructurePieceRegistry.init();
         ACStructureRegistry.init();
+        ACPotPatternRegistry.init(); // TODO fix pots
+        ACBiomeRegistry.init();
         registerPayloads();
+        readModIncompatibilities();
     }
 
     public static ResourceLocation id(String path) {
@@ -135,5 +136,25 @@ public class AlexsCaves {
         registerC2S(PossessionKeyMessage.TYPE, PossessionKeyMessage.CODEC, PossessionKeyMessage::handle);
         registerC2S(BeholderRotateMessage.TYPE, BeholderRotateMessage.CODEC, BeholderRotateMessage::handle);
         registerC2S(ArmorKeyMessage.TYPE, ArmorKeyMessage.CODEC, ArmorKeyMessage::handle);
+    }
+
+    public static final List<String> MOD_GENERATION_CONFLICTS = new ArrayList<>();
+
+    public static void readModIncompatibilities() {
+        BufferedReader urlContents = WebHelper.getURLContents(
+                "https://raw.githubusercontent.com/AlexModGuy/AlexsCaves/main/src/main/resources/assets/alexscaves/warning/mod_generation_conflicts.txt",
+                "assets/alexscaves/warning/mod_generation_conflicts.txt");
+        if (urlContents != null) {
+            try {
+                String line;
+                while ((line = urlContents.readLine()) != null) {
+                    MOD_GENERATION_CONFLICTS.add(line);
+                }
+            } catch (IOException e) {
+                AlexsCaves.LOGGER.warn("Failed to load mod conflicts");
+            }
+        } else {
+            AlexsCaves.LOGGER.warn("Failed to load mod conflicts");
+        }
     }
 }

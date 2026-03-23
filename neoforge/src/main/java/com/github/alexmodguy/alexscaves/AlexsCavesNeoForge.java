@@ -42,7 +42,6 @@ public class AlexsCavesNeoForge {
             AlexsCaves.id("default"),
             (x, y) -> {/*ACWorldData::clearLoadedChunksCallback*/});
 
-    public static final List<String> MOD_GENERATION_CONFLICTS = new ArrayList<>();
 
     public AlexsCavesNeoForge(IEventBus modEventBus, ModContainer modContainer) {
         // (ender) This has to be before init so all events register
@@ -68,14 +67,12 @@ public class AlexsCavesNeoForge {
         ACFluidRegistry.FLUID_DEF_REG.register(modEventBus);
         ACLootTableRegistry.GLOBAL_LOOT_MODIFIER_DEF_REG.register(modEventBus);
         ACLootTableRegistry.LOOT_FUNCTION_DEF_REG.register(modEventBus);
-        ACPotPatternRegistry.init(); // Pot patterns are now data-driven in 1.21
         this.modEventBus = modEventBus; // Store for later use
         if (AlexsCaves.PROXY instanceof ClientProxy cProxy) {
             cProxy.commonInit(modEventBus);
             NeoForgeClientPlatformHelper.init(modEventBus);
             AlexsCavesClient.init();
         }
-        ACBiomeRegistry.init();
     }
 
     private void loadConfig(final ModConfigEvent.Loading event) {
@@ -96,7 +93,6 @@ public class AlexsCavesNeoForge {
             // Debug: verify POI registration
             verifyPoiRegistration();
         });
-        readModIncompatibilities();
     }
 
     private void verifyPoiRegistration() {
@@ -145,24 +141,6 @@ public class AlexsCavesNeoForge {
 
     private void registerLayerDefinitions(final EntityRenderersEvent.RegisterLayerDefinitions event) {
         ACModelLayers.register(event);
-    }
-
-    private void readModIncompatibilities() {
-        BufferedReader urlContents = WebHelper.getURLContents(
-                "https://raw.githubusercontent.com/AlexModGuy/AlexsCaves/main/src/main/resources/assets/alexscaves/warning/mod_generation_conflicts.txt",
-                "assets/alexscaves/warning/mod_generation_conflicts.txt");
-        if (urlContents != null) {
-            try {
-                String line;
-                while ((line = urlContents.readLine()) != null) {
-                    MOD_GENERATION_CONFLICTS.add(line);
-                }
-            } catch (IOException e) {
-                AlexsCaves.LOGGER.warn("Failed to load mod conflicts");
-            }
-        } else {
-            AlexsCaves.LOGGER.warn("Failed to load mod conflicts");
-        }
     }
 
 }

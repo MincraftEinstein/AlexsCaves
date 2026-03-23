@@ -17,6 +17,7 @@ import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.carver.ACCarverRegistry;
 import com.github.alexmodguy.alexscaves.server.message.*;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
+import com.github.alexmodguy.alexscaves.server.misc.ACCreativeTabRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACDataComponentRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
@@ -75,6 +76,7 @@ public class AlexsCaves {
         ACArmorMaterials.init();
         ACEffectRegistry.init();
         ACAttachmentRegistry.init();
+        ACCreativeTabRegistry.init();
         registerPayloads();
     }
 

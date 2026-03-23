@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.misc;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.platform.RegHolder;
+import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.CaveInfoItem;
@@ -9,96 +10,97 @@ import com.github.alexmodguy.alexscaves.server.item.CustomTabBehavior;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+
+import java.util.function.Function;
 
 public class ACCreativeTabRegistry {
 
-    public static final DeferredRegister<CreativeModeTab> DEF_REG = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, AlexsCaves.MOD_ID);
+    public static RegHolder<CreativeModeTab, CreativeModeTab> register(String name, Function<CreativeModeTab.Builder, CreativeModeTab> tab) {
+        return Services.REGISTRY_HELPER.registerCreativeModeTab(name, tab);
+    }
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAGNETIC_CAVES = DEF_REG.register("magnetic_caves", () -> CreativeModeTab.builder()
-            .title(Component.translatable("itemGroup.alexscaves.magnetic_caves"))
-            .icon(() -> new ItemStack(ACBlockRegistry.SCARLET_MAGNET.get()))
-            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-            .displayItems((enabledFeatures, output) -> {
-                output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_TABLET.get(), ACBiomeRegistry.MAGNETIC_CAVES));
-                output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_CODEX.get(), ACBiomeRegistry.MAGNETIC_CAVES));
-                add(output, ACBlockRegistry.SPELUNKERY_TABLE.get());
-                add(output, ACItemRegistry.CAVE_BOOK.get());
-                output.accept(CaveMapItem.createMap(ACBiomeRegistry.MAGNETIC_CAVES));
-                ACItemRegistry.getSpawnEggsForTab(ACBiomeRegistry.MAGNETIC_CAVES).forEach((spawnEgg -> add(output, spawnEgg.get())));
-                add(output, ACItemRegistry.RAW_SCARLET_NEODYMIUM.get());
-                add(output, ACItemRegistry.SCARLET_NEODYMIUM_INGOT.get());
-                add(output, ACItemRegistry.RAW_AZURE_NEODYMIUM.get());
-                add(output, ACItemRegistry.AZURE_NEODYMIUM_INGOT.get());
-                add(output, ACItemRegistry.TELECORE.get());
-                add(output, ACItemRegistry.NOTOR_COMPONENT.get());
-                add(output, ACItemRegistry.HOLOCODER.get());
-                add(output, ACItemRegistry.FERROUSLIME_BALL.get());
-                add(output, ACItemRegistry.HEAVYWEIGHT.get());
-                add(output, ACItemRegistry.QUARRY_SMASHER.get());
-                add(output, ACItemRegistry.SEEKING_ARROW.get());
-                add(output, ACItemRegistry.GALENA_GAUNTLET.get());
-                add(output, ACItemRegistry.RESISTOR_SHIELD.get());
-                add(output, ACItemRegistry.POLARITY_ARMOR_TRIM_SMITHING_TEMPLATE.get());
-                add(output, ACBlockRegistry.GALENA.get());
-                add(output, ACBlockRegistry.GALENA_STAIRS.get());
-                add(output, ACBlockRegistry.GALENA_SLAB.get());
-                add(output, ACBlockRegistry.GALENA_BRICKS.get());
-                add(output, ACBlockRegistry.GALENA_WALL.get());
-                add(output, ACBlockRegistry.GALENA_BRICKS.get());
-                add(output, ACBlockRegistry.GALENA_BRICK_STAIRS.get());
-                add(output, ACBlockRegistry.GALENA_BRICK_SLAB.get());
-                add(output, ACBlockRegistry.GALENA_BRICK_WALL.get());
-                add(output, ACBlockRegistry.GALENA_IRON_ORE.get());
-                add(output, ACBlockRegistry.ENERGIZED_GALENA_NEUTRAL.get());
-                add(output, ACBlockRegistry.ENERGIZED_GALENA_SCARLET.get());
-                add(output, ACBlockRegistry.ENERGIZED_GALENA_AZURE.get());
-                add(output, ACBlockRegistry.GALENA_SPIRE.get());
-                add(output, ACBlockRegistry.PACKED_GALENA.get());
-                add(output, ACBlockRegistry.GALENA_PILLAR.get());
-                add(output, ACBlockRegistry.TESLA_BULB.get());
-                add(output, ACBlockRegistry.METAL_SWARF.get());
-                add(output, ACBlockRegistry.SCRAP_METAL.get());
-                add(output, ACBlockRegistry.SCRAP_METAL_PLATE.get());
-                add(output, ACBlockRegistry.METAL_REBAR.get());
-                add(output, ACBlockRegistry.METAL_SCAFFOLDING.get());
-                add(output, ACBlockRegistry.METAL_BARREL.get());
-                add(output, ACBlockRegistry.SCARLET_NEODYMIUM_NODE.get());
-                add(output, ACBlockRegistry.SCARLET_NEODYMIUM_PILLAR.get());
-                add(output, ACBlockRegistry.BLOCK_OF_SCARLET_NEODYMIUM.get());
-                add(output, ACBlockRegistry.SCARLET_MAGNET.get());
-                add(output, ACBlockRegistry.AZURE_NEODYMIUM_NODE.get());
-                add(output, ACBlockRegistry.AZURE_NEODYMIUM_PILLAR.get());
-                add(output, ACBlockRegistry.BLOCK_OF_AZURE_NEODYMIUM.get());
-                add(output, ACBlockRegistry.AZURE_MAGNET.get());
-                add(output, ACBlockRegistry.HEART_OF_IRON.get());
-                add(output, ACBlockRegistry.MAGNETIC_ACTIVATOR.get());
-                add(output, ACBlockRegistry.HOLOGRAM_PROJECTOR.get());
-                add(output, ACBlockRegistry.MAGNETIC_LIGHT.get());
-                add(output, ACBlockRegistry.MAGNETIC_LEVITATION_RAIL.get());
-                add(output, ACBlockRegistry.QUARRY.get());
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.MAGNETIZING_POTION));
-                output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.MAGNETIZING_POTION));
-                output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.MAGNETIZING_POTION));
-                output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION));
-                // Enchantments are now data-driven in 1.21, added via creative tab events or datapacks
-            })
-            .build());
+    // TODO figure out how if we want to organise the tabs
+    public static final RegHolder<CreativeModeTab, CreativeModeTab> MAGNETIC_CAVES = register("magnetic_caves", (builder) -> builder
+                    .title(Component.translatable("itemGroup.alexscaves.magnetic_caves"))
+                    .icon(() -> new ItemStack(ACBlockRegistry.SCARLET_MAGNET.get()))
+//            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+                    .displayItems((enabledFeatures, output) -> {
+                        output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_TABLET.get(), ACBiomeRegistry.MAGNETIC_CAVES));
+                        output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_CODEX.get(), ACBiomeRegistry.MAGNETIC_CAVES));
+                        add(output, ACBlockRegistry.SPELUNKERY_TABLE.get());
+                        add(output, ACItemRegistry.CAVE_BOOK.get());
+                        output.accept(CaveMapItem.createMap(ACBiomeRegistry.MAGNETIC_CAVES));
+                        ACItemRegistry.getSpawnEggsForTab(ACBiomeRegistry.MAGNETIC_CAVES).forEach((spawnEgg -> add(output, spawnEgg.get())));
+                        add(output, ACItemRegistry.RAW_SCARLET_NEODYMIUM.get());
+                        add(output, ACItemRegistry.SCARLET_NEODYMIUM_INGOT.get());
+                        add(output, ACItemRegistry.RAW_AZURE_NEODYMIUM.get());
+                        add(output, ACItemRegistry.AZURE_NEODYMIUM_INGOT.get());
+                        add(output, ACItemRegistry.TELECORE.get());
+                        add(output, ACItemRegistry.NOTOR_COMPONENT.get());
+                        add(output, ACItemRegistry.HOLOCODER.get());
+                        add(output, ACItemRegistry.FERROUSLIME_BALL.get());
+                        add(output, ACItemRegistry.HEAVYWEIGHT.get());
+                        add(output, ACItemRegistry.QUARRY_SMASHER.get());
+                        add(output, ACItemRegistry.SEEKING_ARROW.get());
+                        add(output, ACItemRegistry.GALENA_GAUNTLET.get());
+                        add(output, ACItemRegistry.RESISTOR_SHIELD.get());
+                        add(output, ACItemRegistry.POLARITY_ARMOR_TRIM_SMITHING_TEMPLATE.get());
+                        add(output, ACBlockRegistry.GALENA.get());
+                        add(output, ACBlockRegistry.GALENA_STAIRS.get());
+                        add(output, ACBlockRegistry.GALENA_SLAB.get());
+                        add(output, ACBlockRegistry.GALENA_WALL.get());
+                        add(output, ACBlockRegistry.GALENA_BRICKS.get());
+                        add(output, ACBlockRegistry.GALENA_BRICK_STAIRS.get());
+                        add(output, ACBlockRegistry.GALENA_BRICK_SLAB.get());
+                        add(output, ACBlockRegistry.GALENA_BRICK_WALL.get());
+                        add(output, ACBlockRegistry.GALENA_IRON_ORE.get());
+                        add(output, ACBlockRegistry.ENERGIZED_GALENA_NEUTRAL.get());
+                        add(output, ACBlockRegistry.ENERGIZED_GALENA_SCARLET.get());
+                        add(output, ACBlockRegistry.ENERGIZED_GALENA_AZURE.get());
+                        add(output, ACBlockRegistry.GALENA_SPIRE.get());
+                        add(output, ACBlockRegistry.PACKED_GALENA.get());
+                        add(output, ACBlockRegistry.GALENA_PILLAR.get());
+                        add(output, ACBlockRegistry.TESLA_BULB.get());
+                        add(output, ACBlockRegistry.METAL_SWARF.get());
+                        add(output, ACBlockRegistry.SCRAP_METAL.get());
+                        add(output, ACBlockRegistry.SCRAP_METAL_PLATE.get());
+                        add(output, ACBlockRegistry.METAL_REBAR.get());
+                        add(output, ACBlockRegistry.METAL_SCAFFOLDING.get());
+                        add(output, ACBlockRegistry.METAL_BARREL.get());
+                        add(output, ACBlockRegistry.SCARLET_NEODYMIUM_NODE.get());
+                        add(output, ACBlockRegistry.SCARLET_NEODYMIUM_PILLAR.get());
+                        add(output, ACBlockRegistry.BLOCK_OF_SCARLET_NEODYMIUM.get());
+                        add(output, ACBlockRegistry.SCARLET_MAGNET.get());
+                        add(output, ACBlockRegistry.AZURE_NEODYMIUM_NODE.get());
+                        add(output, ACBlockRegistry.AZURE_NEODYMIUM_PILLAR.get());
+                        add(output, ACBlockRegistry.BLOCK_OF_AZURE_NEODYMIUM.get());
+                        add(output, ACBlockRegistry.AZURE_MAGNET.get());
+                        add(output, ACBlockRegistry.HEART_OF_IRON.get());
+                        add(output, ACBlockRegistry.MAGNETIC_ACTIVATOR.get());
+                        add(output, ACBlockRegistry.HOLOGRAM_PROJECTOR.get());
+                        add(output, ACBlockRegistry.MAGNETIC_LIGHT.get());
+                        add(output, ACBlockRegistry.MAGNETIC_LEVITATION_RAIL.get());
+                        add(output, ACBlockRegistry.QUARRY.get());
+                        output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.MAGNETIZING_POTION));
+                        output.accept(ACEffectRegistry.createPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION));
+                        output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.MAGNETIZING_POTION));
+                        output.accept(ACEffectRegistry.createSplashPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION));
+                        output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.MAGNETIZING_POTION));
+                        output.accept(ACEffectRegistry.createLingeringPotion(ACEffectRegistry.LONG_MAGNETIZING_POTION));
+                        // Enchantments are now data-driven in 1.21, added via creative tab events or datapacks
+                    })
+                    .build()
+    );
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> PRIMORDIAL_CAVES = DEF_REG.register("primordial_caves", () -> CreativeModeTab.builder()
+    public static final RegHolder<CreativeModeTab, CreativeModeTab> PRIMORDIAL_CAVES = register("primordial_caves", (builder) -> builder
             .title(Component.translatable("itemGroup.alexscaves.primordial_caves"))
             .icon(() -> new ItemStack(ACBlockRegistry.FLYTRAP.get()))
-            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-            .withTabsBefore(MAGNETIC_CAVES.getKey())
+//            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+//            .withTabsBefore(MAGNETIC_CAVES.key())
             .displayItems((enabledFeatures, output) -> {
                 output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_TABLET.get(), ACBiomeRegistry.PRIMORDIAL_CAVES));
                 output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_CODEX.get(), ACBiomeRegistry.PRIMORDIAL_CAVES));
@@ -215,11 +217,11 @@ public class ACCreativeTabRegistry {
             })
             .build());
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> TOXIC_CAVES = DEF_REG.register("toxic_caves", () -> CreativeModeTab.builder()
+    public static final RegHolder<CreativeModeTab, CreativeModeTab> TOXIC_CAVES = register("toxic_caves", (builder) -> builder
             .title(Component.translatable("itemGroup.alexscaves.toxic_caves"))
             .icon(() -> new ItemStack(ACBlockRegistry.WASTE_DRUM.get()))
-            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-            .withTabsBefore(PRIMORDIAL_CAVES.getKey())
+//            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+//            .withTabsBefore(PRIMORDIAL_CAVES.key())
             .displayItems((enabledFeatures, output) -> {
                 output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_TABLET.get(), ACBiomeRegistry.TOXIC_CAVES));
                 output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_CODEX.get(), ACBiomeRegistry.TOXIC_CAVES));
@@ -318,11 +320,11 @@ public class ACCreativeTabRegistry {
             })
             .build());
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> ABYSSAL_CHASM = DEF_REG.register("abyssal_chasm", () -> CreativeModeTab.builder()
+    public static final RegHolder<CreativeModeTab, CreativeModeTab> ABYSSAL_CHASM = register("abyssal_chasm", (builder) -> builder
             .title(Component.translatable("itemGroup.alexscaves.abyssal_chasm"))
             .icon(() -> new ItemStack(ACItemRegistry.SUBMARINE.get()))
-            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-            .withTabsBefore(TOXIC_CAVES.getKey())
+//            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+//            .withTabsBefore(TOXIC_CAVES.key())
             .displayItems((enabledFeatures, output) -> {
                 output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_TABLET.get(), ACBiomeRegistry.ABYSSAL_CHASM));
                 output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_CODEX.get(), ACBiomeRegistry.ABYSSAL_CHASM));
@@ -414,11 +416,11 @@ public class ACCreativeTabRegistry {
             })
             .build());
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> FORLORN_HOLLOWS = DEF_REG.register("forlorn_hollows", () -> CreativeModeTab.builder()
+    public static final RegHolder<CreativeModeTab, CreativeModeTab> FORLORN_HOLLOWS = register("forlorn_hollows", (builder) -> builder
             .title(Component.translatable("itemGroup.alexscaves.forlorn_hollows"))
             .icon(() -> new ItemStack(ACBlockRegistry.PEERING_COPROLITH.get()))
-            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-            .withTabsBefore(ABYSSAL_CHASM.getKey())
+//            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+//            .withTabsBefore(ABYSSAL_CHASM.key())
             .displayItems((enabledFeatures, output) -> {
                 output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_TABLET.get(), ACBiomeRegistry.FORLORN_HOLLOWS));
                 output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_CODEX.get(), ACBiomeRegistry.FORLORN_HOLLOWS));
@@ -503,11 +505,11 @@ public class ACCreativeTabRegistry {
             })
             .build());
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> CANDY_CAVITY = DEF_REG.register("candy_cavity", () -> CreativeModeTab.builder()
+    public static final RegHolder<CreativeModeTab, CreativeModeTab> CANDY_CAVITY = register("candy_cavity", (builder) -> builder
             .title(Component.translatable("itemGroup.alexscaves.candy_cavity"))
             .icon(() -> new ItemStack(ACBlockRegistry.LARGE_PEPPERMINT.get()))
-            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
-            .withTabsBefore(FORLORN_HOLLOWS.getKey())
+//            .withTabsBefore(CreativeModeTabs.SPAWN_EGGS)
+//            .withTabsBefore(FORLORN_HOLLOWS.key())
             .displayItems((enabledFeatures, output) -> {
                 output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_TABLET.get(), ACBiomeRegistry.CANDY_CAVITY));
                 output.accept(CaveInfoItem.create(ACItemRegistry.CAVE_CODEX.get(), ACBiomeRegistry.CANDY_CAVITY));
@@ -656,5 +658,8 @@ public class ACCreativeTabRegistry {
         } else {
             tab.accept(itemLike);
         }
+    }
+
+    public static void init() {
     }
 }

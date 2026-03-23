@@ -44,7 +44,7 @@ public class DonutArchStructurePiece extends StructurePiece {
     private VoronoiGenerator voronoiGenerator;
 
     public DonutArchStructurePiece(BlockPos centerPos, BlockPos chunkCorner, Direction direction, double width, int frostingType) {
-        super(ACStructurePieceRegistry.DONUT_ARCH.get(), 0, createBoundingBox(chunkCorner, direction));
+        super(com.github.alexmodguy.alexscaves.server.level.structure.piece.ACStructurePieceRegistry.DONUT_ARCH.get(), 0, createBoundingBox(chunkCorner, direction));
         this.centerPos = centerPos;
         this.chunkCorner = chunkCorner;
         this.direction = direction;

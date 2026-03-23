@@ -25,6 +25,9 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
@@ -58,6 +61,10 @@ public interface RegistryHelper {
     <T extends Feature<?>> RegHolder<Feature<?>, T> registerFeature(String name, Supplier<T> supplier);
 
     <T extends StructureProcessor> RegHolder<StructureProcessorType<?>, StructureProcessorType<T>> registerStructureProcessor(String name, Supplier<StructureProcessorType<T>> supplier);
+
+    <T extends Structure> RegHolder<StructureType<?>, StructureType<T>> registerStructureType(String name, Supplier<StructureType<T>> supplier);
+
+    RegHolder<StructurePieceType, StructurePieceType> registerStructurePieceType(String name, Supplier<StructurePieceType> supplier);
 
     @FunctionalInterface
     interface BlockEntityExtender {

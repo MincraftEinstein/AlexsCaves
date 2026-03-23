@@ -33,6 +33,9 @@ import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
@@ -88,6 +91,16 @@ public class FabricRegistryHelper implements RegistryHelper {
     @Override
     public <T extends StructureProcessor> RegHolder<StructureProcessorType<?>, StructureProcessorType<T>> registerStructureProcessor(String name, Supplier<StructureProcessorType<T>> supplier) {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.STRUCTURE_PROCESSOR, id(name), supplier.get()));
+    }
+
+    @Override
+    public <T extends Structure> RegHolder<StructureType<?>, StructureType<T>> registerStructureType(String name, Supplier<StructureType<T>> supplier) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.STRUCTURE_TYPE, id(name), supplier.get()));
+    }
+
+    @Override
+    public RegHolder<StructurePieceType, StructurePieceType> registerStructurePieceType(String name, Supplier<StructurePieceType> supplier) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.STRUCTURE_PIECE, id(name), supplier.get()));
     }
 
     @Override

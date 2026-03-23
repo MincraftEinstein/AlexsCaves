@@ -29,6 +29,9 @@ import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.structure.Structure;
+import net.minecraft.world.level.levelgen.structure.StructureType;
+import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceType;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessorType;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
@@ -63,6 +66,8 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, MOD_ID);
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(BuiltInRegistries.FEATURE, MOD_ID);
     public static final DeferredRegister<StructureProcessorType<?>> STRUCTURE_PROCESSORS = DeferredRegister.create(BuiltInRegistries.STRUCTURE_PROCESSOR, MOD_ID);
+    public static final DeferredRegister<StructureType<?>> STRUCTURE_TYPES = DeferredRegister.create(BuiltInRegistries.STRUCTURE_TYPE, MOD_ID);
+    public static final DeferredRegister<StructurePieceType> STRUCTURE_PIECES = DeferredRegister.create(BuiltInRegistries.STRUCTURE_PIECE, MOD_ID);
     public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(BuiltInRegistries.POTION, MOD_ID);
     public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(BuiltInRegistries.MOB_EFFECT, MOD_ID);
     public static final DeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, MOD_ID);
@@ -91,6 +96,8 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
         ENTITY_TYPES.register(modEventBus);
         FEATURES.register(modEventBus);
         STRUCTURE_PROCESSORS.register(modEventBus);
+        STRUCTURE_TYPES.register(modEventBus);
+        STRUCTURE_PIECES.register(modEventBus);
         MOB_EFFECTS.register(modEventBus);
         POTIONS.register(modEventBus);
         RECIPE_SERIALIZERS.register(modEventBus);
@@ -142,6 +149,17 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     public <T extends StructureProcessor> RegHolder<StructureProcessorType<?>, StructureProcessorType<T>> registerStructureProcessor(String name, Supplier<StructureProcessorType<T>> supplier) {
         return NeoRegHolder.of(STRUCTURE_PROCESSORS.register(name, supplier));
     }
+
+    @Override
+    public <T extends Structure> RegHolder<StructureType<?>, StructureType<T>> registerStructureType(String name, Supplier<StructureType<T>> supplier) {
+        return NeoRegHolder.of(STRUCTURE_TYPES.register(name, supplier));
+    }
+
+    @Override
+    public RegHolder<StructurePieceType, StructurePieceType> registerStructurePieceType(String name, Supplier<StructurePieceType> supplier) {
+        return NeoRegHolder.of(STRUCTURE_PIECES.register(name, supplier));
+    }
+
 
     @Override
     public void registerPotionRecipes(Consumer<PotionBrewing.Builder> consumer) {

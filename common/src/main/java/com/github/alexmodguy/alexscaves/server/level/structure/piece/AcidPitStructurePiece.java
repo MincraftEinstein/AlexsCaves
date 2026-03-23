@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.level.structure.piece;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
-import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import net.minecraft.core.BlockPos;
@@ -95,9 +94,10 @@ public class AcidPitStructurePiece extends AbstractCaveGenerationStructurePiece 
             offset.set(center);
             offset.move(dir);
             BlockState state = checkedGetBlockIgnoreY(level, offset);
-            if (!state.getFluidState().is(ACFluidRegistry.ACID_FLUID_SOURCE.get())) {
+            //TODO fix when fluid
+           /* if (!state.getFluidState().is(ACFluidRegistry.ACID_FLUID_SOURCE.get())) {
                 checkedSetBlock(level, offset, Blocks.MUD.defaultBlockState());
-            }
+            }*/
         }
     }
 
@@ -107,9 +107,10 @@ public class AcidPitStructurePiece extends AbstractCaveGenerationStructurePiece 
             offset.set(center);
             offset.move(dir);
             BlockState state = checkedGetBlock(level, offset);
-            if (!state.getFluidState().isEmpty() && !state.getFluidState().is(ACFluidRegistry.ACID_FLUID_SOURCE.get())) {
+            // TODO fix when fluid
+          /*  if (!state.getFluidState().isEmpty() && !state.getFluidState().is(ACFluidRegistry.ACID_FLUID_SOURCE.get())) {
                 checkedSetBlock(level, offset, Blocks.MUD.defaultBlockState());
-            }
+            }*/
         }
     }
 
@@ -118,12 +119,15 @@ public class AcidPitStructurePiece extends AbstractCaveGenerationStructurePiece 
         for (Direction dir : Direction.values()) {
             offset.set(center);
             offset.move(dir);
-            FluidState state = checkedGetBlock(level, offset).getFluidState();
+            //TODO fix when fluid
+            /*FluidState state = checkedGetBlock(level, offset).getFluidState();
             if (!state.isEmpty() && !state.is(ACFluidRegistry.ACID_FLUID_SOURCE.get())) {
                 return true;
-            }
+            }*/
         }
         FluidState state = checkedGetBlock(level, center).getFluidState();
-        return !state.isEmpty() && !state.is(ACFluidRegistry.ACID_FLUID_SOURCE.get());
+        //TODO fix when fluid
+        return !state.isEmpty();
+//        return !state.isEmpty() && !state.is(ACFluidRegistry.ACID_FLUID_SOURCE.get());
     }
 }

@@ -16,6 +16,8 @@ import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.carver.ACCarverRegistry;
 import com.github.alexmodguy.alexscaves.server.level.feature.ACFeatureRegistry;
+import com.github.alexmodguy.alexscaves.server.level.structure.ACStructureRegistry;
+import com.github.alexmodguy.alexscaves.server.level.structure.piece.ACStructurePieceRegistry;
 import com.github.alexmodguy.alexscaves.server.level.structure.processor.ACStructureProcessorRegistry;
 import com.github.alexmodguy.alexscaves.server.message.*;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
@@ -81,6 +83,8 @@ public class AlexsCaves {
         ACCreativeTabRegistry.init();
         ACStructureProcessorRegistry.init();
         ACFeatureRegistry.init();
+        ACStructurePieceRegistry.init();
+        ACStructureRegistry.init();
         registerPayloads();
     }
 

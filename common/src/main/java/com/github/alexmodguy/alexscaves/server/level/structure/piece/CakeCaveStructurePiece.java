@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.level.structure.piece;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
-import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.VoronoiGenerator;
@@ -37,7 +36,7 @@ public class CakeCaveStructurePiece extends AbstractCaveGenerationStructurePiece
     private static final float RIVER_BANK_WIDTH_SQ = 3000;
 
     public CakeCaveStructurePiece(BlockPos chunkCorner, BlockPos holeCenter, int bowlHeight, int bowlRadius) {
-        super(ACStructurePieceRegistry.CAKE_CAVE.get(), chunkCorner, holeCenter, bowlHeight, bowlRadius);
+        super(com.github.alexmodguy.alexscaves.server.level.structure.piece.ACStructurePieceRegistry.CAKE_CAVE.get(), chunkCorner, holeCenter, bowlHeight, bowlRadius);
     }
 
     public CakeCaveStructurePiece(CompoundTag tag) {
@@ -99,14 +98,15 @@ public class CakeCaveStructurePiece extends AbstractCaveGenerationStructurePiece
             offset.move(dir);
             BlockState state = checkedGetBlock(level, offset);
             if (!state.getFluidState().isEmpty()){
-                if(state.getFluidState().getFluidType() == ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get()){
+                // TODO fix when fluid
+               /* if(state.getFluidState().getFluidType() == ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get()){
                     double riveriness = getRiveriness(offset);
                     if(riveriness > RIVER_WIDTH_SQ / 2){
                         checkedSetBlock(level, offset, ACBlockRegistry.CAKE_LAYER.get().defaultBlockState());
                     }
-                }else{
+                }else{*/
                     checkedSetBlock(level, offset, ACBlockRegistry.CAKE_LAYER.get().defaultBlockState());
-                }
+//                }
             }
         }
     }
@@ -120,7 +120,8 @@ public class CakeCaveStructurePiece extends AbstractCaveGenerationStructurePiece
                 riverPos = riverPos.below();
                 if (riverPos.getY() < (int) plateauHeight1) {
                     checkedSetBlock(level, riverPos, ACBlockRegistry.PURPLE_SODA.get().defaultBlockState());
-                    level.scheduleTick(riverPos, ACFluidRegistry.PURPLE_SODA_FLUID_SOURCE.get(), ACFluidRegistry.PURPLE_SODA_FLUID_SOURCE.get().getTickDelay(level));
+                    // TODO fix when fluid
+//                    level.scheduleTick(riverPos, ACFluidRegistry.PURPLE_SODA_FLUID_SOURCE.get(), ACFluidRegistry.PURPLE_SODA_FLUID_SOURCE.get().getTickDelay(level));
                 } else {
                     checkedSetBlock(level, riverPos, Blocks.CAVE_AIR.defaultBlockState());
                 }

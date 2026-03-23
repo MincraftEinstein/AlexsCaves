@@ -37,7 +37,7 @@ public class ACBlockEntityRegistry {
 
     public static void init() {
         // Add to existing BE's
-        Services.REGISTRY_HELPER.addSupportedBlocks((extender) -> {
+        Services.EVENTS.addSupportedBlocks((extender) -> {
             extender.add(
                     BlockEntityType.SIGN,
                     ACBlockRegistry.PEWEN_SIGN.get(),

@@ -54,8 +54,6 @@ public interface RegistryHelper {
 
     <T extends BlockEntityType<?>> RegHolder<BlockEntityType<?>, T> registerBlockEntity(String name, Supplier<T> type);
 
-    void addSupportedBlocks(Consumer<BlockEntityExtender> consumer);
-
     <T extends Entity> RegHolder<EntityType<?>, EntityType<T>> registerEntityType(String name, Supplier<EntityType<T>> entityTypeSupplier);
 
     <T extends Feature<?>> RegHolder<Feature<?>, T> registerFeature(String name, Supplier<T> supplier);
@@ -65,11 +63,6 @@ public interface RegistryHelper {
     <T extends Structure> RegHolder<StructureType<?>, StructureType<T>> registerStructureType(String name, Supplier<StructureType<T>> supplier);
 
     RegHolder<StructurePieceType, StructurePieceType> registerStructurePieceType(String name, Supplier<StructurePieceType> supplier);
-
-    @FunctionalInterface
-    interface BlockEntityExtender {
-        void add(BlockEntityType<?> be, Block... blocks);
-    }
 
     void registerPotionRecipes(Consumer<PotionBrewing.Builder> consumer);
 

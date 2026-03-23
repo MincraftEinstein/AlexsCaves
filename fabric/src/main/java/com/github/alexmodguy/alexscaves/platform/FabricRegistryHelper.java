@@ -69,16 +69,6 @@ public class FabricRegistryHelper implements RegistryHelper {
     }
 
     @Override
-    public void addSupportedBlocks(Consumer<BlockEntityExtender> consumer) {
-        consumer.accept((type, blocks) -> {
-            for (Block block : blocks) {
-                type.addSupportedBlock(block);
-            }
-        });
-
-    }
-
-    @Override
     public <T extends Entity> RegHolder<EntityType<?>, EntityType<T>> registerEntityType(String name, Supplier<EntityType<T>> entityTypeSupplier) {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.ENTITY_TYPE, id(name), entityTypeSupplier.get()));
     }

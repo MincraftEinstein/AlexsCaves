@@ -86,10 +86,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MOD_ID);
     public static final Map<Supplier<? extends ParticleType<?>>, Function<SpriteSet, ? extends ParticleProvider<?>>> PARTICLE_PROVIDERS = new HashMap<>();
 
-    private static IEventBus modEventBus;
-
     public static void init(IEventBus modEventBus) {
-        NeoForgeRegistryHelper.modEventBus = modEventBus;
         ITEMS.register(modEventBus);
         BLOCKS.register(modEventBus);
         BLOCK_ENTITIES.register(modEventBus);
@@ -128,11 +125,6 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     @Override
     public <T extends BlockEntityType<?>> RegHolder<BlockEntityType<?>, T> registerBlockEntity(String name, Supplier<T> type) {
         return NeoRegHolder.of(BLOCK_ENTITIES.register(name, type));
-    }
-
-    @Override
-    public void addSupportedBlocks(Consumer<BlockEntityExtender> consumer) {
-        modEventBus.addListener((BlockEntityTypeAddBlocksEvent event) -> consumer.accept(event::modify));
     }
 
     @Override

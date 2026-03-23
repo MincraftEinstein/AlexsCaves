@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeClientPlatformHelper;
+import com.github.alexmodguy.alexscaves.platform.NeoForgeEventHelper;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeRegistryHelper;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.config.BiomeGenerationConfig;
@@ -45,6 +46,7 @@ public class AlexsCavesNeoForge {
 
     public AlexsCavesNeoForge(IEventBus modEventBus, ModContainer modContainer) {
         // (ender) This has to be before init so all events register
+        NeoForgeEventHelper.init(modEventBus);
         NeoForgeRegistryHelper.init(modEventBus);
         AlexsCaves.init();
         modContainer.registerConfig(ModConfig.Type.COMMON, AlexsCaves.COMMON_CONFIG_SPEC, "alexscaves-general.toml");

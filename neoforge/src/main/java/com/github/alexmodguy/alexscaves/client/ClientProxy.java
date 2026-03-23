@@ -2,8 +2,6 @@ package com.github.alexmodguy.alexscaves.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
-import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
-import com.github.alexmodguy.alexscaves.client.gui.SpelunkeryTableScreen;
 import com.github.alexmodguy.alexscaves.client.gui.book.CaveBookScreen;
 import com.github.alexmodguy.alexscaves.client.model.baked.BakedModelShadeLayerFullbright;
 import com.github.alexmodguy.alexscaves.client.particle.*;
@@ -28,7 +26,6 @@ import com.github.alexmodguy.alexscaves.server.entity.item.BeholderEyeEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.QuarrySmasherEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.SubmarineEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.*;
-import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
 import com.github.alexmodguy.alexscaves.server.item.*;
 import com.github.alexmodguy.alexscaves.server.item.tooltip.SackOfSatingTooltip;
 import com.github.alexmodguy.alexscaves.server.misc.ACKeybindRegistry;
@@ -146,12 +143,9 @@ public class ClientProxy extends CommonProxy {
         modEventBus.addListener(this::onItemColors);
         modEventBus.addListener(this::onBlockColors);
         modEventBus.addListener(this::onRegisterTooltips);
-        modEventBus.addListener(this::onRegisterMenuScreens);
     }
 
-    public void onRegisterMenuScreens(net.neoforged.neoforge.client.event.RegisterMenuScreensEvent event) {
-        event.register(ACMenuRegistry.SPELUNKERY_TABLE_MENU.get(), SpelunkeryTableScreen::new);
-        event.register(ACMenuRegistry.NUCLEAR_FURNACE_MENU.get(), NuclearFurnaceScreen::new);
+    public void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
     }
 
     @SuppressWarnings("removal")

@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves;
 
+import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
+import com.github.alexmodguy.alexscaves.client.gui.SpelunkeryTableScreen;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.*;
 import com.github.alexmodguy.alexscaves.client.render.item.ACItemRenderProperties;
 import com.github.alexmodguy.alexscaves.platform.Services;
@@ -7,6 +9,7 @@ import com.github.alexmodguy.alexscaves.platform.services.IClientPlatformHelper;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagneticEntityAccessor;
+import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
@@ -43,11 +46,12 @@ public class AlexsCavesClient {
         );
 
         Services.CLIENT_HELPER.setupEntityRotationsEvent(AlexsCavesClient::renderMagnetised);
+        Services.CLIENT_HELPER.registerBlockEntityRenderers(AlexsCavesClient::registerBERenderers);
+        Services.CLIENT_HELPER.registerMenuScreens(AlexsCavesClient::registerMenus);
     }
 
     // (ender) a neo special
     public static void lateInit() {
-        Services.CLIENT_HELPER.registerBlockEntityRenderers(AlexsCavesClient::registerBERenderers);
     }
 
     @SafeVarargs
@@ -135,5 +139,10 @@ public class AlexsCavesClient {
         event.register(ACBlockEntityRegistry.GOBTHUMPER.get(), GobthumperBlockRenderer::new);
         event.register(ACBlockEntityRegistry.CONVERSION_CRUCIBLE.get(), ConversionCrucibleBlockRenderer::new);
     }
+
+    public static void registerMenus(IClientPlatformHelper.MenuScreenRegistry reg) {
+       reg.register(ACMenuRegistry.SPELUNKERY_TABLE_MENU.get(), SpelunkeryTableScreen::new);
+       reg.register(ACMenuRegistry.NUCLEAR_FURNACE_MENU.get(), NuclearFurnaceScreen::new);
+   }
 
 }

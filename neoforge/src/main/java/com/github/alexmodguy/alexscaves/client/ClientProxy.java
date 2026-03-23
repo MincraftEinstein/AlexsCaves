@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.AlexsCavesClient;
 import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
 import com.github.alexmodguy.alexscaves.client.gui.SpelunkeryTableScreen;
@@ -8,7 +9,6 @@ import com.github.alexmodguy.alexscaves.client.gui.book.CaveBookScreen;
 import com.github.alexmodguy.alexscaves.client.model.baked.BakedModelShadeLayerFullbright;
 import com.github.alexmodguy.alexscaves.client.particle.*;
 import com.github.alexmodguy.alexscaves.client.render.ACInternalShaders;
-import com.github.alexmodguy.alexscaves.client.render.blockentity.*;
 import com.github.alexmodguy.alexscaves.client.render.entity.*;
 import com.github.alexmodguy.alexscaves.client.render.entity.layer.ClientLayerRegistry;
 import com.github.alexmodguy.alexscaves.client.render.item.ACArmorRenderProperties;
@@ -135,8 +135,7 @@ public class ClientProxy extends CommonProxy {
             int newValue = entry.getIntValue() - 1;
             if (newValue <= 0) {
                 iterator.remove();
-            }
-            else {
+            } else {
                 entry.setValue(newValue);
             }
         }
@@ -169,21 +168,6 @@ public class ClientProxy extends CommonProxy {
         EntityRenderers.register(ACEntityRegistry.CHEST_BOAT.get(), (context) -> {
             return new AlexsCavesBoatRenderer(context, true);
         });
-        BlockEntityRenderers.register(ACBlockEntityRegistry.MAGNET.get(), MagnetBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.TESLA_BULB.get(), TelsaBulbBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.HOLOGRAM_PROJECTOR.get(),
-                HologramProjectorBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.QUARRY.get(), QuarryBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.AMBERSOL.get(), AmbersolBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.AMBER_MONOLITH.get(), AmberMonolithBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.NUCLEAR_FURNACE.get(), NuclearFurnaceBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.SIREN_LIGHT.get(), SirenLightBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.ABYSSAL_ALTAR.get(), AbyssalAltarBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.COPPER_VALVE.get(), CopperValveBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.BEHOLDER.get(), BeholderBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.GOBTHUMPER.get(), GobthumperBlockRenderer::new);
-        BlockEntityRenderers.register(ACBlockEntityRegistry.CONVERSION_CRUCIBLE.get(),
-                ConversionCrucibleBlockRenderer::new);
         EntityRenderers.register(ACEntityRegistry.MOVING_METAL_BLOCK.get(), MovingMetalBlockRenderer::new);
         EntityRenderers.register(ACEntityRegistry.TELETOR.get(), TeletorRenderer::new);
         EntityRenderers.register(ACEntityRegistry.MAGNETIC_WEAPON.get(), MagneticWeaponRenderer::new);
@@ -552,8 +536,7 @@ public class ClientProxy extends CommonProxy {
                     AlexsCaves.id("rendertype_purple_witch"),
                     DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypePurpleWitchShader);
             AlexsCaves.LOGGER.info("registered internal shaders");
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             AlexsCaves.LOGGER.error("could not register internal shaders");
             exception.printStackTrace();
         }
@@ -599,8 +582,7 @@ public class ClientProxy extends CommonProxy {
         List blocked = blockedParticleLocations.get(Minecraft.getInstance().level);
         if (blocked.contains(at)) {
             return false;
-        }
-        else {
+        } else {
             blocked.add(new BlockPos(at));
             return true;
         }
@@ -695,8 +677,7 @@ public class ClientProxy extends CommonProxy {
     public void setBubbledEffectTicks(int entityId, int ticks) {
         if (ticks <= 0) {
             BUBBLED_EFFECT_TICKS.remove(entityId);
-        }
-        else {
+        } else {
             BUBBLED_EFFECT_TICKS.put(entityId, ticks);
         }
     }
@@ -727,8 +708,7 @@ public class ClientProxy extends CommonProxy {
                 if (beholderEyePlayer != null && beholderEyePlayer instanceof Player && beholderEyePlayer.equals(playerSided)) {
                     if (active) {
                         setRenderViewEntity(playerSided, beholderEye);
-                    }
-                    else {
+                    } else {
                         resetRenderViewEntity(playerSided);
                     }
                 }
@@ -750,8 +730,7 @@ public class ClientProxy extends CommonProxy {
                             && nuclearSirenSound.isSameBlockEntity(nuclearSiren)) || old.isStopped()) {
                         sound = new NuclearSirenSound(nuclearSiren);
                         BLOCK_ENTITY_SOUND_INSTANCE_MAP.put(nuclearSiren, sound);
-                    }
-                    else {
+                    } else {
                         sound = (NuclearSirenSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -767,8 +746,7 @@ public class ClientProxy extends CommonProxy {
                             && nucleeperSound.isSameEntity(nucleeper))) {
                         sound = new NucleeperSound(nucleeper);
                         ENTITY_SOUND_INSTANCE_MAP.put(nucleeper.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (NucleeperSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -784,8 +762,7 @@ public class ClientProxy extends CommonProxy {
                             && hologramSound.isSameEntity(notor))) {
                         sound = new NotorHologramSound(notor);
                         ENTITY_SOUND_INSTANCE_MAP.put(notor.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (NotorHologramSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -801,8 +778,7 @@ public class ClientProxy extends CommonProxy {
                             && hologramSound.isSameBlockEntity(hologramProjector)) || old.isStopped()) {
                         sound = new HologramProjectorSound(hologramProjector);
                         BLOCK_ENTITY_SOUND_INSTANCE_MAP.put(hologramProjector, sound);
-                    }
-                    else {
+                    } else {
                         sound = (HologramProjectorSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -819,8 +795,7 @@ public class ClientProxy extends CommonProxy {
                             || old.isStopped()) {
                         sound = new MagnetSound(magnet);
                         BLOCK_ENTITY_SOUND_INSTANCE_MAP.put(magnet, sound);
-                    }
-                    else {
+                    } else {
                         sound = (MagnetSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -836,8 +811,7 @@ public class ClientProxy extends CommonProxy {
                             && underzealotSound.isSameEntity(underzealot))) {
                         sound = new UnderzealotSound(underzealot);
                         ENTITY_SOUND_INSTANCE_MAP.put(underzealot.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (UnderzealotSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -853,8 +827,7 @@ public class ClientProxy extends CommonProxy {
                             && corrodentSound.isSameEntity(corrodent))) {
                         sound = new CorrodentSound(corrodent);
                         ENTITY_SOUND_INSTANCE_MAP.put(corrodent.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (CorrodentSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -870,8 +843,7 @@ public class ClientProxy extends CommonProxy {
                             && furnaceSound.isSameBlockEntity(nuclearFurnace)) || old.isStopped()) {
                         sound = new NuclearFurnaceSound(nuclearFurnace);
                         BLOCK_ENTITY_SOUND_INSTANCE_MAP.put(nuclearFurnace, sound);
-                    }
-                    else {
+                    } else {
                         sound = (NuclearFurnaceSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -887,8 +859,7 @@ public class ClientProxy extends CommonProxy {
                             || !(old instanceof RaygunSound raygunSound && raygunSound.isSameEntity(livingEntity))) {
                         sound = new RaygunSound(livingEntity);
                         ENTITY_SOUND_INSTANCE_MAP.put(livingEntity.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (RaygunSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -904,8 +875,7 @@ public class ClientProxy extends CommonProxy {
                             && resistorShieldSound.isSameEntity(livingEntity) && !resistorShieldSound.isAzure())) {
                         sound = new ResistorShieldSound(livingEntity, false);
                         ENTITY_SOUND_INSTANCE_MAP.put(livingEntity.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (ResistorShieldSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -921,8 +891,7 @@ public class ClientProxy extends CommonProxy {
                             && resistorShieldSound.isSameEntity(livingEntity) && resistorShieldSound.isAzure())) {
                         sound = new ResistorShieldSound(livingEntity, true);
                         ENTITY_SOUND_INSTANCE_MAP.put(livingEntity.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (ResistorShieldSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -938,8 +907,7 @@ public class ClientProxy extends CommonProxy {
                             && gauntletSound.isSameEntity(livingEntity))) {
                         sound = new GalenaGauntletSound(livingEntity);
                         ENTITY_SOUND_INSTANCE_MAP.put(livingEntity.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (GalenaGauntletSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -955,8 +923,7 @@ public class ClientProxy extends CommonProxy {
                             && boundroidSound.isSameEntity(boundroid))) {
                         sound = new BoundroidSound(boundroid);
                         ENTITY_SOUND_INSTANCE_MAP.put(boundroid.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (BoundroidSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -972,8 +939,7 @@ public class ClientProxy extends CommonProxy {
                             && ferrouslimeSound.isSameEntity(ferrouslime))) {
                         sound = new FerrouslimeSound(ferrouslime);
                         ENTITY_SOUND_INSTANCE_MAP.put(ferrouslime.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (FerrouslimeSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -989,8 +955,7 @@ public class ClientProxy extends CommonProxy {
                             && quarrySmasherSound.isSameEntity(quarrySmasher))) {
                         sound = new QuarrySmasherSound(quarrySmasher);
                         ENTITY_SOUND_INSTANCE_MAP.put(quarrySmasher.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (QuarrySmasherSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -1006,8 +971,7 @@ public class ClientProxy extends CommonProxy {
                             && submarineSound.isSameEntity(submarine))) {
                         sound = new SubmarineSound(submarine);
                         ENTITY_SOUND_INSTANCE_MAP.put(submarine.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (SubmarineSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -1023,8 +987,7 @@ public class ClientProxy extends CommonProxy {
                             && tremorzillaBeamSound.isSameEntity(tremorzilla))) {
                         sound = new TremorzillaBeamSound(tremorzilla);
                         ENTITY_SOUND_INSTANCE_MAP.put(tremorzilla.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (TremorzillaBeamSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -1040,8 +1003,7 @@ public class ClientProxy extends CommonProxy {
                             || !(old instanceof GumWormSound gumWormSound && gumWormSound.isSameEntity(gumWorm))) {
                         sound = new GumWormSound(gumWorm);
                         ENTITY_SOUND_INSTANCE_MAP.put(gumWorm.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (GumWormSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -1057,8 +1019,7 @@ public class ClientProxy extends CommonProxy {
                             && sugarRushSound.isSameEntity(livingEntity))) {
                         sound = new SugarRushSound(livingEntity);
                         ENTITY_SOUND_INSTANCE_MAP.put(livingEntity.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (SugarRushSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -1074,8 +1035,7 @@ public class ClientProxy extends CommonProxy {
                             && candicornSound.isSameEntity(candicorn))) {
                         sound = new CandicornSound(candicorn);
                         ENTITY_SOUND_INSTANCE_MAP.put(candicorn.getId(), sound);
-                    }
-                    else {
+                    } else {
                         sound = (CandicornSound) old;
                     }
                     if (!isSoundPlaying(sound) && sound.canPlaySound()) {
@@ -1260,8 +1220,7 @@ public class ClientProxy extends CommonProxy {
             if (!active && id != -1) {
                 Minecraft.getInstance().getMusicManager().stopPlaying(ACMusics.LUXTRUCTOSAURUS_BOSS_MUSIC);
             }
-        }
-        else {
+        } else {
             super.setPrimordialBossActive(level, id, active);
         }
     }

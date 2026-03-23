@@ -1,9 +1,11 @@
 package com.github.alexmodguy.alexscaves;
 
+import com.github.alexmodguy.alexscaves.client.render.blockentity.*;
 import com.github.alexmodguy.alexscaves.client.render.item.ACItemRenderProperties;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.platform.services.IClientPlatformHelper;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagneticEntityAccessor;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -41,6 +43,11 @@ public class AlexsCavesClient {
         );
 
         Services.CLIENT_HELPER.setupEntityRotationsEvent(AlexsCavesClient::renderMagnetised);
+    }
+
+    // (ender) a neo special
+    public static void lateInit() {
+        Services.CLIENT_HELPER.registerBlockEntityRenderers(AlexsCavesClient::registerBERenderers);
     }
 
     @SafeVarargs
@@ -111,6 +118,22 @@ public class AlexsCavesClient {
                 }
                 break;
         }
+    }
+
+    public static void registerBERenderers(IClientPlatformHelper.BERendererRegistry event) {
+        event.register(ACBlockEntityRegistry.MAGNET.get(), MagnetBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.TESLA_BULB.get(), TelsaBulbBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.HOLOGRAM_PROJECTOR.get(), HologramProjectorBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.QUARRY.get(), QuarryBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.AMBERSOL.get(), AmbersolBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.AMBER_MONOLITH.get(), AmberMonolithBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.NUCLEAR_FURNACE.get(), NuclearFurnaceBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.SIREN_LIGHT.get(), SirenLightBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.ABYSSAL_ALTAR.get(), AbyssalAltarBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.COPPER_VALVE.get(), CopperValveBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.BEHOLDER.get(), BeholderBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.GOBTHUMPER.get(), GobthumperBlockRenderer::new);
+        event.register(ACBlockEntityRegistry.CONVERSION_CRUCIBLE.get(), ConversionCrucibleBlockRenderer::new);
     }
 
 }

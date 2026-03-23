@@ -33,7 +33,6 @@ import org.joml.Matrix4f;
 
 import java.util.*;
 
-import static com.github.alexmodguy.alexscaves.client.render.entity.NotorRenderer.renderEntityInHologram;
 
 public class HologramProjectorBlockRenderer<T extends HologramProjectorBlockEntity> implements BlockEntityRenderer<T> {
 
@@ -129,7 +128,8 @@ public class HologramProjectorBlockRenderer<T extends HologramProjectorBlockEnti
             poseStack.scale(1, amount, 1);
             poseStack.translate(0, length + 1.5F, 0);
             poseStack.mulPose(Axis.YN.rotationDegrees(180 - cameraY + projectorBlockEntity.getRotation(partialTicks)));
-            renderEntityInHologram(holoEntity, 0, 0, 0, 0, partialTicks, poseStack, bufferIn, 240);
+            // TODO fix when entity
+//            renderEntityInHologram(holoEntity, 0, 0, 0, 0, partialTicks, poseStack, bufferIn, 240);
             poseStack.popPose();
         }
         poseStack.popPose();
@@ -163,7 +163,9 @@ public class HologramProjectorBlockRenderer<T extends HologramProjectorBlockEnti
         // In 1.21, getSkinMap() uses PlayerSkin.Model enum as key, not String
         PlayerSkin.Model skinModel = getPlayerSkinModel(playerInfo, lastPlayerUUID);
         EntityRenderDispatcher manager = Minecraft.getInstance().getEntityRenderDispatcher();
-        EntityRenderer<? extends Player> renderer = manager.getSkinMap().get(skinModel);
+        // TODO fix when entity
+        EntityRenderer<? extends Player> renderer = null;
+//        EntityRenderer<? extends Player> renderer = manager.getSkinMap().get(skinModel);
         if(playerModel == null || slimPlayerModel == null){
             playerModel = new PlayerModel(Minecraft.getInstance().getEntityModels().bakeLayer(ModelLayers.PLAYER), false);
             slimPlayerModel = new PlayerModel(Minecraft.getInstance().getEntityModels().bakeLayer(ModelLayers.PLAYER_SLIM), true);

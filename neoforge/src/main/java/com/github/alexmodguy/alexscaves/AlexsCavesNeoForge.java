@@ -4,7 +4,6 @@ import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeClientPlatformHelper;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeRegistryHelper;
-import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.config.BiomeGenerationConfig;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityDataRegistry;
@@ -148,6 +147,7 @@ public class AlexsCavesNeoForge {
         event.enqueueWork(() -> {
             if (AlexsCaves.PROXY instanceof ClientProxy cProxy) {
                 cProxy.clientInit(this.modEventBus);
+                AlexsCavesClient.lateInit();
             }
         });
     }

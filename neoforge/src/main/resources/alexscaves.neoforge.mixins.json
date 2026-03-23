@@ -9,10 +9,11 @@
     "AbstractMinecartMixin",
     "CorrodentCollisionMixin",
     "FrogMixin",
-    "neo.MobEffectInstanceMixin",
     "MonsterMixin",
     "NaturalSpawnerMixin",
-    "SwampHutPieceMixin"
+    "SwampHutPieceMixin",
+    "neo.IEntityExtensionMixin",
+    "neo.MobEffectInstanceMixin"
   ],
   "client": [
     "client.CameraMixin",

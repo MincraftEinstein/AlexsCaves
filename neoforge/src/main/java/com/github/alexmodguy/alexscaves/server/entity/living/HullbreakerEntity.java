@@ -59,7 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class HullbreakerEntity extends WaterAnimal implements IAnimatedEntity, KaijuMob {
+public class HullbreakerEntity extends WaterAnimal implements IAnimatedEntity, KaijuMob, MultipartEntity {
 
     public static final Animation ANIMATION_PUZZLE = Animation.create(60);
     public static final Animation ANIMATION_BITE = Animation.create(20);
@@ -377,11 +377,6 @@ public class HullbreakerEntity extends WaterAnimal implements IAnimatedEntity, K
         float f1 = (float) Mth.length(this.getX() - this.xo, this.getY() - this.yo, this.getZ() - this.zo);
         float f2 = Math.min(f1 * 3.0F, 1.0F);
         this.walkAnimation.update(f2, 0.4F);
-    }
-
-    @Override
-    public boolean isMultipartEntity() {
-        return true;
     }
 
     @Override

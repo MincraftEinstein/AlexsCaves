@@ -4,6 +4,7 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.QuarryBlock;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.QuarryBlockEntity;
+import com.github.alexmodguy.alexscaves.server.entity.living.MultipartEntity;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
@@ -33,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class QuarrySmasherEntity extends Entity {
+public class QuarrySmasherEntity extends Entity implements MultipartEntity {
 
     public final QuarrySmasherHeadEntity headPart;
     public final QuarrySmasherHeadEntity[] allParts;
@@ -390,11 +391,6 @@ public class QuarrySmasherEntity extends Entity {
     public void remove(Entity.RemovalReason removalReason) {
         AlexsCaves.PROXY.clearSoundCacheFor(this);
         super.remove(removalReason);
-    }
-
-    @Override
-    public boolean isMultipartEntity() {
-        return true;
     }
 
     @Override

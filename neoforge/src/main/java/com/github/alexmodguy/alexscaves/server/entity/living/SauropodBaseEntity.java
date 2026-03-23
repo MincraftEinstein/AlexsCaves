@@ -42,7 +42,7 @@ import net.neoforged.neoforge.entity.PartEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SauropodBaseEntity extends DinosaurEntity implements ShakesScreen, IAnimatedEntity, KaijuMob, ITallWalker {
+public abstract class SauropodBaseEntity extends DinosaurEntity implements ShakesScreen, IAnimatedEntity, KaijuMob, ITallWalker, MultipartEntity {
 
     protected static final EntityDataAccessor<Boolean> WALKING = SynchedEntityData.defineId(SauropodBaseEntity.class, EntityDataSerializers.BOOLEAN);
     public static final Animation ANIMATION_SPEAK = Animation.create(15);
@@ -400,11 +400,6 @@ public abstract class SauropodBaseEntity extends DinosaurEntity implements Shake
         if (soundevent != null) {
             this.playSound(soundevent, this.getSoundVolume(), this.getVoicePitch());
         }
-    }
-
-    @Override
-    public boolean isMultipartEntity() {
-        return true;
     }
 
     @Override

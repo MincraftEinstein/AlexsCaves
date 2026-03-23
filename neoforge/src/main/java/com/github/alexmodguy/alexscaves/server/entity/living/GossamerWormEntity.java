@@ -43,7 +43,7 @@ import net.neoforged.neoforge.entity.PartEntity;
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
 
-public class GossamerWormEntity extends WaterAnimal implements Bucketable {
+public class GossamerWormEntity extends WaterAnimal implements Bucketable, MultipartEntity {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(GossamerWormEntity.class, EntityDataSerializers.BOOLEAN);
 
@@ -259,12 +259,6 @@ public class GossamerWormEntity extends WaterAnimal implements Bucketable {
 
     public int getMaxSpawnClusterSize() {
         return 1;
-    }
-
-
-    @Override
-    public boolean isMultipartEntity() {
-        return true;
     }
 
     @Override

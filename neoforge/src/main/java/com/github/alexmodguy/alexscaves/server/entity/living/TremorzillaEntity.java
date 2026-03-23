@@ -74,7 +74,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMount, IAnimatedEntity, ShakesScreen, KaijuMob, ActivatesSirens, ITallWalker {
+public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMount, IAnimatedEntity, ShakesScreen, KaijuMob, ActivatesSirens, ITallWalker, MultipartEntity {
     private static EntityDataAccessor<Optional<Vec3>> BEAM_END_POSITION = SynchedEntityData.defineId(TremorzillaEntity.class, ACEntityDataRegistry.OPTIONAL_VEC_3.get());
     private static final EntityDataAccessor<Boolean> SWIMMING = SynchedEntityData.defineId(TremorzillaEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> CHARGE = SynchedEntityData.defineId(TremorzillaEntity.class, EntityDataSerializers.INT);
@@ -1059,11 +1059,6 @@ public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMou
     @Override
     public BlockState createEggBlockState() {
         return ACBlockRegistry.TREMORZILLA_EGG.get().defaultBlockState();
-    }
-
-    @Override
-    public boolean isMultipartEntity() {
-        return true;
     }
 
     @Override

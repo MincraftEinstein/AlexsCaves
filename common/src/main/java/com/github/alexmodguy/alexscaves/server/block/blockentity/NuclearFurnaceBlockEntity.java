@@ -5,6 +5,7 @@ import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.NuclearFurnaceBlock;
 import com.github.alexmodguy.alexscaves.server.entity.util.FallingBlockEntityAccessor;
+import com.github.alexmodguy.alexscaves.server.inventory.NuclearFurnaceMenu;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
@@ -483,8 +484,7 @@ public class NuclearFurnaceBlockEntity extends BaseContainerBlockEntity implemen
 
 
     protected AbstractContainerMenu createMenu(int id, Inventory inventory) {
-        // TODO fix when menu
-        return null;// new NuclearFurnaceMenu(id, inventory, this, this.dataAccess);
+        return new NuclearFurnaceMenu(id, inventory, this, this.dataAccess);
     }
 
     public WorldlyContainer getContainerFor(BlockPos offsetPos) {

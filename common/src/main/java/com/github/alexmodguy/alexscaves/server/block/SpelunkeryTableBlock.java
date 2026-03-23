@@ -1,5 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.inventory.SpelunkeryTableMenu;
+import com.github.alexmodguy.alexscaves.server.message.SpelunkeryTableCompleteTutorialMessage;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
@@ -8,6 +11,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -33,8 +37,7 @@ public class SpelunkeryTableBlock extends Block {
             player.openMenu(state.getMenuProvider(level, pos));
             player.awardStat(Stats.INTERACT_WITH_LOOM);
             if (player instanceof ServerPlayer serverPlayer) {
-                // TODO
-//                AlexsCavesNeoForge.sendNonLocal(new SpelunkeryTableCompleteTutorialMessage(SpelunkeryTableMenu.hasCompletedTutorial(serverPlayer)), serverPlayer);
+                ACNetUtils.sendNonLocal(new SpelunkeryTableCompleteTutorialMessage(SpelunkeryTableMenu.hasCompletedTutorial(serverPlayer)), serverPlayer);
             }
             return InteractionResult.CONSUME;
         }
@@ -42,9 +45,7 @@ public class SpelunkeryTableBlock extends Block {
 
     public MenuProvider getMenuProvider(BlockState state, Level level, BlockPos pos) {
         return new SimpleMenuProvider((i, inv, player) -> {
-            // TODO
-            return null;
-//            return new SpelunkeryTableMenu(i, inv, ContainerLevelAccess.create(level, pos));
+            return new SpelunkeryTableMenu(i, inv, ContainerLevelAccess.create(level, pos));
         }, CONTAINER_TITLE);
     }
 }

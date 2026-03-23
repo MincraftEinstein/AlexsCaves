@@ -9,10 +9,8 @@ import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.config.BiomeGenerationConfig;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityDataRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.ACFrogRegistry;
 import com.github.alexmodguy.alexscaves.server.event.CommonEvents;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
-import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRuleConditionRegistry;
 import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRules;
 import com.github.alexmodguy.alexscaves.server.misc.*;
@@ -28,11 +26,6 @@ import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 import net.neoforged.neoforge.common.world.chunk.TicketController;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Mod(AlexsCaves.MOD_ID)
 public class AlexsCavesNeoForge {
@@ -65,8 +58,7 @@ public class AlexsCavesNeoForge {
         ACSurfaceRuleConditionRegistry.DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_DEF_REG.register(modEventBus);
-        ACLootTableRegistry.GLOBAL_LOOT_MODIFIER_DEF_REG.register(modEventBus);
-        ACLootTableRegistry.LOOT_FUNCTION_DEF_REG.register(modEventBus);
+        ACLootModifiersRegistry.GLOBAL_LOOT_MODIFIER_DEF_REG.register(modEventBus);
         this.modEventBus = modEventBus; // Store for later use
         if (AlexsCaves.PROXY instanceof ClientProxy cProxy) {
             cProxy.commonInit(modEventBus);

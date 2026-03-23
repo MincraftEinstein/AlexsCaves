@@ -216,18 +216,21 @@ public class SpelunkeryTableMenu extends AbstractContainerMenu {
     }
 
     public static void setTutorialComplete(Player player, boolean done) {
-        CompoundTag playerData = player.getPersistentData();
+        // TODO fix when attachments
+      /*  CompoundTag playerData = player.getPersistentData();
         CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
         if (data != null) {
             data.putBoolean(NEEDS_TUTORIAL_IDENTIFIER, done);
             playerData.put(Player.PERSISTED_NBT_TAG, data);
-        }
+        }*/
     }
 
     public static boolean hasCompletedTutorial(Player player) {
-        CompoundTag playerData = player.getPersistentData();
+        // TODO fix when attachments
+       /* CompoundTag playerData = player.getPersistentData();
         CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
-        return data != null && data.getBoolean(NEEDS_TUTORIAL_IDENTIFIER);
+        return data != null && data.getBoolean(NEEDS_TUTORIAL_IDENTIFIER);*/
+        return false;
     }
 
     public void makeStoneParticles(Level level, BlockPos blockPos) {

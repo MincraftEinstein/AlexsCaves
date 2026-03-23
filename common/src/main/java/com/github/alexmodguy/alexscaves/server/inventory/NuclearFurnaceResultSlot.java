@@ -42,7 +42,8 @@ public class NuclearFurnaceResultSlot extends FurnaceResultSlot {
         }
 
         this.removeCountNuclear = 0;
-        net.neoforged.neoforge.event.EventHooks.firePlayerSmeltedEvent(this.player, itemStack);
+        // TODO fire event
+//        net.neoforged.neoforge.event.EventHooks.firePlayerSmeltedEvent(this.player, itemStack);
     }
 
 }

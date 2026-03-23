@@ -10,6 +10,7 @@ import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRe
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.config.ACServerConfig;
 import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
+import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACArmorMaterials;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
@@ -19,6 +20,7 @@ import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry
 import com.github.alexmodguy.alexscaves.server.misc.ACDataComponentRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
+import com.github.alexmodguy.alexscaves.server.recipe.ACRecipeRegistry;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -64,6 +66,8 @@ public class AlexsCaves {
         ACBlockRegistry.init();
         ACBlockEntityRegistry.init();
         ACPOIRegistry.init();
+        ACRecipeRegistry.init();
+        ACMenuRegistry.init();
         ACAdvancementTriggerRegistry.init();
         ACDataComponentRegistry.init();
         ACParticleRegistry.init();

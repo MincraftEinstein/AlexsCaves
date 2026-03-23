@@ -20,7 +20,6 @@ import com.github.alexmodguy.alexscaves.server.level.structure.processor.ACStruc
 import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRuleConditionRegistry;
 import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRules;
 import com.github.alexmodguy.alexscaves.server.misc.*;
-import com.github.alexmodguy.alexscaves.server.recipe.ACRecipeRegistry;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -73,9 +72,6 @@ public class AlexsCavesNeoForge {
         ACStructurePieceRegistry.DEF_REG.register(modEventBus);
         ACStructureProcessorRegistry.DEF_REG.register(modEventBus);
         // TODO move to common
-        ACMenuRegistry.init();
-        ACRecipeRegistry.DEF_REG.register(modEventBus);
-        ACRecipeRegistry.TYPE_DEF_REG.register(modEventBus);
         ACFrogRegistry.DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_DEF_REG.register(modEventBus);

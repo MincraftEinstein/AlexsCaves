@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesClient;
 import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
 import com.github.alexmodguy.alexscaves.client.gui.SpelunkeryTableScreen;
@@ -44,7 +43,6 @@ import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;

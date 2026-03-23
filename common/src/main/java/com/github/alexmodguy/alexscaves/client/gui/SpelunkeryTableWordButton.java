@@ -62,19 +62,19 @@ public class SpelunkeryTableWordButton extends AbstractWidget {
 
 
     public int getX() {
-        return super.getX() + parent.getGuiLeft();
+        return super.getX() + parent.getRectangle().left();
     }
 
     public void setX(int x) {
-        super.setX(x - parent.getGuiLeft());
+        super.setX(x - parent.getRectangle().left());
     }
 
     public int getY() {
-        return super.getY() + parent.getGuiTop();
+        return super.getY() + parent.getRectangle().top();
     }
 
     public void setY(int y) {
-        super.setY(y - parent.getGuiTop());
+        super.setY(y - parent.getRectangle().top());
     }
 
     public void onClick(double x, double y) {

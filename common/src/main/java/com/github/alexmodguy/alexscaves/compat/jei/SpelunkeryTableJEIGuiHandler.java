@@ -12,8 +12,8 @@ public class SpelunkeryTableJEIGuiHandler implements IGuiContainerHandler<Spelun
     @Override
     public List<Rect2i> getGuiExtraAreas(SpelunkeryTableScreen tableScreen) {
         if (tableScreen.hasPaper()) {
-            int i = tableScreen.getGuiLeft();
-            int j = tableScreen.getGuiTop();
+            int i = tableScreen.getRectangle().left();
+            int j = tableScreen.getRectangle().top();
             return Collections.singletonList(new Rect2i(i - 80, j + 5, 80, 145));
         } else {
             return Collections.emptyList();

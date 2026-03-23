@@ -15,6 +15,8 @@ public class ACAttachmentRegistry {
             () -> MagneticEntityData.DEFAULT,
             builder -> builder.persistent(MagneticEntityData.CODEC)
                     .synced(MagneticEntityData.STREAM_CODEC, (entity, player) -> {
+                        // Hacky fix for NeoForge not doing a "canSend" check before trying to sync the attachment
+                        // causing the server to crash for early magnet ticking
                         if (Services.PLATFORM_HELPER.getPlatform() == IPlatformHelper.Platform.NEOFORGE) {
                             // noinspection ConstantConditions
                             if (player.connection != null) {

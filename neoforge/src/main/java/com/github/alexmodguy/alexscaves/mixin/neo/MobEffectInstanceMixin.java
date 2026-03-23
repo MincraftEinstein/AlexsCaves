@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Set;
 
-@Debug(export = true)
 @Mixin(MobEffectInstance.class)
 public class MobEffectInstanceMixin {
 

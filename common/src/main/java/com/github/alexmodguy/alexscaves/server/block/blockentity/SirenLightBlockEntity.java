@@ -4,14 +4,11 @@ import com.github.alexmodguy.alexscaves.server.block.SirenLightBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class SirenLightBlockEntity extends BlockEntity {
     private float onProgress;
@@ -69,12 +66,13 @@ public class SirenLightBlockEntity extends BlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @Override
+    // TODO fix
+    /*@Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider registries) {
         if (packet != null && packet.getTag() != null) {
             handleUpdateTag(packet.getTag(), registries);
         }
-    }
+    }*/
 
 
     public boolean setColor(int setTo) {
@@ -89,7 +87,7 @@ public class SirenLightBlockEntity extends BlockEntity {
         return color < 0 ? 0X00FF00 : color;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    // TODO fix for common
     public AABB getRenderBoundingBox() {
         BlockPos pos = this.getBlockPos();
         BlockPos min = pos.offset(-3, -3, -3);

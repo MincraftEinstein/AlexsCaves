@@ -4,7 +4,6 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.MagnetBlock;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.MovingMetalBlockEntity;
 import com.github.alexmodguy.alexscaves.server.entity.util.FallingBlockEntityAccessor;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagnetUtil;
@@ -28,8 +27,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,11 +92,12 @@ public class MagnetBlockEntity extends BlockEntity {
                             for (BlockPos pos : gathered) {
                                 level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                             }
-                            MovingMetalBlockEntity metalBlockEntity = ACEntityRegistry.MOVING_METAL_BLOCK.get().create(level);
-                            metalBlockEntity.moveTo(Vec3.atCenterOf(checkMetalAt));
-                            metalBlockEntity.setAllBlockData(MovingMetalBlockEntity.createTagFromData(allData));
-                            metalBlockEntity.setPlacementCooldown(1);
-                            level.addFreshEntity(metalBlockEntity);
+                            // TODO fix when entity
+//                            MovingMetalBlockEntity metalBlockEntity = ACEntityRegistry.MOVING_METAL_BLOCK.get().create(level);
+//                            metalBlockEntity.moveTo(Vec3.atCenterOf(checkMetalAt));
+//                            metalBlockEntity.setAllBlockData(MovingMetalBlockEntity.createTagFromData(allData));
+//                            metalBlockEntity.setPlacementCooldown(1);
+//                            level.addFreshEntity(metalBlockEntity);
                         }
                     }
                 }
@@ -199,14 +197,17 @@ public class MagnetBlockEntity extends BlockEntity {
     public boolean canMove(BlockPos from, BlockPos pos) {
         BlockState state = level.getBlockState(pos);
         BlockState other = level.getBlockState(from);
+
+        // TODO fix
         if (state.isAir() || state.is(ACTagRegistry.UNMOVEABLE)) {
             return false;
         } else if (state.is(ACTagRegistry.MAGNETIC_BLOCKS)) {
             return true;
-        } else if (state.isStickyBlock()) {
+        } /*else if (state.isStickyBlock()) {
             return state.canStickTo(other);
         }
-        return other.isStickyBlock();
+        return other.isStickyBlock();*/
+        return false;
     }
 
     public Direction getDirection() {
@@ -250,8 +251,7 @@ public class MagnetBlockEntity extends BlockEntity {
         return this.isAzure() ? total : total + 1;
     }
 
-
-    @OnlyIn(Dist.CLIENT)
+    // TODO fix for common
     public AABB getRenderBoundingBox() {
         return getRangeBB(this.getEffectiveRange() + 2, true);
     }

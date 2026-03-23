@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
 import com.github.alexmodguy.alexscaves.server.block.AbyssalAltarBlock;
-import com.github.alexmodguy.alexscaves.server.entity.living.DeepOneBaseEntity;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
 import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.BlockPos;
@@ -9,12 +8,10 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -27,8 +24,6 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.UUID;
 
@@ -80,7 +75,9 @@ public class AbyssalAltarBlockEntity extends BaseContainerBlockEntity implements
                         if (!player.addItem(drop.copy()) || player.getAbilities().instabuild && fullInv) {
                             kill = false;
                         }
-                    } else if (entity.lastInteracter instanceof DeepOneBaseEntity deepOne) {
+                    }
+                    // TODO fix when entity
+                    /* else if (entity.lastInteracter instanceof DeepOneBaseEntity deepOne) {
                         deepOne.swapItemsForAnimation(itemEntity.getItem());
                         deepOne.setItemInHand(InteractionHand.MAIN_HAND, itemEntity.getItem());
                         deepOne.setAnimation(deepOne.getTradingAnimation());
@@ -90,13 +87,13 @@ public class AbyssalAltarBlockEntity extends BaseContainerBlockEntity implements
                             entity.placingPlayer = null;
                         }
                         kill = true;
-                    }
+                    }*/
                     itemEntity.setItem(drop);
                     if (kill) {
                         entity.lastInteracter.onItemPickup(itemEntity);
                         entity.lastInteracter.take(itemEntity, drop.getCount());
                         itemEntity.discard();
-                    }else{
+                    } else {
                         level.addFreshEntity(itemEntity);
                         itemEntity.setDefaultPickUpDelay();
                     }
@@ -118,16 +115,17 @@ public class AbyssalAltarBlockEntity extends BaseContainerBlockEntity implements
                 level.setBlockAndUpdate(this.worldPosition, this.getBlockState().setValue(AbyssalAltarBlock.ACTIVE, false));
             }
         } else {
-            if (entity instanceof DeepOneBaseEntity) {
+            // TODO fix when entity
+           /* if (entity instanceof DeepOneBaseEntity) {
                 level.setBlockAndUpdate(this.worldPosition, this.getBlockState().setValue(AbyssalAltarBlock.ACTIVE, true));
-            }
+            }*/
         }
         Vec3 vec3 = entity.position().subtract(Vec3.atCenterOf(this.worldPosition));
         itemAngle = Mth.wrapDegrees((float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)));
         lastInteracter = entity;
         popDelay = 0;
         resetSlideAnimation();
-        if(!level.isClientSide){
+        if (!level.isClientSide) {
             BlockPos blockPos = this.getBlockPos();
             ACNetUtils.sendMSGToAll(new WorldEventMessage(6, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
         }
@@ -138,7 +136,7 @@ public class AbyssalAltarBlockEntity extends BaseContainerBlockEntity implements
         }
     }
 
-    public void resetSlideAnimation(){
+    public void resetSlideAnimation() {
         prevSlideProgress = 5.0F;
         slideProgress = 5.0F;
         slideImpulse = true;
@@ -156,7 +154,7 @@ public class AbyssalAltarBlockEntity extends BaseContainerBlockEntity implements
         return displayCopyStack;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    // TODO fix for common
     public AABB getRenderBoundingBox() {
         return new AABB(worldPosition.getX(), worldPosition.getY(), worldPosition.getZ(), worldPosition.getX() + 1, worldPosition.getY() + 2, worldPosition.getZ() + 1);
     }
@@ -309,14 +307,15 @@ public class AbyssalAltarBlockEntity extends BaseContainerBlockEntity implements
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @Override
+    // TODO fix
+    /*@Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider registries) {
         if (packet != null && packet.getTag() != null) {
             this.stacks = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
             ContainerHelper.loadAllItems(packet.getTag(), this.stacks, registries);
             this.itemAngle = packet.getTag().getFloat("Angle");
         }
-    }
+    }*/
 
     @Override
     public CompoundTag getUpdateTag(HolderLookup.Provider registries) {

@@ -1,8 +1,11 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearFurnaceBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
@@ -15,6 +18,8 @@ import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -46,14 +51,13 @@ public class NuclearFurnaceBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        // TODO
-        return null;//new NuclearFurnaceBlockEntity(pos, state);
+        return new NuclearFurnaceBlockEntity(pos, state);
     }
 
-//    @Nullable
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-//        return createTickerHelper(entityType, ACBlockEntityRegistry.NUCLEAR_FURNACE.get(), NuclearFurnaceBlockEntity::tick);
-//    }
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+        return createTickerHelper(entityType, ACBlockEntityRegistry.NUCLEAR_FURNACE.get(), NuclearFurnaceBlockEntity::tick);
+    }
 
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         return NuclearFurnaceComponentBlock.isCornerForFurnace(level, pos, false, true);
@@ -75,12 +79,11 @@ public class NuclearFurnaceBlock extends BaseEntityBlock {
             }
             else if (canSurvive(state, level, blockPos)) {
                 BlockEntity blockentity = level.getBlockEntity(blockPos);
-                // TODO
-//                if (blockentity instanceof NuclearFurnaceBlockEntity nuclearFurnaceBlockEntity) {
-//                    player.openMenu(nuclearFurnaceBlockEntity);
-//                    nuclearFurnaceBlockEntity.onPlayerUse(player);
-//                    player.awardStat(Stats.INTERACT_WITH_FURNACE);
-//                }
+                if (blockentity instanceof NuclearFurnaceBlockEntity nuclearFurnaceBlockEntity) {
+                    player.openMenu(nuclearFurnaceBlockEntity);
+                    nuclearFurnaceBlockEntity.onPlayerUse(player);
+                    player.awardStat(Stats.INTERACT_WITH_FURNACE);
+                }
                 return InteractionResult.CONSUME;
             }
         }
@@ -93,10 +96,9 @@ public class NuclearFurnaceBlock extends BaseEntityBlock {
     }
 
     private void checkCriticalityExplosion(LevelReader level, BlockPos pos) {
-        // TODO
-//        if (level.getBlockEntity(pos) instanceof NuclearFurnaceBlockEntity nuclearFurnaceBlockEntity && nuclearFurnaceBlockEntity.getCriticality() >= 2F) {
-//            nuclearFurnaceBlockEntity.destroyWhileCritical(false);
-//        }
+        if (level.getBlockEntity(pos) instanceof NuclearFurnaceBlockEntity nuclearFurnaceBlockEntity && nuclearFurnaceBlockEntity.getCriticality() >= 2F) {
+            nuclearFurnaceBlockEntity.destroyWhileCritical(false);
+        }
     }
 
     public void onRemove(BlockState blockState, Level level, BlockPos blockPos, BlockState blockState1, boolean idk) {

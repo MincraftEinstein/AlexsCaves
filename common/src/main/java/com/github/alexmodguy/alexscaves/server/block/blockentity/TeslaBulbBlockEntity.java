@@ -14,8 +14,6 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class TeslaBulbBlockEntity extends BlockEntity {
 
@@ -56,7 +54,8 @@ public class TeslaBulbBlockEntity extends BlockEntity {
             } else if (entity.explodeProgress % 1.0F == 0) {
                 if (entity.dummyBolt == null) {
                     entity.dummyBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-                    entity.dummyBolt.setDamage(1);
+                    // TODO fix when entity
+//                    entity.dummyBolt.setDamage(1);
                     entity.dummyBolt.setVisualOnly(true);
                 }
                 BlockPos min = blockPos.offset(-5, -5, -5);
@@ -78,7 +77,8 @@ public class TeslaBulbBlockEntity extends BlockEntity {
                     AABB aabb = new AABB(entity.lightningPos.subtract(1, 1, 1), entity.lightningPos.add(1, 1, 1));
                     if (entity.dummyBolt == null) {
                         entity.dummyBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-                        entity.dummyBolt.setDamage(1);
+                        // TODO fix when entity
+//                        entity.dummyBolt.setDamage(1);
                         entity.dummyBolt.setVisualOnly(true);
                     }
                     for (LivingEntity entity1 : level.getEntitiesOfClass(LivingEntity.class, aabb)) {
@@ -107,7 +107,7 @@ public class TeslaBulbBlockEntity extends BlockEntity {
         return center.add(5 - this.level.random.nextInt(10), 5 - this.level.random.nextInt(10), 5 - this.level.random.nextInt(10));
     }
 
-    @OnlyIn(Dist.CLIENT)
+    // TODO fix for common
     public AABB getRenderBoundingBox() {
         BlockPos pos = this.getBlockPos();
         BlockPos min = pos.offset(-1, -1, -1);

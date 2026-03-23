@@ -2,7 +2,6 @@ package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.level.storage.ACWorldData;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
@@ -10,7 +9,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
@@ -129,7 +127,8 @@ public class AmberMonolithBlockEntity extends BlockEntity {
                     entity.moveTo(d0, (double) blockpos.getY(), d1, level.random.nextFloat() * 360.0F, 0.0F);
                     if (entity instanceof Mob) {
                         Mob mob = (Mob) entity;
-                        if (net.neoforged.neoforge.event.EventHooks.checkSpawnPosition(mob, (ServerLevelAccessor) level, MobSpawnType.CHUNK_GENERATION)) {
+                        // TODO do event
+                        if (true/*net.neoforged.neoforge.event.EventHooks.checkSpawnPosition(mob, (ServerLevelAccessor) level, MobSpawnType.CHUNK_GENERATION)*/) {
                             spawngroupdata = mob.finalizeSpawn((ServerLevelAccessor) level, level.getCurrentDifficultyAt(mob.blockPosition()), MobSpawnType.CHUNK_GENERATION, spawngroupdata);
                             ((ServerLevel) level).addFreshEntityWithPassengers(mob);
                             spawned = true;
@@ -154,7 +153,8 @@ public class AmberMonolithBlockEntity extends BlockEntity {
     }
 
     private BlockPos getRandomSpawnPos() {
-        boolean caveCreature = spawnType.getCategory() == ACEntityRegistry.CAVE_CREATURE;
+        // TODO fix when entity category
+        boolean caveCreature = false /*spawnType.getCategory() == ACEntityRegistry.CAVE_CREATURE*/;
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
         for (int i = 0; i < 20; i++) {
             mutableBlockPos.set(this.getBlockPos().getX() + level.getRandom().nextInt(20) - 10, this.getBlockPos().getY() + 1, this.getBlockPos().getZ() + level.getRandom().nextInt(20) - 10);
@@ -178,7 +178,8 @@ public class AmberMonolithBlockEntity extends BlockEntity {
     private void generateSpawnData() {
         List<EntityType<?>> forcedEntityList = new ArrayList<>();
         if(isMigration() && !this.hasDonePostBossSpawn){
-            forcedEntityList.add(ACEntityRegistry.ATLATITAN.get());
+            // TODO fix when entity
+//            forcedEntityList.add(ACEntityRegistry.ATLATITAN.get());
         }
         MobSpawnSettings.SpawnerData spawnerData = getDepopulatedEntitySpawnData(level, this.getBlockPos(), 4 + level.random.nextInt(8), 64, forcedEntityList);
         if (spawnerData != null) {
@@ -195,19 +196,21 @@ public class AmberMonolithBlockEntity extends BlockEntity {
         if(settings.type.is(ACTagRegistry.AMBER_MONOLITH_SKIPS)){
             return true;
         }
-        if(settings.type == ACEntityRegistry.ATLATITAN.get()){
+        // TODO fix when entity
+       /* if(settings.type == ACEntityRegistry.ATLATITAN.get()){
             ACWorldData worldData = ACWorldData.get(level);
             if(worldData != null && !worldData.isPrimordialBossDefeatedOnce()){
                 return true;
             }
-        }
+        }*/
         return !level.getEntities(settings.type, (new AABB(pos)).inflate(range), Entity::isAlive).isEmpty();
     }
 
     private static MobSpawnSettings.SpawnerData getEntitySpawnSettingsForBiome(Level level, BlockPos pos, List<EntityType<?>> forcedEntityTypes) {
         Biome biome = level.getBiome(pos).value();
         if (biome != null) {
-            WeightedRandomList<MobSpawnSettings.SpawnerData> spawnList = biome.getMobSettings().getMobs(ACEntityRegistry.CAVE_CREATURE);
+            // TODO fix when entity
+            WeightedRandomList<MobSpawnSettings.SpawnerData> spawnList = biome.getMobSettings().getMobs(MobCategory.AMBIENT/*ACEntityRegistry.CAVE_CREATURE*/);
             if (spawnList.isEmpty()) {
                 spawnList = biome.getMobSettings().getMobs(MobCategory.CREATURE);
             }
@@ -247,7 +250,8 @@ public class AmberMonolithBlockEntity extends BlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @Override
+    // TODO fix
+    /*@Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider registries) {
         if (packet != null && packet.getTag() != null) {
             if (packet.getTag().contains("EntityType")) {
@@ -258,7 +262,7 @@ public class AmberMonolithBlockEntity extends BlockEntity {
             this.spawnsMobIn = packet.getTag().getInt("SpawnMobsIn");
             this.hasDonePostBossSpawn = packet.getTag().getBoolean("PostBossSpawn");
         }
-    }
+    }*/
 
     @Override
     protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {

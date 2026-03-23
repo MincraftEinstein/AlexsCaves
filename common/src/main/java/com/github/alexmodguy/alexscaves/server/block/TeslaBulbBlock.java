@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.TeslaBulbBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -13,6 +15,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -47,11 +51,10 @@ public class TeslaBulbBlock extends BaseEntityBlock implements SimpleWaterlogged
         return RenderShape.MODEL;
     }
 
-    // TODO
-//    @Nullable
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
-//        return createTickerHelper(p_152182_, ACBlockEntityRegistry.TESLA_BULB.get(), TeslaBulbBlockEntity::tick);
-//    }
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
+        return createTickerHelper(p_152182_, ACBlockEntityRegistry.TESLA_BULB.get(), TeslaBulbBlockEntity::tick);
+    }
 
     @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
@@ -61,18 +64,16 @@ public class TeslaBulbBlock extends BaseEntityBlock implements SimpleWaterlogged
 
     public void onProjectileHit(Level level, BlockState blockState, BlockHitResult hitResult, Projectile projectile) {
         BlockEntity blockEntity = level.getBlockEntity(hitResult.getBlockPos());
-        // TODO
-//        if (blockEntity instanceof TeslaBulbBlockEntity teslaBulb) {
-//            teslaBulb.explode();
-//        }
+        if (blockEntity instanceof TeslaBulbBlockEntity teslaBulb) {
+            teslaBulb.explode();
+        }
     }
 
     public void attack(BlockState blockState, Level level, BlockPos blockPos, Player player) {
         BlockEntity blockEntity = level.getBlockEntity(blockPos);
-        // TODO
-//        if (blockEntity instanceof TeslaBulbBlockEntity teslaBulb) {
-//            teslaBulb.explode();
-//        }
+        if (blockEntity instanceof TeslaBulbBlockEntity teslaBulb) {
+            teslaBulb.explode();
+        }
     }
 
     @Deprecated
@@ -105,9 +106,7 @@ public class TeslaBulbBlock extends BaseEntityBlock implements SimpleWaterlogged
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        // TODO
-//        return new TeslaBulbBlockEntity(pos, state);
-        return null;
+        return new TeslaBulbBlockEntity(pos, state);
     }
 
 

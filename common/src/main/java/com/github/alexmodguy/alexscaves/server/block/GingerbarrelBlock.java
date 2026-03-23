@@ -1,13 +1,16 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.GingerbarrelBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.piglin.PiglinAi;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
@@ -40,34 +43,33 @@ public class GingerbarrelBlock extends BarrelBlock {
         }
         else {
             BlockEntity blockentity = level.getBlockEntity(blockPos);
-//            if (blockentity instanceof GingerbarrelBlockEntity) {
-//                player.openMenu((GingerbarrelBlockEntity) blockentity);
-//                player.awardStat(Stats.OPEN_BARREL);
-//                PiglinAi.angerNearbyPiglins(player, true);
-//            }
+            if (blockentity instanceof GingerbarrelBlockEntity) {
+                player.openMenu((GingerbarrelBlockEntity) blockentity);
+                player.awardStat(Stats.OPEN_BARREL);
+                PiglinAi.angerNearbyPiglins(player, true);
+            }
             return InteractionResult.CONSUME;
         }
     }
 
     public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource randomSource) {
         BlockEntity blockentity = level.getBlockEntity(pos);
-//        if (blockentity instanceof GingerbarrelBlockEntity) {
-//            ((GingerbarrelBlockEntity) blockentity).recheckOpen();
-//        }
+        if (blockentity instanceof GingerbarrelBlockEntity) {
+            ((GingerbarrelBlockEntity) blockentity).recheckOpen();
+        }
     }
 
     @Nullable
     public BlockEntity newBlockEntity(BlockPos pos, BlockState blockState) {
-        // TODO
-        return null;// new GingerbarrelBlockEntity(pos, blockState);
+        return new GingerbarrelBlockEntity(pos, blockState);
     }
 
     public void setPlacedBy(Level level, BlockPos pos, BlockState blockState, @Nullable LivingEntity entity, ItemStack stack) {
         if (stack.has(net.minecraft.core.component.DataComponents.CUSTOM_NAME)) {
             BlockEntity blockentity = level.getBlockEntity(pos);
-//            if (blockentity instanceof GingerbarrelBlockEntity) {
-//                ((GingerbarrelBlockEntity) blockentity).setCustomName(stack.getHoverName());
-//            }
+            if (blockentity instanceof GingerbarrelBlockEntity) {
+                ((GingerbarrelBlockEntity) blockentity).setCustomName(stack.getHoverName());
+            }
         }
     }
 

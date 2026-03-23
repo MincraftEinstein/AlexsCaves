@@ -4,14 +4,10 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.NuclearFurnaceBlock;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.item.NuclearExplosionEntity;
 import com.github.alexmodguy.alexscaves.server.entity.util.FallingBlockEntityAccessor;
-import com.github.alexmodguy.alexscaves.server.inventory.NuclearFurnaceMenu;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
-import com.github.alexmodguy.alexscaves.server.recipe.ACRecipeRegistry;
 import com.google.common.collect.Lists;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
@@ -49,8 +45,6 @@ import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -252,10 +246,11 @@ public class NuclearFurnaceBlockEntity extends BaseContainerBlockEntity implemen
             level.addFreshEntity(fallingblockentity);
         }
         if (nuke) {
-            NuclearExplosionEntity explosion = ACEntityRegistry.NUCLEAR_EXPLOSION.get().create(level);
+            // TODO fix when entity
+          /*  NuclearExplosionEntity explosion = ACEntityRegistry.NUCLEAR_EXPLOSION.get().create(level);
             explosion.setPos(vec3.add(0, -1.5F, 0));
             explosion.setSize(0.75F);
-            level.addFreshEntity(explosion);
+            level.addFreshEntity(explosion);*/
         } else {
             AreaEffectCloud areaeffectcloud = new AreaEffectCloud(level, vec3.x, vec3.y - 1F, vec3.z);
             areaeffectcloud.setParticle(ACParticleRegistry.GAMMAROACH.get());
@@ -344,7 +339,7 @@ public class NuclearFurnaceBlockEntity extends BaseContainerBlockEntity implemen
         return true;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    // TODO fix for common
     public AABB getRenderBoundingBox() {
         BlockPos pos = this.getBlockPos();
         return new AABB(pos.getX() - 1, pos.getY() - 1, pos.getZ() - 1, pos.getX() + 2, pos.getY() + 2, pos.getZ() + 2);
@@ -391,10 +386,11 @@ public class NuclearFurnaceBlockEntity extends BaseContainerBlockEntity implemen
         return this.saveWithoutMetadata(registries);
     }
 
-    @Override
+    // TODO fix when entity
+   /* @Override
     public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
         this.loadAdditional(tag, registries);
-    }
+    }*/
 
     public int getContainerSize() {
         return this.items.size();
@@ -487,7 +483,8 @@ public class NuclearFurnaceBlockEntity extends BaseContainerBlockEntity implemen
 
 
     protected AbstractContainerMenu createMenu(int id, Inventory inventory) {
-        return new NuclearFurnaceMenu(id, inventory, this, this.dataAccess);
+        // TODO fix when menu
+        return null;// new NuclearFurnaceMenu(id, inventory, this, this.dataAccess);
     }
 
     public WorldlyContainer getContainerFor(BlockPos offsetPos) {
@@ -538,9 +535,10 @@ public class NuclearFurnaceBlockEntity extends BaseContainerBlockEntity implemen
     }
 
     public static RecipeType<? extends AbstractCookingRecipe> getRecipeType(){
-        if (AlexsCaves.COMMON_CONFIG.nuclearFurnaceCustomType.get()) {
+        // TODO fix when recipe
+      /*  if (AlexsCaves.COMMON_CONFIG.nuclearFurnaceCustomType.get()) {
             return ACRecipeRegistry.NUCLEAR_FURNACE_TYPE.get();
-        }
+        }*/
         return AlexsCaves.COMMON_CONFIG.nuclearFurnaceBlastingOnly.get() ? RecipeType.BLASTING : RecipeType.SMELTING;
     }
 

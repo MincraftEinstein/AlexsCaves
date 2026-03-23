@@ -1,5 +1,9 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.EnigmaticEngineBlockEntity;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -31,24 +35,21 @@ public class EnigmaticEngineBlock extends BaseEntityBlock {
         return RenderShape.MODEL;
     }
 
-    // TODO
-//    @Nullable
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-//        return createTickerHelper(entityType, ACBlockEntityRegistry.ENIGMATIC_ENGINE.get(), EnigmaticEngineBlockEntity::tick);
-//    }
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+        return createTickerHelper(entityType, ACBlockEntityRegistry.ENIGMATIC_ENGINE.get(), EnigmaticEngineBlockEntity::tick);
+    }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        // TODO
-        return null;//new EnigmaticEngineBlockEntity(pos, state);
+        return new EnigmaticEngineBlockEntity(pos, state);
     }
 
     public boolean attemptAssembly(LevelAccessor levelAccessor, BlockPos blockPos) {
-        // TODO
-//        if (levelAccessor.getBlockEntity(blockPos) instanceof EnigmaticEngineBlockEntity blockEntity) {
-//           return blockEntity.attemptAssembly();
-//        }
+            if (levelAccessor.getBlockEntity(blockPos) instanceof EnigmaticEngineBlockEntity blockEntity) {
+               return blockEntity.attemptAssembly();
+            }
         return false;
     }
 

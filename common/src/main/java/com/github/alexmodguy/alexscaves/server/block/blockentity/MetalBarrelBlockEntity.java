@@ -50,7 +50,7 @@ public class MetalBarrelBlockEntity extends RandomizableContainerBlockEntity {
     };
 
     public MetalBarrelBlockEntity(BlockPos p_155052_, BlockState p_155053_) {
-        super(ACBlockEntityRegistry.METAL_BARREL.get(), p_155052_, p_155053_);
+        super(com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry.METAL_BARREL.get(), p_155052_, p_155053_);
     }
 
     protected void saveAdditional(CompoundTag p_187459_, HolderLookup.Provider registries) {

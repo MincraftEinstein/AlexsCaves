@@ -1,5 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.GeothermalVentBlockEntity;
+import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,6 +21,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -62,7 +67,7 @@ public class GeothermalVentBlock extends BaseEntityBlock {
         if (state.getBlock() instanceof GeothermalVentBlock) {
             return state.getValue(SMOKE_TYPE);
         }
-        // TODO
+        // TODO fix when fluids
         if (false/*state.getFluidState().getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get()*/) {
             return 3;
         }
@@ -87,8 +92,7 @@ public class GeothermalVentBlock extends BaseEntityBlock {
     public InteractionResult useWithoutItem(BlockState blockState, Level level, BlockPos blockPos, Player player, BlockHitResult result) {
         ItemStack heldItem = player.getMainHandItem();
         if (heldItem.is(Items.GLASS_BOTTLE) && blockState.getValue(SMOKE_TYPE) == 3 && blockState.getValue(SPAWNING_PARTICLES)) {
-            // TODO
-            ItemStack bottle = ItemStack.EMPTY;//new ItemStack(ACItemRegistry.RADON_BOTTLE.get());
+            ItemStack bottle = new ItemStack(ACItemRegistry.RADON_BOTTLE.get());
             if (!player.addItem(bottle)) {
                 player.drop(bottle, false);
             }
@@ -101,15 +105,15 @@ public class GeothermalVentBlock extends BaseEntityBlock {
         return super.useWithoutItem(blockState, level, blockPos, player, result);
     }
 
-//    @Nullable
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-//        if (level.isClientSide) {
-//            return state.getValue(SMOKE_TYPE) > 0 && state.getValue(SPAWNING_PARTICLES) ? createTickerHelper(entityType, ACBlockEntityRegistry.GEOTHERMAL_VENT.get(), GeothermalVentBlockEntity::particleTick) : null;
-//        }
-//        else {
-//            return null;
-//        }
-//    }
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+        if (level.isClientSide) {
+            return state.getValue(SMOKE_TYPE) > 0 && state.getValue(SPAWNING_PARTICLES) ? createTickerHelper(entityType, ACBlockEntityRegistry.GEOTHERMAL_VENT.get(), GeothermalVentBlockEntity::particleTick) : null;
+        }
+        else {
+            return null;
+        }
+    }
 
     public RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
@@ -118,7 +122,6 @@ public class GeothermalVentBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        // TODO
-        return null;//new GeothermalVentBlockEntity(pos, state);
+        return new GeothermalVentBlockEntity(pos, state);
     }
 }

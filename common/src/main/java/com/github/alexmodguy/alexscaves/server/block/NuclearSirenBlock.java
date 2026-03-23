@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearSirenBlockEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -10,6 +12,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -57,15 +61,13 @@ public class NuclearSirenBlock extends BaseEntityBlock implements SimpleWaterlog
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        // TODO
-        return null; //new NuclearSirenBlockEntity(pos, state);
+        return new NuclearSirenBlockEntity(pos, state);
     }
 
-    // TODO
-//    @Nullable
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-//        return createTickerHelper(entityType, ACBlockEntityRegistry.NUCLEAR_SIREN.get(), NuclearSirenBlockEntity::tick);
-//    }
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+        return createTickerHelper(entityType, ACBlockEntityRegistry.NUCLEAR_SIREN.get(), NuclearSirenBlockEntity::tick);
+    }
 
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
@@ -88,10 +90,9 @@ public class NuclearSirenBlock extends BaseEntityBlock implements SimpleWaterlog
     }
 
     public int getAnalogOutputSignal(BlockState state, Level level, BlockPos pos) {
-        // TODO
-//        if(level.getBlockEntity(pos) instanceof NuclearSirenBlockEntity nuclearSirenBlock){
-//            return nuclearSirenBlock.isActivated(state) ? 15 : 0;
-//        }
+        if(level.getBlockEntity(pos) instanceof NuclearSirenBlockEntity nuclearSirenBlock){
+            return nuclearSirenBlock.isActivated(state) ? 15 : 0;
+        }
         return 0;
     }
 

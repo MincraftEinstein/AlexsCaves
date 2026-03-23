@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.MagnetBlockEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -15,6 +17,8 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -118,10 +122,10 @@ public class MagnetBlock extends BaseEntityBlock {
         return RenderShape.MODEL;
     }
 
-//    @Nullable
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
-//        return createTickerHelper(p_152182_, ACBlockEntityRegistry.MAGNET.get(), MagnetBlockEntity::tick);
-//    }
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
+        return createTickerHelper(p_152182_, ACBlockEntityRegistry.MAGNET.get(), MagnetBlockEntity::tick);
+    }
 
     public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if (!worldIn.isClientSide) {
@@ -148,41 +152,38 @@ public class MagnetBlock extends BaseEntityBlock {
 
     @Override
     public ItemInteractionResult useItemOn(ItemStack heldItem, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        // TODO
-//        if (worldIn.getBlockEntity(pos) instanceof MagnetBlockEntity magnet && !player.isShiftKeyDown()) {
-//            if (magnet.canAddRange() && magnet.isExtenderItem(heldItem)) {
-//                magnet.increaseRange(1);
-//                if (!player.isCreative()) {
-//                    heldItem.shrink(1);
-//                }
-//                player.swing(handIn);
-//                return ItemInteractionResult.SUCCESS;
-//            } else if (magnet.canRemoveRange() && magnet.isRetracterItem(heldItem)) {
-//                magnet.increaseRange(-1);
-//                if (!player.isCreative()) {
-//                    heldItem.shrink(1);
-//                }
-//                player.swing(handIn);
-//                return ItemInteractionResult.SUCCESS;
-//            }
-//        }
+        if (worldIn.getBlockEntity(pos) instanceof MagnetBlockEntity magnet && !player.isShiftKeyDown()) {
+            if (magnet.canAddRange() && magnet.isExtenderItem(heldItem)) {
+                magnet.increaseRange(1);
+                if (!player.isCreative()) {
+                    heldItem.shrink(1);
+                }
+                player.swing(handIn);
+                return ItemInteractionResult.SUCCESS;
+            } else if (magnet.canRemoveRange() && magnet.isRetracterItem(heldItem)) {
+                magnet.increaseRange(-1);
+                if (!player.isCreative()) {
+                    heldItem.shrink(1);
+                }
+                player.swing(handIn);
+                return ItemInteractionResult.SUCCESS;
+            }
+        }
         return super.useItemOn(heldItem, state, worldIn, pos, player, handIn, hit);
     }
 
     public void onRemove(BlockState state, Level worldIn, BlockPos pos, BlockState newState, boolean isMoving) {
         BlockEntity tileentity = worldIn.getBlockEntity(pos);
-        // TODO
-//        if (tileentity instanceof MagnetBlockEntity magnetBlockEntity && newState.getBlock() != state.getBlock()) {
-//            magnetBlockEntity.dropIngots(this.azure);
-//            worldIn.updateNeighbourForOutputSignal(pos, this);
-//        }
+        if (tileentity instanceof MagnetBlockEntity magnetBlockEntity && newState.getBlock() != state.getBlock()) {
+            magnetBlockEntity.dropIngots(this.azure);
+            worldIn.updateNeighbourForOutputSignal(pos, this);
+        }
         super.onRemove(state, worldIn, pos, newState, isMoving);
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        // TODO
-        return null;// new MagnetBlockEntity(pos, state);
+        return new MagnetBlockEntity(pos, state);
     }
 }

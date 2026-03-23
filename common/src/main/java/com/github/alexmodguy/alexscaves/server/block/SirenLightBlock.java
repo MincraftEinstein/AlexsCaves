@@ -1,20 +1,26 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.SirenLightBlockEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -119,10 +125,10 @@ public class SirenLightBlock extends BaseEntityBlock {
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
-//    @Nullable
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
-//        return createTickerHelper(p_152182_, ACBlockEntityRegistry.SIREN_LIGHT.get(), SirenLightBlockEntity::tick);
-//    }
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
+        return createTickerHelper(p_152182_, ACBlockEntityRegistry.SIREN_LIGHT.get(), SirenLightBlockEntity::tick);
+    }
 
     public void neighborChanged(BlockState state, Level worldIn, BlockPos pos, Block blockIn, BlockPos fromPos, boolean isMoving) {
         if (!worldIn.isClientSide) {
@@ -149,23 +155,20 @@ public class SirenLightBlock extends BaseEntityBlock {
 
     @Override
     public ItemInteractionResult useItemOn(ItemStack heldItem, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        // TODO
-//        if (worldIn.getBlockEntity(pos) instanceof SirenLightBlockEntity sirenLightBlock && !player.isShiftKeyDown() && heldItem.getItem() instanceof DyeItem dyeItem) {
-//            if (sirenLightBlock.setColor(dyeItem.getDyeColor().getTextColor())) {
-//                player.playSound(SoundEvents.DYE_USE);
-//                if (!player.getAbilities().instabuild)
-//                    heldItem.shrink(1);
-//                return ItemInteractionResult.SUCCESS;
-//            }
-//        }
+        if (worldIn.getBlockEntity(pos) instanceof SirenLightBlockEntity sirenLightBlock && !player.isShiftKeyDown() && heldItem.getItem() instanceof DyeItem dyeItem) {
+            if (sirenLightBlock.setColor(dyeItem.getDyeColor().getTextColor())) {
+                player.playSound(SoundEvents.DYE_USE);
+                if (!player.getAbilities().instabuild)
+                    heldItem.shrink(1);
+                return ItemInteractionResult.SUCCESS;
+            }
+        }
         return super.useItemOn(heldItem, state, worldIn, pos, player, handIn, hit);
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        // TODO
-        return null;
-//        return new SirenLightBlockEntity(pos, state);
+        return new SirenLightBlockEntity(pos, state);
     }
 }

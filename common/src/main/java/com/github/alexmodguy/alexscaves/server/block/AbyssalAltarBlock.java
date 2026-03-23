@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.AbyssalAltarBlockEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -13,6 +15,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
@@ -65,8 +69,7 @@ public class AbyssalAltarBlock extends BaseEntityBlock implements SimpleWaterlog
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        // TODO
-        return null; //new AbyssalAltarBlockEntity(pos, state);
+        return new AbyssalAltarBlockEntity(pos, state);
     }
 
     public void onRemove(BlockState state, Level level, BlockPos pos, BlockState state1, boolean b) {
@@ -102,47 +105,44 @@ public class AbyssalAltarBlock extends BaseEntityBlock implements SimpleWaterlog
 
     @Override
     public ItemInteractionResult useItemOn(ItemStack heldItem, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {
-        // TODO
-//        if (worldIn.getBlockEntity(pos) instanceof AbyssalAltarBlockEntity altarBlockEntity && !player.isShiftKeyDown()) {
-//            ItemStack copy = heldItem.copy();
-//            copy.setCount(1);
-//            if (altarBlockEntity.getItem(0).isEmpty()) {
-//                altarBlockEntity.setItem(0, copy);
-//                altarBlockEntity.onEntityInteract(player, false);
-//                if (!player.isCreative()) {
-//                    heldItem.shrink(1);
-//                }
-//                return ItemInteractionResult.SUCCESS;
-//            }
-//            else {
-//                if (altarBlockEntity.queueItemDrop(altarBlockEntity.getItem(0).copy())) {
-//                    altarBlockEntity.onEntityInteract(player, true);
-//                    altarBlockEntity.setItem(0, ItemStack.EMPTY);
-//                }
-//                return ItemInteractionResult.SUCCESS;
-//            }
-//        }
+        if (worldIn.getBlockEntity(pos) instanceof AbyssalAltarBlockEntity altarBlockEntity && !player.isShiftKeyDown()) {
+            ItemStack copy = heldItem.copy();
+            copy.setCount(1);
+            if (altarBlockEntity.getItem(0).isEmpty()) {
+                altarBlockEntity.setItem(0, copy);
+                altarBlockEntity.onEntityInteract(player, false);
+                if (!player.isCreative()) {
+                    heldItem.shrink(1);
+                }
+                return ItemInteractionResult.SUCCESS;
+            }
+            else {
+                if (altarBlockEntity.queueItemDrop(altarBlockEntity.getItem(0).copy())) {
+                    altarBlockEntity.onEntityInteract(player, true);
+                    altarBlockEntity.setItem(0, ItemStack.EMPTY);
+                }
+                return ItemInteractionResult.SUCCESS;
+            }
+        }
         return super.useItemOn(heldItem, state, worldIn, pos, player, handIn, hit);
     }
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult hit) {
-        // TODO
-//        if (worldIn.getBlockEntity(pos) instanceof AbyssalAltarBlockEntity altarBlockEntity && !player.isShiftKeyDown()) {
-//            if (!altarBlockEntity.getItem(0).isEmpty()) {
-//                if (altarBlockEntity.queueItemDrop(altarBlockEntity.getItem(0).copy())) {
-//                    altarBlockEntity.onEntityInteract(player, true);
-//                    altarBlockEntity.setItem(0, ItemStack.EMPTY);
-//                }
-//                return InteractionResult.SUCCESS;
-//            }
-//        }
+        if (worldIn.getBlockEntity(pos) instanceof AbyssalAltarBlockEntity altarBlockEntity && !player.isShiftKeyDown()) {
+            if (!altarBlockEntity.getItem(0).isEmpty()) {
+                if (altarBlockEntity.queueItemDrop(altarBlockEntity.getItem(0).copy())) {
+                    altarBlockEntity.onEntityInteract(player, true);
+                    altarBlockEntity.setItem(0, ItemStack.EMPTY);
+                }
+                return InteractionResult.SUCCESS;
+            }
+        }
         return super.useWithoutItem(state, worldIn, pos, player, hit);
     }
 
-    // TODO
-//    @Nullable
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
-//        return createTickerHelper(blockEntityType, ACBlockEntityRegistry.ABYSSAL_ALTAR.get(), AbyssalAltarBlockEntity::tick);
-//    }
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState blockState, BlockEntityType<T> blockEntityType) {
+        return createTickerHelper(blockEntityType, ACBlockEntityRegistry.ABYSSAL_ALTAR.get(), AbyssalAltarBlockEntity::tick);
+    }
 }

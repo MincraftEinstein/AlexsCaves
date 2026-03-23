@@ -471,12 +471,13 @@ public class ConversionCrucibleBlockEntity extends BlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
-        displayStack = ItemStack.EMPTY;
-        wantStack = ItemStack.EMPTY;
-        loadAdditional(tag, registries);
-    }
+    // TODO fix
+//    @Override
+//    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
+//        displayStack = ItemStack.EMPTY;
+//        wantStack = ItemStack.EMPTY;
+//        loadAdditional(tag, registries);
+//    }
 
     public void markUpdated() {
         this.setChanged();

@@ -1,8 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.living.GumWormEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.BlockPos;
@@ -48,7 +46,8 @@ public class GobthumperBlockEntity extends BlockEntity {
             level.addAlwaysVisibleParticle(ACParticleRegistry.GOBTHUMPER.get(), true, this.getBlockPos().getX() + 0.5F, this.getBlockPos().getY() + 0.15F, this.getBlockPos().getZ() + 0.5F, particleColor, 0, 0);
             particleColor = (particleColor + 1) % 3;
         }else{
-            if(this.summonedWormId != -1 && level.getEntity(this.summonedWormId) instanceof GumWormEntity gumWorm && gumWorm.isAlive()){
+            // TODO fix when entity
+            /*if(this.summonedWormId != -1 && level.getEntity(this.summonedWormId) instanceof GumWormEntity gumWorm && gumWorm.isAlive()){
                 gumWorm.setGobthumperPos(this.getBlockPos());
             }else{
                 GumWormEntity closestWorm = null;
@@ -84,7 +83,7 @@ public class GobthumperBlockEntity extends BlockEntity {
                         this.summonedWormId = summonedWorm.getId();
                     }
                 }
-            }
+            }*/
         }
     }
 

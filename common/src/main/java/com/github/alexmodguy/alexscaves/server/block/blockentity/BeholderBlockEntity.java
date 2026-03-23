@@ -1,7 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.item.BeholderEyeEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.BlockPos;
@@ -75,7 +73,8 @@ public class BeholderBlockEntity extends BlockEntity  {
     }
 
     public void startObserving(Level level, Player player) {
-        BeholderEyeEntity beholderEyeEntity = ACEntityRegistry.BEHOLDER_EYE.get().create(level);
+        // TODO fix when entity
+      /*  BeholderEyeEntity beholderEyeEntity = ACEntityRegistry.BEHOLDER_EYE.get().create(level);
         double dist = Math.sqrt(this.getBlockPos().distSqr(player.blockPosition()));
         if(dist > 1000){
             ACAdvancementTriggerRegistry.BEHOLDER_FAR_AWAY.get().triggerForEntity(player);
@@ -85,7 +84,7 @@ public class BeholderBlockEntity extends BlockEntity  {
         beholderEyeEntity.setUsingPlayerUUID(player.getUUID());
         beholderEyeEntity.setYRot(player.getYRot());
         level.addFreshEntity(beholderEyeEntity);
-        this.currentlyUsingEntityId = beholderEyeEntity.getId();
+        this.currentlyUsingEntityId = beholderEyeEntity.getId();*/
         player.displayClientMessage(Component.translatable("item.alexscaves.occult_gem.start_observing"), true);
     }
 
@@ -111,12 +110,14 @@ public class BeholderBlockEntity extends BlockEntity  {
         return this.saveWithoutMetadata(registries);
     }
 
-    @Override
+    // TODO fix when entity
+    /*@Override
     public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
         this.currentlyUsingEntityId = tag.getInt("UsingEntityID");
-    }
+    }*/
 
     public boolean isFirstPersonView(Entity cameraEntity) {
-        return cameraEntity != null && cameraEntity instanceof BeholderEyeEntity && cameraEntity.blockPosition().equals(this.getBlockPos());
+        // TODO fix when entity
+        return cameraEntity != null /*&& cameraEntity instanceof BeholderEyeEntity*/ && cameraEntity.blockPosition().equals(this.getBlockPos());
     }
 }

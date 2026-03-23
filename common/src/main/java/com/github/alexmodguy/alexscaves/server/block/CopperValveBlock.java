@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.CopperValveBlockEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -13,6 +15,8 @@ import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -136,31 +140,28 @@ public class CopperValveBlock extends BaseEntityBlock implements SimpleWaterlogg
         return RenderShape.ENTITYBLOCK_ANIMATED;
     }
 
-    // TODO
-//    @Nullable
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
-//        return createTickerHelper(p_152182_, ACBlockEntityRegistry.COPPER_VALVE.get(), CopperValveBlockEntity::tick);
-//    }
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level p_152180_, BlockState p_152181_, BlockEntityType<T> p_152182_) {
+        return createTickerHelper(p_152182_, ACBlockEntityRegistry.COPPER_VALVE.get(), CopperValveBlockEntity::tick);
+    }
 
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult hit) {
-        // TODO
-//        if (worldIn.getBlockEntity(pos) instanceof CopperValveBlockEntity copperValve && !player.isShiftKeyDown()) {
-//            if (state.getValue(TURNED)) {
-//                copperValve.moveDown(false);
-//            } else {
-//                copperValve.moveDown(!copperValve.isMovingDown());
-//            }
-//            return InteractionResult.SUCCESS;
-//        }
+        if (worldIn.getBlockEntity(pos) instanceof CopperValveBlockEntity copperValve && !player.isShiftKeyDown()) {
+            if (state.getValue(TURNED)) {
+                copperValve.moveDown(false);
+            } else {
+                copperValve.moveDown(!copperValve.isMovingDown());
+            }
+            return InteractionResult.SUCCESS;
+        }
         return super.useWithoutItem(state, worldIn, pos, player, hit);
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        // TODO
-        return null;//new CopperValveBlockEntity(pos, state);
+        return new CopperValveBlockEntity(pos, state);
     }
 
     public int getSignal(BlockState state, BlockGetter blockGetter, BlockPos blockPos, Direction direction) {

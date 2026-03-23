@@ -171,10 +171,11 @@ public class NuclearSirenBlockEntity extends BlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @Override
+    // TODO fix when entity
+    /*@Override
     public void onDataPacket(Connection net, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider registries) {
         if (packet != null && packet.getTag() != null) {
             handleUpdateTag(packet.getTag(), registries);
         }
-    }
+    }*/
 }

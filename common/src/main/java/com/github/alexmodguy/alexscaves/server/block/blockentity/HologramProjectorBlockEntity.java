@@ -16,8 +16,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.UUID;
 import java.util.function.Function;
@@ -111,7 +109,7 @@ public class HologramProjectorBlockEntity extends BlockEntity {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+    // TODO fix for common
     public AABB getRenderBoundingBox() {
         BlockPos pos = this.getBlockPos();
         float f = displayEntity == null ? 1.0F : Math.max(displayEntity.getBbWidth(), displayEntity.getBbHeight());
@@ -123,7 +121,8 @@ public class HologramProjectorBlockEntity extends BlockEntity {
         return ClientboundBlockEntityDataPacket.create(this);
     }
 
-    @Override
+    // TODO fix when entity
+    /*@Override
     public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
         if (tag.contains("EntityType")) {
             String str = tag.getString("EntityType");
@@ -134,7 +133,7 @@ public class HologramProjectorBlockEntity extends BlockEntity {
         if (tag.contains("LastPlayerUUID")) {
             this.lastPlayerUUID = tag.getUUID("LastPlayerUUID");
         }
-    }
+    }*/
 
     public CompoundTag getUpdateTag() {
         CompoundTag compoundtag = new CompoundTag();

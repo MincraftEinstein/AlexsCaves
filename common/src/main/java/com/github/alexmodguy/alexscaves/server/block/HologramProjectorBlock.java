@@ -1,17 +1,28 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.HologramProjectorBlockEntity;
+import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
+import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -22,6 +33,8 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class HologramProjectorBlock extends BaseEntityBlock implements SimpleWaterloggedBlock {
 
@@ -54,42 +67,42 @@ public class HologramProjectorBlock extends BaseEntityBlock implements SimpleWat
 
     public InteractionResult useWithoutItem(BlockState state, Level worldIn, BlockPos pos, Player player, BlockHitResult hit) {
         ItemStack heldItem = player.getMainHandItem();
-        // TODO
-//        if (worldIn.getBlockEntity(pos) instanceof HologramProjectorBlockEntity projectorBlockEntity && !player.isShiftKeyDown() && heldItem.is(ACItemRegistry.HOLOCODER.get())) {
-//            CompoundTag entityTag = null;
-//            EntityType entityType = null;
-//            boolean flag = false;
-//            // In 1.21, Holocoder stores entity data in CUSTOM_DATA with "BoundEntityTag" key
-//            CustomData customData = heldItem.get(DataComponents.CUSTOM_DATA);
-//            if (customData != null && !customData.isEmpty()) {
-//                CompoundTag tag = customData.copyTag();
-//                if (tag.contains("BoundEntityTag")) {
-//                    CompoundTag entity = tag.getCompound("BoundEntityTag");
-//                    Optional<EntityType<?>> optional = EntityType.by(entity);
-//                    if (optional.isPresent()) {
-//                        entityType = optional.get();
-//                        entityTag = entity;
-//                        flag = true;
-//                    }
-//                }
-//            }
-//            if (!flag) {
-//                entityType = EntityType.PLAYER;
-//                CompoundTag playerTag = new CompoundTag();
-//                playerTag.putUUID("UUID", player.getUUID());
-//                String s = player.getEncodeId();
-//                if (s != null) {
-//                    playerTag.putString("id", s);
-//                }
-//                entityTag = playerTag;
-//            }
-//            projectorBlockEntity.setEntity(entityType, entityTag, player.getYHeadRot());
-//            worldIn.playSound((Player) null, pos, ACSoundRegistry.HOLOGRAM_STOP.get(), SoundSource.BLOCKS);
-//            if (!player.isCreative()) {
-//                heldItem.shrink(1);
-//            }
-//            return InteractionResult.SUCCESS;
-//        }
+        if (worldIn.getBlockEntity(pos) instanceof HologramProjectorBlockEntity projectorBlockEntity && !player.isShiftKeyDown() && heldItem.is(ACItemRegistry.HOLOCODER.get())) {
+            CompoundTag entityTag = null;
+            EntityType entityType = null;
+            boolean flag = false;
+            // In 1.21, Holocoder stores entity data in CUSTOM_DATA with "BoundEntityTag" key
+            CustomData customData = heldItem.get(DataComponents.CUSTOM_DATA);
+            if (customData != null && !customData.isEmpty()) {
+                CompoundTag tag = customData.copyTag();
+                if (tag.contains("BoundEntityTag")) {
+                    CompoundTag entity = tag.getCompound("BoundEntityTag");
+                    Optional<EntityType<?>> optional = EntityType.by(entity);
+                    if (optional.isPresent()) {
+                        entityType = optional.get();
+                        entityTag = entity;
+                        flag = true;
+                    }
+                }
+            }
+            if (!flag) {
+                entityType = EntityType.PLAYER;
+                CompoundTag playerTag = new CompoundTag();
+                playerTag.putUUID("UUID", player.getUUID());
+                //TODO fix later
+              /*  String s = player.getEncodeId();
+                if (s != null) {
+                    playerTag.putString("id", s);
+                }*/
+                entityTag = playerTag;
+            }
+            projectorBlockEntity.setEntity(entityType, entityTag, player.getYHeadRot());
+            worldIn.playSound((Player) null, pos, ACSoundRegistry.HOLOGRAM_STOP.get(), SoundSource.BLOCKS);
+            if (!player.isCreative()) {
+                heldItem.shrink(1);
+            }
+            return InteractionResult.SUCCESS;
+        }
         return InteractionResult.PASS;
     }
 
@@ -102,14 +115,13 @@ public class HologramProjectorBlock extends BaseEntityBlock implements SimpleWat
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        // TODO
-        return null;//new HologramProjectorBlockEntity(pos, state);
+        return new HologramProjectorBlockEntity(pos, state);
     }
 
-//    @Nullable
-//    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
-//        return createTickerHelper(entityType, ACBlockEntityRegistry.HOLOGRAM_PROJECTOR.get(), HologramProjectorBlockEntity::tick);
-//    }
+    @Nullable
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> entityType) {
+        return createTickerHelper(entityType, ACBlockEntityRegistry.HOLOGRAM_PROJECTOR.get(), HologramProjectorBlockEntity::tick);
+    }
 
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);

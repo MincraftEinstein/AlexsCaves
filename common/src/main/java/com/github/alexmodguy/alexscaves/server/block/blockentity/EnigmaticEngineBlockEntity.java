@@ -1,8 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.item.SubmarineEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.BlockPos;
@@ -11,7 +9,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.Vec3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +43,13 @@ public class EnigmaticEngineBlockEntity extends BlockEntity {
                 }
             }
             if(!level.isClientSide){
-                SubmarineEntity submarine = ACEntityRegistry.SUBMARINE.get().create(level);
+                // TODO fix when entity
+             /*   SubmarineEntity submarine = ACEntityRegistry.SUBMARINE.get().create(level);
                 Vec3 vec31 = Vec3.atCenterOf(this.getBlockPos()).add(0, -1, 0);
                 submarine.setYRot(assembleIn.toYRot());
                 submarine.setPos(vec31.x, vec31.y, vec31.z);
                 submarine.setOxidizationLevel(0);
-                level.addFreshEntity(submarine);
+                level.addFreshEntity(submarine);*/
             }
             return true;
         }

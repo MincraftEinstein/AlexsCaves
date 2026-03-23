@@ -90,7 +90,7 @@ public class SulfurBudBlock extends Block implements SimpleWaterloggedBlock {
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
         else if (liquidType == 2) {
-            // TODO
+            // TODO when fluids
 //            levelAccessor.scheduleTick(blockPos, ACFluidRegistry.ACID_FLUID_SOURCE.get(), ACFluidRegistry.ACID_FLUID_SOURCE.get().getTickDelay(levelAccessor));
         }
         if (!levelAccessor.isClientSide()) {
@@ -120,7 +120,7 @@ public class SulfurBudBlock extends Block implements SimpleWaterloggedBlock {
     }
 
     public boolean canPlaceLiquid(BlockGetter getter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
-        // TODO
+        // TODO when fluids
         return fluid == Fluids.WATER; //|| fluid.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get();
     }
 
@@ -131,7 +131,7 @@ public class SulfurBudBlock extends Block implements SimpleWaterloggedBlock {
                 if (fluidState.getType() == Fluids.WATER) {
                     levelAccessor.setBlock(pos, blockState.setValue(LIQUID_LOGGED, 1), 3);
                 }
-                // TODO
+                // TODO when fluids
 //                else if (fluidState.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get()) {
 //                    levelAccessor.setBlock(pos, blockState.setValue(LIQUID_LOGGED, 2), 3);
 //                }
@@ -152,7 +152,7 @@ public class SulfurBudBlock extends Block implements SimpleWaterloggedBlock {
             if (!state.canSurvive(levelAccessor, blockPos)) {
                 levelAccessor.destroyBlock(blockPos, true);
             }
-            // TODO
+            // TODO when fluids
             return new ItemStack(Items.WATER_BUCKET/*liquidType == 1 ? Items.WATER_BUCKET : ACItemRegistry.ACID_BUCKET.get()*/);
         }
         else {
@@ -167,7 +167,7 @@ public class SulfurBudBlock extends Block implements SimpleWaterloggedBlock {
 
     public FluidState getFluidState(BlockState state) {
         int liquidType = state.getValue(LIQUID_LOGGED);
-        // TODO
+        // TODO when fluids
         return /*liquidType == 1 ? Fluids.WATER.getSource(false) : liquidType == 2 ? ACFluidRegistry.ACID_FLUID_SOURCE.get().getSource(false) :*/ super.getFluidState(state);
     }
 
@@ -179,6 +179,7 @@ public class SulfurBudBlock extends Block implements SimpleWaterloggedBlock {
         if (fluidState.getType() == Fluids.WATER) {
             return 1;
         }
+        // TODO when fluids
 //        else if (fluidState.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get() && fluidState.isSource()) {
 //            return 2;
 //        }

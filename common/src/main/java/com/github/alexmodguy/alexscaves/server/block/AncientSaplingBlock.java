@@ -1,7 +1,9 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.block.grower.AncientTreeGrower;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockGetter;
@@ -44,11 +46,10 @@ public class AncientSaplingBlock extends SaplingBlock {
      * @return true if a mega tree was successfully grown, false otherwise
      */
     private boolean tryGrowThreeByThreeMegaTree(ServerLevel level, BlockPos pos, BlockState state, RandomSource random) {
-        // TODO
-        Holder<ConfiguredFeature<?, ?>> holder = null;/*level.registryAccess()
+        Holder<ConfiguredFeature<?, ?>> holder = level.registryAccess()
                 .registryOrThrow(Registries.CONFIGURED_FEATURE)
                 .getHolder(AncientTreeGrower.GIANT_ANCIENT_TREE)
-                .orElse(null);*/
+                .orElse(null);
 
         if (holder == null) {
             return false;

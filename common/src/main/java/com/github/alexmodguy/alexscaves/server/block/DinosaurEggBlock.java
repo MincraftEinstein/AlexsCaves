@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -22,6 +23,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -55,8 +57,7 @@ public class DinosaurEggBlock extends Block {
 
     public boolean isProperHabitat(BlockGetter reader, BlockPos pos) {
         BlockState state = reader.getBlockState(pos.below());
-        // TODO
-        return state.isSolid(); // && !state.is(ACTagRegistry.STOPS_DINOSAUR_EGGS);
+        return state.isSolid() && !state.is(ACTagRegistry.STOPS_DINOSAUR_EGGS);
     }
 
     public boolean canHatchAt(BlockGetter reader, BlockPos pos) {
@@ -101,7 +102,7 @@ public class DinosaurEggBlock extends Block {
     }
 
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos blockPos, CollisionContext context) {
-        // TODO
+        // TODO when entities
 //        return context instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof DinosaurEntity ? Shapes.empty() : super.getCollisionShape(state, level, blockPos, context);
         return Shapes.block();
     }
@@ -135,7 +136,7 @@ public class DinosaurEggBlock extends Block {
             if (!level.isClientSide) {
                 Player closest = level.getNearestPlayer(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, 10, EntitySelector.NO_SPECTATORS);
                 if (closest != null) {
-                    // TODO
+                    // TODO when entities
 //                    if (fromType instanceof DinosaurEntity dinosaur && dinosaur.tamesFromHatching()) {
 //                        dinosaur.setTame(true, true);
 //                        dinosaur.setOrderedToSit(true);
@@ -161,19 +162,17 @@ public class DinosaurEggBlock extends Block {
     }
 
     private boolean canTrample(Level worldIn, Entity trampler) {
-        // TODO
-//        if (!trampler.getType().is(ACTagRegistry.DINOSAURS)) {
-//            if (!(trampler instanceof LivingEntity)) {
-//                return false;
-//            }
-//            else {
-//                return trampler instanceof Player || net.neoforged.neoforge.event.EventHooks.canEntityGrief(worldIn, trampler);
-//            }
-//        }
-//        else {
-//            return false;
-//        }
-        return false;
+        if (!trampler.getType().is(ACTagRegistry.DINOSAURS)) {
+            if (!(trampler instanceof LivingEntity)) {
+                return false;
+            }
+            else {
+                return trampler instanceof Player /*TODO? if no, then replace with gamerule check || net.neoforged.neoforge.event.EventHooks.canEntityGrief(worldIn, trampler)*/;
+            }
+        }
+        else {
+            return false;
+        }
     }
 
     public void onPlace(BlockState state, Level worldIn, BlockPos pos, BlockState oldState, boolean isMoving) {

@@ -32,6 +32,7 @@ public class NuclearBombBlock extends Block {
 
     public void onCaughtFire(BlockState state, Level level, BlockPos blockPos, @Nullable net.minecraft.core.Direction face, @Nullable LivingEntity igniter) {
         if (!level.isClientSide) {
+            // TODO when entities
 //            NuclearBombEntity bomb = ACEntityRegistry.NUCLEAR_BOMB.get().create(level);
 //            bomb.setPos((double) blockPos.getX() + 0.5D, (double) blockPos.getY(), (double) blockPos.getZ() + 0.5D);
 //            level.addFreshEntity(bomb);

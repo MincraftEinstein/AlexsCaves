@@ -9,7 +9,7 @@ public class HazmatBlock extends RotatedPillarBlock {
         super(Properties.of().mapColor(MapColor.METAL).requiresCorrectToolForDrops().strength(3.5F, 12.0F).sound(ACSoundTypes.HAZMAT_BLOCK.get()));
     }
 
-    // TODO
+    // TODO IBlockExtension
 //    @Override
 //    public PathType getBlockPathType(BlockState state, BlockGetter level, BlockPos pos, @Nullable Mob mob) {
 //        return PathType.UNPASSABLE_RAIL;

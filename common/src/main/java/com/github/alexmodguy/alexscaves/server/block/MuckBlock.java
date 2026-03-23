@@ -1,7 +1,10 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
+import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.FallingBlockEntity;
 import net.minecraft.world.level.BlockGetter;
@@ -34,9 +37,7 @@ public class MuckBlock extends FallingBlockWithColor {
     }
 
     private boolean isOceanEntity(Entity entity) {
-        // TODO
-//        return entity.getType().is(ACTagRegistry.SEAFLOOR_DENIZENS) || entity instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.FEET).is(ACItemRegistry.DIVING_BOOTS.get());
-        return false;
+        return entity.getType().is(ACTagRegistry.SEAFLOOR_DENIZENS) || entity instanceof LivingEntity living && living.getItemBySlot(EquipmentSlot.FEET).is(ACItemRegistry.DIVING_BOOTS.get());
     }
 
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos blockPos, CollisionContext context) {

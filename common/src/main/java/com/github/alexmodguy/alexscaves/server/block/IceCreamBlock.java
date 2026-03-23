@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -83,8 +84,7 @@ public class IceCreamBlock extends Block {
                         if (blockState.getValue(TYPE) == 2 && direction == Direction.DOWN) {
                             d1 = 0.1;
                         }
-                        // TODO
-//                        level.addAlwaysVisibleParticle(ACParticleRegistry.ICE_CREAM_DRIP.get(), true, (double) blockPos.getX() + d0, (double) blockPos.getY() + d1, (double) blockPos.getZ() + d2, dripColor, 0.0D, 0.0D);
+                        level.addAlwaysVisibleParticle(ACParticleRegistry.ICE_CREAM_DRIP.get(), true, (double) blockPos.getX() + d0, (double) blockPos.getY() + d1, (double) blockPos.getZ() + d2, dripColor, 0.0D, 0.0D);
                     }
                 }
             }

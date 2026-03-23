@@ -1,9 +1,14 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
+import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -23,11 +28,10 @@ public class UnrefinedWasteBlock extends FallingBlockWithColor {
     }
 
     public void entityInside(BlockState state, Level level, BlockPos blockPos, Entity entity) {
-        // TODO
-//        if(entity instanceof LivingEntity living && !entity.getType().is(ACTagRegistry.RESISTS_RADIATION)){
-//            entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.9D, 1.0D, 0.9D));
-//            living.addEffect(new MobEffectInstance(ACEffectRegistry.IRRADIATED, 4000));
-//        }
+        if(entity instanceof LivingEntity living && !entity.getType().is(ACTagRegistry.RESISTS_RADIATION)){
+            entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.9D, 1.0D, 0.9D));
+            living.addEffect(new MobEffectInstance(ACEffectRegistry.IRRADIATED, 4000));
+        }
     }
 
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos blockPos, CollisionContext context) {
@@ -51,8 +55,7 @@ public class UnrefinedWasteBlock extends FallingBlockWithColor {
                 double d0 = direction.getStepX() == 0 ? randomSource.nextDouble() : 0.5D + (double) direction.getStepX() * 0.6D;
                 double d1 = direction.getStepY() == 0 ? randomSource.nextDouble() : 0.5D + (double) direction.getStepY() * 0.6D;
                 double d2 = direction.getStepZ() == 0 ? randomSource.nextDouble() : 0.5D + (double) direction.getStepZ() * 0.6D;
-                // TODO
-//                level.addParticle(randomSource.nextBoolean() ? ACParticleRegistry.GAMMAROACH.get() : ACParticleRegistry.HAZMAT_BREATHE.get(), (double) blockPos.getX() + d0, (double) blockPos.getY() + d1, (double) blockPos.getZ() + d2, 0.0D, 0.1D + level.random.nextFloat() * 0.1F, 0.0D);
+                level.addParticle(randomSource.nextBoolean() ? ACParticleRegistry.GAMMAROACH.get() : ACParticleRegistry.HAZMAT_BREATHE.get(), (double) blockPos.getX() + d0, (double) blockPos.getY() + d1, (double) blockPos.getZ() + d2, 0.0D, 0.1D + level.random.nextFloat() * 0.1F, 0.0D);
             }
         }
     }

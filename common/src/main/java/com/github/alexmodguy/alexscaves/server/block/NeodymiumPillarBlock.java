@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
@@ -76,8 +77,7 @@ public class NeodymiumPillarBlock extends Block {
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource randomSource) {
         Vec3 center = Vec3.atCenterOf(pos);
         if (randomSource.nextInt(5) == 0) {
-            // TODO
-//            level.addParticle(azure ? ACParticleRegistry.AZURE_MAGNETIC_ORBIT.get() : ACParticleRegistry.SCARLET_MAGNETIC_ORBIT.get(), center.x, center.y, center.z, center.x, center.y, center.z);
+            level.addParticle(azure ? ACParticleRegistry.AZURE_MAGNETIC_ORBIT.get() : ACParticleRegistry.SCARLET_MAGNETIC_ORBIT.get(), center.x, center.y, center.z, center.x, center.y, center.z);
         }
     }
 }

@@ -10,6 +10,7 @@ public class CandyCaneBlock extends RotatedPillarBlock {
         super(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_RED).strength(2.0F, 3.0F).sound(ACSoundTypes.HARD_CANDY.get()));
     }
 
+    // TODO when tool actions
 //    public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
 //        ItemStack itemStack = context.getItemInHand();
 //        if (!itemStack.canPerformAction(toolAction))

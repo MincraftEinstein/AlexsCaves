@@ -101,7 +101,7 @@ public class RebarBlock extends Block implements BucketPickup, LiquidBlockContai
             levelAccessor.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
         else if (liquidType == 2) {
-            // TODO
+            // TODO when fluids
 //            levelAccessor.scheduleTick(pos, ACFluidRegistry.ACID_FLUID_SOURCE.get(), ACFluidRegistry.ACID_FLUID_SOURCE.get().getTickDelay(levelAccessor));
         }
         if (!levelAccessor.isClientSide()) {
@@ -112,13 +112,13 @@ public class RebarBlock extends Block implements BucketPickup, LiquidBlockContai
 
     public FluidState getFluidState(BlockState state) {
         int liquidType = state.getValue(LIQUID_LOGGED);
-        // TODO
+        // TODO when fluids
         return /*liquidType == 1 ? Fluids.WATER.getSource(false) : liquidType == 2 ? ACFluidRegistry.ACID_FLUID_SOURCE.get().getSource(false) :*/ super.getFluidState(state);
     }
 
     @Override
     public boolean canPlaceLiquid(Player player, BlockGetter getter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
-        // TODO
+        // TODO when fluids
         return fluid == Fluids.WATER; //|| fluid.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get();
     }
 
@@ -129,7 +129,7 @@ public class RebarBlock extends Block implements BucketPickup, LiquidBlockContai
                 if (fluidState.getType() == Fluids.WATER) {
                     levelAccessor.setBlock(pos, blockState.setValue(LIQUID_LOGGED, 1), 3);
                 }
-                // TODO
+                // TODO when fluids
 //                else if (fluidState.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get()) {
 //                    BlockState state = blockState;
 //                    if (blockState.getBlock() == ACBlockRegistry.METAL_REBAR.get()) {
@@ -152,7 +152,7 @@ public class RebarBlock extends Block implements BucketPickup, LiquidBlockContai
         int liquidType = state.getValue(LIQUID_LOGGED);
         levelAccessor.setBlock(blockPos, state.setValue(LIQUID_LOGGED, 0), 3);
         if (liquidType > 0) {
-            // TODO
+            // TODO when fluids
             return new ItemStack(Items.WATER_BUCKET/*liquidType == 1 ? Items.WATER_BUCKET : ACItemRegistry.ACID_BUCKET.get()*/);
         }
         else {
@@ -169,7 +169,7 @@ public class RebarBlock extends Block implements BucketPickup, LiquidBlockContai
         if (fluidState.getType() == Fluids.WATER) {
             return 1;
         }
-        // TODO
+        // TODO when fluids
 //        else if (fluidState.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get() && fluidState.isSource()) {
 //            return 2;
 //        }

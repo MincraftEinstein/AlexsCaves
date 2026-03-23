@@ -2,10 +2,12 @@ package com.github.alexmodguy.alexscaves.server.block;
 
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -27,8 +29,7 @@ public class RadrockUraniumOreBlock extends Block {
 
     // In 1.21+, experience drops are handled via loot tables, not this method
     public int getExpDrop(BlockState state, Level level, BlockPos pos, BlockEntity blockEntity, Entity breaker, ItemStack tool) {
-        // TODO
-        int silkTouchLevel = 0;//tool.getEnchantmentLevel(level.holderLookup(net.minecraft.core.registries.Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH));
+        int silkTouchLevel = tool.getEnchantments().getLevel(level.holderLookup(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH));
         return silkTouchLevel == 0 ? level.random.nextInt(2) : 0;
     }
 }

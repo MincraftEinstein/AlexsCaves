@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.projectile.Projectile;
@@ -18,18 +19,16 @@ public class SugarGlassBlock extends TransparentBlock {
     }
 
     public void fallOn(Level level, BlockState state, BlockPos pos, Entity entityIn, float fallDistance) {
-        // TODO
-//        if (!(entityIn.getType().is(ACTagRegistry.CANDY_MOBS)) && !entityIn.isInFluidType() && !level.isClientSide) {
-//            level.destroyBlock(pos, true);
-//        }
+        if (!(entityIn.getType().is(ACTagRegistry.CANDY_MOBS)) /*TODO when fluids && !entityIn.isInFluidType()*/ && !level.isClientSide) {
+            level.destroyBlock(pos, true);
+        }
         super.fallOn(level, state, pos, entityIn, fallDistance);
     }
 
 
     public void onProjectileHit(Level level, BlockState blockState, BlockHitResult blockHitResult, Projectile entityIn) {
-        // TODO
-//        if (!(entityIn.getType().is(ACTagRegistry.CANDY_MOBS)) && !level.isClientSide) {
-//            level.destroyBlock(blockHitResult.getBlockPos(), true);
-//        }
+        if (!(entityIn.getType().is(ACTagRegistry.CANDY_MOBS)) && !level.isClientSide) {
+            level.destroyBlock(blockHitResult.getBlockPos(), true);
+        }
     }
 }

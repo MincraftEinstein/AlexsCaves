@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -57,8 +58,7 @@ public class GuanoBlock extends FallingBlockWithColor {
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource randomSource) {
         if (randomSource.nextInt(20) == 0) {
             Vec3 center = Vec3.upFromBottomCenterOf(pos, 1).add(randomSource.nextFloat() - 0.5F, randomSource.nextFloat() * 0.5F + 0.2F, randomSource.nextFloat() - 0.5F);
-            // TODO
-//            level.addParticle(ACParticleRegistry.FLY.get(), center.x, center.y, center.z, center.x, center.y, center.z);
+            level.addParticle(ACParticleRegistry.FLY.get(), center.x, center.y, center.z, center.x, center.y, center.z);
         }
     }
 }

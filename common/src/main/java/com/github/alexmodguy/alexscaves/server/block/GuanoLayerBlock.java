@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -54,7 +55,7 @@ public class GuanoLayerBlock extends SnowLayerBlock implements Fallable {
     @Override
     public void tick(BlockState state, ServerLevel blockState, BlockPos blockPos, RandomSource randomSource) {
         if (isFree(blockState.getBlockState(blockPos.below())) && blockPos.getY() >= blockState.getMinBuildHeight()) {
-            // TODO
+            // TODO when entities
 //            FallingGuanoEntity.fall(blockState, blockPos, state);
         }
     }
@@ -110,8 +111,7 @@ public class GuanoLayerBlock extends SnowLayerBlock implements Fallable {
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource randomSource) {
         if (randomSource.nextInt(40) == 0) {
             Vec3 center = Vec3.upFromBottomCenterOf(pos, 1).add(randomSource.nextFloat() - 0.5F, randomSource.nextFloat() * 0.5F + 0.2F, randomSource.nextFloat() - 0.5F);
-            // TODO
-//            level.addParticle(ACParticleRegistry.FLY.get(), center.x, center.y, center.z, center.x, center.y, center.z);
+            level.addParticle(ACParticleRegistry.FLY.get(), center.x, center.y, center.z, center.x, center.y, center.z);
         }
     }
 }

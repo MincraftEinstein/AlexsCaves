@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -26,6 +28,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -168,11 +171,10 @@ public class TubeWormBlock extends Block implements SimpleWaterloggedBlock {
 
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource randomSource) {
         if (randomSource.nextInt(3) == 0 && canSupportWormAt(level, state, pos)) {
-            // TODO
-//            if (AlexsCavesNeoForge.PROXY.checkIfParticleAt(ACParticleRegistry.TUBE_WORM.get(), pos)) {
-//                Vec3 center = Vec3.upFromBottomCenterOf(pos, 0.5F);
-//                level.addParticle(ACParticleRegistry.TUBE_WORM.get(), center.x, center.y, center.z, 0, 0, 0);
-//            }
+            if (AlexsCaves.PROXY.checkIfParticleAt(ACParticleRegistry.TUBE_WORM.get(), pos)) {
+                Vec3 center = Vec3.upFromBottomCenterOf(pos, 0.5F);
+                level.addParticle(ACParticleRegistry.TUBE_WORM.get(), center.x, center.y, center.z, 0, 0, 0);
+            }
         }
     }
 

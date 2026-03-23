@@ -1,7 +1,10 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
-import com.github.alexmodguy.alexscaves.server.misc.ACMath;
-import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.server.item.HazmatArmorItem;
+import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
+import com.github.alexmodguy.alexscaves.server.misc.*;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -41,14 +44,13 @@ public class AcidBlock extends LiquidBlock {
         boolean top = level.getFluidState(pos.above()).isEmpty();
         if (randomSource.nextInt(top ? 10 : 40) == 0) {
             float height = top ? state.getFluidState().getHeight(level, pos) : randomSource.nextFloat();
-            // TODO
-//            level.addParticle(ACParticleRegistry.ACID_BUBBLE.get(), pos.getX() + randomSource.nextFloat(), pos.getY() + height, pos.getZ() + randomSource.nextFloat(), (randomSource.nextFloat() - 0.5F) * 0.1F, 0.05F + randomSource.nextFloat() * 0.1F, (randomSource.nextFloat() - 0.5F) * 0.1F);
+            level.addParticle(ACParticleRegistry.ACID_BUBBLE.get(), pos.getX() + randomSource.nextFloat(), pos.getY() + height, pos.getZ() + randomSource.nextFloat(), (randomSource.nextFloat() - 0.5F) * 0.1F, 0.05F + randomSource.nextFloat() * 0.1F, (randomSource.nextFloat() - 0.5F) * 0.1F);
         }
     }
 
     public void entityInside(BlockState blockState, Level level, BlockPos pos, Entity entity) {
-        // TODO
-        if (false/*!entity.getType().is(ACTagRegistry.RESISTS_ACID) && entity.getFluidTypeHeight(ACFluidRegistry.ACID_FLUID_TYPE.get()) > 0.1*/) {
+        // TODO when fluids
+        if (!entity.getType().is(ACTagRegistry.RESISTS_ACID) /*&& entity.getFluidTypeHeight(ACFluidRegistry.ACID_FLUID_TYPE.get()) > 0.1*/) {
             boolean armor = false;
             boolean hurtSound = false;
             float dmgMultiplier = 1.0F;
@@ -56,7 +58,7 @@ public class AcidBlock extends LiquidBlock {
                 for (EquipmentSlot slot : EquipmentSlot.values()) {
                     if (slot.isArmor()) {
                         ItemStack item = living.getItemBySlot(slot);
-                        if (item != null && item.isDamageableItem() /* TODO && !(item.getItem() instanceof HazmatArmorItem)*/) {
+                        if (item != null && item.isDamageableItem() && !(item.getItem() instanceof HazmatArmorItem)) {
                             armor = true;
                             if (living.getRandom().nextFloat() < 0.05F && !(entity instanceof Player player && player.isCreative())) {
                                 item.hurtAndBreak(1, living, slot);
@@ -64,19 +66,16 @@ public class AcidBlock extends LiquidBlock {
                         }
                     }
                 }
-                // TODO
-//                dmgMultiplier = 1.0F - (HazmatArmorItem.getWornAmount(living) / 4F);
+                dmgMultiplier = 1.0F - (HazmatArmorItem.getWornAmount(living) / 4F);
             }
 
             if (armor) {
-                // TODO
-//                ACAdvancementTriggerRegistry.ENTER_ACID_WITH_ARMOR.get().triggerForEntity(entity);
+                ACAdvancementTriggerRegistry.ENTER_ACID_WITH_ARMOR.get().triggerForEntity(entity);
             }
 
             if (level.random.nextFloat() < dmgMultiplier) {
-                // TODO
-//                float golemAddition = entity.getType().is(ACTagRegistry.WEAK_TO_ACID) ? 10.0F : 0.0F;
-//                hurtSound = entity.hurt(ACDamageTypes.causeAcidDamage(level.registryAccess()), dmgMultiplier * (float) (armor ? 0.01D : 1.0D) + golemAddition);
+                float golemAddition = entity.getType().is(ACTagRegistry.WEAK_TO_ACID) ? 10.0F : 0.0F;
+                hurtSound = entity.hurt(ACDamageTypes.causeAcidDamage(level.registryAccess()), dmgMultiplier * (float) (armor ? 0.01D : 1.0D) + golemAddition);
             }
 
             if (hurtSound) {
@@ -84,7 +83,7 @@ public class AcidBlock extends LiquidBlock {
             }
         }
         // Movement sound implementation - plays sound based on entity movement speed
-        if (entity instanceof LivingEntity living /* TODO && !(entity instanceof RadgillEntity)*/) {
+        if (entity instanceof LivingEntity living /* TODO when entities && !(entity instanceof RadgillEntity)*/) {
             Vec3 vec3 = entity.getDeltaMovement();
             float f1 = Math.min(1.0F, (float) vec3.length());
             if (f1 > 0.1F) {
@@ -109,8 +108,7 @@ public class AcidBlock extends LiquidBlock {
             BlockPos offset = pos.relative(direction);
             BlockState state1 = worldIn.getBlockState(offset);
             if (CORRODES_INTERACTIONS.containsKey(state1.getBlock())) {
-                // TODO
-//                AlexsCavesNeoForge.sendMSGToAll(new WorldEventMessage(0, offset.getX(), offset.getY(), offset.getZ()));
+                ACNetUtils.sendMSGToAll(new WorldEventMessage(0, offset.getX(), offset.getY(), offset.getZ()));
                 BlockState transform = CORRODES_INTERACTIONS.get(state1.getBlock()).defaultBlockState();
                 for (Property prop : state1.getProperties()) {
                     transform = transform.hasProperty(prop) ? transform.setValue(prop, state1.getValue(prop)) : transform;
@@ -119,8 +117,7 @@ public class AcidBlock extends LiquidBlock {
                 Vec3 vec3 = offset.getCenter();
                 Player player = worldIn.getNearestPlayer(vec3.x, vec3.y, vec3.z, 8, false);
                 if (player != null) {
-                    // TODO
-//                    ACAdvancementTriggerRegistry.ACID_CREATE_RUST.get().triggerForEntity(player);
+                    ACAdvancementTriggerRegistry.ACID_CREATE_RUST.get().triggerForEntity(player);
                 }
             }
         }

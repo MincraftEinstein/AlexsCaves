@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
@@ -22,8 +23,7 @@ public class UraniumFullBlock extends RotatedPillarBlock {
         }
         if (randomSource.nextInt(13) == 0) {
             Vec3 center = Vec3.upFromBottomCenterOf(pos, 0.5F);
-            // TODO
-//            level.addParticle(ACParticleRegistry.PROTON.get(), center.x, center.y, center.z, center.x, center.y, center.z);
+            level.addParticle(ACParticleRegistry.PROTON.get(), center.x, center.y, center.z, center.x, center.y, center.z);
         }
     }
 }

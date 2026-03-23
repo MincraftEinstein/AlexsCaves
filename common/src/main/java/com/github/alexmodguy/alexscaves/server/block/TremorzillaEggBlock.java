@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -11,8 +12,7 @@ import net.minecraft.world.phys.AABB;
 public class TremorzillaEggBlock extends DinosaurEggBlock {
 
     public TremorzillaEggBlock(Properties properties) {
-        // TODO
-        super(properties, () -> null/*ACEntityRegistry.TREMORZILLA*/, 10, 16);
+        super(properties, () -> null/* TODO when entities ACEntityRegistry.TREMORZILLA*/, 10, 16);
     }
 
     @Override
@@ -32,8 +32,7 @@ public class TremorzillaEggBlock extends DinosaurEggBlock {
         super.spawnDinosaurs(level, pos, state);
         if (!level.isClientSide) {
             for (Player player : level.getEntitiesOfClass(Player.class, new AABB(pos.getCenter(), pos.offset(1, 1, 1).getCenter()).inflate(200))) {
-                // TODO
-//                ACAdvancementTriggerRegistry.HATCH_TREMORZILLA_EGG.get().triggerForEntity(player);
+                ACAdvancementTriggerRegistry.HATCH_TREMORZILLA_EGG.get().triggerForEntity(player);
             }
         }
     }

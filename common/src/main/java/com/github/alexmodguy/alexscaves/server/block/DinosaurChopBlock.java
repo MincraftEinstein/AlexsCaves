@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.item.PrimordialArmorItem;
+import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -156,8 +158,7 @@ public class DinosaurChopBlock extends Block implements SimpleWaterloggedBlock {
         }
         else {
             player.awardStat(Stats.EAT_CAKE_SLICE);
-            // TODO
-            int extraShanksFromArmor = 0;//this == ACBlockRegistry.DINOSAUR_CHOP.get() ? PrimordialArmorItem.getExtraSaturationFromArmor(player) : 0;
+            int extraShanksFromArmor = this == ACBlockRegistry.DINOSAUR_CHOP.get() ? PrimordialArmorItem.getExtraSaturationFromArmor(player) : 0;
             player.getFoodData().eat(this.foodAmount + extraShanksFromArmor, this.saturationAmount + (extraShanksFromArmor * 0.125F));
             int i = blockState.getValue(BITES);
             levelAccessor.gameEvent(player, GameEvent.EAT, blockPos);
@@ -186,14 +187,10 @@ public class DinosaurChopBlock extends Block implements SimpleWaterloggedBlock {
         }
         BlockState fireState = level.getBlockState(pos);
         if (fireState.getBlock() instanceof CampfireBlock) {
-            // TODO
-//            return fireState.getValue(CampfireBlock.LIT) && fireState.is(ACTagRegistry.COOKS_MEAT_BLOCKS);
-            return false;
+            return fireState.getValue(CampfireBlock.LIT) && fireState.is(ACTagRegistry.COOKS_MEAT_BLOCKS);
         }
         else {
-            // TODO
-//            return fireState.is(ACTagRegistry.COOKS_MEAT_BLOCKS);
-            return false;
+            return fireState.is(ACTagRegistry.COOKS_MEAT_BLOCKS);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.BlockPos;
@@ -30,12 +31,10 @@ public class PurpleSodaBlock extends LiquidBlock {
             level.playLocalSound((double) pos.getX() + 0.5D, (double) pos.getY() + 0.5D, (double) pos.getZ() + 0.5D, ACSoundRegistry.PURPLE_SODA_IDLE.get(), SoundSource.BLOCKS, 0.5F, randomSource.nextFloat() * 0.4F + 0.8F, false);
         }
         if (randomSource.nextInt(400) == 0 && level.getBlockState(pos.below()).isSolid()) {
-            // TODO
-//            level.addParticle(ACParticleRegistry.PURPLE_SODA_BUBBLE_EMITTER.get(), pos.getX() + randomSource.nextFloat(), pos.getY(), pos.getZ() + randomSource.nextFloat(), 0F, 0F, 0F);
+            level.addParticle(ACParticleRegistry.PURPLE_SODA_BUBBLE_EMITTER.get(), pos.getX() + randomSource.nextFloat(), pos.getY(), pos.getZ() + randomSource.nextFloat(), 0F, 0F, 0F);
         }
         else if (randomSource.nextInt(150) == 0) {
-            // TODO
-//            level.addParticle(ACParticleRegistry.PURPLE_SODA_BUBBLE.get(), pos.getX() + randomSource.nextFloat(), pos.getY(), pos.getZ() + randomSource.nextFloat(), 0F, 0F, 0F);
+            level.addParticle(ACParticleRegistry.PURPLE_SODA_BUBBLE.get(), pos.getX() + randomSource.nextFloat(), pos.getY(), pos.getZ() + randomSource.nextFloat(), 0F, 0F, 0F);
         }
     }
 
@@ -43,7 +42,7 @@ public class PurpleSodaBlock extends LiquidBlock {
     public void entityInside(BlockState blockState, Level level, BlockPos pos, Entity entity) {
         entity.fallDistance = 0.0F;
         // Movement sound implementation - plays sound based on entity movement speed
-        if (entity instanceof LivingEntity living /* TODO && !(entity instanceof SweetishFishEntity)*/) {
+        if (entity instanceof LivingEntity living /* TODO when entities && !(entity instanceof SweetishFishEntity)*/) {
             Vec3 vec3 = entity.getDeltaMovement();
             float f1 = Math.min(1.0F, (float) vec3.length());
             if (f1 > 0.1F) {
@@ -59,7 +58,7 @@ public class PurpleSodaBlock extends LiquidBlock {
             BlockState state1 = worldIn.getBlockState(offset);
             if (state1.is(ACBlockRegistry.FROSTMINT.get())) {
                 worldIn.setBlockAndUpdate(offset, Blocks.AIR.defaultBlockState());
-                // TODO
+                // TODO when FrostmintExplosion
 //                FrostmintExplosion explosion = new FrostmintExplosion(worldIn, null, offset.getX() + 0.5F, offset.getY() + 0.5F, offset.getZ() + 0.5F, 4.0F, Explosion.BlockInteraction.DESTROY_WITH_DECAY, false);
 //                explosion.explode();
 //                explosion.finalizeExplosion(true);

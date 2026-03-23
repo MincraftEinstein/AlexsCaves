@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -30,6 +31,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
@@ -67,9 +69,7 @@ public class MetalScaffoldingBlock extends Block implements BucketPickup, Liquid
 
     public boolean isScaffoldingItem(ItemStack stack) {
         if (stack.getItem() instanceof BlockItem blockItem) {
-            // TODO
-//            return blockItem.getBlock().defaultBlockState().is(ACTagRegistry.SCAFFOLDING);
-            return false;
+            return blockItem.getBlock().defaultBlockState().is(ACTagRegistry.SCAFFOLDING);
         }
         return false;
     }
@@ -87,7 +87,7 @@ public class MetalScaffoldingBlock extends Block implements BucketPickup, Liquid
         if (fluidState.getType() == Fluids.WATER) {
             return 1;
         }
-        // TODO
+        // TODO when fluids
 //        else if (fluidState.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get() && fluidState.isSource()) {
 //            return 2;
 //        }
@@ -107,7 +107,7 @@ public class MetalScaffoldingBlock extends Block implements BucketPickup, Liquid
             levelAccessor.scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
         else if (liquidType == 2) {
-            // TODO
+            // TODO when fluids
 //            levelAccessor.scheduleTick(pos, ACFluidRegistry.ACID_FLUID_SOURCE.get(), ACFluidRegistry.ACID_FLUID_SOURCE.get().getTickDelay(levelAccessor));
         }
         if (!levelAccessor.isClientSide()) {
@@ -149,7 +149,7 @@ public class MetalScaffoldingBlock extends Block implements BucketPickup, Liquid
 
     public FluidState getFluidState(BlockState state) {
         int liquidType = state.getValue(LIQUID_LOGGED);
-        // TODO
+        // TODO when fluids
         return /*liquidType == 1 ? Fluids.WATER.getSource(false) : liquidType == 2 ? ACFluidRegistry.ACID_FLUID_SOURCE.get().getSource(false) :*/ super.getFluidState(state);
     }
 
@@ -171,24 +171,23 @@ public class MetalScaffoldingBlock extends Block implements BucketPickup, Liquid
         else if (blockstate.getBlock() instanceof MetalScaffoldingBlock) {
             i = blockstate.getValue(MetalScaffoldingBlock.DISTANCE);
         }
-        // TODO
-//        else if (blockstate.is(ACTagRegistry.SCAFFOLDING) || blockstate.isFaceSturdy(getter, blockpos$mutableblockpos, Direction.UP)) {
-//            return 0;
-//        }
+        // TODO when fluids
+        else if (blockstate.is(ACTagRegistry.SCAFFOLDING) || blockstate.isFaceSturdy(getter, blockpos$mutableblockpos, Direction.UP)) {
+            return 0;
+        }
 
         for (Direction direction : Direction.Plane.HORIZONTAL) {
             BlockState blockstate1 = getter.getBlockState(blockpos$mutableblockpos.setWithOffset(pos, direction));
-            // TODO
-//            if (blockstate1.is(ACTagRegistry.SCAFFOLDING)) {
-//                if(blockstate1.getBlock() instanceof MetalScaffoldingBlock){
-//                    i = Math.min(i, blockstate1.getValue(DISTANCE) + 1);
-//                }else if(blockstate1.getBlock() instanceof ScaffoldingBlock){
-//                    i = Math.min(i, blockstate1.getValue(ScaffoldingBlock.DISTANCE) + 1);
-//                }
-//                if (i == 1) {
-//                    break;
-//                }
-//            }
+            if (blockstate1.is(ACTagRegistry.SCAFFOLDING)) {
+                if(blockstate1.getBlock() instanceof MetalScaffoldingBlock){
+                    i = Math.min(i, blockstate1.getValue(DISTANCE) + 1);
+                }else if(blockstate1.getBlock() instanceof ScaffoldingBlock){
+                    i = Math.min(i, blockstate1.getValue(ScaffoldingBlock.DISTANCE) + 1);
+                }
+                if (i == 1) {
+                    break;
+                }
+            }
         }
 
         return i;
@@ -196,7 +195,7 @@ public class MetalScaffoldingBlock extends Block implements BucketPickup, Liquid
 
     @Override
     public boolean canPlaceLiquid(Player player, BlockGetter getter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
-        // TODO
+        // TODO when fluids
         return fluid == Fluids.WATER; // || fluid.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get();
     }
 
@@ -207,7 +206,7 @@ public class MetalScaffoldingBlock extends Block implements BucketPickup, Liquid
                 if (fluidState.getType() == Fluids.WATER) {
                     levelAccessor.setBlock(pos, blockState.setValue(LIQUID_LOGGED, 1), 3);
                 }
-                // TODO
+                // TODO when fluids
 //                else if (fluidState.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get()) {
 //                    BlockState state = blockState;
 //                    if (blockState.getBlock() == ACBlockRegistry.METAL_SCAFFOLDING.get()) {
@@ -226,14 +225,14 @@ public class MetalScaffoldingBlock extends Block implements BucketPickup, Liquid
         }
     }
 
-    public ItemStack pickupBlock(@javax.annotation.Nullable net.minecraft.world.entity.player.Player player, LevelAccessor levelAccessor, BlockPos blockPos, BlockState state) {
+    public ItemStack pickupBlock(@Nullable Player player, LevelAccessor levelAccessor, BlockPos blockPos, BlockState state) {
         int liquidType = state.getValue(LIQUID_LOGGED);
         if (liquidType > 0) {
             levelAccessor.setBlock(blockPos, state.setValue(LIQUID_LOGGED, 0), 3);
             if (!state.canSurvive(levelAccessor, blockPos)) {
                 levelAccessor.destroyBlock(blockPos, true);
             }
-            // TODO
+            // TODO when fluids
             return new ItemStack(Items.WATER_BUCKET/*liquidType == 1 ? Items.WATER_BUCKET : ACItemRegistry.ACID_BUCKET.get()*/);
         }
         else {

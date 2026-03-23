@@ -91,7 +91,7 @@ public class AbyssalAltarBlock extends BaseEntityBlock implements SimpleWaterlog
         return super.updateShape(state, direction, state1, levelAccessor, blockPos, blockPos1);
     }
 
-    @javax.annotation.Nullable
+    @Nullable
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         LevelAccessor levelaccessor = context.getLevel();
         BlockPos blockpos = context.getClickedPos();
@@ -101,7 +101,6 @@ public class AbyssalAltarBlock extends BaseEntityBlock implements SimpleWaterlog
     public FluidState getFluidState(BlockState state) {
         return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
-
 
     @Override
     public ItemInteractionResult useItemOn(ItemStack heldItem, BlockState state, Level worldIn, BlockPos pos, Player player, InteractionHand handIn, BlockHitResult hit) {

@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
+import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.Util;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -50,8 +52,7 @@ public class SmoothLimestoneBlock extends Block {
     }
 
     public ItemInteractionResult useItemOn(ItemStack itemstack, BlockState state, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        // TODO
-        if (itemstack.is(Items.CHARCOAL) /*&& level.getBlockState(blockPos).is(ACTagRegistry.TURNS_INTO_CAVE_PAINTINGS)*/) {
+        if (itemstack.is(Items.CHARCOAL) && level.getBlockState(blockPos).is(ACTagRegistry.TURNS_INTO_CAVE_PAINTINGS)) {
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }
@@ -65,13 +66,12 @@ public class SmoothLimestoneBlock extends Block {
                     level.setBlockAndUpdate(blockPos, cavePainting.setValue(CavePaintingBlock.FACING, blockHitResult.getDirection()));
                 }
                 if (player instanceof ServerPlayer serverPlayer) {
-                    // TODO
-//                    if (isMystery) {
-//                        ACAdvancementTriggerRegistry.MYSTERY_CAVE_PAINTING.get().triggerForEntity(serverPlayer);
-//                    }
-//                    else {
-//                        ACAdvancementTriggerRegistry.CAVE_PAINTING.get().triggerForEntity(serverPlayer);
-//                    }
+                    if (isMystery) {
+                        ACAdvancementTriggerRegistry.MYSTERY_CAVE_PAINTING.get().triggerForEntity(serverPlayer);
+                    }
+                    else {
+                        ACAdvancementTriggerRegistry.CAVE_PAINTING.get().triggerForEntity(serverPlayer);
+                    }
                     CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger(serverPlayer, blockPos, itemstack);
                 }
                 level.gameEvent(player, GameEvent.BLOCK_CHANGE, blockPos);

@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -60,7 +61,6 @@ public class BioluminescentTorch extends TorchBlock implements SimpleWaterlogged
         double d0 = (double) blockPos.getX() + 0.5D;
         double d1 = (double) blockPos.getY() + 0.7D;
         double d2 = (double) blockPos.getZ() + 0.5D;
-        // TODO
-//        level.addParticle(ACParticleRegistry.BIO_POP.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
+        level.addParticle(ACParticleRegistry.BIO_POP.get(), d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 }

@@ -1,6 +1,10 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
+import com.github.alexmodguy.alexscaves.server.message.SundropRainbowMessage;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,6 +16,7 @@ import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.DirectionalBlock;
@@ -19,7 +24,10 @@ import net.minecraft.world.level.block.Mirror;
 import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 
 import java.util.Optional;
 
@@ -55,10 +63,9 @@ public class SundropBlock extends DirectionalBlock {
 
     public void animateTick(BlockState blockState, Level level, BlockPos blockPos, RandomSource randomSource) {
         if (randomSource.nextInt(2) == 0) {
-            // TODO
-//            if (AlexsCavesNeoForge.PROXY.checkIfParticleAt(ACParticleRegistry.SUNDROP.get(), blockPos)) {
-//                level.addParticle(ACParticleRegistry.SUNDROP.get(), (double) blockPos.getX() + 0.5F, (double) blockPos.getY() + 0.5F, (double) blockPos.getZ() + 0.5F, 0.0D, 0.0D, 0.0D);
-//            }
+            if (AlexsCaves.PROXY.checkIfParticleAt(ACParticleRegistry.SUNDROP.get(), blockPos)) {
+                level.addParticle(ACParticleRegistry.SUNDROP.get(), (double) blockPos.getX() + 0.5F, (double) blockPos.getY() + 0.5F, (double) blockPos.getZ() + 0.5F, 0.0D, 0.0D, 0.0D);
+            }
         }
     }
 
@@ -95,8 +102,7 @@ public class SundropBlock extends DirectionalBlock {
             Optional<BlockPos> rainbowTarget = Optional.ofNullable(pointofinterestmanager.getRandom(poiTypeHolder -> poiTypeHolder.is(ACPOIRegistry.SUNDROP.key()), blockPos -> canSendRainbowTo(serverLevel, posIn, blockPos, range), PoiManager.Occupancy.ANY, posIn, range, randomSource).orElse(null));
             if (rainbowTarget.isPresent() && serverLevel.hasChunkAt(rainbowTarget.get())) {
                 BlockPos target = rainbowTarget.get();
-                // TODO
-//                AlexsCavesNeoForge.sendMSGToAll(new SundropRainbowMessage(posIn.getX(), posIn.getY(), posIn.getZ(), target.getX(), target.getY(), target.getZ()));
+                ACNetUtils.sendMSGToAll(new SundropRainbowMessage(posIn.getX(), posIn.getY(), posIn.getZ(), target.getX(), target.getY(), target.getZ()));
             }
         }
     }
@@ -107,14 +113,12 @@ public class SundropBlock extends DirectionalBlock {
         }
         int distance = (int) Math.sqrt(from.distSqr(to));
         // hit result
-        /*
-        HitResult raytraceresult = serverLevel.clip(new ClipContext(from.getCenter(), to.getCenter(), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, null));
+        HitResult raytraceresult = serverLevel.clip(new ClipContext(from.getCenter(), to.getCenter(), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, CollisionContext.empty()));
         if (raytraceresult instanceof BlockHitResult) {
             BlockHitResult blockRayTraceResult = (BlockHitResult) raytraceresult;
             BlockPos pos = blockRayTraceResult.getBlockPos();
             return pos.equals(from) || serverLevel.isEmptyBlock(pos);
         }
-        */
         return distance < range;
     }
 

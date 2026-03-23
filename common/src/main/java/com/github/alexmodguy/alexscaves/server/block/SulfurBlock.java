@@ -29,6 +29,7 @@ public class SulfurBlock extends Block {
     }
 
     private boolean isDrippingAcidAbove(Level level, BlockPos pos) {
+        // TODO when fluids
 //        if (level.getFluidState(pos).getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get()) {
 //            return true;
 //        }

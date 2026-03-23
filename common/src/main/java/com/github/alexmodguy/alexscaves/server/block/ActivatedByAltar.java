@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
+import com.github.alexmodguy.alexscaves.util.ACNetUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.Level;
@@ -54,12 +56,10 @@ public interface ActivatedByAltar {
         int prevDist = state.getValue(DISTANCE);
         BlockState state1 = state.setValue(DISTANCE, Integer.valueOf(i));
         if (i <= 1 && !prevActive) {
-            // TODO
-//            AlexsCavesNeoForge.sendMSGToAll(new WorldEventMessage(1, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+            ACNetUtils.sendMSGToAll(new WorldEventMessage(1, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
         }
         if (prevDist <= 1 && prevActive) {
-            // TODO
-//            AlexsCavesNeoForge.sendMSGToAll(new WorldEventMessage(2, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
+            ACNetUtils.sendMSGToAll(new WorldEventMessage(2, blockPos.getX(), blockPos.getY(), blockPos.getZ()));
         }
         return activeDistance(i) ? state1.setValue(ACTIVE, true) : state1.setValue(ACTIVE, false);
     }

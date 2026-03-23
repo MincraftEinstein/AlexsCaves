@@ -86,7 +86,7 @@ public class CandyCanePoleBlock extends CrossCollisionBlock {
         return PROPERTY_BY_DIRECTION.get(direction);
     }
 
-    // TODO
+    // TODO when tool actions
 //    public BlockState getToolModifiedState(BlockState state, UseOnContext context, ItemAbility toolAction, boolean simulate) {
 //        ItemStack itemStack = context.getItemInHand();
 //        if (!itemStack.canPerformAction(toolAction))

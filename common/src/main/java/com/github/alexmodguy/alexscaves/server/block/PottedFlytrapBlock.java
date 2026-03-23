@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -46,8 +47,7 @@ public class PottedFlytrapBlock extends FlowerPotBlock {
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource randomSource) {
         if (state.getValue(OPEN) && randomSource.nextInt(3) == 0) {
             Vec3 center = Vec3.upFromBottomCenterOf(pos, 0.75F).add(state.getOffset(level, pos));
-            // TODO
-//            level.addParticle(ACParticleRegistry.FLY.get(), center.x, center.y, center.z, center.x, center.y, center.z);
+            level.addParticle(ACParticleRegistry.FLY.get(), center.x, center.y, center.z, center.x, center.y, center.z);
         }
     }
 }

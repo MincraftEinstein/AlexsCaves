@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.BlockPos;
@@ -72,8 +73,7 @@ public class UraniumRodBlock extends RotatedPillarBlock implements SimpleWaterlo
         }
         if (randomSource.nextInt(10) == 0) {
             Vec3 center = Vec3.upFromBottomCenterOf(pos, 0.5F);
-            // TODO
-//            level.addParticle(ACParticleRegistry.PROTON.get(), center.x, center.y, center.z, center.x, center.y, center.z);
+            level.addParticle(ACParticleRegistry.PROTON.get(), center.x, center.y, center.z, center.x, center.y, center.z);
         }
     }
 
@@ -83,7 +83,7 @@ public class UraniumRodBlock extends RotatedPillarBlock implements SimpleWaterlo
             levelAccessor.scheduleTick(blockPos, Fluids.WATER, Fluids.WATER.getTickDelay(levelAccessor));
         }
         else if (liquidType == 2) {
-            // TODO
+            // TODO when fluids
 //            levelAccessor.scheduleTick(blockPos, ACFluidRegistry.ACID_FLUID_SOURCE.get(), ACFluidRegistry.ACID_FLUID_SOURCE.get().getTickDelay(levelAccessor));
         }
         if (!levelAccessor.isClientSide()) {
@@ -101,7 +101,7 @@ public class UraniumRodBlock extends RotatedPillarBlock implements SimpleWaterlo
     }
 
     public boolean canPlaceLiquid(BlockGetter getter, BlockPos blockPos, BlockState blockState, Fluid fluid) {
-        // TODO
+        // TODO when fluids
 //        return fluid == Fluids.WATER || fluid.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get();
         return true;
     }
@@ -112,8 +112,8 @@ public class UraniumRodBlock extends RotatedPillarBlock implements SimpleWaterlo
             if (!levelAccessor.isClientSide()) {
                 if (fluidState.getType() == Fluids.WATER) {
                     levelAccessor.setBlock(pos, blockState.setValue(LIQUID_LOGGED, 1), 3);
-                    // TODO
                 }
+                // TODO when fluids
 //                else if (fluidState.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get()) {
 //                    levelAccessor.setBlock(pos, blockState.setValue(LIQUID_LOGGED, 2), 3);
 //                }
@@ -134,7 +134,7 @@ public class UraniumRodBlock extends RotatedPillarBlock implements SimpleWaterlo
             if (!state.canSurvive(levelAccessor, blockPos)) {
                 levelAccessor.destroyBlock(blockPos, true);
             }
-            // TODO
+            // TODO when fluids
             return new ItemStack(Items.WATER_BUCKET/*liquidType == 1 ? Items.WATER_BUCKET : ACItemRegistry.ACID_BUCKET.get()*/);
         }
         else {
@@ -150,7 +150,7 @@ public class UraniumRodBlock extends RotatedPillarBlock implements SimpleWaterlo
 
     public FluidState getFluidState(BlockState state) {
         int liquidType = state.getValue(LIQUID_LOGGED);
-        // TODO
+        // TODO when fluids
 //        return liquidType == 1 ? Fluids.WATER.getSource(false) : liquidType == 2 ? ACFluidRegistry.ACID_FLUID_SOURCE.get().getSource(false) : super.getFluidState(state);
         return Fluids.WATER.defaultFluidState();
     }
@@ -163,7 +163,7 @@ public class UraniumRodBlock extends RotatedPillarBlock implements SimpleWaterlo
         if (fluidState.getType() == Fluids.WATER) {
             return 1;
         }
-        // TODO
+        // TODO when fluids
 //        else if (fluidState.getFluidType() == ACFluidRegistry.ACID_FLUID_TYPE.get() && fluidState.isSource()) {
 //            return 2;
 //        }

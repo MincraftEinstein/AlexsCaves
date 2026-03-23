@@ -1,6 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -61,7 +63,7 @@ public class FissurePrimalMagmaBlock extends Block {
     }
 
     public void entityInside(BlockState state, Level level, BlockPos blockPos, Entity entity) {
-        // TODO
+        // TODO when entities
         if (false/*!(entity instanceof LuxtructosaurusEntity)*/) {
             entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.9D, 0.1D, 0.9D));
             entity.hurt(level.damageSources().hotFloor(), 1.0F);
@@ -70,7 +72,7 @@ public class FissurePrimalMagmaBlock extends Block {
     }
 
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos blockPos, CollisionContext context) {
-        // TODO
+        // TODO when entities
 //        if (context instanceof EntityCollisionContext entityCollisionContext && !(entityCollisionContext.getEntity() instanceof LuxtructosaurusEntity)) {
 //            return entityCollisionContext.getEntity() instanceof ItemEntity ? Shapes.empty() : PrimalMagmaBlock.SINK_SHAPE;
 //        }
@@ -102,10 +104,9 @@ public class FissurePrimalMagmaBlock extends Block {
                 }
                 for (Direction direction : Direction.values()) {
                     BlockState offsetState = serverLevel.getBlockState(regenPos.relative(direction));
-                    // TODO
-//                    if(offsetState.is(ACTagRegistry.REGENERATES_AFTER_PRIMORDIAL_BOSS_FIGHT) && !offsetState.is(this)){
-//                        neighbors.add(offsetState);
-//                    }
+                    if(offsetState.is(ACTagRegistry.REGENERATES_AFTER_PRIMORDIAL_BOSS_FIGHT) && !offsetState.is(this)){
+                        neighbors.add(offsetState);
+                    }
                 }
                 if (!neighbors.isEmpty()) {
                     if (neighbors.stream().anyMatch(state -> state.is(Blocks.GRASS_BLOCK))) {
@@ -123,10 +124,9 @@ public class FissurePrimalMagmaBlock extends Block {
                 }
                 else {
                     BlockState lowestNonMagma = findNonMagmaBlockBeneath(serverLevel, blockPos);
-                    // TODO
-//                    if(lowestNonMagma.is(ACTagRegistry.REGENERATES_AFTER_PRIMORDIAL_BOSS_FIGHT)){
-//                        regenState = lowestNonMagma;
-//                    }
+                    if(lowestNonMagma.is(ACTagRegistry.REGENERATES_AFTER_PRIMORDIAL_BOSS_FIGHT)){
+                        regenState = lowestNonMagma;
+                    }
                 }
                 serverLevel.setBlockAndUpdate(regenPos, regenState);
             }
@@ -160,8 +160,7 @@ public class FissurePrimalMagmaBlock extends Block {
         Vec3 center = Vec3.upFromBottomCenterOf(pos, 1).add(randomSource.nextFloat() - 0.5F, 0, randomSource.nextFloat() - 0.5F);
         Vec3 delta = new Vec3(randomSource.nextFloat() - 0.5F, randomSource.nextFloat() - 0.5F, randomSource.nextFloat() - 0.5F);
         if (randomSource.nextFloat() <= 0.33F) {
-            // TODO
-//            level.addParticle(ACParticleRegistry.RED_VENT_SMOKE.get(), center.x, center.y, center.z, delta.x * 0.3F, 0.15F, delta.z * 0.3F);
+            level.addParticle(ACParticleRegistry.RED_VENT_SMOKE.get(), center.x, center.y, center.z, delta.x * 0.3F, 0.15F, delta.z * 0.3F);
         }
         if (randomSource.nextFloat() < 0.1F) {
             level.addParticle(ParticleTypes.LAVA, center.x, center.y, center.z, delta.x, 0.7F + delta.y, delta.z);
@@ -177,7 +176,7 @@ public class FissurePrimalMagmaBlock extends Block {
         return false;
     }
 
-    // TODO
+    // TODO IBlockExtension methods
 //    @Override
 //    public boolean isBurning(BlockState state, BlockGetter level, BlockPos pos) {
 //        return true;

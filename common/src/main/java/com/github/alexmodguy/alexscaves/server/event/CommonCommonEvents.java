@@ -2,7 +2,9 @@ package com.github.alexmodguy.alexscaves.server.event;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.platform.Services;
+import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.ACFrogRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.EntityDropChanceAccessor;
 import com.github.alexmodguy.alexscaves.server.entity.util.FlyingMount;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagneticEntityAccessor;
@@ -96,10 +98,9 @@ public class CommonCommonEvents {
 
         if (entity.getType() == EntityType.MAGMA_CUBE && source.getEntity() instanceof Frog frog) {
             // In 1.21, getVariant() returns Holder<FrogVariant>, use is() to compare
-            // TODO when frogs
-//            if (frog.getVariant().is(ACFrogRegistry.PRIMORDIAL)) {
-//                entity.spawnAtLocation(new ItemStack(ACBlockRegistry.CARMINE_FROGLIGHT.get()));
-//            }
+            if (frog.getVariant().is(ACFrogRegistry.PRIMORDIAL)) {
+                entity.spawnAtLocation(new ItemStack(ACBlockRegistry.CARMINE_FROGLIGHT.get()));
+            }
         }
 
         if (!entity.level().isClientSide && entity instanceof Mob mob && source.getDirectEntity() instanceof LivingEntity directSource && directSource.getItemInHand(InteractionHand.MAIN_HAND).is(ACItemRegistry.PRIMITIVE_CLUB.get())) {

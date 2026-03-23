@@ -15,6 +15,7 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.animal.FrogVariant;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
@@ -84,6 +85,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     public static final DeferredRegister<DataComponentType<?>> DATA_COMPONENTS = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, MOD_ID);
     public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, MOD_ID);
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MOD_ID);
+    public static final DeferredRegister<FrogVariant> FROG_VARIANTS = DeferredRegister.create(BuiltInRegistries.FROG_VARIANT, MOD_ID);
     public static final Map<Supplier<? extends ParticleType<?>>, Function<SpriteSet, ? extends ParticleProvider<?>>> PARTICLE_PROVIDERS = new HashMap<>();
 
     public static void init(IEventBus modEventBus) {
@@ -110,6 +112,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
         DATA_COMPONENTS.register(modEventBus);
         ARMOR_MATERIALS.register(modEventBus);
         ATTACHMENTS.register(modEventBus);
+        FROG_VARIANTS.register(modEventBus);
     }
 
     @Override
@@ -277,5 +280,10 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
             return typeBuilder.build();
         });
         return new NeoForgeAttachmentSupplier<>(registered);
+    }
+
+    @Override
+    public RegHolder<FrogVariant, FrogVariant> registerFrogVariant(String name, Supplier<FrogVariant> variant) {
+        return NeoRegHolder.of(FROG_VARIANTS.register(name, variant));
     }
 }

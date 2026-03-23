@@ -10,6 +10,7 @@ import com.github.alexmodguy.alexscaves.server.block.ACSoundTypes;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.config.ACServerConfig;
+import com.github.alexmodguy.alexscaves.server.entity.ACFrogRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACArmorMaterials;
@@ -82,6 +83,7 @@ public class AlexsCaves {
         ACStructureRegistry.init();
         ACPotPatternRegistry.init(); // TODO fix pots
         ACBiomeRegistry.init();
+        ACFrogRegistry.init();
         NetworkRegistry.registerPayloads();
         readModIncompatibilities();
     }

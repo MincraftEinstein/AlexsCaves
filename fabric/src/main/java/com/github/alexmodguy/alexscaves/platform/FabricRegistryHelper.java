@@ -17,11 +17,13 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.animal.FrogVariant;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
@@ -219,5 +221,10 @@ public class FabricRegistryHelper implements RegistryHelper {
             }
         });
         return new FabricAttachmentSupplier<>(type);
+    }
+
+    @Override
+    public RegHolder<FrogVariant, FrogVariant> registerFrogVariant(String name, Supplier<FrogVariant> variant) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.FROG_VARIANT, id(name), variant.get()));
     }
 }

@@ -63,8 +63,6 @@ public class AlexsCavesNeoForge {
         ACEntityRegistry.init();
         ACEntityDataRegistry.DEF_REG.register(modEventBus);
         ACSurfaceRuleConditionRegistry.DEF_REG.register(modEventBus);
-        // TODO move to common
-        ACFrogRegistry.DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_DEF_REG.register(modEventBus);
         ACLootTableRegistry.GLOBAL_LOOT_MODIFIER_DEF_REG.register(modEventBus);

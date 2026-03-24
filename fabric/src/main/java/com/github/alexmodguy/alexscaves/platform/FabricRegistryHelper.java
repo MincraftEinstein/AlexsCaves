@@ -34,6 +34,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
@@ -226,5 +227,10 @@ public class FabricRegistryHelper implements RegistryHelper {
     @Override
     public RegHolder<FrogVariant, FrogVariant> registerFrogVariant(String name, Supplier<FrogVariant> variant) {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.FROG_VARIANT, id(name), variant.get()));
+    }
+
+    @Override
+    public <T extends SurfaceRules.ConditionSource> Supplier<MapCodec<T>> registerSurfaceRuleCondition(String name, Supplier<MapCodec<T>> codec) {
+        return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.MATERIAL_CONDITION, id(name), codec.get()));
     }
 }

@@ -29,6 +29,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureType;
@@ -86,6 +87,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     public static final DeferredRegister<ArmorMaterial> ARMOR_MATERIALS = DeferredRegister.create(BuiltInRegistries.ARMOR_MATERIAL, MOD_ID);
     public static final DeferredRegister<AttachmentType<?>> ATTACHMENTS = DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, MOD_ID);
     public static final DeferredRegister<FrogVariant> FROG_VARIANTS = DeferredRegister.create(BuiltInRegistries.FROG_VARIANT, MOD_ID);
+    public static final DeferredRegister<MapCodec<? extends SurfaceRules.ConditionSource>> SURFACE_RULE_CONDITIONS = DeferredRegister.create(BuiltInRegistries.MATERIAL_CONDITION, MOD_ID);
     public static final Map<Supplier<? extends ParticleType<?>>, Function<SpriteSet, ? extends ParticleProvider<?>>> PARTICLE_PROVIDERS = new HashMap<>();
 
     public static void init(IEventBus modEventBus) {
@@ -113,6 +115,7 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
         ARMOR_MATERIALS.register(modEventBus);
         ATTACHMENTS.register(modEventBus);
         FROG_VARIANTS.register(modEventBus);
+        SURFACE_RULE_CONDITIONS.register(modEventBus);
     }
 
     @Override
@@ -285,5 +288,10 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     @Override
     public RegHolder<FrogVariant, FrogVariant> registerFrogVariant(String name, Supplier<FrogVariant> variant) {
         return NeoRegHolder.of(FROG_VARIANTS.register(name, variant));
+    }
+
+    @Override
+    public <T extends SurfaceRules.ConditionSource> Supplier<MapCodec<T>> registerSurfaceRuleCondition(String name, Supplier<MapCodec<T>> codec) {
+        return NeoRegHolder.of(SURFACE_RULE_CONDITIONS.register(name, codec));
     }
 }

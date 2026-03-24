@@ -12,6 +12,10 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
     public void onInitializeClient() {
         AlexsCavesClient.init();
         AlexsCavesClient.lateInit();
+        registerRenderTypes();
+    }
+
+    static void registerRenderTypes() {
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.cutout(),
                 ABYSSAL_ALTAR.get(),
                 ABYSSMARINE_BRICK_SLAB.get(),

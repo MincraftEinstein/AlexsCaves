@@ -4,8 +4,6 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
 public class TephraParticle extends TextureSheetParticle {
 
@@ -70,7 +68,7 @@ public class TephraParticle extends TextureSheetParticle {
         return 240;
     }
 
-    @OnlyIn(Dist.CLIENT)
+    
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -84,7 +82,7 @@ public class TephraParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+    
     public static class SmallFactory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -100,7 +98,7 @@ public class TephraParticle extends TextureSheetParticle {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
+    
     public static class FlameFactory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 

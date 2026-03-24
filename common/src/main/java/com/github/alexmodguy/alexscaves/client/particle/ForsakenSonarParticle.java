@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.client.particle;
 
-import com.github.alexmodguy.alexscaves.server.entity.living.CandicornEntity;
+import com.github.alexmodguy.alexscaves.client.render.entity.ForsakenRenderer;
+import com.github.alexmodguy.alexscaves.server.entity.living.ForsakenEntity;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -8,43 +9,45 @@ import net.minecraft.client.particle.*;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
 
 import java.util.function.Consumer;
 
-public class CandicornChargeParticle extends TextureSheetParticle {
+public class ForsakenSonarParticle extends TextureSheetParticle {
 
-    private final int candicornId;
+    private final int forsakenId;
     private float xRot;
     private float yRot;
     private float fadeR;
     private float fadeG;
     private float fadeB;
+    private boolean massive;
 
     private boolean passedTarget;
 
-    protected CandicornChargeParticle(ClientLevel world, double x, double y, double z, int entityId, float xRot, float yRot) {
+    protected ForsakenSonarParticle(ClientLevel world, double x, double y, double z, int entityId, float xRot, float yRot, boolean massive) {
         super(world, x, y, z, 0.0, 0.0, 0.0);
         this.xd = 0.0;
         this.yd = 0.0;
         this.zd = 0.0;
-        this.quadSize = 0.3F;
-        this.setSize(5.0F, 5.0F);
+        this.setSize(massive ? 2.99F : 0.9F, 0.99F);
         this.setColor(1F, 1F, 1F);
-        this.candicornId = entityId;
-        this.lifetime = 35;
-        setOnHornPos();
+        this.forsakenId = entityId;
+        this.massive = massive;
+        this.lifetime = 15;
+        setInMouthPos(1.0F);
         this.xo = this.x;
         this.yo = this.y;
         this.zo = this.z;
+        this.quadSize = massive ? 3F + world.random.nextFloat() * 0.5F : 1F + world.random.nextFloat() * 0.3F;
         this.friction = 1F;
         this.xRot = xRot;
         this.yRot = yRot;
-        this.hasPhysics = false;
+        this.setFadeColor(0XE60000);
+        angleTowardsTarget();
     }
 
     public void setFadeColor(int i) {
@@ -64,10 +67,11 @@ public class CandicornChargeParticle extends TextureSheetParticle {
         if (this.age > this.lifetime / 2) {
             this.setAlpha(1.0F - f * 2F);
         }
+        angleTowardsTarget();
         this.rCol += (fadeR - this.rCol) * 0.1F;
         this.gCol += (fadeG - this.gCol) * 0.1F;
         this.bCol += (fadeB - this.bCol) * 0.1F;
-        Vec3 motionVec = new Vec3(0, 0, -0.05F).xRot((float) Math.toRadians(xRot)).yRot(-(float) Math.toRadians(yRot));
+        Vec3 motionVec = new Vec3(0, 0, massive ? -0.2F : 0.5F).xRot((float) Math.toRadians(xRot)).yRot(-(float) Math.toRadians(yRot));
         this.xd += motionVec.x * f2;
         this.yd += motionVec.y * f2;
         this.zd += motionVec.z * f2;
@@ -81,13 +85,35 @@ public class CandicornChargeParticle extends TextureSheetParticle {
         }
     }
 
-    public void setOnHornPos() {
-        if (candicornId != -1 && level.getEntity(candicornId) instanceof CandicornEntity entity) {
-            Vec3 chargeFocalPoint = new Vec3(0F, entity.getEyeHeight() - 0.1F, entity.getBbWidth() + 0.8F).yRot((float) Math.toRadians(-entity.getChargeYaw()));
-            this.setPos(entity.getX() + chargeFocalPoint.x, entity.getY() + chargeFocalPoint.y, entity.getZ() + chargeFocalPoint.z);
-            this.setFadeColor(entity.getParticleColor());
-        }else{
-            this.setFadeColor(0XFFEF57);
+    public void setInMouthPos(float partialTick) {
+        if (forsakenId != -1 && level.getEntity(forsakenId) instanceof ForsakenEntity entity) {
+            Vec3 mouthPos = ForsakenRenderer.getMouthPositionFor(forsakenId);
+            if (mouthPos != null) {
+                Vec3 translate = mouthPos.add(new Vec3(0, this.massive ? 0.75F : 0F, 0F)).yRot((float) (Math.PI - entity.yBodyRot * ((float) Math.PI / 180F)));
+                this.setPos(entity.getX() + translate.x, entity.getY() + translate.y, entity.getZ() + translate.z);
+            }
+            if (!this.massive) {
+                Entity target = entity.getSonarTarget();
+                if (target == null) {
+                    lifetime = 40;
+                } else {
+                    lifetime = 15 + Math.min(15, (int) Math.ceil(entity.distanceTo(target) * 3));
+                }
+            }
+        }
+    }
+
+    public void angleTowardsTarget() {
+        if (!massive && forsakenId != -1 && !passedTarget && level.getEntity(forsakenId) instanceof ForsakenEntity forsakenEntity) {
+            Entity target = forsakenEntity.getSonarTarget();
+            if (target != null) {
+                Vec3 vector3d1 = target.getEyePosition().subtract(x, y, z);
+                if (vector3d1.length() < 2) {
+                    passedTarget = true;
+                }
+                this.yRot = -((float) Mth.atan2(vector3d1.x, vector3d1.z)) * (180F / (float) Math.PI);
+                this.xRot = (float) ((Mth.atan2(vector3d1.y, vector3d1.horizontalDistance()) * (double) (180F / (float) Math.PI)));
+            }
         }
     }
 
@@ -101,8 +127,9 @@ public class CandicornChargeParticle extends TextureSheetParticle {
     }
 
     public float getQuadSize(float scaleFactor) {
-        float f = 8.0F;
-        return this.quadSize * Mth.clamp(((float) this.age + scaleFactor) * 2.0F / (float) this.lifetime, 0.0F, 1.0F) * f;
+        float f = massive ? 4.0F : 2.0F;
+        float f1 = massive ? 1.0F : 1.5F;
+        return this.quadSize * Mth.clamp(((float) this.age + scaleFactor) * f1 / (float) this.lifetime, 0.0F, 1.0F) * f;
     }
 
     public void render(VertexConsumer vertexConsumer, Camera camera, float partialTick) {
@@ -145,7 +172,7 @@ public class CandicornChargeParticle extends TextureSheetParticle {
     }
 
 
-    @OnlyIn(Dist.CLIENT)
+
     public static class Factory implements ParticleProvider<SimpleParticleType> {
         private final SpriteSet spriteSet;
 
@@ -154,7 +181,22 @@ public class CandicornChargeParticle extends TextureSheetParticle {
         }
 
         public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            CandicornChargeParticle particle = new CandicornChargeParticle(worldIn, x, y, z, (int) xSpeed, (float) ySpeed, (float) zSpeed);
+            ForsakenSonarParticle particle = new ForsakenSonarParticle(worldIn, x, y, z, (int) xSpeed, (float) ySpeed, (float) zSpeed, false);
+            particle.pickSprite(spriteSet);
+            return particle;
+        }
+    }
+
+
+    public static class LargeFactory implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet spriteSet;
+
+        public LargeFactory(SpriteSet spriteSet) {
+            this.spriteSet = spriteSet;
+        }
+
+        public Particle createParticle(SimpleParticleType typeIn, ClientLevel worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            ForsakenSonarParticle particle = new ForsakenSonarParticle(worldIn, x, y, z, (int) xSpeed, (float) ySpeed, (float) zSpeed, true);
             particle.pickSprite(spriteSet);
             return particle;
         }

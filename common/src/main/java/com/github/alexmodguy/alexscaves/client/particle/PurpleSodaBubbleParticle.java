@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.client.particle;
 
-import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
 import net.minecraft.core.BlockPos;
@@ -26,13 +25,14 @@ public class PurpleSodaBubbleParticle extends TextureSheetParticle {
         BlockPos slightlyBelow = BlockPos.containing(this.x, this.y, this.z);
         float fluidHeight = 0.0F;
         BlockPos lastSodaBlock = null;
-        if(level.getFluidState(slightlyAbove).getFluidType() == ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get()){
+        //TODO fix when fluid
+       /* if(level.getFluidState(slightlyAbove).getFluidType() == ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get()){
             fluidHeight = level.getFluidState(slightlyAbove).getHeight(level, slightlyAbove);
             lastSodaBlock = slightlyAbove;
         }else if(level.getFluidState(slightlyBelow).getFluidType() == ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get()){
             fluidHeight = level.getFluidState(slightlyBelow).getHeight(level, slightlyBelow);
             lastSodaBlock = slightlyBelow;
-        }
+        }*/
         if(lastSodaBlock == null || lastSodaBlock.getY() + fluidHeight < this.y + 0.2F){
             this.remove();
             double f = lastSodaBlock == null ? this.y : lastSodaBlock.getY() + fluidHeight;

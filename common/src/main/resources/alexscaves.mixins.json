@@ -51,7 +51,8 @@
     "PlayerMixin",
     "PotionUtilsMixin",
     "SeagrassFeatureMixin",
-    "ShipwreckStructureMixin"
+    "ShipwreckStructureMixin",
+    "SwampHutPieceMixin"
   ],
   "injectors": {
     "defaultRequire": 1

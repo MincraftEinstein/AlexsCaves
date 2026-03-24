@@ -11,7 +11,6 @@
     "FrogMixin",
     "MonsterMixin",
     "NaturalSpawnerMixin",
-    "SwampHutPieceMixin",
     "neo.IEntityExtensionMixin",
     "neo.MobEffectInstanceMixin"
   ],

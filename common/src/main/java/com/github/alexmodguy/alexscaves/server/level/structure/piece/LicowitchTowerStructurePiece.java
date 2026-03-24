@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.level.structure.piece;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
+import com.github.alexmodguy.alexscaves.server.misc.ACLootTableRegistry;
 import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -12,6 +13,7 @@ import net.minecraft.world.level.StructureManager;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.Rotation;
+import net.minecraft.world.level.block.entity.RandomizableContainerBlockEntity;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.BoundingBox;
 import net.minecraft.world.level.levelgen.structure.pieces.StructurePieceSerializationContext;
@@ -52,8 +54,7 @@ public class LicowitchTowerStructurePiece extends UndergroundTemplateStructurePi
 
     @Override
     protected void handleDataMarker(String string, BlockPos pos, ServerLevelAccessor accessor, RandomSource random, BoundingBox box) {
-        //TODO fix when loot table
-       /* if (string.equals("loot_chest")) {
+        if (string.equals("loot_chest")) {
             if (accessor.getBlockEntity(pos.below()) instanceof RandomizableContainerBlockEntity container) {
                 container.setLootTable(ACLootTableRegistry.LICOWITCH_TOWER_CHEST, random.nextLong());
             }
@@ -61,7 +62,7 @@ public class LicowitchTowerStructurePiece extends UndergroundTemplateStructurePi
             if (accessor.getBlockEntity(pos.below()) instanceof RandomizableContainerBlockEntity container) {
                 container.setLootTable(ACLootTableRegistry.SECRET_LICOWITCH_TOWER_CHEST, random.nextLong());
             }
-        }*/
+        }
         accessor.setBlock(pos, Blocks.CAVE_AIR.defaultBlockState(), 0);
     }
 

@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.level.structure.piece;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
+import com.github.alexmodguy.alexscaves.server.misc.ACLootTableRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.google.common.collect.Sets;
@@ -76,8 +77,7 @@ public class GingerbreadHousePiece extends UndergroundTemplateStructurePiece {
     protected void handleDataMarker(String string, BlockPos pos, ServerLevelAccessor accessor, RandomSource random, BoundingBox box) {
         if (string.equals("loot_chest")) {
             if (accessor.getBlockEntity(pos.below()) instanceof RandomizableContainerBlockEntity container) {
-                // TODO fix when loot table
-//                container.setLootTable(ACLootTableRegistry.GINGERBREAD_TOWN_CHEST, random.nextLong());
+                container.setLootTable(ACLootTableRegistry.GINGERBREAD_TOWN_CHEST, random.nextLong());
             }
         }
         accessor.setBlock(pos, Blocks.CAVE_AIR.defaultBlockState(), 10);

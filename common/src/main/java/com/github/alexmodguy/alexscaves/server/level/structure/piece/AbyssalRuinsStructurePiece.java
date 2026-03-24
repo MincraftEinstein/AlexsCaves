@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.level.structure.piece;
 
+import com.github.alexmodguy.alexscaves.server.misc.ACLootTableRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -96,8 +97,7 @@ public class AbyssalRuinsStructurePiece extends TemplateStructurePiece {
         switch (string) {
             case "loot_chest":
                 if (accessor.getBlockEntity(pos.below()) instanceof RandomizableContainerBlockEntity container) {
-                    // TODO fix when loot table
-//                    container.setLootTable(ACLootTableRegistry.ABYSSAL_RUINS_CHEST, random.nextLong());
+                    container.setLootTable(ACLootTableRegistry.ABYSSAL_RUINS_CHEST, random.nextLong());
                 }
                 break;
             case "submarine":

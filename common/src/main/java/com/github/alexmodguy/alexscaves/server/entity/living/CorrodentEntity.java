@@ -361,7 +361,7 @@ public class CorrodentEntity extends Monster implements ICustomCollisions, IAnim
 
     // TODO add this in MultipartEntity.class?
 //    @Override
-    public PartEntity<?>[] getParts() {
+    public PartEntity<?>[] getPartEntities() {
         return allParts;
     }
 

@@ -66,7 +66,7 @@ public class AtlatitanRenderer extends MobRenderer<AtlatitanEntity, AtlatitanMod
         if (super.shouldRender(entity, camera, x, y, z)) {
             return true;
         } else {
-            for (var part : entity.getParts()) {
+            for (var part : entity.getPartEntities()) {
                 if (camera.isVisible(part.getBoundingBoxForCulling())) {
                     return true;
                 }

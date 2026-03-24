@@ -1,9 +1,8 @@
 package com.github.alexmodguy.alexscaves.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.client.gui.book.CaveBookScreen;
-import com.github.alexmodguy.alexscaves.client.particle.*;
+import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.client.render.item.ACArmorRenderProperties;
 import com.github.alexmodguy.alexscaves.client.render.item.ACItemRenderProperties;
 import com.github.alexmodguy.alexscaves.client.sound.*;
@@ -29,7 +28,8 @@ import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.client.sounds.SoundManager;
@@ -51,7 +51,8 @@ import net.minecraft.world.phys.Vec3;
 import javax.annotation.Nullable;
 import java.util.*;
 
-import static com.github.alexmodguy.alexscaves.client.ClientConstants.*;
+import static com.github.alexmodguy.alexscaves.client.ClientConstants.BOMB_FLASH;
+import static com.github.alexmodguy.alexscaves.client.ClientConstants.WATCHER_EFFECT;
 
 public class ClientProxy extends CommonProxy {
 

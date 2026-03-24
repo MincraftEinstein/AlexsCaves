@@ -171,7 +171,7 @@ public class MagnetronEntity extends Monster implements MultipartEntity {
 
     // TODO add this in MultipartEntity.class?
 //    @Override
-    public PartEntity<?>[] getParts() {
+    public PartEntity<?>[] getPartEntities() {
         return allParts;
     }
 

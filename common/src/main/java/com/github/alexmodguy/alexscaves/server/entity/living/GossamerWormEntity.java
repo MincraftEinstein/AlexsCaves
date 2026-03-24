@@ -262,7 +262,7 @@ public class GossamerWormEntity extends WaterAnimal implements Bucketable, Multi
 
     // TODO add this in MultipartEntity.class
 //    @Override
-    public PartEntity<?>[] getParts() {
+    public PartEntity<?>[] getPartEntities() {
         return allParts;
     }
 

@@ -84,6 +84,7 @@ public class AlexsCaves {
         ACPotPatternRegistry.init(); // TODO fix pots
         ACBiomeRegistry.init();
         ACFrogRegistry.init();
+        ACLootTableRegistry.init();
         NetworkRegistry.registerPayloads();
         readModIncompatibilities();
     }

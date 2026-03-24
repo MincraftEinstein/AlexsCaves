@@ -1,13 +1,12 @@
 package com.github.alexmodguy.alexscaves.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.AlexsCavesClient;
 import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.client.gui.book.CaveBookScreen;
 import com.github.alexmodguy.alexscaves.client.model.baked.BakedModelShadeLayerFullbright;
 import com.github.alexmodguy.alexscaves.client.particle.*;
 import com.github.alexmodguy.alexscaves.client.render.ACInternalShaders;
-import com.github.alexmodguy.alexscaves.client.render.entity.*;
-import com.github.alexmodguy.alexscaves.client.render.entity.layer.ClientLayerRegistry;
 import com.github.alexmodguy.alexscaves.client.render.item.ACArmorRenderProperties;
 import com.github.alexmodguy.alexscaves.client.render.item.ACItemRenderProperties;
 import com.github.alexmodguy.alexscaves.client.render.item.tooltip.ClientSackOfSatingTooltip;
@@ -40,9 +39,6 @@ import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.EntityRenderers;
-import net.minecraft.client.renderer.entity.FallingBlockRenderer;
-import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
@@ -151,108 +147,11 @@ public class ClientProxy extends CommonProxy {
     @SuppressWarnings("removal")
     public void clientInit(IEventBus modEventBus) {
         NeoForge.EVENT_BUS.register(new ClientEvents());
-        modEventBus.addListener(ClientLayerRegistry::addLayers);
+//        modEventBus.addListener(ClientLayerRegistry::addLayers);
         modEventBus.addListener(this::bakeModels);
         modEventBus.addListener(this::registerShaders);
-        EntityRenderers.register(ACEntityRegistry.BOAT.get(), (context) -> {
-            return new AlexsCavesBoatRenderer(context, false);
-        });
-        EntityRenderers.register(ACEntityRegistry.CHEST_BOAT.get(), (context) -> {
-            return new AlexsCavesBoatRenderer(context, true);
-        });
-        EntityRenderers.register(ACEntityRegistry.MOVING_METAL_BLOCK.get(), MovingMetalBlockRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.TELETOR.get(), TeletorRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.MAGNETIC_WEAPON.get(), MagneticWeaponRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.MAGNETRON.get(), MagnetronRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.BOUNDROID.get(), BoundroidRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.BOUNDROID_WINCH.get(), BoundroidWinchRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.FERROUSLIME.get(), FerrouslimeRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.NOTOR.get(), NotorRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.QUARRY_SMASHER.get(), QuarrySmasherRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.SEEKING_ARROW.get(), SeekingArrowRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.SUBTERRANODON.get(), SubterranodonRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.VALLUMRAPTOR.get(), VallumraptorRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.GROTTOCERATOPS.get(), GrottoceratopsRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.TRILOCARIS.get(), TrilocarisRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.TREMORSAURUS.get(), TremorsaurusRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.RELICHEIRUS.get(), RelicheirusRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.FALLING_TREE_BLOCK.get(), FallingTreeBlockRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.CRUSHED_BLOCK.get(), CrushedBlockRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.LIMESTONE_SPEAR.get(), LimestoneSpearRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.EXTINCTION_SPEAR.get(), ExtinctionSpearRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.DINOSAUR_SPIRIT.get(), DinosaurSpiritRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.LUXTRUCTOSAURUS.get(), LuxtructosaurusRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.TEPHRA.get(), TephraRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.ATLATITAN.get(), AtlatitanRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.NUCLEAR_EXPLOSION.get(), EmptyRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.NUCLEAR_BOMB.get(), NuclearBombRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.NUCLEEPER.get(), NucleeperRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.RADGILL.get(), RadgillRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.BRAINIAC.get(), BrainiacRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.THROWN_WASTE_DRUM.get(), ThrownWasteDrumEntityRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.GAMMAROACH.get(), GammaroachRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.RAYCAT.get(), RaycatRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.CINDER_BRICK.get(), (context) -> {
-            return new ThrownItemRenderer<>(context, 1.25F, false);
-        });
-        EntityRenderers.register(ACEntityRegistry.TREMORZILLA.get(), TremorzillaRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.LANTERNFISH.get(), LanternfishRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.SEA_PIG.get(), SeaPigRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.SUBMARINE.get(), SubmarineRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.HULLBREAKER.get(), HullbreakerRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.GOSSAMER_WORM.get(), GossamerWormRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.TRIPODFISH.get(), TripodfishRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.DEEP_ONE.get(), DeepOneRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.INK_BOMB.get(), (context) -> {
-            return new ThrownItemRenderer<>(context, 1.25F, false);
-        });
-        EntityRenderers.register(ACEntityRegistry.DEEP_ONE_KNIGHT.get(), DeepOneKnightRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.DEEP_ONE_MAGE.get(), DeepOneMageRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.WATER_BOLT.get(), WaterBoltRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.WAVE.get(), WaveRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.MINE_GUARDIAN.get(), MineGuardianRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.MINE_GUARDIAN_ANCHOR.get(), MineGuardianAnchorRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.DEPTH_CHARGE.get(), (context) -> {
-            return new ThrownItemRenderer<>(context, 1.75F, true);
-        });
-        EntityRenderers.register(ACEntityRegistry.FLOATER.get(), FloaterRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.GUANO.get(), (context) -> {
-            return new ThrownItemRenderer<>(context, 1.25F, false);
-        });
-        EntityRenderers.register(ACEntityRegistry.FALLING_GUANO.get(), FallingBlockRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.GLOOMOTH.get(), GloomothRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.UNDERZEALOT.get(), UnderzealotRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.WATCHER.get(), WatcherRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.CORRODENT.get(), CorrodentRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.VESPER.get(), VesperRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.FORSAKEN.get(), ForsakenRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.BEHOLDER_EYE.get(), EmptyRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.DESOLATE_DAGGER.get(), DesolateDaggerRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.BURROWING_ARROW.get(), BurrowingArrowRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.DARK_ARROW.get(), DarkArrowRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.SWEETISH_FISH.get(), SweetishFishRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.CANIAC.get(), CaniacRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.GUMBEEPER.get(), GumbeeperRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.GUMBALL.get(), GumballRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.CANDICORN.get(), CandicornRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.GUM_WORM.get(), GumWormRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.GUM_WORM_SEGMENT.get(), GumWormSegmentRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.CARAMEL_CUBE.get(), CaramelCubeRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.MELTED_CARAMEL.get(), MeltedCaramelRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.GUMMY_BEAR.get(), GummyBearRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.LICOWITCH.get(), LicowitchRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.SPINNING_PEPPERMINT.get(), SpinningPeppermintRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.SUGAR_STAFF_HEX.get(), SugarStaffHexRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.GINGERBREAD_MAN.get(), GingerbreadManRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.FALLING_FROSTMINT.get(), FallingBlockRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.CANDY_CANE_HOOK.get(), CandyCaneHookRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.SODA_BOTTLE_ROCKET.get(), (render) -> {
-            return new ThrownItemRenderer<>(render, 1.25F, true);
-        });
-        EntityRenderers.register(ACEntityRegistry.FROSTMINT_SPEAR.get(), FrostmintSpearRenderer::new);
-        EntityRenderers.register(ACEntityRegistry.THROWN_ICE_CREAM_SCOOP.get(), (context) -> {
-            return new ThrownItemRenderer<>(context, 1.25F, false);
-        });
+        modEventBus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
+                AlexsCavesClient.registerEntityRenderers(event::registerEntityRenderer));
         Sheets.addWoodType(ACBlockRegistry.PEWEN_WOOD_TYPE);
         Sheets.addWoodType(ACBlockRegistry.THORNWOOD_WOOD_TYPE);
         ItemProperties.register(ACItemRegistry.HOLOCODER.get(), ResourceLocation.withDefaultNamespace("bound"),

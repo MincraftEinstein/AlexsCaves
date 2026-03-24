@@ -8,7 +8,10 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -48,6 +51,11 @@ public interface IClientPlatformHelper {
     @FunctionalInterface
     interface BERendererRegistry {
         <T extends BlockEntity> void register(BlockEntityType<? extends T> type, BlockEntityRendererProvider<T> renderProvider);
+    }
+
+    @FunctionalInterface
+    interface EntityRendererRegistry {
+        <T extends Entity> void register(EntityType<? extends T> type, EntityRendererProvider<T> renderProvider);
     }
 
     void registerMenuScreens(Consumer<MenuScreenRegistry> consumer);

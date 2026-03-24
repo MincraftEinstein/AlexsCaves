@@ -4,6 +4,7 @@ import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.client.renderer.RenderType;
 
 import static com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry.*;
@@ -16,6 +17,7 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
         AlexsCavesClient.lateInit();
         registerRenderTypes();
         ACModelLayers.register((id, layer) -> EntityModelLayerRegistry.registerModelLayer(id, layer::get));
+        AlexsCavesClient.registerEntityRenderers(EntityRendererRegistry::register);
     }
 
     static void registerRenderTypes() {

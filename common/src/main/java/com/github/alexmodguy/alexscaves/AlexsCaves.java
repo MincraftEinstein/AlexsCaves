@@ -10,6 +10,7 @@ import com.github.alexmodguy.alexscaves.server.block.ACSoundTypes;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.ACBlockEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
 import com.github.alexmodguy.alexscaves.server.config.ACServerConfig;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACFrogRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
@@ -71,6 +72,7 @@ public class AlexsCaves {
         ACMenuRegistry.init();
         ACAdvancementTriggerRegistry.init();
         ACDataComponentRegistry.init();
+        ACEntityRegistry.init();
         ACParticleRegistry.init();
         ACCarverRegistry.init();
         ACArmorMaterials.init();

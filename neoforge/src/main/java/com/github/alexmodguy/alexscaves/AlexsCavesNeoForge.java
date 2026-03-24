@@ -51,8 +51,6 @@ public class AlexsCavesNeoForge {
         modEventBus.addListener(this::registerLayerDefinitions);
         modEventBus.addListener(this::registerTicketControllers);
         NeoForge.EVENT_BUS.register(new CommonEvents());
-        // TODO move to common
-        ACEntityRegistry.init();
         ACSurfaceRuleConditionRegistry.DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_DEF_REG.register(modEventBus);
@@ -109,8 +107,8 @@ public class AlexsCavesNeoForge {
 
     private void registerTicketControllers(RegisterTicketControllersEvent event) {
         event.register(TICKET_CONTROLLER);
-        event.register(com.github.alexmodguy.alexscaves.server.entity.item.NuclearExplosionEntity.TICKET_CONTROLLER);
-        event.register(com.github.alexmodguy.alexscaves.server.entity.item.BeholderEyeEntity.TICKET_CONTROLLER);
+//        event.register(com.github.alexmodguy.alexscaves.server.entity.item.NuclearExplosionEntity.TICKET_CONTROLLER);
+//        event.register(com.github.alexmodguy.alexscaves.server.entity.item.BeholderEyeEntity.TICKET_CONTROLLER);
 //        event.register(com.github.alexmodguy.alexscaves.server.item.OccultGemItem.TICKET_CONTROLLER);
 //        event.register(com.github.alexmodguy.alexscaves.server.item.RemoteDetonatorItem.TICKET_CONTROLLER);
     }

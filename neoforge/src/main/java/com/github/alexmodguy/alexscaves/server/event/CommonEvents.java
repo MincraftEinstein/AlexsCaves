@@ -67,51 +67,8 @@ import java.util.List;
 public class CommonEvents {
 
     @SubscribeEvent
-    public static void initializeAttributes(EntityAttributeCreationEvent event) {
-        event.put(ACEntityRegistry.TELETOR.get(), TeletorEntity.createAttributes().build());
-        event.put(ACEntityRegistry.MAGNETRON.get(), MagnetronEntity.createAttributes().build());
-        event.put(ACEntityRegistry.BOUNDROID.get(), BoundroidEntity.createAttributes().build());
-        event.put(ACEntityRegistry.BOUNDROID_WINCH.get(), BoundroidEntity.createAttributes().build());
-        event.put(ACEntityRegistry.FERROUSLIME.get(), FerrouslimeEntity.createAttributes().build());
-        event.put(ACEntityRegistry.NOTOR.get(), NotorEntity.createAttributes().build());
-        event.put(ACEntityRegistry.SUBTERRANODON.get(), SubterranodonEntity.createAttributes().build());
-        event.put(ACEntityRegistry.VALLUMRAPTOR.get(), VallumraptorEntity.createAttributes().build());
-        event.put(ACEntityRegistry.GROTTOCERATOPS.get(), GrottoceratopsEntity.createAttributes().build());
-        event.put(ACEntityRegistry.TRILOCARIS.get(), TrilocarisEntity.createAttributes().build());
-        event.put(ACEntityRegistry.TREMORSAURUS.get(), TremorsaurusEntity.createAttributes().build());
-        event.put(ACEntityRegistry.RELICHEIRUS.get(), RelicheirusEntity.createAttributes().build());
-        event.put(ACEntityRegistry.LUXTRUCTOSAURUS.get(), LuxtructosaurusEntity.createAttributes().build());
-        event.put(ACEntityRegistry.ATLATITAN.get(), AtlatitanEntity.createAttributes().build());
-        event.put(ACEntityRegistry.NUCLEEPER.get(), NucleeperEntity.createAttributes().build());
-        event.put(ACEntityRegistry.RADGILL.get(), RadgillEntity.createAttributes().build());
-        event.put(ACEntityRegistry.BRAINIAC.get(), BrainiacEntity.createAttributes().build());
-        event.put(ACEntityRegistry.GAMMAROACH.get(), GammaroachEntity.createAttributes().build());
-        event.put(ACEntityRegistry.RAYCAT.get(), RaycatEntity.createAttributes().build());
-        event.put(ACEntityRegistry.TREMORZILLA.get(), TremorzillaEntity.createAttributes().build());
-        event.put(ACEntityRegistry.LANTERNFISH.get(), LanternfishEntity.createAttributes().build());
-        event.put(ACEntityRegistry.SEA_PIG.get(), SeaPigEntity.createAttributes().build());
-        event.put(ACEntityRegistry.HULLBREAKER.get(), HullbreakerEntity.createAttributes().build());
-        event.put(ACEntityRegistry.GOSSAMER_WORM.get(), GossamerWormEntity.createAttributes().build());
-        event.put(ACEntityRegistry.TRIPODFISH.get(), TripodfishEntity.createAttributes().build());
-        event.put(ACEntityRegistry.DEEP_ONE.get(), DeepOneEntity.createAttributes().build());
-        event.put(ACEntityRegistry.DEEP_ONE_KNIGHT.get(), DeepOneKnightEntity.createAttributes().build());
-        event.put(ACEntityRegistry.DEEP_ONE_MAGE.get(), DeepOneMageEntity.createAttributes().build());
-        event.put(ACEntityRegistry.MINE_GUARDIAN.get(), MineGuardianEntity.createAttributes().build());
-        event.put(ACEntityRegistry.GLOOMOTH.get(), GloomothEntity.createAttributes().build());
-        event.put(ACEntityRegistry.UNDERZEALOT.get(), UnderzealotEntity.createAttributes().build());
-        event.put(ACEntityRegistry.WATCHER.get(), WatcherEntity.createAttributes().build());
-        event.put(ACEntityRegistry.CORRODENT.get(), CorrodentEntity.createAttributes().build());
-        event.put(ACEntityRegistry.VESPER.get(), VesperEntity.createAttributes().build());
-        event.put(ACEntityRegistry.FORSAKEN.get(), ForsakenEntity.createAttributes().build());
-        event.put(ACEntityRegistry.SWEETISH_FISH.get(), SweetishFishEntity.createAttributes().build());
-        event.put(ACEntityRegistry.CANIAC.get(), CaniacEntity.createAttributes().build());
-        event.put(ACEntityRegistry.GUMBEEPER.get(), GumbeeperEntity.createAttributes().build());
-        event.put(ACEntityRegistry.CANDICORN.get(), CandicornEntity.createAttributes().build());
-        event.put(ACEntityRegistry.GUM_WORM.get(), GumWormEntity.createAttributes().build());
-        event.put(ACEntityRegistry.CARAMEL_CUBE.get(), CaramelCubeEntity.createAttributes().build());
-        event.put(ACEntityRegistry.GUMMY_BEAR.get(), GummyBearEntity.createAttributes().build());
-        event.put(ACEntityRegistry.LICOWITCH.get(), LicowitchEntity.createAttributes().build());
-        event.put(ACEntityRegistry.GINGERBREAD_MAN.get(), GingerbreadManEntity.createAttributes().build());
+    public static void initializeAttributes2(EntityAttributeCreationEvent event) {
+        CommonCommonEvents.initializeAttributes(event::put);
     }
 
     @SubscribeEvent

@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.event;
 
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
@@ -35,5 +36,6 @@ public class CommonEvents {
             }
             PLAYER_JOINED = false;
         });
+        CommonCommonEvents.initializeAttributes(FabricDefaultAttributeRegistry::register);
     }
 }

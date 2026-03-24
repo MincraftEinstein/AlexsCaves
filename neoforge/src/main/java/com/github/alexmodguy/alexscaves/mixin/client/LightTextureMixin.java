@@ -156,6 +156,7 @@ public abstract class LightTextureMixin {
                                 }
                             }
 
+                            // TODO IDimensionSpecialEffectsExtension
                             clientlevel.effects().adjustLightmapColors(clientlevel, partialTicks, f, f7, f8, j, i, vector3f1);
                             //INSERTION BY AC...
                             this.applyACLightingColors(clientlevel, vector3f1);

@@ -5,26 +5,14 @@
   "refmap": "alexscaves.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "AbstractArrowMixin",
-    "AbstractMinecartMixin",
     "CorrodentCollisionMixin",
-    "FrogMixin",
-    "MonsterMixin",
-    "NaturalSpawnerMixin",
     "neo.IEntityExtensionMixin",
     "neo.MobEffectInstanceMixin"
   ],
   "client": [
-    "client.CameraMixin",
-    "client.ClientLevelMixin",
-    "client.ClientPacketListenerMixin",
-    "client.GameRendererMixin",
     "client.LevelRendererMixin",
     "client.LightTextureMixin",
-    "client.LocalPlayerMixin",
-    "client.MapRendererMapInstanceMixin",
-    "client.MinecraftMixin",
-    "client.SoundEngineMixin"
+    "client.LocalPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -39,6 +39,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
     @Inject(method = "Lnet/minecraft/client/player/LocalPlayer;updateIsUnderwater()Z",
             at = @At("TAIL"))
     private void ac_updateIsUnderwater(CallbackInfoReturnable<Boolean> cir) {
+        // TODO when fluids
         boolean underAcid = this.getEyeInFluidType().equals(ACFluidRegistry.ACID_FLUID_TYPE.get());
         boolean underPurpleSoda = this.getEyeInFluidType().equals(ACFluidRegistry.PURPLE_SODA_FLUID_TYPE.get());
         if(wasUnderAcid != underAcid){

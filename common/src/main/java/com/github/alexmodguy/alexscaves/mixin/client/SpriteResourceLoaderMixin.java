@@ -19,6 +19,7 @@ import java.util.List;
 @Mixin(SpriteResourceLoader.class)
 public abstract class SpriteResourceLoaderMixin {
 
+    // TODO fix injector
     @Inject(method = "load",
             at = @At("RETURN"))
     private static void ac_load(ResourceManager resourceManager, ResourceLocation location, CallbackInfoReturnable<SpriteResourceLoader> cir) {
@@ -34,6 +35,7 @@ public abstract class SpriteResourceLoaderMixin {
         }
     }
 
+    // TODO fix accessor
     @Accessor("sources")
     abstract List<SpriteSource> getSources();
 

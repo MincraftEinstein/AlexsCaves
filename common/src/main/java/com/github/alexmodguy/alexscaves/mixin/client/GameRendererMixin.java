@@ -45,7 +45,7 @@ public abstract class GameRendererMixin {
             at = @At(value = "TAIL")
     )
     public void ac_tick(CallbackInfo ci) {
-        if (((ClientProxy) AlexsCaves.PROXY).renderNukeSkyDarkFor > 0 && darkenWorldAmount < 1.0F) {
+        if (ClientProxy.renderNukeSkyDarkFor > 0 && darkenWorldAmount < 1.0F) {
             darkenWorldAmount = Math.min(darkenWorldAmount + 0.3F, 1.0F);
         }
     }

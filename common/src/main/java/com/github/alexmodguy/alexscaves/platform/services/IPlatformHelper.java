@@ -42,12 +42,6 @@ public interface IPlatformHelper {
 
     MinecraftServer getServer();
 
-    CommonProxy PROXY = new CommonProxy();
-
-    default CommonProxy getProxy() {
-        return PROXY;
-    }
-
     enum Platform {
         FABRIC("fabric"),
         FORGE("forge"),

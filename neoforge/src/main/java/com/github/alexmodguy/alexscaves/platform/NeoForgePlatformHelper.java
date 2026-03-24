@@ -37,16 +37,4 @@ public class NeoForgePlatformHelper implements IPlatformHelper {
     public MinecraftServer getServer() {
         return ServerLifecycleHooks.getCurrentServer();
     }
-
-
-    CommonProxy PROXY = null;
-
-
-    @Override
-    public CommonProxy getProxy() {
-        if (PROXY == null) {
-            PROXY = ConfigApiJava.platform().isClient() ? new ClientProxy() : IPlatformHelper.super.getProxy();
-        }
-        return PROXY;
-    }
 }

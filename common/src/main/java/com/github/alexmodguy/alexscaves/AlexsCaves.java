@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves;
 
+import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.config.ACClientConfig;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
@@ -26,6 +27,7 @@ import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRuleCondit
 import com.github.alexmodguy.alexscaves.server.misc.*;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.recipe.ACRecipeRegistry;
+import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -59,7 +61,7 @@ public class AlexsCaves {
     private static final int PLAINS_FOG_COLOR = 12638463;
 
     // Initialize proxy based on dist
-    public static CommonProxy PROXY = Services.PLATFORM_HELPER.getProxy();
+    public static CommonProxy PROXY = ConfigApiJava.platform().isClient() ? new ClientProxy() : new CommonProxy();
 
     public static void init() {
         LOGGER.info("Hello from Alex's Caves Multiloader Edition");

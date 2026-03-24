@@ -11,7 +11,7 @@ public record NeoForgeAttachmentSupplier<T, V>(Supplier<AttachmentType<T>> type)
     @Override
     public @Nullable T get(V holder) {
         if (holder instanceof AttachmentHolder attachmentHolder) {
-            attachmentHolder.getExistingDataOrNull(type);
+            return attachmentHolder.getExistingDataOrNull(type);
         }
         return null;
     }
@@ -28,6 +28,7 @@ public record NeoForgeAttachmentSupplier<T, V>(Supplier<AttachmentType<T>> type)
     public void set(V holder, T value) {
         if (holder instanceof AttachmentHolder attachmentHolder) {
             attachmentHolder.setData(type, value);
+            return;
         }
         throw new IllegalArgumentException("Object is not an AttachmentHolder");
     }
@@ -36,6 +37,7 @@ public record NeoForgeAttachmentSupplier<T, V>(Supplier<AttachmentType<T>> type)
     public void remove(V holder) {
         if (holder instanceof AttachmentHolder attachmentHolder) {
             attachmentHolder.removeData(type);
+            return;
         }
         throw new IllegalArgumentException("Object is not an AttachmentHolder");
     }

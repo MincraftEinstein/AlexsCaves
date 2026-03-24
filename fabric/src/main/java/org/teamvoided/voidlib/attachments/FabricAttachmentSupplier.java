@@ -29,6 +29,7 @@ public record FabricAttachmentSupplier<T, V>(AttachmentType<T> type) implements 
     public void set(V holder, T value) {
         if (holder instanceof AttachmentTarget attachmentTarget) {
             attachmentTarget.setAttached(type, value);
+            return;
         }
         throw new IllegalArgumentException("Object is not an AttachmentTarget");
     }
@@ -37,6 +38,7 @@ public record FabricAttachmentSupplier<T, V>(AttachmentType<T> type) implements 
     public void remove(V holder) {
         if (holder instanceof AttachmentTarget attachmentTarget) {
             attachmentTarget.removeAttached(type);
+            return;
         }
         throw new IllegalArgumentException("Object is not an AttachmentTarget");
     }

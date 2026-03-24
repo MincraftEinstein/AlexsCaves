@@ -22,6 +22,7 @@ import com.github.alexmodguy.alexscaves.server.level.feature.ACFeatureRegistry;
 import com.github.alexmodguy.alexscaves.server.level.structure.ACStructureRegistry;
 import com.github.alexmodguy.alexscaves.server.level.structure.piece.ACStructurePieceRegistry;
 import com.github.alexmodguy.alexscaves.server.level.structure.processor.ACStructureProcessorRegistry;
+import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRuleConditionRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.*;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.recipe.ACRecipeRegistry;
@@ -88,6 +89,7 @@ public class AlexsCaves {
         ACFrogRegistry.init();
         ACLootTableRegistry.init();
         NetworkRegistry.registerPayloads();
+        ACSurfaceRuleConditionRegistry.init();
         readModIncompatibilities();
     }
 

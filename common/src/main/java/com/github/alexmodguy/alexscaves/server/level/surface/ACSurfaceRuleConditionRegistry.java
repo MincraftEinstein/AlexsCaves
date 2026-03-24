@@ -14,6 +14,9 @@ public class ACSurfaceRuleConditionRegistry {
 
     public static final Supplier<MapCodec<SimplexConditionSource>> AC_SIMPLEX_CONDITION = Services.REGISTRY_HELPER.registerSurfaceRuleCondition("ac_simplex", SimplexConditionSource.CODEC::codec);
 
+    public static void init() {
+    }
+
     public static SurfaceRules.ConditionSource simplexCondition(float noiseMin, float noiseMax, float noiseScale, float yScale, int offsetType) {
         return new SimplexConditionSource(noiseMin, noiseMax, noiseScale, yScale, offsetType);
     }

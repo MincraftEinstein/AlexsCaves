@@ -7,7 +7,7 @@ import com.github.alexmodguy.alexscaves.server.entity.ACSpawnPlacementTypes;
 import com.github.alexmodguy.alexscaves.server.entity.item.SeekingArrowEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.SubmarineEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.*;
-import com.github.alexmodguy.alexscaves.server.entity.util.*;
+import com.github.alexmodguy.alexscaves.server.entity.util.VillagerUndergroundCabinMapTrade;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.AlwaysCombinableOnAnvil;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
@@ -16,7 +16,7 @@ import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.DarknessIncarnateEffect;
 import com.github.alexmodguy.alexscaves.server.potion.SugarRushEffect;
-import net.minecraft.core.*;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
@@ -66,12 +66,10 @@ import java.util.List;
 
 public class CommonEvents {
 
-    @SubscribeEvent
     public static void initializeAttributes2(EntityAttributeCreationEvent event) {
         CommonCommonEvents.initializeAttributes(event::put);
     }
 
-    @SubscribeEvent
     public static void spawnPlacements(RegisterSpawnPlacementsEvent event) {
         // Custom spawn placement types for acid and soda fluids are defined in ACSpawnPlacementTypes.
         // Magnetic Caves monsters use checkMagneticCaveSpawnRules to allow spawning in lit areas (Tesla Bulbs etc.)

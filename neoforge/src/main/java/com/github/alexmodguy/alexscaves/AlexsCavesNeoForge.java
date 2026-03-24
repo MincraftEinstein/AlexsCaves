@@ -51,6 +51,8 @@ public class AlexsCavesNeoForge {
         modEventBus.addListener(this::reloadConfig);
         modEventBus.addListener(this::registerLayerDefinitions);
         modEventBus.addListener(this::registerTicketControllers);
+        modEventBus.addListener(CommonEvents::initializeAttributes2);
+        modEventBus.addListener(CommonEvents::spawnPlacements);
         NeoForge.EVENT_BUS.register(new CommonEvents());
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_DEF_REG.register(modEventBus);

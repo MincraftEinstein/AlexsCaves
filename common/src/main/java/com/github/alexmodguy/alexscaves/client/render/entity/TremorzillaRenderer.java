@@ -23,7 +23,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.entity.PartEntity;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
@@ -222,7 +221,7 @@ public class TremorzillaRenderer extends MobRenderer<TremorzillaEntity, Tremorzi
             return true;
         }
         else {
-            for (PartEntity part : entity.getParts()) {
+            for (var part : entity.getParts()) {
                 if (camera.isVisible(part.getBoundingBoxForCulling())) {
                     return true;
                 }

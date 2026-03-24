@@ -151,7 +151,9 @@ public class NotorRenderer extends MobRenderer<NotorEntity, NotorModel> {
                     }
                     VertexConsumer ivertexbuilder = bufferIn.getBuffer(ACRenderTypes.getHologram(texture));
                     matrixStack.pushPose();
-                    boolean shouldSit = entityIn.isPassenger() && (entityIn.getVehicle() != null && entityIn.getVehicle().shouldRiderSit());
+                    // TODO neo :(
+                    boolean shouldSit = entityIn.isPassenger() && (entityIn.getVehicle() != null );
+//                    boolean shouldSit = entityIn.isPassenger() && (entityIn.getVehicle() != null && entityIn.getVehicle().shouldRiderSit());
                     model.young = living.isBaby();
                     model.riding = shouldSit;
                     model.attackTime = living.getAttackAnim(partialTicks);

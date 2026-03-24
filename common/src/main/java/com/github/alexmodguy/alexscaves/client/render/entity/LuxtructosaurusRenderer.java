@@ -16,7 +16,6 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.entity.PartEntity;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -74,7 +73,7 @@ public class LuxtructosaurusRenderer extends MobRenderer<LuxtructosaurusEntity, 
         if (super.shouldRender(entity, camera, x, y, z)) {
             return true;
         } else {
-            for (PartEntity part : entity.getParts()) {
+            for (var part : entity.getParts()) {
                 if (camera.isVisible(part.getBoundingBoxForCulling())) {
                     return true;
                 }

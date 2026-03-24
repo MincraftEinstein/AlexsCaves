@@ -21,7 +21,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.neoforge.entity.PartEntity;
 import org.joml.Vector4f;
 
 import java.util.HashMap;
@@ -48,7 +47,7 @@ public class QuarrySmasherRenderer extends EntityRenderer<QuarrySmasherEntity> {
         if (super.shouldRender(entity, camera, x, y, z)) {
             return true;
         } else {
-            for (PartEntity part : entity.getParts()) {
+            for (var part : entity.getParts()) {
                 if (camera.isVisible(part.getBoundingBoxForCulling())) {
                     return true;
                 }

@@ -11,7 +11,6 @@ import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.entity.PartEntity;
 
 import javax.annotation.Nullable;
 
@@ -28,7 +27,7 @@ public class GossamerWormRenderer extends MobRenderer<GossamerWormEntity, Gossam
         if (super.shouldRender(entity, camera, x, y, z)) {
             return true;
         } else {
-            for (PartEntity part : entity.getParts()) {
+            for (var part : entity.getParts()) {
                 if (camera.isVisible(part.getBoundingBoxForCulling())) {
                     return true;
                 }

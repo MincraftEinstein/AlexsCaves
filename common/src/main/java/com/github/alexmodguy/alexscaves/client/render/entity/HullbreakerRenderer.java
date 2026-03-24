@@ -15,7 +15,6 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.neoforge.entity.PartEntity;
 
 import javax.annotation.Nullable;
 
@@ -57,7 +56,7 @@ public class HullbreakerRenderer extends MobRenderer<HullbreakerEntity, Hullbrea
         if (super.shouldRender(entity, camera, x, y, z)) {
             return true;
         } else {
-            for (PartEntity part : entity.getParts()) {
+            for (var part : entity.getParts()) {
                 if (camera.isVisible(part.getBoundingBoxForCulling())) {
                     return true;
                 }

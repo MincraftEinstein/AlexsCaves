@@ -12,12 +12,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
-import net.neoforged.neoforge.client.NeoForgeRenderTypes;
 import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
@@ -76,7 +76,7 @@ public class CaveBookScreen extends Screen {
         resetEntry();
     }
 
-    public CaveBookScreen(){
+    public CaveBookScreen() {
         this("books/root.json");
     }
 
@@ -97,13 +97,13 @@ public class CaveBookScreen extends Screen {
             flipProgress = Math.min(1.0F, flipProgress + flipSpeed);
         } else {
             if (incrementingPage) {
-                if(nextEntryJSON != null){
+                if (nextEntryJSON != null) {
                     this.prevEntryJSON = this.currentEntryJSON;
                     this.currentEntryJSON = nextEntryJSON;
                     this.nextEntryJSON = null;
                     this.nextEntry = null;
                     resetEntry();
-                }else{
+                } else {
                     entryPageNumber++;
                 }
                 incrementingPage = false;
@@ -111,7 +111,7 @@ public class CaveBookScreen extends Screen {
             }
             if (decrementingPage) {
                 entryPageNumber--;
-                if(entryPageNumber < 0 && prevEntry != null){
+                if (entryPageNumber < 0 && prevEntry != null) {
                     int i = lastEntryPageBeforeLinkClick == -1 ? 0 : lastEntryPageBeforeLinkClick;
                     lastEntryPageBeforeLinkClick = -1;
                     this.currentEntryJSON = prevEntryJSON;
@@ -125,20 +125,20 @@ public class CaveBookScreen extends Screen {
             prevFlipProgress = flipProgress = 0;
         }
         if (isBookOpened()) {
-            if(openBookProgress == 0F){
+            if (openBookProgress == 0F) {
                 Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(ACSoundRegistry.CAVE_BOOK_OPEN.get(), 1.0F));
             }
-            if(openBookProgress < 1F){
+            if (openBookProgress < 1F) {
                 openBookProgress += 0.1F;
             }
-        }else{
-            if(openBookProgress > 0F){
+        } else {
+            if (openBookProgress > 0F) {
                 openBookProgress = Math.max(openBookProgress - 0.15F, 0);
             }
-            if(closeBookForTicks > 0){
+            if (closeBookForTicks > 0) {
                 closeBookForTicks--;
             }
-            if(closeBookForTicks == 0 && nextEntryJSON != null){
+            if (closeBookForTicks == 0 && nextEntryJSON != null) {
                 this.prevEntryJSON = this.currentEntryJSON;
                 this.currentEntryJSON = nextEntryJSON;
                 this.nextEntryJSON = null;
@@ -151,24 +151,24 @@ public class CaveBookScreen extends Screen {
     public void resetEntry() {
         if (currentEntryJSON != null) {
             currentEntry = readBookEntry(currentEntryJSON);
-            if(currentEntry != null){
+            if (currentEntry != null) {
                 currentEntry.init(this);
             }
         }
-        if(this.currentEntry != null && this.currentEntry.getParent() != null && !this.currentEntry.getParent().isEmpty()){
+        if (this.currentEntry != null && this.currentEntry.getParent() != null && !this.currentEntry.getParent().isEmpty()) {
             this.prevEntryJSON = ResourceLocation.parse(getBookFileDirectory() + this.currentEntry.getParent());
-        }else{
+        } else {
             this.prevEntryJSON = null;
         }
         if (prevEntryJSON != null) {
             prevEntry = readBookEntry(prevEntryJSON);
-            if(prevEntry != null){
+            if (prevEntry != null) {
                 prevEntry.init(this);
             }
         }
         if (nextEntryJSON != null) {
             nextEntry = readBookEntry(nextEntryJSON);
-            if(nextEntry != null){
+            if (nextEntry != null) {
                 nextEntry.init(this);
             }
         }
@@ -193,17 +193,17 @@ public class CaveBookScreen extends Screen {
         nextLeftPageRenderer.setEntry(nextEntryJSON != null ? nextEntry : currentEntry);
         nextRightPageRenderer.setEntryPageNumber(entryPageNumber);
         nextRightPageRenderer.setEntry(nextEntryJSON != null ? nextEntry : currentEntry);
-        if(nextEntryJSON != null){
+        if (nextEntryJSON != null) {
             nextLeftPageRenderer.enteringNewPageFlag = true;
             nextRightPageRenderer.enteringNewPageFlag = true;
-        }else{
+        } else {
             nextLeftPageRenderer.enteringNewPageFlag = false;
             nextRightPageRenderer.enteringNewPageFlag = false;
         }
-        if(flag){
+        if (flag) {
             prevLeftPageRenderer.leavingNewPageFlag = true;
             prevRightPageRenderer.leavingNewPageFlag = true;
-        }else{
+        } else {
             prevLeftPageRenderer.leavingNewPageFlag = false;
             prevRightPageRenderer.leavingNewPageFlag = false;
         }
@@ -242,17 +242,19 @@ public class CaveBookScreen extends Screen {
         poseStack.pushPose();
         BOOK_MODEL.setupAnim(null, openBookAmount, pageAngle, pageUp, -20 * (openBookAmount) - 10 * pageFlipBump, 0);
         BOOK_MODEL.mouseOver(mouseLeanX, mouseLeanY, ageInTicks, flip, canGoLeft(), canGoRight());
-        BOOK_MODEL.renderToBuffer(poseStack, bufferSource.getBuffer(NeoForgeRenderTypes.getUnlitTranslucent(BOOK_TEXTURE)), 240, OverlayTexture.NO_OVERLAY, -1);
+        // TODO oh no custom render type time
+        BOOK_MODEL.renderToBuffer(poseStack, bufferSource.getBuffer(RenderType.dragonExplosionAlpha(BOOK_TEXTURE)), 240, OverlayTexture.NO_OVERLAY, -1);
+//        BOOK_MODEL.renderToBuffer(poseStack, bufferSource.getBuffer(NeoForgeRenderTypes.getUnlitTranslucent(BOOK_TEXTURE)), 240, OverlayTexture.NO_OVERLAY, -1);
         renderBookContents(poseStack, mouseX, mouseY, partialTick);
         guiGraphics.flush();
         poseStack.popPose();
         poseStack.popPose();
-        if(currentEntry != null){
+        if (currentEntry != null) {
             currentEntry.mouseOver(this, entryPageNumber, mouseLeanX, mouseLeanY);
         }
         super.render(guiGraphics, mouseX, mouseY, fakePartialTickThatsZeroForSomeReason);
         this.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-        if(unlockTooltip){
+        if (unlockTooltip) {
             List<Component> list = new ArrayList<>();
             list.add(Component.translatable("book.alexscaves.page_locked_0").withStyle(ChatFormatting.GRAY));
             list.add(Component.translatable("book.alexscaves.page_locked_1").withStyle(ChatFormatting.GRAY));
@@ -276,13 +278,13 @@ public class CaveBookScreen extends Screen {
         }
         if (incrementingPage) {
             renderForPageType(nextLeftPageRenderer, 2, poseStack, mouseX, mouseY, partialTick);
-            if(flip > 0.1F){
+            if (flip > 0.1F) {
                 renderForPageType(nextRightPageRenderer, 1, poseStack, mouseX, mouseY, partialTick);
             }
         }
         if (decrementingPage) {
             renderForPageType(prevRightPageRenderer, 3, poseStack, mouseX, mouseY, partialTick);
-            if(flip > 0.1F) {
+            if (flip > 0.1F) {
                 renderForPageType(prevLeftPageRenderer, 0, poseStack, mouseX, mouseY, partialTick);
             }
         }
@@ -337,9 +339,9 @@ public class CaveBookScreen extends Screen {
         float distFromMiddleX = (float) ((mouseX - i) / (float) 220);
         boolean prev = super.mouseClicked(mouseX, mouseY, button);
         if (!prev) {
-            if(currentEntry != null && currentEntry.consumeMouseClick(this)){
+            if (currentEntry != null && currentEntry.consumeMouseClick(this)) {
                 return true;
-            }else{
+            } else {
                 if (tickCount - lastTurnClickTimestamp < 8) {
                     flipSpeed = 0.3F;
                 } else {
@@ -375,7 +377,7 @@ public class CaveBookScreen extends Screen {
                 page = BookEntry.deserialize(inputstream);
             }
         } catch (IOException e1) {
-            if(!(e1 instanceof AccessDeniedException)){
+            if (!(e1 instanceof AccessDeniedException)) {
                 e1.printStackTrace();
             }
         }
@@ -395,21 +397,21 @@ public class CaveBookScreen extends Screen {
     }
 
     public boolean attemptChangePage(ResourceLocation changePageTo, boolean goingForwards) {
-        if(!currentEntryJSON.equals(changePageTo)){
+        if (!currentEntryJSON.equals(changePageTo)) {
             lastEntryPageBeforeLinkClick = this.entryPageNumber;
         }
-        if(goingForwards){
+        if (goingForwards) {
             prevEntryJSON = currentEntryJSON;
         }
         nextEntryJSON = changePageTo;
-        if(goingForwards){
+        if (goingForwards) {
             closeBookForTicks = 10;
             Minecraft.getInstance().getSoundManager().play(SimpleSoundInstance.forUI(ACSoundRegistry.CAVE_BOOK_CLOSE.get(), 1.0F));
         }
-        return  true;
+        return true;
     }
 
-    public static void fixLighting(){
+    public static void fixLighting() {
         Vector3f light0 = new Vector3f(1, 1.0F, -1.0F);
         Vector3f light1 = new Vector3f(1, 1.0F, -1.0F);
         RenderSystem.setShaderLights(light0, light1);
@@ -419,12 +421,16 @@ public class CaveBookScreen extends Screen {
         ResourceLocation resourceLocation = ResourceLocation.parse(CaveBookScreen.getBookFileDirectory() + linkTo);
         BookEntry dummyEntry = readBookEntry(resourceLocation);
         int visiblity = 0;
-        if(dummyEntry != null){
+        if (dummyEntry != null) {
             visiblity = dummyEntry.getVisibility(this);
         }
-        if(visiblity != 2 && Minecraft.getInstance().player != null && Minecraft.getInstance().player.isCreative()){
+        if (visiblity != 2 && Minecraft.getInstance().player != null && Minecraft.getInstance().player.isCreative()) {
             visiblity = 0;
         }
         return visiblity;
+    }
+
+    public Minecraft getMinecraft() {
+        return minecraft;
     }
 }

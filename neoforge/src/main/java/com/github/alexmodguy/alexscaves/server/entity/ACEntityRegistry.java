@@ -1,29 +1,16 @@
 package com.github.alexmodguy.alexscaves.server.entity;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.entity.item.*;
 import com.github.alexmodguy.alexscaves.server.entity.living.*;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.level.levelgen.Heightmap;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.function.Supplier;
 
-@EventBusSubscriber(modid = AlexsCaves.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class ACEntityRegistry {
-
-
-    public static final DeferredRegister<EntityType<?>> DEF_REG = DeferredRegister.create(Registries.ENTITY_TYPE, AlexsCaves.MOD_ID);
 
     // Custom MobCategory values registered via enum extension in enumextensions.json
     // These preserve the 1.20 spawn behavior with custom spawn limits
@@ -117,102 +104,6 @@ public class ACEntityRegistry {
     public static final RegHolder<EntityType<?>, EntityType<CandyCaneHookEntity>> CANDY_CANE_HOOK = register("candy_cane_hook", () -> (EntityType) EntityType.Builder.of(CandyCaneHookEntity::new, MobCategory.MISC).sized(0.6F, 0.6F).setUpdateInterval(1).setShouldReceiveVelocityUpdates(true).updateInterval(10).clientTrackingRange(20).build("candy_cane_hook"));
     public static final RegHolder<EntityType<?>, EntityType<SodaBottleRocketEntity>> SODA_BOTTLE_ROCKET = register("soda_bottle_rocket", () -> (EntityType) EntityType.Builder.of(SodaBottleRocketEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).setUpdateInterval(1).setShouldReceiveVelocityUpdates(true).build("soda_bottle_rocket"));
     public static final RegHolder<EntityType<?>, EntityType<FrostmintSpearEntity>> FROSTMINT_SPEAR = register("frostmint_spear", () -> (EntityType) EntityType.Builder.of(FrostmintSpearEntity::new, MobCategory.MISC).sized(0.5F, 0.5F).setUpdateInterval(1).setShouldReceiveVelocityUpdates(true).build("frostmint_spear"));
-
-    @SubscribeEvent
-    public static void initializeAttributes(EntityAttributeCreationEvent event) {
-        event.put(TELETOR.get(), TeletorEntity.createAttributes().build());
-        event.put(MAGNETRON.get(), MagnetronEntity.createAttributes().build());
-        event.put(BOUNDROID.get(), BoundroidEntity.createAttributes().build());
-        event.put(BOUNDROID_WINCH.get(), BoundroidEntity.createAttributes().build());
-        event.put(FERROUSLIME.get(), FerrouslimeEntity.createAttributes().build());
-        event.put(NOTOR.get(), NotorEntity.createAttributes().build());
-        event.put(SUBTERRANODON.get(), SubterranodonEntity.createAttributes().build());
-        event.put(VALLUMRAPTOR.get(), VallumraptorEntity.createAttributes().build());
-        event.put(GROTTOCERATOPS.get(), GrottoceratopsEntity.createAttributes().build());
-        event.put(TRILOCARIS.get(), TrilocarisEntity.createAttributes().build());
-        event.put(TREMORSAURUS.get(), TremorsaurusEntity.createAttributes().build());
-        event.put(RELICHEIRUS.get(), RelicheirusEntity.createAttributes().build());
-        event.put(LUXTRUCTOSAURUS.get(), LuxtructosaurusEntity.createAttributes().build());
-        event.put(ATLATITAN.get(), AtlatitanEntity.createAttributes().build());
-        event.put(NUCLEEPER.get(), NucleeperEntity.createAttributes().build());
-        event.put(RADGILL.get(), RadgillEntity.createAttributes().build());
-        event.put(BRAINIAC.get(), BrainiacEntity.createAttributes().build());
-        event.put(GAMMAROACH.get(), GammaroachEntity.createAttributes().build());
-        event.put(RAYCAT.get(), RaycatEntity.createAttributes().build());
-        event.put(TREMORZILLA.get(), TremorzillaEntity.createAttributes().build());
-        event.put(LANTERNFISH.get(), LanternfishEntity.createAttributes().build());
-        event.put(SEA_PIG.get(), SeaPigEntity.createAttributes().build());
-        event.put(HULLBREAKER.get(), HullbreakerEntity.createAttributes().build());
-        event.put(GOSSAMER_WORM.get(), GossamerWormEntity.createAttributes().build());
-        event.put(TRIPODFISH.get(), TripodfishEntity.createAttributes().build());
-        event.put(DEEP_ONE.get(), DeepOneEntity.createAttributes().build());
-        event.put(DEEP_ONE_KNIGHT.get(), DeepOneKnightEntity.createAttributes().build());
-        event.put(DEEP_ONE_MAGE.get(), DeepOneMageEntity.createAttributes().build());
-        event.put(MINE_GUARDIAN.get(), MineGuardianEntity.createAttributes().build());
-        event.put(GLOOMOTH.get(), GloomothEntity.createAttributes().build());
-        event.put(UNDERZEALOT.get(), UnderzealotEntity.createAttributes().build());
-        event.put(WATCHER.get(), WatcherEntity.createAttributes().build());
-        event.put(CORRODENT.get(), CorrodentEntity.createAttributes().build());
-        event.put(VESPER.get(), VesperEntity.createAttributes().build());
-        event.put(FORSAKEN.get(), ForsakenEntity.createAttributes().build());
-        event.put(SWEETISH_FISH.get(), SweetishFishEntity.createAttributes().build());
-        event.put(CANIAC.get(), CaniacEntity.createAttributes().build());
-        event.put(GUMBEEPER.get(), GumbeeperEntity.createAttributes().build());
-        event.put(CANDICORN.get(), CandicornEntity.createAttributes().build());
-        event.put(GUM_WORM.get(), GumWormEntity.createAttributes().build());
-        event.put(CARAMEL_CUBE.get(), CaramelCubeEntity.createAttributes().build());
-        event.put(GUMMY_BEAR.get(), GummyBearEntity.createAttributes().build());
-        event.put(LICOWITCH.get(), LicowitchEntity.createAttributes().build());
-        event.put(GINGERBREAD_MAN.get(), GingerbreadManEntity.createAttributes().build());
-    }
-
-    @SubscribeEvent
-    public static void spawnPlacements(RegisterSpawnPlacementsEvent event) {
-        // Custom spawn placement types for acid and soda fluids are defined in ACSpawnPlacementTypes.
-        // Magnetic Caves monsters use checkMagneticCaveSpawnRules to allow spawning in lit areas (Tesla Bulbs etc.)
-        event.register(TELETOR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TeletorEntity::checkMagneticCaveSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(MAGNETRON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MagnetronEntity::checkMagneticCaveSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(BOUNDROID.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BoundroidEntity::checkMagneticCaveSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(FERROUSLIME.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, FerrouslimeEntity::checkMagneticCaveSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(NOTOR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, NotorEntity::checkNotorSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(SUBTERRANODON.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SubterranodonEntity::checkSubterranodonSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(VALLUMRAPTOR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, VallumraptorEntity::checkPrehistoricSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(GROTTOCERATOPS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GrottoceratopsEntity::checkPrehistoricSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(TRILOCARIS.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TrilocarisEntity::checkTrilocarisSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(TREMORSAURUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TremorsaurusEntity::checkPrehistoricSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(RELICHEIRUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, RelicheirusEntity::checkPrehistoricSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(LUXTRUCTOSAURUS.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LuxtructosaurusEntity::checkPrehistoricSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(ATLATITAN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AtlatitanEntity::checkPrehistoricPostBossSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(NUCLEEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, NucleeperEntity::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(RADGILL.get(), ACSpawnPlacementTypes.IN_ACID, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, RadgillEntity::checkRadgillSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(BRAINIAC.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, BrainiacEntity::checkMonsterSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(GAMMAROACH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GammaroachEntity::checkGammaroachSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(RAYCAT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, RaycatEntity::checkRaycatSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(LANTERNFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LanternfishEntity::checkLanternfishSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(SEA_PIG.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SeaPigEntity::checkSeaPigSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(HULLBREAKER.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, HullbreakerEntity::checkHullbreakerSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(GOSSAMER_WORM.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GossamerWormEntity::checkGossamerWormSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(TRIPODFISH.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TripodfishEntity::checkTripodfishSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(DEEP_ONE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DeepOneBaseEntity::checkDeepOneSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(DEEP_ONE_KNIGHT.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DeepOneBaseEntity::checkDeepOneSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(DEEP_ONE_MAGE.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, DeepOneBaseEntity::checkDeepOneSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(MINE_GUARDIAN.get(), SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MineGuardianEntity::checkMineGuardianSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(GLOOMOTH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GloomothEntity::checkGloomothSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(UNDERZEALOT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, UnderzealotEntity::checkUnderzealotSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(WATCHER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, WatcherEntity::checkWatcherSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(CORRODENT.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CorrodentEntity::checkCorrodentSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(VESPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, VesperEntity::checkVesperSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(FORSAKEN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, ForsakenEntity::checkForsakenSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(SWEETISH_FISH.get(), ACSpawnPlacementTypes.IN_PURPLE_SODA, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SweetishFishEntity::checkSweetishFishSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(CANIAC.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CaniacEntity::checkCaniacSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(GUMBEEPER.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GumbeeperEntity::checkGumbeeperSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(CANDICORN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CandicornEntity::checkCandicornSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(GUM_WORM.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GumWormEntity::checkGumWormSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(CARAMEL_CUBE.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, CaramelCubeEntity::checkCaramelCubeSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(GUMMY_BEAR.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GummyBearEntity::checkGummyBearSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(LICOWITCH.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, LicowitchEntity::checkLicowitchSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-        event.register(GINGERBREAD_MAN.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, GingerbreadManEntity::checkGingerbreadManSpawnRules, RegisterSpawnPlacementsEvent.Operation.AND);
-    }
 
     public static void init() {
     }

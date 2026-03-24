@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves;
 import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
 import com.github.alexmodguy.alexscaves.client.gui.SpelunkeryTableScreen;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.*;
+import com.github.alexmodguy.alexscaves.client.render.item.ACArmorRenderProperties;
 import com.github.alexmodguy.alexscaves.client.render.item.ACItemRenderProperties;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.platform.services.IClientPlatformHelper;
@@ -22,6 +23,7 @@ import java.util.function.Supplier;
 public class AlexsCavesClient {
 
     private static final ACItemRenderProperties isterProperties = new ACItemRenderProperties();
+    private static final ACArmorRenderProperties armorProperties = new ACArmorRenderProperties();
 
     public static void init() {
         registerExtensions(
@@ -43,6 +45,28 @@ public class AlexsCavesClient {
                 ACItemRegistry.SHOT_GUM,
                 ACItemRegistry.SUGAR_STAFF,
                 ACItemRegistry.FROSTMINT_SPEAR
+        );
+
+        registerExtensions(
+                armorProperties,
+                ACItemRegistry.PRIMORDIAL_HELMET,
+                ACItemRegistry.PRIMORDIAL_TUNIC,
+                ACItemRegistry.PRIMORDIAL_PANTS,
+                ACItemRegistry.HAZMAT_MASK,
+                ACItemRegistry.HAZMAT_CHESTPLATE,
+                ACItemRegistry.HAZMAT_LEGGINGS,
+                ACItemRegistry.HAZMAT_BOOTS,
+                ACItemRegistry.DIVING_HELMET,
+                ACItemRegistry.DIVING_CHESTPLATE,
+                ACItemRegistry.DIVING_LEGGINGS,
+                ACItemRegistry.DIVING_BOOTS,
+                ACItemRegistry.HOOD_OF_DARKNESS,
+                ACItemRegistry.CLOAK_OF_DARKNESS,
+                ACItemRegistry.RAINBOUNCE_BOOTS,
+                ACItemRegistry.GINGERBREAD_HELMET,
+                ACItemRegistry.GINGERBREAD_CHESTPLATE,
+                ACItemRegistry.GINGERBREAD_LEGGINGS,
+                ACItemRegistry.GINGERBREAD_BOOTS
         );
 
         Services.CLIENT_HELPER.setupEntityRotationsEvent(AlexsCavesClient::renderMagnetised);
@@ -141,8 +165,8 @@ public class AlexsCavesClient {
     }
 
     public static void registerMenus(IClientPlatformHelper.MenuScreenRegistry reg) {
-       reg.register(ACMenuRegistry.SPELUNKERY_TABLE_MENU.get(), SpelunkeryTableScreen::new);
-       reg.register(ACMenuRegistry.NUCLEAR_FURNACE_MENU.get(), NuclearFurnaceScreen::new);
-   }
+        reg.register(ACMenuRegistry.SPELUNKERY_TABLE_MENU.get(), SpelunkeryTableScreen::new);
+        reg.register(ACMenuRegistry.NUCLEAR_FURNACE_MENU.get(), NuclearFurnaceScreen::new);
+    }
 
 }

@@ -20,7 +20,6 @@
     "client.ClientLevelMixin",
     "client.ClientPacketListenerMixin",
     "client.GameRendererMixin",
-    "client.HumanoidArmorLayerMixin",
     "client.LevelRendererMixin",
     "client.LightTextureMixin",
     "client.LocalPlayerMixin",

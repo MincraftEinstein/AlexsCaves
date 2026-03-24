@@ -10,7 +10,6 @@ import com.github.alexmodguy.alexscaves.server.potion.DarknessIncarnateEffect;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
@@ -24,10 +23,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 
-import javax.annotation.Nullable;
-
 public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRender, KeybindUsingArmor, UpdatesStackTags {
-
 
     public DarknessArmorItem(RegHolder<ArmorMaterial, ArmorMaterial> armorMaterial, Type slot) {
         super(armorMaterial, slot, new Item.Properties().durability(slot.getDurability(15)).rarity(ACRarity.getRarityDemonic()));
@@ -58,12 +54,6 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
         CompoundTag tag = customData.copyTag();
         return tag.getInt("CloakCharge") / (float) AlexsCaves.COMMON_CONFIG.darknessCloakChargeTime.get();
     }
-
-    //TODO fix when render
-    /*@Override
-    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getArmorProperties());
-    }*/
 
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int i, boolean held) {
@@ -127,9 +117,4 @@ public class DarknessArmorItem extends ArmorItem implements CustomArmorPostRende
         }
     }
 
-    // TODO IItemExtension
-    @Nullable
-    public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        return AlexsCaves.id("textures/armor/darkness_armor.png");
-    }
 }

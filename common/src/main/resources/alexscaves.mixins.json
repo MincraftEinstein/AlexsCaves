@@ -15,6 +15,7 @@
     "client.ClientChunkCacheStorageMixin",
     "client.ClientLevelDataMixin",
     "client.GameRendererAccessor",
+    "client.HumanoidArmorLayerMixin",
     "client.ItemFrameRendererMixin",
     "client.LiquidBlockRendererMixin",
     "client.LivingEntityRendererMixin",

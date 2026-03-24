@@ -132,7 +132,7 @@ public class AlexsCavesNeoForge {
     }
 
     private void registerLayerDefinitions(final EntityRenderersEvent.RegisterLayerDefinitions event) {
-        ACModelLayers.register(event);
+        ACModelLayers.register(event::registerLayerDefinition);
     }
 
 }

@@ -6,9 +6,14 @@ import com.github.alexmodguy.alexscaves.platform.services.IClientPlatformHelper;
 import com.github.alexthe666.citadel.refabrciated.client.ClientExtensionsManager;
 import com.github.alexthe666.citadel.refabrciated.client.event.LivingRendererEvents;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
@@ -38,6 +43,12 @@ public class FabricClientPlatformHelper implements IClientPlatformHelper {
                 var render = extensions.getCustomRenderer();
                 return render != null ? render : IClientItemExtensions.super.getCustomRenderer();
             }
+
+            @Override
+            public HumanoidModel<?> getHumanoidArmorModel(LivingEntity livingEntity, ItemStack itemStack, EquipmentSlot equipmentSlot, HumanoidModel<?> original) {
+                var render = extensions.getHumanoidArmorModel(livingEntity, itemStack, equipmentSlot, original);
+                return render != null ? render : IClientItemExtensions.super.getHumanoidArmorModel(livingEntity, itemStack, equipmentSlot, original);
+            }
         });
     }
 
@@ -54,5 +65,12 @@ public class FabricClientPlatformHelper implements IClientPlatformHelper {
     @Override
     public void registerMenuScreens(Consumer<MenuScreenRegistry> consumer) {
         consumer.accept(MenuScreens::register);
+    }
+
+    @Override
+    public Model getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot slot, HumanoidModel<?> _default) {
+        var extensions = IClientItemExtensions.of(itemStack);
+        return extensions != null ? extensions.getGenericArmorModel(entityLiving, itemStack, slot, _default) : _default;
+
     }
 }

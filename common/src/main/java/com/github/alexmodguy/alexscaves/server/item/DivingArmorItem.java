@@ -3,18 +3,13 @@ package com.github.alexmodguy.alexscaves.server.item;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
-
-import javax.annotation.Nullable;
 
 public class DivingArmorItem extends ArmorItem {
 
@@ -40,19 +35,4 @@ public class DivingArmorItem extends ArmorItem {
         return builder.build();
     }
 
-    //TODO fix when render
-   /* @Override
-    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getArmorProperties());
-    }*/
-
-    // TODO IItemExtension
-    @Nullable
-    public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        if (slot == EquipmentSlot.LEGS) {
-            return AlexsCaves.id("textures/armor/diving_suit_1.png");
-        } else {
-            return AlexsCaves.id("textures/armor/diving_suit_0.png");
-        }
-    }
 }

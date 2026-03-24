@@ -1,10 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
-import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -14,7 +11,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -58,11 +54,6 @@ public class GingerbreadArmorItem extends ArmorItem {
         }
     }
 
-    // TODO fix when render
-  /*  @Override
-    public void initializeClient(java.util.function.Consumer<IClientItemExtensions> consumer) {
-        consumer.accept((IClientItemExtensions) AlexsCaves.PROXY.getArmorProperties());
-    }*/
 
     // TODO fix neo
     public ItemAttributeModifiers getDefaultAttributeModifiers(ItemStack stack) {
@@ -72,13 +63,4 @@ public class GingerbreadArmorItem extends ArmorItem {
         return defaultItemAttributes;
     }
 
-    // TODO fix when render
-    @Nullable
-    public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-        if (slot == EquipmentSlot.LEGS) {
-            return id("textures/armor/gingerbread_armor_1.png");
-        } else {
-            return id("textures/armor/gingerbread_armor_0.png");
-        }
-    }
 }

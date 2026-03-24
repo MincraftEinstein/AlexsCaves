@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves.platform;
 import com.github.alexmodguy.alexscaves.platform.services.IClientPlatformHelper;
 import com.github.alexthe666.citadel.client.event.EventLivingRenderer;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -64,5 +65,10 @@ public class NeoForgeClientPlatformHelper implements IClientPlatformHelper {
     @Override
     public void registerMenuScreens(Consumer<MenuScreenRegistry> consumer) {
         modEventBus.addListener((RegisterMenuScreensEvent event) -> consumer.accept(event::register));
+    }
+
+    @Override
+    public Model getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot slot, HumanoidModel<?> _default) {
+        return IClientItemExtensions.of(itemStack).getGenericArmorModel(entityLiving, itemStack, slot, _default);
     }
 }

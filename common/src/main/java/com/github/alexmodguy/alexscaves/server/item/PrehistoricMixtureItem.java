@@ -1,5 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.server.entity.living.DinosaurEntity;
+import com.github.alexmodguy.alexscaves.server.entity.living.RelicheirusEntity;
+import com.github.alexmodguy.alexscaves.server.entity.living.TremorsaurusEntity;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ItemParticleOption;
@@ -25,8 +28,7 @@ public class PrehistoricMixtureItem extends ACBowlFoodItem {
         FoodProperties foodProperties = itemStack.getOrDefault(DataComponents.FOOD, null);
         if (!livingEntity.level().isClientSide && livingEntity instanceof Mob && canFeedMob(player, (Mob) livingEntity) && foodProperties != null) {
             livingEntity.heal(foodProperties.nutrition());
-            // TODO fix when entity
-         /*   if (!(livingEntity instanceof DinosaurEntity dinosaur && dinosaur.onFeedMixture(itemStack, player))) {
+            if (!(livingEntity instanceof DinosaurEntity dinosaur && dinosaur.onFeedMixture(itemStack, player))) {
                 if (!foodProperties.effects().isEmpty()) {
                     for (FoodProperties.PossibleEffect possibleEffect : foodProperties.effects()) {
                         livingEntity.addEffect(possibleEffect.effect());
@@ -35,7 +37,7 @@ public class PrehistoricMixtureItem extends ACBowlFoodItem {
                 if (this == ACItemRegistry.SERENE_SALAD.get()) {
                     livingEntity.removeEffect(ACEffectRegistry.STUNNED);
                 }
-            }*/
+            }
             for (int i = 0; i < 4 + livingEntity.getRandom().nextInt(3); i++) {
                 ((ServerLevel) livingEntity.level()).sendParticles(new ItemParticleOption(ParticleTypes.ITEM, itemStack), livingEntity.getRandomX(0.8F), livingEntity.getRandomY(), livingEntity.getRandomZ(0.8F), 0, 0, 0, 0, 0);
             }
@@ -58,13 +60,12 @@ public class PrehistoricMixtureItem extends ACBowlFoodItem {
     }
 
     private boolean canFeedMob(Player player, Mob mob) {
-        // TODO fix when entity
-      /*  if (mob instanceof TremorsaurusEntity && mob.hasEffect(ACEffectRegistry.STUNNED) && this == ACItemRegistry.SERENE_SALAD.get()) {
+        if (mob instanceof TremorsaurusEntity && mob.hasEffect(ACEffectRegistry.STUNNED) && this == ACItemRegistry.SERENE_SALAD.get()) {
             return true;
         }
         if (mob instanceof RelicheirusEntity relicheirus && relicheirus.getPushingTreesFor() > 0 && this == ACItemRegistry.PRIMORDIAL_SOUP.get()) {
             return false;
-        }*/
+        }
         LivingEntity target = mob.getTarget();
         return target == null || !target.is(player);
     }

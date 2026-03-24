@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.server.entity.item.SodaBottleRocketEntity;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -23,9 +24,8 @@ public class SodaBottleRocketItem extends Item {
             ItemStack itemstack = context.getItemInHand();
             Vec3 vector3d = context.getClickLocation();
             Direction direction = context.getClickedFace();
-            // TODO fix when entity
-//            SodaBottleRocketEntity fireworkrocketentity = new SodaBottleRocketEntity(world, context.getPlayer(), vector3d.x + (double)direction.getStepX() * 0.15D, vector3d.y + (double)direction.getStepY() * 0.15D, vector3d.z + (double)direction.getStepZ() * 0.15D, itemstack);
-//            world.addFreshEntity(fireworkrocketentity);
+            SodaBottleRocketEntity fireworkrocketentity = new SodaBottleRocketEntity(world, context.getPlayer(), vector3d.x + (double)direction.getStepX() * 0.15D, vector3d.y + (double)direction.getStepY() * 0.15D, vector3d.z + (double)direction.getStepZ() * 0.15D, itemstack);
+            world.addFreshEntity(fireworkrocketentity);
             if (!context.getPlayer().isCreative()) {
                 itemstack.shrink(1);
             }
@@ -37,8 +37,7 @@ public class SodaBottleRocketItem extends Item {
         if (playerIn.isFallFlying()) {
             ItemStack itemstack = playerIn.getItemInHand(handIn);
             if (!worldIn.isClientSide) {
-                // TODO fix when entity
-//                worldIn.addFreshEntity(new SodaBottleRocketEntity(worldIn, itemstack, playerIn));
+                worldIn.addFreshEntity(new SodaBottleRocketEntity(worldIn, itemstack, playerIn));
                 if (!playerIn.getAbilities().instabuild) {
                     itemstack.shrink(1);
                 }

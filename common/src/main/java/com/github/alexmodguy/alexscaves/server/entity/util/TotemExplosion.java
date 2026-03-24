@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.entity.util;
 
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.living.LuxtructosaurusEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -154,8 +155,7 @@ public class TotemExplosion {
 
         for (int k2 = 0; k2 < list.size(); ++k2) {
             Entity entity = list.get(k2);
-            // TODO fix when entity
-            if (!entity.isInvulnerable() /*&& !(entity instanceof LuxtructosaurusEntity)*/) {
+            if (!entity.isInvulnerable() && !(entity instanceof LuxtructosaurusEntity)) {
                 double d12 = Math.sqrt(entity.distanceToSqr(vec3)) / (double) f2;
                 if (d12 <= 1.0D) {
                     double d5 = entity.getX() - this.x;

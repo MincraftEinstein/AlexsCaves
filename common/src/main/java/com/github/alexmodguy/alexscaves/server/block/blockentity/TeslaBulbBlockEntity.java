@@ -54,7 +54,7 @@ public class TeslaBulbBlockEntity extends BlockEntity {
             } else if (entity.explodeProgress % 1.0F == 0) {
                 if (entity.dummyBolt == null) {
                     entity.dummyBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-                    // TODO fix when entity
+                    // TODO fix when neo
 //                    entity.dummyBolt.setDamage(1);
                     entity.dummyBolt.setVisualOnly(true);
                 }
@@ -77,7 +77,7 @@ public class TeslaBulbBlockEntity extends BlockEntity {
                     AABB aabb = new AABB(entity.lightningPos.subtract(1, 1, 1), entity.lightningPos.add(1, 1, 1));
                     if (entity.dummyBolt == null) {
                         entity.dummyBolt = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-                        // TODO fix when entity
+                        // TODO fix neo
 //                        entity.dummyBolt.setDamage(1);
                         entity.dummyBolt.setVisualOnly(true);
                     }

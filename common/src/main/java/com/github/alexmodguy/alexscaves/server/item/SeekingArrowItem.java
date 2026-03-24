@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.server.entity.item.SeekingArrowEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
@@ -17,7 +18,6 @@ public class SeekingArrowItem extends ArrowItem {
 
     @Override
     public AbstractArrow createArrow(Level level, ItemStack ammo, LivingEntity shooter, @Nullable ItemStack weapon) {
-        // TODO fix when entity
-        return new Arrow(level, shooter, ammo, weapon); //new SeekingArrowEntity(level, shooter);
+        return new SeekingArrowEntity(level, shooter);
     }
 }

@@ -14,6 +14,7 @@
     "client.CameraAccessor",
     "client.ClientChunkCacheStorageMixin",
     "client.ClientLevelDataMixin",
+    "client.EntityRenderDispatcherAccessor",
     "client.GameRendererAccessor",
     "client.HumanoidArmorLayerMixin",
     "client.ItemFrameRendererMixin",

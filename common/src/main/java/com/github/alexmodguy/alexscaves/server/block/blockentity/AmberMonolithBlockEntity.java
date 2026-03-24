@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.level.storage.ACWorldData;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
@@ -153,7 +154,7 @@ public class AmberMonolithBlockEntity extends BlockEntity {
     }
 
     private BlockPos getRandomSpawnPos() {
-        // TODO fix when entity category
+        // TODO fix when enum
         boolean caveCreature = false /*spawnType.getCategory() == ACEntityRegistry.CAVE_CREATURE*/;
         BlockPos.MutableBlockPos mutableBlockPos = new BlockPos.MutableBlockPos();
         for (int i = 0; i < 20; i++) {
@@ -178,8 +179,7 @@ public class AmberMonolithBlockEntity extends BlockEntity {
     private void generateSpawnData() {
         List<EntityType<?>> forcedEntityList = new ArrayList<>();
         if(isMigration() && !this.hasDonePostBossSpawn){
-            // TODO fix when entity
-//            forcedEntityList.add(ACEntityRegistry.ATLATITAN.get());
+            forcedEntityList.add(ACEntityRegistry.ATLATITAN.get());
         }
         MobSpawnSettings.SpawnerData spawnerData = getDepopulatedEntitySpawnData(level, this.getBlockPos(), 4 + level.random.nextInt(8), 64, forcedEntityList);
         if (spawnerData != null) {
@@ -196,20 +196,19 @@ public class AmberMonolithBlockEntity extends BlockEntity {
         if(settings.type.is(ACTagRegistry.AMBER_MONOLITH_SKIPS)){
             return true;
         }
-        // TODO fix when entity
-       /* if(settings.type == ACEntityRegistry.ATLATITAN.get()){
+        if(settings.type == ACEntityRegistry.ATLATITAN.get()){
             ACWorldData worldData = ACWorldData.get(level);
             if(worldData != null && !worldData.isPrimordialBossDefeatedOnce()){
                 return true;
             }
-        }*/
+        }
         return !level.getEntities(settings.type, (new AABB(pos)).inflate(range), Entity::isAlive).isEmpty();
     }
 
     private static MobSpawnSettings.SpawnerData getEntitySpawnSettingsForBiome(Level level, BlockPos pos, List<EntityType<?>> forcedEntityTypes) {
         Biome biome = level.getBiome(pos).value();
         if (biome != null) {
-            // TODO fix when entity
+            // TODO fix when enum
             WeightedRandomList<MobSpawnSettings.SpawnerData> spawnList = biome.getMobSettings().getMobs(MobCategory.AMBIENT/*ACEntityRegistry.CAVE_CREATURE*/);
             if (spawnList.isEmpty()) {
                 spawnList = biome.getMobSettings().getMobs(MobCategory.CREATURE);

@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.level.structure.piece;
 
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.SubmarineEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACLootTableRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -22,6 +24,7 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.phys.Vec3;
 
 public class AbyssalRuinsStructurePiece extends TemplateStructurePiece {
 
@@ -112,8 +115,7 @@ public class AbyssalRuinsStructurePiece extends TemplateStructurePiece {
     }
 
     private void spawnSubmarine(ServerLevelAccessor level, BlockPos pos, boolean totaled) {
-        // TODO fix when entity
-      /*  SubmarineEntity submarine = ACEntityRegistry.SUBMARINE.get().create(level.getLevel());
+        SubmarineEntity submarine = ACEntityRegistry.SUBMARINE.get().create(level.getLevel());
         while (level.getBlockState(pos).getFluidState().isEmpty() && !level.isEmptyBlock(pos) && pos.getY() < level.getMaxBuildHeight()) {
             pos = pos.above();
         }
@@ -129,6 +131,6 @@ public class AbyssalRuinsStructurePiece extends TemplateStructurePiece {
         } else {
             submarine.setOxidizationLevel(2);
         }
-        level.addFreshEntity(submarine);*/
+        level.addFreshEntity(submarine);
     }
 }

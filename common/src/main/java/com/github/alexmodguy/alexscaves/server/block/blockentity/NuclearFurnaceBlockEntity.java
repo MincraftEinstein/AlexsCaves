@@ -4,6 +4,8 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.NuclearFurnaceBlock;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.NuclearExplosionEntity;
 import com.github.alexmodguy.alexscaves.server.entity.util.FallingBlockEntityAccessor;
 import com.github.alexmodguy.alexscaves.server.inventory.NuclearFurnaceMenu;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
@@ -247,11 +249,10 @@ public class NuclearFurnaceBlockEntity extends BaseContainerBlockEntity implemen
             level.addFreshEntity(fallingblockentity);
         }
         if (nuke) {
-            // TODO fix when entity
-          /*  NuclearExplosionEntity explosion = ACEntityRegistry.NUCLEAR_EXPLOSION.get().create(level);
+            NuclearExplosionEntity explosion = ACEntityRegistry.NUCLEAR_EXPLOSION.get().create(level);
             explosion.setPos(vec3.add(0, -1.5F, 0));
             explosion.setSize(0.75F);
-            level.addFreshEntity(explosion);*/
+            level.addFreshEntity(explosion);
         } else {
             AreaEffectCloud areaeffectcloud = new AreaEffectCloud(level, vec3.x, vec3.y - 1F, vec3.z);
             areaeffectcloud.setParticle(ACParticleRegistry.GAMMAROACH.get());

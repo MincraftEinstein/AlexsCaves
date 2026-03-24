@@ -3,6 +3,9 @@ package com.github.alexmodguy.alexscaves.server.item;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.SpinningPeppermintEntity;
+import com.github.alexmodguy.alexscaves.server.entity.item.SugarStaffHexEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.sounds.SoundSource;
@@ -30,22 +33,20 @@ public class SugarStaffItem extends Item {
             Entity lookingAtEntity = SeaStaffItem.getClosestLookingAtEntityFor(level, player, 32);
             if(hex){
                 Vec3 ground = ACMath.getGroundBelowPosition(player.level(), player.getEyePosition());
-                // TODO fix when entity
-               /* SugarStaffHexEntity sugarStaffHexEntity = ACEntityRegistry.SUGAR_STAFF_HEX.get().create(player.level());
+                SugarStaffHexEntity sugarStaffHexEntity = ACEntityRegistry.SUGAR_STAFF_HEX.get().create(player.level());
                 sugarStaffHexEntity.setOwner(player);
                 sugarStaffHexEntity.setPos(ground.x, ground.y, ground.z);
                 sugarStaffHexEntity.setHexScale(1.0F + 0.25F * ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.HUMUNGOUS_HEX, itemstack));
                 level.addFreshEntity(sugarStaffHexEntity);
                 level.playSound((Player)null, player.blockPosition(), ACSoundRegistry.SUGAR_STAFF_CAST_HEX.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                 sugarStaffHexEntity.setLifespan(100 + 60 * ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.SPELL_LASTING, itemstack));
-                */player.getCooldowns().addCooldown(this, 100);
+                player.getCooldowns().addCooldown(this, 100);
             }else{
                 int spawnIn = 3 + ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.MULTIPLE_MINT, itemstack);
                 boolean flag = false;
                 int despawnTime = 80;
                 for (int i = 0; i < spawnIn; i++) {
-                    // TODO fix when entity
-                   /* SpinningPeppermintEntity spinningPeppermintEntity = ACEntityRegistry.SPINNING_PEPPERMINT.get().create(player.level());
+                    SpinningPeppermintEntity spinningPeppermintEntity = ACEntityRegistry.SPINNING_PEPPERMINT.get().create(player.level());
                     spinningPeppermintEntity.setPos(player.position().add(0, player.getBbHeight() * 0.45F, 0));
                     if(ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.PEPPERMINT_PUNTING, itemstack) > 0){
                         spinningPeppermintEntity.setStraight(true);
@@ -66,7 +67,7 @@ public class SugarStaffItem extends Item {
                     spinningPeppermintEntity.setOwner(player);
                     spinningPeppermintEntity.setStartAngle(i * 360 / (float) spawnIn);
                     spinningPeppermintEntity.setLifespan(80);
-                    level.addFreshEntity(spinningPeppermintEntity);*/
+                    level.addFreshEntity(spinningPeppermintEntity);
                 }
                 level.playSound((Player)null, player.blockPosition(), ACSoundRegistry.SUGAR_STAFF_CAST_PEPPERMINT.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                 player.getCooldowns().addCooldown(this, despawnTime);

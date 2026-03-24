@@ -2,6 +2,10 @@ package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.TephraEntity;
+import com.github.alexmodguy.alexscaves.server.entity.living.LuxtructosaurusEntity;
+import com.github.alexmodguy.alexscaves.server.entity.living.SauropodBaseEntity;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
@@ -95,14 +99,13 @@ public class VolcanicCoreBlockEntity extends BlockEntity {
                     }
                 }
             }
-            // TODO fix when entity
-          /*  LuxtructosaurusEntity luxtructosaurus = ACEntityRegistry.LUXTRUCTOSAURUS.get().create(level);
+            LuxtructosaurusEntity luxtructosaurus = ACEntityRegistry.LUXTRUCTOSAURUS.get().create(level);
             luxtructosaurus.setPos(Vec3.upFromBottomCenterOf(volcanoTop, 2.0F));
             luxtructosaurus.setInvisible(true);
             luxtructosaurus.setAnimation(SauropodBaseEntity.ANIMATION_SUMMON);
             luxtructosaurus.enragedFor = 100;
             luxtructosaurus.setEnraged(true);
-            level.addFreshEntity(luxtructosaurus);*/
+            level.addFreshEntity(luxtructosaurus);
             bossSpawnCooldown = 24000;
             return true;
         }
@@ -123,8 +126,7 @@ public class VolcanicCoreBlockEntity extends BlockEntity {
             Vec3 volcanoVec = Vec3.upFromBottomCenterOf(volcanoTop, 3F);
             Player nearestPlayer = level.getNearestPlayer(volcanoVec.x, volcanoVec.y, volcanoVec.z, 400D, true);
             if (big) {
-                // TODO fix when entity
-             /*   TephraEntity bigTephra = ACEntityRegistry.TEPHRA.get().create(level);
+                TephraEntity bigTephra = ACEntityRegistry.TEPHRA.get().create(level);
                 bigTephra.setPos(volcanoVec);
                 bigTephra.setMaxScale(2F + level.random.nextFloat());
                 Vec3 targetVec;
@@ -137,17 +139,16 @@ public class VolcanicCoreBlockEntity extends BlockEntity {
                 double d4 = Math.sqrt(targetVec.x * targetVec.x + targetVec.z * targetVec.z);
                 double d5 = nearestPlayer == null ? level.random.nextFloat() : 0;
                 bigTephra.shoot(targetVec.x, targetVec.y + 0.5F + d4 * 0.75F + d5, targetVec.z,  (float) (d4 * 0.1F + d5), 1 + level.random.nextFloat() * 0.5F);
-                level.addFreshEntity(bigTephra);*/
+                level.addFreshEntity(bigTephra);
             }
             for(int smalls = 0; smalls < 3 + level.random.nextInt(3); smalls++){
-                // TODO fix when entity
-               /* TephraEntity smallTephra = ACEntityRegistry.TEPHRA.get().create(level);
+                TephraEntity smallTephra = ACEntityRegistry.TEPHRA.get().create(level);
                 smallTephra.setPos(volcanoVec);
                 smallTephra.setMaxScale(0.6F + 0.6F * level.random.nextFloat());
                 Vec3 targetVec = new Vec3(level.random.nextFloat() - 0.5F, 0, level.random.nextFloat() - 0.5F).normalize().scale(level.random.nextInt(30) + 30);
                 double d4 = Math.sqrt(targetVec.x * targetVec.x + targetVec.z * targetVec.z);
                 smallTephra.shoot(targetVec.x, targetVec.y + 0.5F + d4 * 0.75F + level.random.nextFloat(), targetVec.z, (float) (d4 * 0.1F + level.random.nextFloat()), 1);
-                level.addFreshEntity(smallTephra);*/
+                level.addFreshEntity(smallTephra);
             }
         }
     }

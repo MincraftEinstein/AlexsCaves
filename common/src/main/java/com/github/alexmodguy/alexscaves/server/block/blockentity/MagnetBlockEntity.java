@@ -4,6 +4,7 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.MagnetBlock;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.MovingMetalBlockEntity;
 import com.github.alexmodguy.alexscaves.server.entity.util.FallingBlockEntityAccessor;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagnetUtil;
@@ -92,12 +93,11 @@ public class MagnetBlockEntity extends BlockEntity {
                             for (BlockPos pos : gathered) {
                                 level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                             }
-                            // TODO fix when entity
-//                            MovingMetalBlockEntity metalBlockEntity = ACEntityRegistry.MOVING_METAL_BLOCK.get().create(level);
-//                            metalBlockEntity.moveTo(Vec3.atCenterOf(checkMetalAt));
-//                            metalBlockEntity.setAllBlockData(MovingMetalBlockEntity.createTagFromData(allData));
-//                            metalBlockEntity.setPlacementCooldown(1);
-//                            level.addFreshEntity(metalBlockEntity);
+                            MovingMetalBlockEntity metalBlockEntity = ACEntityRegistry.MOVING_METAL_BLOCK.get().create(level);
+                            metalBlockEntity.moveTo(Vec3.atCenterOf(checkMetalAt));
+                            metalBlockEntity.setAllBlockData(MovingMetalBlockEntity.createTagFromData(allData));
+                            metalBlockEntity.setPlacementCooldown(1);
+                            level.addFreshEntity(metalBlockEntity);
                         }
                     }
                 }

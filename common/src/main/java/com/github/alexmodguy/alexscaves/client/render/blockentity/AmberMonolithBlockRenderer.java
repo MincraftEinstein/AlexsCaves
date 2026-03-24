@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.render.blockentity;
 
+import com.github.alexmodguy.alexscaves.client.model.SauropodBaseModel;
 import com.github.alexmodguy.alexscaves.client.render.ColorUtil;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.AmberMonolithBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -86,7 +87,7 @@ public class AmberMonolithBlockRenderer<T extends AmberMonolithBlockEntity> impl
                     EntityModel model = renderer.getModel();
                     VertexConsumer ivertexbuilder = bufferIn.getBuffer(RenderType.entityTranslucent(render.getTextureLocation(entityIn)));
                     matrixStack.pushPose();
-                    // TODO fix when entity
+                    // TODO fix neo
                     boolean shouldSit = entityIn.isPassenger() && (entityIn.getVehicle() != null /*&& entityIn.getVehicle().shouldRiderSit()*/);
                     model.young = living.isBaby();
                     model.riding = shouldSit;
@@ -96,15 +97,14 @@ public class AmberMonolithBlockRenderer<T extends AmberMonolithBlockEntity> impl
                         prevCrouching = humanoidModel.crouching;
                         humanoidModel.crouching = false;
                     }
-                    // TODO fix when entity
-                   /* if(model instanceof SauropodBaseModel sauropodBaseModel){
+                    if(model instanceof SauropodBaseModel sauropodBaseModel){
                         sauropodBaseModel.straighten = true;
                     }
                     model.setupAnim(living, 0.0F, 0.0F, -0.1F, 0.0F, 0.0F);
 
                     if(model instanceof SauropodBaseModel sauropodBaseModel){
                         sauropodBaseModel.straighten = false;
-                    }*/
+                    }
                     matrixStack.scale(living.getScale(), -living.getScale(), living.getScale());
                     model.renderToBuffer(matrixStack, ivertexbuilder, 240, OverlayTexture.NO_OVERLAY, ColorUtil.packColor(0.3F, 0.16F, 0.2F, transparency));
                     matrixStack.popPose();

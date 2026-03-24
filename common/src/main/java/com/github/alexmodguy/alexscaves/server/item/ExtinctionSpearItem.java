@@ -2,6 +2,9 @@ package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.DinosaurSpiritEntity;
+import com.github.alexmodguy.alexscaves.server.entity.item.ExtinctionSpearEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.sounds.SoundSource;
@@ -26,8 +29,7 @@ public class ExtinctionSpearItem extends SpearItem {
             float f = getPowerForTime(i);
             if (f > 0.1D) {
                 itemStack.hurtAndBreak(1, livingEntity, EquipmentSlot.MAINHAND);
-                // TODO fix when entity
-              /*  ExtinctionSpearEntity spearEntity = new ExtinctionSpearEntity(level, player, itemStack);
+                ExtinctionSpearEntity spearEntity = new ExtinctionSpearEntity(level, player, itemStack);
                 spearEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, f * 3.5F, 1.0F);
                 if (player.getAbilities().instabuild) {
                     spearEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
@@ -36,7 +38,7 @@ public class ExtinctionSpearItem extends SpearItem {
                 level.playSound((Player) null, spearEntity, ACSoundRegistry.EXTINCTION_SPEAR_THROW.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
-                }*/
+                }
                 player.awardStat(Stats.ITEM_USED.get(this));
             }
             killGrottoGhostsFor(player, false);
@@ -49,20 +51,18 @@ public class ExtinctionSpearItem extends SpearItem {
             int grottoHeads = 3 + ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.HERD_PHALANX, stack);
             float grottoRotateBy = 360F / grottoHeads;
             for(int i = 0; i < grottoHeads; i++){
-                // TODO fix when entity
-               /* DinosaurSpiritEntity dinosaurSpirit = ACEntityRegistry.DINOSAUR_SPIRIT.get().create(level);
+                DinosaurSpiritEntity dinosaurSpirit = ACEntityRegistry.DINOSAUR_SPIRIT.get().create(level);
                 dinosaurSpirit.copyPosition(living);
                 dinosaurSpirit.setDinosaurType(DinosaurSpiritEntity.DinosaurType.GROTTOCERATOPS);
                 dinosaurSpirit.setPlayerUUID(living.getUUID());
                 dinosaurSpirit.setRotateOffset(i * grottoRotateBy);
-                level.addFreshEntity(dinosaurSpirit);*/
+                level.addFreshEntity(dinosaurSpirit);
             }
         }
     }
 
     public static boolean killGrottoGhostsFor(Player player, boolean justTheClosest){
-        // TODO fix when entity
-      /*  DinosaurSpiritEntity closest = null;
+        DinosaurSpiritEntity closest = null;
         for(DinosaurSpiritEntity spirit : player.level().getEntitiesOfClass(DinosaurSpiritEntity.class, player.getBoundingBox().inflate(30, 30, 30))){
             if(spirit.getPlayerUUID().equals(player.getUUID()) && spirit.getDinosaurType() == DinosaurSpiritEntity.DinosaurType.GROTTOCERATOPS && !spirit.isFading()){
                 if(!justTheClosest){
@@ -75,14 +75,13 @@ public class ExtinctionSpearItem extends SpearItem {
         if(justTheClosest && closest != null){
             closest.setFading(true);
             return true;
-        }*/
+        }
         return !justTheClosest;
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity hurtEntity, LivingEntity player) {
         hurtEntity.igniteForSeconds(5);
-        // TODO fix when entity
-       /* DinosaurSpiritEntity dinosaurSpirit = ACEntityRegistry.DINOSAUR_SPIRIT.get().create(player.level());
+        DinosaurSpiritEntity dinosaurSpirit = ACEntityRegistry.DINOSAUR_SPIRIT.get().create(player.level());
         Vec3 between = player.position().add(hurtEntity.position()).scale(0.5F);
         dinosaurSpirit.setPos(between.x, player.getY() + 1.0F, between.z);
         dinosaurSpirit.setDinosaurType(DinosaurSpiritEntity.DinosaurType.TREMORSAURUS);
@@ -92,7 +91,7 @@ public class ExtinctionSpearItem extends SpearItem {
         dinosaurSpirit.lookAt(EntityAnchorArgument.Anchor.EYES, hurtEntity.getEyePosition());
         dinosaurSpirit.setDelaySpawn(5);
 
-        player.level().addFreshEntity(dinosaurSpirit);*/
+        player.level().addFreshEntity(dinosaurSpirit);
         return super.hurtEnemy(stack, hurtEntity, player);
     }
 

@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
 import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.block.AbyssalAltarBlock;
+import com.github.alexmodguy.alexscaves.server.entity.living.DeepOneBaseEntity;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,6 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.util.Mth;
 import net.minecraft.world.ContainerHelper;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.WorldlyContainer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -76,8 +78,7 @@ public class AbyssalAltarBlockEntity extends BaseContainerBlockEntity implements
                             kill = false;
                         }
                     }
-                    // TODO fix when entity
-                    /* else if (entity.lastInteracter instanceof DeepOneBaseEntity deepOne) {
+                     else if (entity.lastInteracter instanceof DeepOneBaseEntity deepOne) {
                         deepOne.swapItemsForAnimation(itemEntity.getItem());
                         deepOne.setItemInHand(InteractionHand.MAIN_HAND, itemEntity.getItem());
                         deepOne.setAnimation(deepOne.getTradingAnimation());
@@ -87,7 +88,7 @@ public class AbyssalAltarBlockEntity extends BaseContainerBlockEntity implements
                             entity.placingPlayer = null;
                         }
                         kill = true;
-                    }*/
+                    }
                     itemEntity.setItem(drop);
                     if (kill) {
                         entity.lastInteracter.onItemPickup(itemEntity);
@@ -115,10 +116,9 @@ public class AbyssalAltarBlockEntity extends BaseContainerBlockEntity implements
                 level.setBlockAndUpdate(this.worldPosition, this.getBlockState().setValue(AbyssalAltarBlock.ACTIVE, false));
             }
         } else {
-            // TODO fix when entity
-           /* if (entity instanceof DeepOneBaseEntity) {
+            if (entity instanceof DeepOneBaseEntity) {
                 level.setBlockAndUpdate(this.worldPosition, this.getBlockState().setValue(AbyssalAltarBlock.ACTIVE, true));
-            }*/
+            }
         }
         Vec3 vec3 = entity.position().subtract(Vec3.atCenterOf(this.worldPosition));
         itemAngle = Mth.wrapDegrees((float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)));

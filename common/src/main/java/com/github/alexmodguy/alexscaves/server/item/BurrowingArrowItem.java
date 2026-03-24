@@ -1,8 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.server.entity.item.BurrowingArrowEntity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ArrowItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -16,7 +16,6 @@ public class BurrowingArrowItem extends ArrowItem {
 
     @Override
     public AbstractArrow createArrow(Level level, ItemStack ammo, LivingEntity shooter, @Nullable ItemStack weapon) {
-        // TODO fix when entity
-        return new Arrow(level, shooter, ammo, weapon); // new BurrowingArrowEntity(level, shooter);
+        return new BurrowingArrowEntity(level, shooter);
     }
 }

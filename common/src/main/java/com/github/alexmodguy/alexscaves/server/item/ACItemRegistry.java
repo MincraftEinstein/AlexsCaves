@@ -4,9 +4,8 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.ThrownIceCreamScoopEntity;
 import com.github.alexmodguy.alexscaves.server.entity.util.AlexsCavesBoat;
-import com.github.alexmodguy.alexscaves.server.entity.util.GummyColors;
-import com.github.alexmodguy.alexscaves.server.item.dispenser.FluidContainerDispenseItemBehavior;
 import com.github.alexthe666.citadel.server.block.LecternBooks;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -201,10 +200,9 @@ public class ACItemRegistry {
     public static final Supplier<Item> GELATIN_YELLOW = register("gelatin_yellow", () -> new Item(new Item.Properties().food(ACFoods.GELATIN)));
     public static final Supplier<Item> GELATIN_PINK = register("gelatin_pink", () -> new Item(new Item.Properties().food(ACFoods.GELATIN)));
     public static final Supplier<Item> HOT_CHOCOLATE_BOTTLE = register("hot_chocolate_bottle", () -> new HotChocolateBottleItem());
-    // TODO fix when entity
-//    public static final Supplier<Item> VANILLA_ICE_CREAM_SCOOP = register("vanilla_ice_cream_scoop", () -> new ThrownProjectileItem(new Item.Properties(), player -> new ThrownIceCreamScoopEntity(player.level(), player), -10.0F, 1.0F, 0.2F));
-//    public static final Supplier<Item> CHOCOLATE_ICE_CREAM_SCOOP = register("chocolate_ice_cream_scoop", () -> new ThrownProjectileItem(new Item.Properties(), player -> new ThrownIceCreamScoopEntity(player.level(), player), -10.0F, 1.0F, 0.2F));
-//    public static final Supplier<Item> SWEETBERRY_ICE_CREAM_SCOOP = register("sweetberry_ice_cream_scoop", () -> new ThrownProjectileItem(new Item.Properties(), player -> new ThrownIceCreamScoopEntity(player.level(), player), -10.0F, 1.0F, 0.2F));
+    public static final Supplier<Item> VANILLA_ICE_CREAM_SCOOP = register("vanilla_ice_cream_scoop", () -> new ThrownProjectileItem(new Item.Properties(), player -> new ThrownIceCreamScoopEntity(player.level(), player), -10.0F, 1.0F, 0.2F));
+    public static final Supplier<Item> CHOCOLATE_ICE_CREAM_SCOOP = register("chocolate_ice_cream_scoop", () -> new ThrownProjectileItem(new Item.Properties(), player -> new ThrownIceCreamScoopEntity(player.level(), player), -10.0F, 1.0F, 0.2F));
+    public static final Supplier<Item> SWEETBERRY_ICE_CREAM_SCOOP = register("sweetberry_ice_cream_scoop", () -> new ThrownProjectileItem(new Item.Properties(), player -> new ThrownIceCreamScoopEntity(player.level(), player), -10.0F, 1.0F, 0.2F));
     public static final Supplier<Item> SUNDAE = register("sundae", () -> new Item(new Item.Properties().food(ACFoods.SUNDAE).rarity(ACRarity.getRaritySweet()).stacksTo(1)));
     public static final Supplier<Item> SHARPENED_CANDY_CANE = register("sharpened_candy_cane", () -> new SharpenedCandyCaneItem(new Item.Properties().food(ACFoods.CANDY_CANE)));
     public static final Supplier<Item> PEPPERMINT_POWDER = register("peppermint_powder", () -> new Item(new Item.Properties().food(ACFoods.PEPPERMINT_POWDER)));

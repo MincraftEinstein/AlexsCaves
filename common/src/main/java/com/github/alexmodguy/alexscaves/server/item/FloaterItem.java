@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.FloaterEntity;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -15,13 +17,12 @@ public class FloaterItem extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         if (player.isInWaterOrBubble() && !player.isShiftKeyDown()) {
-            // TODO fix when entity
-          /*  FloaterEntity floaterEntity = ACEntityRegistry.FLOATER.get().create(level);
+            FloaterEntity floaterEntity = ACEntityRegistry.FLOATER.get().create(level);
             floaterEntity.copyPosition(player);
             if(!level.isClientSide){
                 level.addFreshEntity(floaterEntity);
             }
-            player.getRootVehicle().startRiding(floaterEntity);*/
+            player.getRootVehicle().startRiding(floaterEntity);
             if (!player.isCreative()) {
                 itemstack.shrink(1);
             }

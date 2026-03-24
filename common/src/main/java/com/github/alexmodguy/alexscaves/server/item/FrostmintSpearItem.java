@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.server.entity.item.FrostmintSpearEntity;
 import com.github.alexmodguy.alexscaves.server.entity.util.FrostmintFreezableAccessor;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.sounds.SoundSource;
@@ -21,8 +22,7 @@ public class FrostmintSpearItem extends SpearItem {
             int i = this.getUseDuration(itemStack, livingEntity) - i1;
             float f = getPowerForTime(i);
             if (f > 0.1D) {
-                // TODO fix when entity
-              /*  FrostmintSpearEntity spearEntity = new FrostmintSpearEntity(level, player, itemStack);
+                FrostmintSpearEntity spearEntity = new FrostmintSpearEntity(level, player, itemStack);
                 spearEntity.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, f * 2.5F, 1.0F);
                 if (player.getAbilities().instabuild) {
                     spearEntity.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
@@ -31,7 +31,7 @@ public class FrostmintSpearItem extends SpearItem {
                 level.playSound(null, spearEntity, ACSoundRegistry.FROSTMINT_SPEAR_THROW.get(), SoundSource.PLAYERS, 1.0F, 1.0F);
                 if (!player.getAbilities().instabuild) {
                     itemStack.shrink(1);
-                }*/
+                }
                 player.awardStat(Stats.ITEM_USED.get(this));
             }
         }

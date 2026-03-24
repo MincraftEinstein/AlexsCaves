@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.server.entity.item.CandyCaneHookEntity;
+import com.github.alexmodguy.alexscaves.server.entity.living.GumWormSegmentEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -32,22 +34,20 @@ public class CandyCaneHookItem extends Item {
         if(!level.isClientSide){
             if (canLaunchHook(player, itemstack, level, true, hand) && (hand == InteractionHand.MAIN_HAND || !itemStackOpposite.is(this) || isHookLaunchedInWorld(level, itemStackOpposite))) {
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), ACSoundRegistry.CANDY_CANE_HOOK_LAUNCH.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
-                // TODO fix when entity
-               /* CandyCaneHookEntity hookEntity = new CandyCaneHookEntity(player, level, itemstack, hand == InteractionHand.OFF_HAND);
+                CandyCaneHookEntity hookEntity = new CandyCaneHookEntity(player, level, itemstack, hand == InteractionHand.OFF_HAND);
                 hookEntity.setOwner(player);
                 hookEntity.setReeling(false);
                 if (!level.isClientSide) {
                     level.addFreshEntity(hookEntity);
                 }
-                setLastLaunchedHookUUID(itemstack, hookEntity.getUUID());*/
+                setLastLaunchedHookUUID(itemstack, hookEntity.getUUID());
                 setReelingIn(itemstack, false);
 
                 player.awardStat(Stats.ITEM_USED.get(this));
                 player.gameEvent(GameEvent.ITEM_INTERACT_START);
                 player.swing(hand);
                 return InteractionResultHolder.consume(itemstack);
-                // TODO fix when entity
-            } else if(/*!(player.getRootVehicle() instanceof GumWormSegmentEntity) && */!(itemStackOpposite.is(this) && !isActive(itemStackOpposite))){
+            } else if(!(player.getRootVehicle() instanceof GumWormSegmentEntity) && !(itemStackOpposite.is(this) && !isActive(itemStackOpposite))){
                 if (isActive(itemstack)) {
                     InteractionHand oppositeHand = hand == InteractionHand.MAIN_HAND ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
                     if(itemStackOpposite.is(this) && isActive(itemStackOpposite) && !isReelingIn(itemStackOpposite)){
@@ -77,10 +77,9 @@ public class CandyCaneHookItem extends Item {
             CompoundTag compoundTag = customData.copyTag();
             if (level instanceof ServerLevel serverLevel && compoundTag.contains("LastLaunchedHookUUID")) {
                 Entity entity = serverLevel.getEntity(compoundTag.getUUID("LastLaunchedHookUUID"));
-                // TODO fix when entity
-             /*   if (entity instanceof CandyCaneHookEntity candyCaneHook) {
+                if (entity instanceof CandyCaneHookEntity candyCaneHook) {
                     return candyCaneHook.isAlive() && candyCaneHook.tickCount > 0;
-                }*/
+                }
             }
         }
         return false;
@@ -146,10 +145,9 @@ public class CandyCaneHookItem extends Item {
         CompoundTag compoundtag = customData.copyTag();
         if (level instanceof ServerLevel serverLevel && compoundtag.contains("LastLaunchedHookUUID")) {
             Entity entity = serverLevel.getEntity(compoundtag.getUUID("LastLaunchedHookUUID"));
-            // TODO fix when entity
-            /*if (entity instanceof CandyCaneHookEntity candyCaneHook) {
+            if (entity instanceof CandyCaneHookEntity candyCaneHook) {
                 return !(candyCaneHook.isAlive() && candyCaneHook.getOwner() != null && candyCaneHook.getOwner().is(player) && (!checkHands || hand == candyCaneHook.getHandLaunchedFrom()));
-            }*/
+            }
             return true;
         } else {
             return true;

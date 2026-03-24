@@ -2,9 +2,11 @@ package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.WaterBoltEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -38,8 +40,7 @@ public class SeaStaffItem extends Item {
             int bolts = ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.TRIPLE_SPLASH, itemstack) > 0 ? 3 : 1;
             for (int i = 0; i < bolts; i++) {
                 float shootRot = i == 0 ? 0 : i == 1 ? -50 : 50;
-                //TODO fix when entity
-               /* WaterBoltEntity bolt = new WaterBoltEntity(level, player);
+                WaterBoltEntity bolt = new WaterBoltEntity(level, player);
                 float rot = player.yHeadRot + (hand == InteractionHand.MAIN_HAND ? 45 : -45);
                 bolt.setPos(player.getX() - (double) (player.getBbWidth()) * 1.1F * (double) Mth.sin(rot * ((float) Math.PI / 180F)), player.getEyeY() - (double) 0.4F, player.getZ() + (double) (player.getBbWidth()) * 1.1F * (double) Mth.cos(rot * ((float) Math.PI / 180F)));
                 bolt.shootFromRotation(player, player.getXRot(), player.getYRot() + shootRot, -20.0F, i > 0 ? 1F : 2F, 12F);
@@ -53,7 +54,7 @@ public class SeaStaffItem extends Item {
                 if (closestValid != null) {
                     bolt.setArcingTowards(closestValid.getUUID());
                 }
-                level.addFreshEntity(bolt);*/
+                level.addFreshEntity(bolt);
             }
 
         }

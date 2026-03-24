@@ -4,6 +4,8 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.MagneticWeaponEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.component.DataComponents;
@@ -88,23 +90,21 @@ public class GalenaGauntletItem extends Item {
         boolean otherMagneticWeaponsInUse = false;
         boolean crystallization = ACEnchantmentHelper.hasEnchantment(level, ACEnchantmentRegistry.CRYSTALLIZATION, stack);
         if (otherStack.is(crystallization ? ACTagRegistry.GALENA_GAUNTLET_CRYSTALLIZATION_ITEMS : ACTagRegistry.MAGNETIC_ITEMS)) {
-            // TODO fix when entity
-          /*  for(MagneticWeaponEntity magneticWeapon : level.getEntitiesOfClass(MagneticWeaponEntity.class, living.getBoundingBox().inflate(64, 64, 64))){
+            for(MagneticWeaponEntity magneticWeapon : level.getEntitiesOfClass(MagneticWeaponEntity.class, living.getBoundingBox().inflate(64, 64, 64))){
                 Entity controller = magneticWeapon.getController();
                 if(controller != null && controller.is(living)){
                     otherMagneticWeaponsInUse = true;
                     break;
                 }
-            }*/
+            }
             if(!otherMagneticWeaponsInUse) {
                 ItemStack copy = otherStack.copy();
                 otherStack.setCount(0);
-                // TODO fix when entity
-             /*   MagneticWeaponEntity magneticWeapon = ACEntityRegistry.MAGNETIC_WEAPON.get().create(level);
+                MagneticWeaponEntity magneticWeapon = ACEntityRegistry.MAGNETIC_WEAPON.get().create(level);
                 magneticWeapon.setItemStack(copy);
                 magneticWeapon.setPos(living.position().add(0, 1, 0));
                 magneticWeapon.setControllerUUID(living.getUUID());
-                level.addFreshEntity(magneticWeapon);*/
+                level.addFreshEntity(magneticWeapon);
             }
         } else if (!otherStack.isEmpty()) {
             living.stopUsingItem();

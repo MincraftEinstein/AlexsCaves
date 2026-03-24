@@ -4,6 +4,7 @@ import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.DarkArrowEntity;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.DarknessIncarnateEffect;
@@ -231,11 +232,10 @@ public class DreadbowItem extends ProjectileWeaponItem implements UpdatesStackTa
                     abstractArrow.pickup = AbstractArrow.Pickup.ALLOWED;
                     for(int j = 0; j < Math.ceil(maxArrows * f); j++){
                         if(darkArrows){
-                            // TODO fix when entity
-                          /*  DarkArrowEntity darkArrowEntity = new DarkArrowEntity(level, livingEntity);
+                            DarkArrowEntity darkArrowEntity = new DarkArrowEntity(level, livingEntity);
                             darkArrowEntity.setShadowArrowDamage(precise ? 2.0F : 3.0F);
                             darkArrowEntity.setPerfectShot(perfectShot);
-                            abstractArrow = darkArrowEntity;*/
+                            abstractArrow = darkArrowEntity;
                         }else if(perfectShot){
                             abstractArrow.setBaseDamage(abstractArrow.getBaseDamage() * 2.0F);
                         }
@@ -293,10 +293,9 @@ public class DreadbowItem extends ProjectileWeaponItem implements UpdatesStackTa
             for(int i = 0; i < maxArrows; i++){
                 abstractArrow.pickup = AbstractArrow.Pickup.ALLOWED;
                 if(darkArrows){
-                    // TODO fix when entity
-                  /*  DarkArrowEntity darkArrowEntity = new DarkArrowEntity(level, living);
+                    DarkArrowEntity darkArrowEntity = new DarkArrowEntity(level, living);
                     darkArrowEntity.setShadowArrowDamage(2.0F);
-                    abstractArrow = darkArrowEntity;*/
+                    abstractArrow = darkArrowEntity;
                 }
                 abstractArrow.setPos(abstractArrow.position().add(level.random.nextFloat() - 0.5F, level.random.nextFloat() - 0.5F, level.random.nextFloat() - 0.5F));
                 Vec3 vec3 = player.getViewVector(1.0F);

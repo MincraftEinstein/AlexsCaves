@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves.server.item;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.WaveEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundSource;
@@ -64,21 +65,19 @@ public class OrtholanceItem extends Item {
                 if(tsunami){
                     maxWaves = 5;
                     Vec3 waveCenterPos = livingEntity.position().add(vec3);
-                    // TODO fix when entity
-                  /*  WaveEntity tsunamiWaveEntity = new WaveEntity(level, livingEntity);
+                    WaveEntity tsunamiWaveEntity = new WaveEntity(level, livingEntity);
                     tsunamiWaveEntity.setPos(waveCenterPos.x, livingEntity.getY(), waveCenterPos.z);
                     tsunamiWaveEntity.setLifespan(20);
                     tsunamiWaveEntity.setWaveScale(5.0F);
                     tsunamiWaveEntity.setWaitingTicks(2);
                     tsunamiWaveEntity.setYRot(-(float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)));
-                    level.addFreshEntity(tsunamiWaveEntity);*/
+                    level.addFreshEntity(tsunamiWaveEntity);
                 }else{
                     for (int wave = 0; wave < maxWaves; wave++) {
                         float f1 = (float) wave / maxWaves;
                         int lifespan = 3 + (int) ((1F - f1) * 3);
                         Vec3 waveCenterPos = livingEntity.position().add(vec3.scale(f1 * 2));
-                        // TODO fix when entity
-                        /*WaveEntity leftWaveEntity = new WaveEntity(level, livingEntity);
+                        WaveEntity leftWaveEntity = new WaveEntity(level, livingEntity);
                         leftWaveEntity.setPos(waveCenterPos.x, livingEntity.getY(), waveCenterPos.z);
                         leftWaveEntity.setLifespan(lifespan);
                         leftWaveEntity.setYRot(-(float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)) + 60 - 15 * wave);
@@ -87,7 +86,7 @@ public class OrtholanceItem extends Item {
                         rightWaveEntity.setPos(waveCenterPos.x, livingEntity.getY(), waveCenterPos.z);
                         rightWaveEntity.setLifespan(lifespan);
                         rightWaveEntity.setYRot(-(float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)) - 60 + 15 * wave);
-                        level.addFreshEntity(rightWaveEntity);*/
+                        level.addFreshEntity(rightWaveEntity);
                     }
                     if(ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.SECOND_WAVE, stack) > 0){
                         int maxSecondWaves = Math.max(1, maxWaves - 1);
@@ -95,8 +94,7 @@ public class OrtholanceItem extends Item {
                             float f1 = (float) wave / maxSecondWaves;
                             int lifespan = 3 + (int) ((1F - f1) * 3);
                             Vec3 waveCenterPos = livingEntity.position().add(vec3.scale(f1 * 2));
-                            // TODO fix when entity
-                          /*  WaveEntity leftWaveEntity = new WaveEntity(level, livingEntity);
+                            WaveEntity leftWaveEntity = new WaveEntity(level, livingEntity);
                             leftWaveEntity.setPos(waveCenterPos.x, livingEntity.getY(), waveCenterPos.z);
                             leftWaveEntity.setLifespan(lifespan);
                             leftWaveEntity.setYRot(-(float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)) + 60 - 15 * wave);
@@ -107,14 +105,14 @@ public class OrtholanceItem extends Item {
                             rightWaveEntity.setLifespan(lifespan);
                             rightWaveEntity.setYRot(-(float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)) - 60 + 15 * wave);
                             rightWaveEntity.setWaitingTicks(8);
-                            level.addFreshEntity(rightWaveEntity);*/
+                            level.addFreshEntity(rightWaveEntity);
                         }
                     }
                 }
                 AABB aabb = new AABB(livingEntity.position(), livingEntity.position().add(vec3.scale(maxWaves))).inflate(1);
                 DamageSource source = livingEntity.damageSources().mobAttack(livingEntity);
                 double d = 5.0D; // Base attack damage from attributes
-                // TODO fix when entity
+                // TODO fix neo
               /*  var modifiers = stack.getAttributeModifiers();
                 for (var entry : modifiers.modifiers()) {
                     if (entry.attribute().equals(Attributes.ATTACK_DAMAGE)) {
@@ -146,12 +144,11 @@ public class OrtholanceItem extends Item {
         stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
         Vec3 vec3 = player.getViewVector(1.0F);
         if(ACEnchantmentHelper.getEnchantmentLevel(player.level(), ACEnchantmentRegistry.SEA_SWING, stack) > 0){
-            // TODO fix when entity
-          /*  WaveEntity waveEntity = new WaveEntity(hurt.level(), player);
+            WaveEntity waveEntity = new WaveEntity(hurt.level(), player);
             waveEntity.setPos(player.getX(), hurt.getY(), player.getZ());
             waveEntity.setLifespan(5);
             waveEntity.setYRot(-(float) (Mth.atan2(vec3.x, vec3.z) * (double) (180F / (float) Math.PI)));
-            player.level().addFreshEntity(waveEntity);*/
+            player.level().addFreshEntity(waveEntity);
         }
         return true;
     }

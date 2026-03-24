@@ -2,19 +2,26 @@ package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.living.DeepOneBaseEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.Vec3;
 
 public class MagicConchItem extends Item {
     public MagicConchItem(Item.Properties properties) {
@@ -40,8 +47,7 @@ public class MagicConchItem extends Item {
             int time = 1200 + ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.LASTING_MORALE, stack) * 400;
             if (!level.isClientSide) {
                 int chartingLevel = ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.CHARTING_CALL, stack);
-                // TODO fix when entity
-               /* DeepOneBaseEntity lastSummonedDeepOne = null;
+                DeepOneBaseEntity lastSummonedDeepOne = null;
                 int maxNormal = 3 + randomSource.nextInt(1);
                 int maxKnights = 2 + randomSource.nextInt(1);
                 int maxMage = 1 + randomSource.nextInt(1);
@@ -82,7 +88,7 @@ public class MagicConchItem extends Item {
                 }
                 if(hurtRelations && lastSummonedDeepOne != null){
                     lastSummonedDeepOne.addReputation(player.getUUID(), -2);
-                }*/
+                }
             }
             if (player instanceof Player realPlayer) {
                 realPlayer.awardStat(Stats.ITEM_USED.get(this));
@@ -117,8 +123,7 @@ public class MagicConchItem extends Item {
     public UseAnim getUseAnimation(ItemStack itemStack) {
         return UseAnim.BOW;
     }
-    // TODO fix when entity
-    /*private DeepOneBaseEntity summonDeepOne(EntityType type, LivingEntity summoner, int time) {
+    private DeepOneBaseEntity summonDeepOne(EntityType type, LivingEntity summoner, int time) {
         RandomSource random = summoner.getRandom();
         BlockPos randomPos = summoner.blockPosition().offset(random.nextInt(20) - 10, 7, random.nextInt(20) - 10);
         while ((summoner.level().getFluidState(randomPos).is(FluidTags.WATER) || summoner.level().isEmptyBlock(randomPos)) && randomPos.getY() > summoner.level().getMinBuildHeight()) {
@@ -144,5 +149,5 @@ public class MagicConchItem extends Item {
             }
         }
         return null;
-    }*/
+    }
 }

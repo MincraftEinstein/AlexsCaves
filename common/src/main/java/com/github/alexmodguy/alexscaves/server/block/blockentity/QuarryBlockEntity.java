@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves.server.block.blockentity;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.QuarryBlock;
+import com.github.alexmodguy.alexscaves.server.entity.item.QuarrySmasherEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -29,7 +30,7 @@ public class QuarryBlockEntity extends BlockEntity {
     private int checkTimer;
     public int spinFor;
     private AABB miningBox;
-    private /*QuarrySmasherEntity*/ Entity serverSmasher = null;
+    private QuarrySmasherEntity serverSmasher = null;
 
     private BlockPos lastMineablePos;
 
@@ -55,15 +56,14 @@ public class QuarryBlockEntity extends BlockEntity {
                 if (!level.isClientSide) {
                     entity.lastMineablePos = entity.findMinableBlock(level, blockPos.getY() + 3).orElse(null);
                     if (entity.serverSmasher == null) {
-                        // TODO fix when entity
-                      /*  QuarrySmasherEntity closest = null;
+                        QuarrySmasherEntity closest = null;
                         Vec3 center = Vec3.atCenterOf(blockPos);
                         for (QuarrySmasherEntity quarrySmasher : level.getEntitiesOfClass(QuarrySmasherEntity.class, entity.miningBox.inflate(0, 100, 0))) {
                             if (closest == null || quarrySmasher.distanceToSqr(center) < closest.distanceToSqr(center)) {
                                 closest = quarrySmasher;
                             }
-                        }*/
-//                        entity.serverSmasher = closest;
+                        }
+                        entity.serverSmasher = closest;
                     }
                 }
             } else {
@@ -76,8 +76,7 @@ public class QuarryBlockEntity extends BlockEntity {
             entity.spawnLightningBetween(level, entity.bottomRightTorch, entity.topRightTorch);
             entity.spawnLightningBetween(level, entity.topLeftTorch, entity.topRightTorch);
         } else if (entity.serverSmasher != null) {
-            // TODO fix when entity
-          /*  entity.serverSmasher.setQuarryPos(blockPos);
+            entity.serverSmasher.setQuarryPos(blockPos);
             if (entity.serverSmasher.isRemoved()) {
                 entity.serverSmasher = null;
             } else if (entity.hasMiningArea && entity.lastMineablePos != null) {
@@ -85,7 +84,7 @@ public class QuarryBlockEntity extends BlockEntity {
             } else {
                 entity.serverSmasher.setInactive(true);
                 entity.serverSmasher = null;
-            }*/
+            }
         }
         if (entity.spinFor > 0) {
             entity.spinFor--;

@@ -1,5 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.SubmarineEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -48,8 +50,7 @@ public class SubmarineItem extends Item {
 
             if (hitresult.getType() == HitResult.Type.BLOCK) {
                 Vec3 vec31 = hitresult.getLocation();
-                // TODO fix when entity
-               /* SubmarineEntity submarine = ACEntityRegistry.SUBMARINE.get().create(level);
+                SubmarineEntity submarine = ACEntityRegistry.SUBMARINE.get().create(level);
                 submarine.setPos(vec31.x, vec31.y, vec31.z);
                 submarine.setYRot(player.getYRot());
                 submarine.playSound(ACSoundRegistry.SUBMARINE_PLACE.get());
@@ -63,9 +64,9 @@ public class SubmarineItem extends Item {
                             itemstack.shrink(1);
                         }
                     }
-                    player.awardStat(Stats.ITEM_USED.get(this));*/
+                    player.awardStat(Stats.ITEM_USED.get(this));
                     return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
-//                }
+                }
             } else {
                 return InteractionResultHolder.pass(itemstack);
             }

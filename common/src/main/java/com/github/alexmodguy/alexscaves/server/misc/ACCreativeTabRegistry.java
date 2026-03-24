@@ -535,10 +535,9 @@ public class ACCreativeTabRegistry {
                 add(output, ACItemRegistry.GELATIN_BLUE.get());
                 add(output, ACItemRegistry.GELATIN_PINK.get());
                 add(output, ACItemRegistry.HOT_CHOCOLATE_BOTTLE.get());
-                // TODO
-//                add(output, ACItemRegistry.VANILLA_ICE_CREAM_SCOOP.get());
-//                add(output, ACItemRegistry.CHOCOLATE_ICE_CREAM_SCOOP.get());
-//                add(output, ACItemRegistry.SWEETBERRY_ICE_CREAM_SCOOP.get());
+                add(output, ACItemRegistry.VANILLA_ICE_CREAM_SCOOP.get());
+                add(output, ACItemRegistry.CHOCOLATE_ICE_CREAM_SCOOP.get());
+                add(output, ACItemRegistry.SWEETBERRY_ICE_CREAM_SCOOP.get());
                 add(output, ACItemRegistry.SUNDAE.get());
                 add(output, ACItemRegistry.SHARPENED_CANDY_CANE.get());
                 add(output, ACItemRegistry.PEPPERMINT_POWDER.get());

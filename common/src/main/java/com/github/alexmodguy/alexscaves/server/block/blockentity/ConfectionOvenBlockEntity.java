@@ -2,6 +2,8 @@ package com.github.alexmodguy.alexscaves.server.block.blockentity;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ConfectionOvenBlock;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.living.GingerbreadManEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -35,8 +37,7 @@ public class ConfectionOvenBlockEntity extends BlockEntity {
     private static final int COOLDOWN_TIME = 300;
     private static final int ARMY_SIZE = 5;
 
-    // TODO fix when entity
-    private List</*GingerbreadManEntity*/Entity> spawnedGingerbreads = new ArrayList<>();
+    private List<GingerbreadManEntity> spawnedGingerbreads = new ArrayList<>();
 
     public ConfectionOvenBlockEntity(BlockPos pos, BlockState state) {
         super(ACBlockEntityRegistry.CONFECTION_OVEN.get(), pos, state);
@@ -86,8 +87,7 @@ public class ConfectionOvenBlockEntity extends BlockEntity {
     }
     private void makeGingerbreadMen() {
         if(cooldown % spawnIteratesBy == 0 && gingerbreadSpawns > 0){
-            // TODO fix when entity
-          /*  GingerbreadManEntity gingerbreadMan = ACEntityRegistry.GINGERBREAD_MAN.get().create(level);
+            GingerbreadManEntity gingerbreadMan = ACEntityRegistry.GINGERBREAD_MAN.get().create(level);
             Direction facing = getBlockState().getValue(ConfectionOvenBlock.FACING);
             Vec3 spawnVec = rotateCenteredVec(new Vec3(0, -0.25F, -0.7F), facing);
             gingerbreadMan.setPos(spawnVec.add(this.getBlockPos().getCenter()));
@@ -101,16 +101,15 @@ public class ConfectionOvenBlockEntity extends BlockEntity {
                 gingerbreadMan.hasImpulse = true;
                 level.addFreshEntity(gingerbreadMan);
             }
-            spawnedGingerbreads.add(gingerbreadMan);*/
+            spawnedGingerbreads.add(gingerbreadMan);
             gingerbreadSpawns--;
         }
     }
 
     private void restoreAllGingerbreadMenCooldown() {
-        // TODO fix when entity
-//        for(GingerbreadManEntity gingerbreadMan : spawnedGingerbreads){
-//            gingerbreadMan.setDespawnFromOvenCooldown(COOLDOWN_TIME);
-//        }
+        for(GingerbreadManEntity gingerbreadMan : spawnedGingerbreads){
+            gingerbreadMan.setDespawnFromOvenCooldown(COOLDOWN_TIME);
+        }
         spawnedGingerbreads.clear();
     }
 

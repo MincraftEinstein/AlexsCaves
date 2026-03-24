@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.GumballEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
@@ -15,6 +16,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Predicate;
 
@@ -165,8 +167,7 @@ public class ShotGumItem extends Item implements UpdatesStackTags, AlwaysCombina
                 boolean offHand = living.getItemInHand(InteractionHand.OFF_HAND) == stack;
                 leftHand = mainHand && living.getMainArm() == HumanoidArm.LEFT || offHand && living.getMainArm() == HumanoidArm.RIGHT;
                 for (int gumballs = 0; gumballs < (explosiveEnchant ? 1 : 2); gumballs++) {
-                    // TODO fix when entity
-                 /*   GumballEntity gumballEntity = new GumballEntity(level, living);
+                    GumballEntity gumballEntity = new GumballEntity(level, living);
                     Vec3 relativePos = new Vec3((explosiveEnchant ? 0.0F : (gumballs < 1 ? 0.15F : -0.15F)) + (leftHand ? 0.35F : -0.35F), 0, 0.75F).xRot(-entity.getXRot() * ((float) Math.PI / 180F)).yRot(-entity.getYHeadRot() * ((float) Math.PI / 180F));
                     Vec3 gumballPos = entity.position().add(0, entity.getBbHeight() * 0.8F, 0).add(relativePos);
                     gumballEntity.setPos(gumballPos);
@@ -178,7 +179,7 @@ public class ShotGumItem extends Item implements UpdatesStackTags, AlwaysCombina
                     gumballEntity.setDamage(4.0F);
                     if (!level.isClientSide) {
                         level.addFreshEntity(gumballEntity);
-                    }*/
+                    }
                 }
             }
             if (!(entity instanceof Player player && player.isCreative())) {

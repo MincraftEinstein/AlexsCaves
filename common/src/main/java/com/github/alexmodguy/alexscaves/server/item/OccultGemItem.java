@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.item;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
+import com.github.alexmodguy.alexscaves.server.block.blockentity.BeholderBlockEntity;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
@@ -80,10 +81,9 @@ public class OccultGemItem extends Item {
                     loadChunksAround(dimensionLevel, player.getUUID(), globalPos.pos(), true);
                     BlockState blockState = dimensionLevel.getBlockState(globalPos.pos());
                     if (blockState.is(ACBlockRegistry.BEHOLDER.get())) {
-                        // TODO fix when entity
-                       /* if(dimensionLevel.getBlockEntity(globalPos.pos()) instanceof BeholderBlockEntity blockEntity){
+                        if(dimensionLevel.getBlockEntity(globalPos.pos()) instanceof BeholderBlockEntity blockEntity){
                             blockEntity.startObserving(dimensionLevel, player);
-                        }*/
+                        }
                     }
                 }
             }

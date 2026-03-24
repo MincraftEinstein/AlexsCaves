@@ -3,10 +3,10 @@ package com.github.alexmodguy.alexscaves.server.entity.living;
 import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityDataRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ai.LicowitchAttackGoal;
 import com.github.alexmodguy.alexscaves.server.entity.ai.LicowitchUseCrucibleGoal;
+import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.PossessedByLicowitch;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
@@ -68,7 +68,6 @@ public class LicowitchEntity extends Monster implements IAnimatedEntity {
     private static final EntityDataAccessor<Optional<UUID>> POSSESSED_UUID_1 = SynchedEntityData.defineId(LicowitchEntity.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Optional<UUID>> POSSESSED_UUID_2 = SynchedEntityData.defineId(LicowitchEntity.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Optional<BlockPos>> CRUCIBLE_POS = SynchedEntityData.defineId(LicowitchEntity.class, EntityDataSerializers.OPTIONAL_BLOCK_POS);
-    private static final EntityDataAccessor<Optional<Vec3>> TELEPORTING_TO_POS = SynchedEntityData.defineId(LicowitchEntity.class, ACEntityDataRegistry.OPTIONAL_VEC_3.get());
     public static final Animation ANIMATION_SWING_LEFT = Animation.create(20);
     public static final Animation ANIMATION_SWING_RIGHT = Animation.create(20);
     public static final Animation ANIMATION_EAT = Animation.create(100);
@@ -149,7 +148,6 @@ public class LicowitchEntity extends Monster implements IAnimatedEntity {
         builder.define(POSSESSED_UUID_1, Optional.empty());
         builder.define(POSSESSED_UUID_2, Optional.empty());
         builder.define(CRUCIBLE_POS, Optional.empty());
-        builder.define(TELEPORTING_TO_POS, Optional.empty());
     }
 
     public float getArmsUncrossedProgress(float partialTicks) {
@@ -362,11 +360,11 @@ public class LicowitchEntity extends Monster implements IAnimatedEntity {
     }
 
     public Vec3 getTeleportingToPos() {
-        return this.entityData.get(TELEPORTING_TO_POS).orElse(null);
+        return ACAttachmentRegistry.OPTIONAL_VEC.getOrCreate(this).orElse(null);
     }
 
     public void setTeleportingToPos(Vec3 lastAltarPos) {
-        this.entityData.set(TELEPORTING_TO_POS, Optional.ofNullable(lastAltarPos));
+        ACAttachmentRegistry.OPTIONAL_VEC.set(this, Optional.ofNullable(lastAltarPos));
     }
 
     @Override

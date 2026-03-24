@@ -6,7 +6,6 @@ import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.NuclearSirenBlockEntity;
 import com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityDataRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ai.*;
 import com.github.alexmodguy.alexscaves.server.entity.item.NuclearBombEntity;
@@ -75,7 +74,6 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMount, IAnimatedEntity, ShakesScreen, KaijuMob, ActivatesSirens, ITallWalker, com.github.alexmodguy.alexscaves.server.entity.util.MultipartEntity {
-    private static EntityDataAccessor<Optional<Vec3>> BEAM_END_POSITION = SynchedEntityData.defineId(TremorzillaEntity.class, ACEntityDataRegistry.OPTIONAL_VEC_3.get());
     private static final EntityDataAccessor<Boolean> SWIMMING = SynchedEntityData.defineId(TremorzillaEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> CHARGE = SynchedEntityData.defineId(TremorzillaEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Float> MAX_BEAM_BREAK_LENGTH = SynchedEntityData.defineId(TremorzillaEntity.class, EntityDataSerializers.FLOAT);
@@ -193,7 +191,6 @@ public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMou
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(BEAM_END_POSITION, Optional.empty());
         builder.define(SWIMMING, false);
         builder.define(CHARGE, MAX_CHARGE);
         builder.define(SPIKES_DOWN_PROGRESS, 0F);
@@ -1348,7 +1345,7 @@ public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMou
 
     @Nullable
     public Vec3 getBeamEndPosition() {
-        return this.entityData.get(BEAM_END_POSITION).orElse(null);
+        return ACAttachmentRegistry.OPTIONAL_VEC.getOrCreate(this).orElse(null);
     }
 
     @Override
@@ -1368,7 +1365,7 @@ public class TremorzillaEntity extends DinosaurEntity implements KeybindUsingMou
     }
 
     public void setBeamEndPosition(@Nullable Vec3 vec3) {
-        this.entityData.set(BEAM_END_POSITION, Optional.ofNullable(vec3));
+        ACAttachmentRegistry.OPTIONAL_VEC.set(this, Optional.ofNullable(vec3));;
     }
 
     @Nullable

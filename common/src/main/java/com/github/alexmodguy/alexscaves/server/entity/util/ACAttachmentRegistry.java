@@ -2,10 +2,14 @@ package com.github.alexmodguy.alexscaves.server.entity.util;
 
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.platform.services.IPlatformHelper;
+import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 import org.teamvoided.voidlib.attachments.AttachmentSupplier;
+
+import java.util.Optional;
 
 public class ACAttachmentRegistry {
 
@@ -19,6 +23,21 @@ public class ACAttachmentRegistry {
                         // causing the server to crash for early magnet ticking
                         if (Services.PLATFORM_HELPER.getPlatform() == IPlatformHelper.Platform.NEOFORGE) {
                             // noinspection ConstantConditions
+                            if (player.connection != null) {
+                                return ConfigApiJava.network().canSend(NEO_SYNC_PAYLOAD, player);
+                            }
+                            return false;
+                        }
+                        return true;
+                    })
+                    .copyOnDeath()
+    );
+
+    public static AttachmentSupplier<Optional<Vec3>, Entity> OPTIONAL_VEC = Services.REGISTRY_HELPER.registerAttachment("optional_vec", Entity.class,
+            Optional::empty,
+            builder -> builder.persistent(Vec3.CODEC.xmap(Optional::ofNullable, (vec) -> vec.orElse(null)))
+                    .synced(ACMath.OPTIONAL_VEC3_STREAM_CODEC, (entity, player) -> {
+                        if (Services.PLATFORM_HELPER.getPlatform() == IPlatformHelper.Platform.NEOFORGE) {
                             if (player.connection != null) {
                                 return ConfigApiJava.network().canSend(NEO_SYNC_PAYLOAD, player);
                             }

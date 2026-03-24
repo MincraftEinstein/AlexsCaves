@@ -7,7 +7,6 @@ import com.github.alexmodguy.alexscaves.platform.NeoForgeEventHelper;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeRegistryHelper;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.config.BiomeGenerationConfig;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityDataRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.event.CommonEvents;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
@@ -54,7 +53,6 @@ public class AlexsCavesNeoForge {
         NeoForge.EVENT_BUS.register(new CommonEvents());
         // TODO move to common
         ACEntityRegistry.init();
-        ACEntityDataRegistry.DEF_REG.register(modEventBus);
         ACSurfaceRuleConditionRegistry.DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_DEF_REG.register(modEventBus);

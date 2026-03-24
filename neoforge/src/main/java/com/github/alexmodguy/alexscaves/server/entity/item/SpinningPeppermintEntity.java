@@ -1,8 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.entity.item;
 
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityDataRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.living.LicowitchEntity;
+import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -23,7 +23,6 @@ import java.util.UUID;
 
 public class SpinningPeppermintEntity extends Entity {
 
-    private static EntityDataAccessor<Optional<Vec3>> SPIN_AROUND = SynchedEntityData.defineId(SpinningPeppermintEntity.class, ACEntityDataRegistry.OPTIONAL_VEC_3.get());
     private static final EntityDataAccessor<Float> SPIN_RADIUS = SynchedEntityData.defineId(SpinningPeppermintEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> SPIN_SPEED = SynchedEntityData.defineId(SpinningPeppermintEntity.class, EntityDataSerializers.FLOAT);
     private static final EntityDataAccessor<Float> START_ANGLE = SynchedEntityData.defineId(SpinningPeppermintEntity.class, EntityDataSerializers.FLOAT);
@@ -57,7 +56,6 @@ public class SpinningPeppermintEntity extends Entity {
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(SPIN_AROUND, Optional.empty());
         builder.define(SPIN_RADIUS, 1.0F);
         builder.define(SPIN_SPEED, 1.0F);
         builder.define(START_ANGLE, 0.0F);
@@ -175,11 +173,11 @@ public class SpinningPeppermintEntity extends Entity {
 
     @Nullable
     public Vec3 getSpinAroundPosition() {
-        return this.entityData.get(SPIN_AROUND).orElse(null);
+        return ACAttachmentRegistry.OPTIONAL_VEC.getOrCreate(this).orElse(null);
     }
 
     public void setSpinAroundPosition(@Nullable Vec3 vec3) {
-        this.entityData.set(SPIN_AROUND, Optional.ofNullable(vec3));
+        ACAttachmentRegistry.OPTIONAL_VEC.set(this, Optional.ofNullable(vec3));
     }
 
     public float getSpinSpeed() {

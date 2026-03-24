@@ -1,10 +1,10 @@
 package com.github.alexmodguy.alexscaves.server.entity.item;
 
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityDataRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.living.GumWormEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.GumWormSegmentEntity;
+import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.item.CandyCaneHookItem;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -38,7 +38,6 @@ public class CandyCaneHookEntity extends ThrowableProjectile {
     private static final EntityDataAccessor<Integer> OWNER_ID = SynchedEntityData.defineId(CandyCaneHookEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Boolean> REELING = SynchedEntityData.defineId(CandyCaneHookEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> OFFHAND = SynchedEntityData.defineId(CandyCaneHookEntity.class, EntityDataSerializers.BOOLEAN);
-    private static EntityDataAccessor<Optional<Vec3>> HOOKED_POSITION = SynchedEntityData.defineId(CandyCaneHookEntity.class, ACEntityDataRegistry.OPTIONAL_VEC_3.get());
     private static final EntityDataAccessor<Integer> HOOKED_ENTITY_ID = SynchedEntityData.defineId(CandyCaneHookEntity.class, EntityDataSerializers.INT);
     private static final EntityDataAccessor<Optional<UUID>> HOOKED_ENTITY_UUID = SynchedEntityData.defineId(CandyCaneHookEntity.class, EntityDataSerializers.OPTIONAL_UUID);
     private static final EntityDataAccessor<Float> DAMAGE = SynchedEntityData.defineId(CandyCaneHookEntity.class, EntityDataSerializers.FLOAT);
@@ -117,7 +116,6 @@ public class CandyCaneHookEntity extends ThrowableProjectile {
         builder.define(OWNER_ID, -1);
         builder.define(REELING, false);
         builder.define(OFFHAND, false);
-        builder.define(HOOKED_POSITION, Optional.empty());
         builder.define(HOOKED_ENTITY_ID, -1);
         builder.define(HOOKED_ENTITY_UUID, Optional.empty());
         builder.define(DAMAGE, 0.0F);
@@ -412,11 +410,11 @@ public class CandyCaneHookEntity extends ThrowableProjectile {
 
     @org.jetbrains.annotations.Nullable
     public Vec3 getHookedPosition() {
-        return this.entityData.get(HOOKED_POSITION).orElse(null);
+        return ACAttachmentRegistry.OPTIONAL_VEC.getOrCreate(this).orElse(null);
     }
 
     public void setHookedPosition(@org.jetbrains.annotations.Nullable Vec3 vec3) {
-        this.entityData.set(HOOKED_POSITION, Optional.ofNullable(vec3));
+        ACAttachmentRegistry.OPTIONAL_VEC.set(this, Optional.ofNullable(vec3));
     }
 
     @Nullable

@@ -1,15 +1,11 @@
 package com.github.alexmodguy.alexscaves.client;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.AlexsCavesClient;
 import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.client.gui.book.CaveBookScreen;
-import com.github.alexmodguy.alexscaves.client.model.baked.BakedModelShadeLayerFullbright;
 import com.github.alexmodguy.alexscaves.client.particle.*;
-import com.github.alexmodguy.alexscaves.client.render.ACInternalShaders;
 import com.github.alexmodguy.alexscaves.client.render.item.ACArmorRenderProperties;
 import com.github.alexmodguy.alexscaves.client.render.item.ACItemRenderProperties;
-import com.github.alexmodguy.alexscaves.client.render.item.tooltip.ClientSackOfSatingTooltip;
 import com.github.alexmodguy.alexscaves.client.sound.*;
 import com.github.alexmodguy.alexscaves.mixin.client.SoundEngineAccessor;
 import com.github.alexmodguy.alexscaves.mixin.client.SoundManagerAccessor;
@@ -17,19 +13,14 @@ import com.github.alexmodguy.alexscaves.server.CommonProxy;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.AcidBlock;
 import com.github.alexmodguy.alexscaves.server.block.ActivatedByAltar;
-import com.github.alexmodguy.alexscaves.server.block.FrostedChocolateBlock;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.*;
-import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.BeholderEyeEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.QuarrySmasherEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.SubmarineEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.*;
-import com.github.alexmodguy.alexscaves.server.item.*;
-import com.github.alexmodguy.alexscaves.server.item.tooltip.SackOfSatingTooltip;
 import com.github.alexmodguy.alexscaves.server.misc.ACKeybindRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
-import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
 import com.github.alexthe666.citadel.client.tick.ClientTickRateTracker;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
@@ -39,42 +30,32 @@ import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.item.ItemProperties;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.sounds.SoundEngine;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.saveddata.maps.MapDecoration;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.client.event.*;
-import net.neoforged.neoforge.common.NeoForge;
 
 import javax.annotation.Nullable;
-import java.io.IOException;
 import java.util.*;
 
 import static com.github.alexmodguy.alexscaves.client.ClientConstants.*;
 
 public class ClientProxy extends CommonProxy {
 
-    public static final RandomSource random = RandomSource.create();
+    public static final RandomSource RANDOM = RandomSource.create();
     public static int lastTremorTick = -1;
     public static float[] randomTremorOffsets = new float[3];
     public static List<UUID> blockedEntityRenders = new ArrayList<>();
@@ -94,13 +75,20 @@ public class ClientProxy extends CommonProxy {
     public static int renderNukeSkyDarkFor = 0;
     public static float masterVolumeNukeModifier = 0.0F;
     // Client-side tracking for bubbled effect visuals (entity ID -> remaining ticks)
-    private static final it.unimi.dsi.fastutil.ints.Int2IntMap BUBBLED_EFFECT_TICKS = new it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap();
+    public static final it.unimi.dsi.fastutil.ints.Int2IntMap BUBBLED_EFFECT_TICKS = new it.unimi.dsi.fastutil.ints.Int2IntOpenHashMap();
     public static final Int2ObjectMap<AbstractTickableSoundInstance> ENTITY_SOUND_INSTANCE_MAP = new Int2ObjectOpenHashMap<>();
     public static final Map<BlockEntity, AbstractTickableSoundInstance> BLOCK_ENTITY_SOUND_INSTANCE_MAP = new HashMap<>();
+    public static boolean hasACSplashText = false;
+    public static float lastSampledFogNearness = 0.0F;
+    public static float lastSampledWaterFogFarness = 0.0F;
+    public static Vec3 lastSampledFogColor = Vec3.ZERO;
+    public static Vec3 lastSampledWaterFogColor = Vec3.ZERO;
+    public static PoseStack lastVanillaMapPoseStack;
+    public static MultiBufferSource lastVanillaMapRenderBuffer;
+    public static int lastVanillaMapRenderPackedLight;
     private final ACItemRenderProperties isterProperties = new ACItemRenderProperties();
     private final ACArmorRenderProperties armorProperties = new ACArmorRenderProperties();
     public static boolean spelunkeryTutorialComplete;
-    public static boolean hasACSplashText = false;
     public static CameraType lastPOV = CameraType.FIRST_PERSON;
     public static int shaderLoadAttemptCooldown = 0;
     public static Vec3 lastBiomeLightColor = Vec3.ZERO;
@@ -112,330 +100,6 @@ public class ClientProxy extends CommonProxy {
     public static float acSkyOverrideAmount;
     public static Vec3 acSkyOverrideColor = Vec3.ZERO;
     public static boolean disabledBiomeAmbientLightByOtherMod = false;
-
-    /**
-     * Ticks down all bubbled effect timers. Called from ClientEvents.
-     */
-    public static void tickBubbledEffects() {
-        if (BUBBLED_EFFECT_TICKS.isEmpty()) {
-            return;
-        }
-        var iterator = BUBBLED_EFFECT_TICKS.int2IntEntrySet().iterator();
-        while (iterator.hasNext()) {
-            var entry = iterator.next();
-            int newValue = entry.getIntValue() - 1;
-            if (newValue <= 0) {
-                iterator.remove();
-            } else {
-                entry.setValue(newValue);
-            }
-        }
-    }
-
-    @SuppressWarnings("removal")
-    public void commonInit(IEventBus modEventBus) {
-        modEventBus.addListener(this::setupParticles);
-        modEventBus.addListener(this::registerKeybinds);
-        modEventBus.addListener(this::onItemColors);
-        modEventBus.addListener(this::onBlockColors);
-        modEventBus.addListener(this::onRegisterTooltips);
-    }
-
-    public void onRegisterMenuScreens(RegisterMenuScreensEvent event) {
-    }
-
-    @SuppressWarnings("removal")
-    public void clientInit(IEventBus modEventBus) {
-        NeoForge.EVENT_BUS.register(new ClientEvents());
-//        modEventBus.addListener(ClientLayerRegistry::addLayers);
-        modEventBus.addListener(this::bakeModels);
-        modEventBus.addListener(this::registerShaders);
-        modEventBus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
-                AlexsCavesClient.registerEntityRenderers(event::registerEntityRenderer));
-        Sheets.addWoodType(ACBlockRegistry.PEWEN_WOOD_TYPE);
-        Sheets.addWoodType(ACBlockRegistry.THORNWOOD_WOOD_TYPE);
-        ItemProperties.register(ACItemRegistry.HOLOCODER.get(), ResourceLocation.withDefaultNamespace("bound"),
-                (stack, level, living, j) -> {
-                    return HolocoderItem.isBound(stack) ? 1.0F : 0.0F;
-                });
-        ItemProperties.register(ACItemRegistry.DINOSAUR_NUGGET.get(), ResourceLocation.withDefaultNamespace("nugget"),
-                (stack, level, living, j) -> {
-                    return (stack.getCount() % 4) / 4F;
-                });
-        ItemProperties.register(ACItemRegistry.LIMESTONE_SPEAR.get(), ResourceLocation.withDefaultNamespace("throwing"),
-                (stack, level, living, j) -> {
-                    return living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F;
-                });
-        ItemProperties.register(ACItemRegistry.EXTINCTION_SPEAR.get(),
-                ResourceLocation.withDefaultNamespace("throwing"), (stack, level, living, j) -> {
-                    return living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F;
-                });
-        ItemProperties.register(ACItemRegistry.REMOTE_DETONATOR.get(), ResourceLocation.withDefaultNamespace("active"),
-                (stack, level, living, j) -> {
-                    return RemoteDetonatorItem.isActive(stack) ? 1.0F : 0.0F;
-                });
-        ItemProperties.register(ACItemRegistry.MAGIC_CONCH.get(), ResourceLocation.withDefaultNamespace("tooting"),
-                (stack, level, living, j) -> {
-                    return living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F;
-                });
-        ItemProperties.register(ACItemRegistry.ORTHOLANCE.get(), ResourceLocation.withDefaultNamespace("charging"),
-                (stack, level, living, j) -> {
-                    return living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F;
-                });
-        ItemProperties.register(ACItemRegistry.TOTEM_OF_POSSESSION.get(),
-                ResourceLocation.withDefaultNamespace("totem"), (stack, level, living, j) -> {
-                    return TotemOfPossessionItem.isBound(stack)
-                            ? living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.5F
-                            : 0.0F;
-                });
-        ItemProperties.register(ACItemRegistry.CANDY_CANE_HOOK.get(), ResourceLocation.withDefaultNamespace("cast"),
-                (stack, level, holder, i) -> {
-                    return holder != null && CandyCaneHookItem.isActive(stack) ? 1.0F : 0.0F;
-                });
-        ItemProperties.register(ACItemRegistry.SACK_OF_SATING.get(), ResourceLocation.withDefaultNamespace("open"),
-                (stack, level, living, j) -> {
-                    return level != null && SackOfSatingItem.isChewing(stack, level.getGameTime()) ? 1.0F
-                            : stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).isEmpty()
-                            || living instanceof Player player && player.containerMenu != null
-                            && SackOfSatingItem.calculateWholeStackHungerValue(
-                            player.containerMenu.getCarried(), player) > 0 ? 0.5F : 0.0F;
-                });
-        ItemProperties.register(ACItemRegistry.FROSTMINT_SPEAR.get(), ResourceLocation.withDefaultNamespace("throwing"),
-                (stack, level, living, j) -> {
-                    return living != null && living.isUsingItem() && living.getUseItem() == stack ? 1.0F : 0.0F;
-                });
-        blockedParticleLocations.clear();
-        PostEffectRegistry.registerEffect(IRRADIATED_SHADER);
-        PostEffectRegistry.registerEffect(HOLOGRAM_SHADER);
-        PostEffectRegistry.registerEffect(PURPLE_WITCH_SHADER);
-        // Menu screens are now registered via RegisterMenuScreensEvent in commonInit
-        hasACSplashText = random.nextInt(300) == 0;
-        ItemBlockRenderTypes.setRenderLayer(ACFluidRegistry.ACID_FLUID_SOURCE.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(ACFluidRegistry.ACID_FLUID_FLOWING.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(ACFluidRegistry.PURPLE_SODA_FLUID_SOURCE.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(ACFluidRegistry.PURPLE_SODA_FLUID_FLOWING.get(), RenderType.translucent());
-    }
-
-    public void setupParticles(RegisterParticleProvidersEvent registry) {
-        AlexsCaves.LOGGER.debug("Registered particle factories");
-        registry.registerSpecial(ACParticleRegistry.SCARLET_MAGNETIC_ORBIT.get(),
-                new MagneticOrbitParticle.ScarletFactory());
-        registry.registerSpecial(ACParticleRegistry.AZURE_MAGNETIC_ORBIT.get(),
-                new MagneticOrbitParticle.AzureFactory());
-        registry.registerSpecial(ACParticleRegistry.SCARLET_MAGNETIC_FLOW.get(),
-                new MagneticFlowParticle.ScarletFactory());
-        registry.registerSpecial(ACParticleRegistry.AZURE_MAGNETIC_FLOW.get(), new MagneticFlowParticle.AzureFactory());
-        registry.registerSpecial(ACParticleRegistry.TESLA_BULB_LIGHTNING.get(),
-                new TeslaBulbLightningParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.MAGNET_LIGHTNING.get(), new MagnetLightningParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.GALENA_DEBRIS.get(), GalenaDebrisParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.MAGNETIC_CAVES_AMBIENT.get(),
-                new MagneticCavesAmbientParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.FERROUSLIME.get(), FerrouslimeParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.QUARRY_BORDER_LIGHTING.get(),
-                new QuarryBorderLightningParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.AZURE_SHIELD_LIGHTNING.get(),
-                new ResistorShieldLightningParticle.AzureFactory());
-        registry.registerSpecial(ACParticleRegistry.SCARLET_SHIELD_LIGHTNING.get(),
-                new ResistorShieldLightningParticle.ScarletFactory());
-        registry.registerSpriteSet(ACParticleRegistry.FLY.get(), FlyParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.WATER_TREMOR.get(), WaterTremorParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.AMBER_MONOLITH.get(), AmberMonolithParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.AMBER_EXPLOSION.get(), SmallExplosionParticle.AmberFactory::new);
-        registry.registerSpecial(ACParticleRegistry.DINOSAUR_TRANSFORMATION_AMBER.get(),
-                new DinosaurTransformParticle.AmberFactory());
-        registry.registerSpecial(ACParticleRegistry.DINOSAUR_TRANSFORMATION_TECTONIC.get(),
-                new DinosaurTransformParticle.TectonicFactory());
-        registry.registerSpecial(ACParticleRegistry.STUN_STAR.get(), new StunStarParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.TEPHRA.get(), TephraParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TEPHRA_SMALL.get(), TephraParticle.SmallFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TEPHRA_FLAME.get(), TephraParticle.FlameFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.LUXTRUCTOSAURUS_SPIT.get(),
-                LuxtructosaurusSpitParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.LUXTRUCTOSAURUS_ASH.get(),
-                LuxtructosaurusAshParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.HAPPINESS.get(), HappinessParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.ACID_BUBBLE.get(), AcidBubbleParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.BLACK_VENT_SMOKE.get(), VentSmokeParticle.BlackFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.WHITE_VENT_SMOKE.get(), VentSmokeParticle.WhiteFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.GREEN_VENT_SMOKE.get(), VentSmokeParticle.GreenFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.RED_VENT_SMOKE.get(), VentSmokeParticle.RedFactory::new);
-        registry.registerSpecial(ACParticleRegistry.MUSHROOM_CLOUD.get(), new MushroomCloudParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.MUSHROOM_CLOUD_SMOKE.get(),
-                SmallExplosionParticle.NukeFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.MUSHROOM_CLOUD_EXPLOSION.get(),
-                SmallExplosionParticle.NukeFactory::new);
-        registry.registerSpecial(ACParticleRegistry.PROTON.get(), new ProtonParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.FALLOUT.get(), FalloutParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.GAMMAROACH.get(), GammaroachParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.HAZMAT_BREATHE.get(), HazmatBreatheParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.BLUE_HAZMAT_BREATHE.get(),
-                HazmatBreatheParticle.BlueFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.RADGILL_SPLASH.get(), RadgillSplashParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.ACID_DROP.get(), AcidDropParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.NUCLEAR_SIREN_SONAR.get(),
-                NuclearSirenSonarParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.RAYGUN_EXPLOSION.get(),
-                SmallExplosionParticle.RaygunFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.BLUE_RAYGUN_EXPLOSION.get(),
-                SmallExplosionParticle.BlueRaygunFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.RAYGUN_BLAST.get(), RaygunBlastParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_EXPLOSION.get(),
-                SmallExplosionParticle.TremorzillaFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_RETRO_EXPLOSION.get(),
-                SmallExplosionParticle.TremorzillaRetroFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_TECTONIC_EXPLOSION.get(),
-                SmallExplosionParticle.TremorzillaTectonicFactory::new);
-        registry.registerSpecial(ACParticleRegistry.TREMORZILLA_PROTON.get(), new TremorzillaProtonParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.TREMORZILLA_RETRO_PROTON.get(),
-                new TremorzillaProtonParticle.RetroFactory());
-        registry.registerSpecial(ACParticleRegistry.TREMORZILLA_TECTONIC_PROTON.get(),
-                new TremorzillaProtonParticle.TectonicFactory());
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_LIGHTNING.get(),
-                TremorzillaLightningParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_RETRO_LIGHTNING.get(),
-                TremorzillaLightningParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_TECTONIC_LIGHTNING.get(),
-                TremorzillaLightningParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_BLAST.get(),
-                RaygunBlastParticle.TremorzillaFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_STEAM.get(), TremorzillaSteamParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.TUBE_WORM.get(), new TubeWormParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.DEEP_ONE_MAGIC.get(), DeepOneMagicParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.WATER_FOAM.get(), WaterFoamParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.BIG_SPLASH.get(), new BigSplashParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.BIG_SPLASH_EFFECT.get(), BigSplashEffectParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.MINE_EXPLOSION.get(), SmallExplosionParticle.MineFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.BIO_POP.get(), BioPopParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.WATCHER_APPEARANCE.get(), new WatcherAppearanceParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.VOID_BEING_CLOUD.get(), new VoidBeingCloudParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.VOID_BEING_TENDRIL.get(), new VoidBeingTendrilParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.VOID_BEING_EYE.get(), new VoidBeingEyeParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.UNDERZEALOT_MAGIC.get(), UnderzealotMagicParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.UNDERZEALOT_EXPLOSION.get(),
-                SmallExplosionParticle.UnderzealotFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.FALLING_GUANO.get(), FallingGuanoParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.MOTH_DUST.get(), MothDustParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.FORSAKEN_SPIT.get(), ForsakenSpitParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.FORSAKEN_SONAR.get(), ForsakenSonarParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.FORSAKEN_SONAR_LARGE.get(),
-                ForsakenSonarParticle.LargeFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TOTEM_EXPLOSION.get(), SmallExplosionParticle.TotemFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.ICE_CREAM_DRIP.get(), IceCreamDripParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.ICE_CREAM_SPLASH.get(), IceCreamSplashParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.PURPLE_SODA_BUBBLE.get(), PurpleSodaBubbleParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.PURPLE_SODA_BUBBLE_EMITTER.get(),
-                PurpleSodaBubbleEmitterParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.PURPLE_SODA_FIZZ.get(), PurpleSodaFizzParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.SUNDROP.get(), SundropParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.RAINBOW.get(), new RainbowParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.PLAYER_RAINBOW.get(), new PlayerRainbowParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.CANDICORN_CHARGE.get(), CandicornChargeParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.BIG_BLOCK_DUST.get(), BigBlockDustParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.CARAMEL_DROP.get(), CaramelDropParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.JELLY_BEAN_EAT.get(), new JellyBeanEatParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.SLEEP.get(), SleepParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.WITCH_COOKIE.get(), WitchCookieParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.PURPLE_WITCH_MAGIC.get(), new PurpleWitchMagicParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.PURPLE_WITCH_EXPLOSION.get(),
-                SmallExplosionParticle.PurpleWitchFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.GOBTHUMPER.get(), GobthumperParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.COLORED_DUST.get(), ColoredDustParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.SMALL_COLORED_DUST.get(), ColoredDustParticle.SmallFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.CONVERSION_CRUCIBLE_EXPLOSION.get(),
-                SmallExplosionParticle.ConversionCrucibleFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.FROSTMINT_EXPLOSION.get(),
-                SmallExplosionParticle.FrostmintFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.SUGAR_FLAKE.get(), SugarFlakeParticle.Factory::new);
-    }
-
-    public void onItemColors(RegisterColorHandlersEvent.Item event) {
-        event.register(
-                (stack, colorIn) -> colorIn != 1 ? -1
-                        : CaveInfoItem.getBiomeColorOf(Minecraft.getInstance().level, stack, false) | 0xFF000000,
-                ACItemRegistry.CAVE_TABLET.get());
-        event.register(
-                (stack, colorIn) -> colorIn != 1 ? -1
-                        : CaveInfoItem.getBiomeColorOf(Minecraft.getInstance().level, stack, false) | 0xFF000000,
-                ACItemRegistry.CAVE_CODEX.get());
-        event.register((stack, colorIn) -> colorIn != 0 ? -1 : GazingPearlItem.getPearlColor(stack),
-                ACItemRegistry.GAZING_PEARL.get());
-        event.register((stack, colorIn) -> colorIn != 0 ? -1 : JellyBeanItem.getBeanColor(stack),
-                ACItemRegistry.JELLY_BEAN.get());
-        event.register(
-                (stack, colorIn) -> colorIn != 1 ? -1
-                        : BiomeTreatItem.getBiomeTreatColorOf(Minecraft.getInstance().level, stack) | 0xFF000000,
-                ACItemRegistry.BIOME_TREAT.get());
-    }
-
-    public void onBlockColors(RegisterColorHandlersEvent.Block event) {
-        event.register(
-                (blockState, blockAndTintGetter, blockPos, colorIn) -> colorIn != 0 ? -1
-                        : FrostedChocolateBlock.calculateFrostingColor(blockPos),
-                ACBlockRegistry.BLOCK_OF_FROSTED_CHOCOLATE.get());
-        event.register(
-                (blockState, blockAndTintGetter, blockPos, colorIn) -> colorIn != 0 ? -1
-                        : FrostedChocolateBlock.calculateFrostingColor(blockPos),
-                ACBlockRegistry.BLOCK_OF_FROSTING.get());
-    }
-
-    private void onRegisterTooltips(RegisterClientTooltipComponentFactoriesEvent registry) {
-        registry.register(SackOfSatingTooltip.class, ClientSackOfSatingTooltip::new);
-    }
-
-    private void bakeModels(final ModelEvent.ModifyBakingResult e) {
-        if (AlexsCaves.CLIENT_CONFIG.emissiveBlockModels.get()) {
-            long time = System.currentTimeMillis();
-            for (ModelResourceLocation id : e.getModels().keySet()) {
-                if (FULLBRIGHTS.stream().anyMatch(str -> id.toString().startsWith(str))) {
-                    e.getModels().put(id, new BakedModelShadeLayerFullbright(e.getModels().get(id)));
-                }
-            }
-            AlexsCaves.LOGGER.info("Loaded emissive block models in {} ms", System.currentTimeMillis() - time);
-
-        }
-    }
-
-    private void registerShaders(final RegisterShadersEvent e) {
-        try {
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_ferrouslime_gel"),
-                    DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeFerrouslimeGelShader);
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_hologram"),
-                    DefaultVertexFormat.POSITION_COLOR), ACInternalShaders::setRenderTypeHologramShader);
-            e.registerShader(
-                    new ShaderInstance(e.getResourceProvider(),
-                            AlexsCaves.id("rendertype_irradiated"),
-                            DefaultVertexFormat.NEW_ENTITY),
-                    ACInternalShaders::setRenderTypeIrradiatedShader);
-            e.registerShader(
-                    new ShaderInstance(e.getResourceProvider(),
-                            AlexsCaves.id("rendertype_blue_irradiated"),
-                            DefaultVertexFormat.NEW_ENTITY),
-                    ACInternalShaders::setRenderTypeBlueIrradiatedShader);
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_bubbled"),
-                    DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeBubbledShader);
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_sepia"),
-                    DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeSepiaShader);
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_red_ghost"),
-                    DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeRedGhostShader);
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_purple_witch"),
-                    DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypePurpleWitchShader);
-            AlexsCaves.LOGGER.info("registered internal shaders");
-        } catch (IOException exception) {
-            AlexsCaves.LOGGER.error("could not register internal shaders");
-            exception.printStackTrace();
-        }
-    }
-
-    private void registerKeybinds(RegisterKeyMappingsEvent e) {
-        e.register(ACKeybindRegistry.KEY_SPECIAL_ABILITY);
-    }
 
     public Player getClientSidePlayer() {
         return Minecraft.getInstance().player;
@@ -996,19 +660,19 @@ public class ClientProxy extends CommonProxy {
         }
         if (messageId == 8) {
             for (int i = 0; i < 15; i++) {
-                float particleX = random.nextFloat() * 8 - 4;
-                float particleY = random.nextFloat() * 8 - 4;
-                float particleZ = random.nextFloat() * 8 - 4;
+                float particleX = RANDOM.nextFloat() * 8 - 4;
+                float particleY = RANDOM.nextFloat() * 8 - 4;
+                float particleZ = RANDOM.nextFloat() * 8 - 4;
                 level.addAlwaysVisibleParticle(
-                        random.nextInt(5) == 0 ? ACParticleRegistry.FROSTMINT_EXPLOSION.get() : ParticleTypes.SNOWFLAKE,
+                        RANDOM.nextInt(5) == 0 ? ACParticleRegistry.FROSTMINT_EXPLOSION.get() : ParticleTypes.SNOWFLAKE,
                         true, pos.getX() + particleX, pos.getY() + particleY, pos.getZ() + particleZ, 0, 0, 0);
             }
         }
         if (messageId == 9) {
             for (int i = 0; i < 30; i++) {
-                float particleX = random.nextFloat() * 4 - 2;
-                float particleY = random.nextFloat() * 4 - 2;
-                float particleZ = random.nextFloat() * 4 - 2;
+                float particleX = RANDOM.nextFloat() * 4 - 2;
+                float particleY = RANDOM.nextFloat() * 4 - 2;
+                float particleZ = RANDOM.nextFloat() * 4 - 2;
                 level.addAlwaysVisibleParticle(ParticleTypes.SNOWFLAKE, true, pos.getX() + particleX,
                         pos.getY() + particleY, pos.getZ() + particleZ, 0, 0, 0);
             }
@@ -1144,9 +808,5 @@ public class ClientProxy extends CommonProxy {
     @Override
     public boolean isFarFromCamera(double x, double y, double z) {
         return Minecraft.getInstance().gameRenderer.getMainCamera().getPosition().distanceToSqr(x, y, z) >= 256.0D;
-    }
-
-    public void renderVanillaMapDecoration(MapDecoration mapDecoration, int index) {
-        ClientEvents.renderVanillaMapDecoration(mapDecoration, index + 1);
     }
 }

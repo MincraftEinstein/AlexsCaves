@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin.client;
 
-import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
+import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.MapRenderer;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -19,8 +19,8 @@ public class MapRendererMapInstanceMixin {
             at = @At(value = "HEAD")
     )
     private void ac_render(PoseStack poseStack, MultiBufferSource multiBufferSource, boolean inFrame, int packedLighting, CallbackInfo ci) {
-        ClientEvents.lastVanillaMapPoseStack = poseStack;
-        ClientEvents.lastVanillaMapRenderBuffer = multiBufferSource;
-        ClientEvents.lastVanillaMapRenderPackedLight = packedLighting;
+        ClientProxy.lastVanillaMapPoseStack = poseStack;
+        ClientProxy.lastVanillaMapRenderBuffer = multiBufferSource;
+        ClientProxy.lastVanillaMapRenderPackedLight = packedLighting;
     }
 }

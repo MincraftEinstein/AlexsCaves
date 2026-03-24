@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves;
 
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
+import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeClientPlatformHelper;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeEventHelper;
@@ -55,8 +56,8 @@ public class AlexsCavesNeoForge {
         ACFluidRegistry.FLUID_DEF_REG.register(modEventBus);
         ACLootModifiersRegistry.GLOBAL_LOOT_MODIFIER_DEF_REG.register(modEventBus);
         this.modEventBus = modEventBus; // Store for later use
-        if (AlexsCaves.PROXY instanceof ClientProxy cProxy) {
-            cProxy.commonInit(modEventBus);
+        if (AlexsCaves.PROXY instanceof ClientProxy) {
+            ClientEvents.commonInit(modEventBus);
             NeoForgeClientPlatformHelper.init(modEventBus);
             AlexsCavesClient.init();
         }
@@ -114,8 +115,8 @@ public class AlexsCavesNeoForge {
 
     private void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-            if (AlexsCaves.PROXY instanceof ClientProxy cProxy) {
-                cProxy.clientInit(this.modEventBus);
+            if (AlexsCaves.PROXY instanceof ClientProxy) {
+                ClientEvents.clientInit(this.modEventBus);
                 AlexsCavesClient.lateInit();
             }
         });

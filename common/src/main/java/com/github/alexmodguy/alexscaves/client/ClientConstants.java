@@ -24,7 +24,7 @@ public class ClientConstants {
     public static final ResourceLocation IRRADIATED_SHADER = id("shaders/post/irradiated.json");
     public static final ResourceLocation HOLOGRAM_SHADER = id("shaders/post/hologram.json");
     public static final ResourceLocation PURPLE_WITCH_SHADER = id("shaders/post/purple_witch.json");
-    static final List<String> FULLBRIGHTS = ImmutableList.of("alexscaves:ambersol#",
+    public static final List<String> FULLBRIGHTS = ImmutableList.of("alexscaves:ambersol#",
             "alexscaves:radrock_uranium_ore#", "alexscaves:acidic_radrock#", "alexscaves:uranium_rod#axis=x",
             "alexscaves:uranium_rod#axis=y", "alexscaves:uranium_rod#axis=z", "alexscaves:block_of_uranium#",
             "alexscaves:abyssal_altar#active=true", "alexscaves:abyssmarine_", "alexscaves:peering_coprolith#",

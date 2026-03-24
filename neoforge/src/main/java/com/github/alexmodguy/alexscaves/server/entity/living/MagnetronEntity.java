@@ -50,7 +50,7 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class MagnetronEntity extends Monster implements MultipartEntity {
+public class MagnetronEntity extends Monster implements com.github.alexmodguy.alexscaves.server.entity.util.MultipartEntity {
 
     private static final EntityDataAccessor<CompoundTag> BLOCKSTATES = SynchedEntityData.defineId(MagnetronEntity.class, EntityDataSerializers.COMPOUND_TAG);
     private static final EntityDataAccessor<CompoundTag> BLOCK_POSES = SynchedEntityData.defineId(MagnetronEntity.class, EntityDataSerializers.COMPOUND_TAG);

@@ -1,6 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin.neo;
 
-import com.github.alexmodguy.alexscaves.server.entity.living.MultipartEntity;
+import com.github.alexmodguy.alexscaves.server.entity.util.MultipartEntity;
 import net.neoforged.neoforge.common.extensions.IEntityExtension;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

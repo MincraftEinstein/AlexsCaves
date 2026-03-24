@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.message;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.server.entity.util.MultipartEntity;
 import me.fzzyhmstrs.fzzy_config.networking.api.ServerPlayNetworkContext;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -49,7 +50,7 @@ public class MultipartEntityMessage implements CustomPacketPayload {
             Player player = context.player();
             if (player != null && !player.level().isClientSide) {
                 Entity parent = player.level().getEntity(message.parentId);
-                if (parent != null && parent.isMultipartEntity() && player.distanceTo(parent) < 16) {
+                if (parent instanceof MultipartEntity && player.distanceTo(parent) < 16) {
                     if (message.type == 0) {
                         parent.interact(player, player.getUsedItemHand());
                     } else if (message.type == 1) {

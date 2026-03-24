@@ -4,7 +4,7 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.QuarryBlock;
 import com.github.alexmodguy.alexscaves.server.block.blockentity.QuarryBlockEntity;
-import com.github.alexmodguy.alexscaves.server.entity.living.MultipartEntity;
+import com.github.alexmodguy.alexscaves.server.entity.util.MultipartEntity;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACAdvancementTriggerRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;

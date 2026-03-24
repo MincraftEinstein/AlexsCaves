@@ -51,7 +51,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.entity.PartEntity;
 
-public class CorrodentEntity extends Monster implements ICustomCollisions, IAnimatedEntity, MultipartEntity {
+public class CorrodentEntity extends Monster implements ICustomCollisions, IAnimatedEntity, com.github.alexmodguy.alexscaves.server.entity.util.MultipartEntity {
     public static final int LIGHT_THRESHOLD = 7;
     private static final EntityDataAccessor<Boolean> DIGGING = SynchedEntityData.defineId(CorrodentEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> AFRAID = SynchedEntityData.defineId(CorrodentEntity.class, EntityDataSerializers.BOOLEAN);

@@ -2,7 +2,6 @@ package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.server.entity.ai.AnimalRandomlySwimGoal;
 import com.github.alexmodguy.alexscaves.server.entity.ai.VerticalSwimmingMoveControl;
-import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -43,7 +42,7 @@ import net.neoforged.neoforge.entity.PartEntity;
 import javax.annotation.Nonnull;
 import java.util.EnumSet;
 
-public class GossamerWormEntity extends WaterAnimal implements Bucketable, MultipartEntity {
+public class GossamerWormEntity extends WaterAnimal implements Bucketable, com.github.alexmodguy.alexscaves.server.entity.util.MultipartEntity {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(GossamerWormEntity.class, EntityDataSerializers.BOOLEAN);
 

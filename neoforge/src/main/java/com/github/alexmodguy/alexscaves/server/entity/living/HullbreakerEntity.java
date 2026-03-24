@@ -59,7 +59,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class HullbreakerEntity extends WaterAnimal implements IAnimatedEntity, KaijuMob, MultipartEntity {
+public class HullbreakerEntity extends WaterAnimal implements IAnimatedEntity, KaijuMob, com.github.alexmodguy.alexscaves.server.entity.util.MultipartEntity {
 
     public static final Animation ANIMATION_PUZZLE = Animation.create(60);
     public static final Animation ANIMATION_BITE = Animation.create(20);

@@ -42,7 +42,7 @@ import net.neoforged.neoforge.entity.PartEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SauropodBaseEntity extends DinosaurEntity implements ShakesScreen, IAnimatedEntity, KaijuMob, ITallWalker, MultipartEntity {
+public abstract class SauropodBaseEntity extends DinosaurEntity implements ShakesScreen, IAnimatedEntity, KaijuMob, ITallWalker, com.github.alexmodguy.alexscaves.server.entity.util.MultipartEntity {
 
     protected static final EntityDataAccessor<Boolean> WALKING = SynchedEntityData.defineId(SauropodBaseEntity.class, EntityDataSerializers.BOOLEAN);
     public static final Animation ANIMATION_SPEAK = Animation.create(15);

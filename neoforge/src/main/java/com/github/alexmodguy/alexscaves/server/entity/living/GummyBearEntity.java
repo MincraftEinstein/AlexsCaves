@@ -3,11 +3,11 @@ package com.github.alexmodguy.alexscaves.server.entity.living;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.PewenBranchBlock;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityDataRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ai.GroundPathNavigatorNoSpin;
 import com.github.alexmodguy.alexscaves.server.entity.ai.GummyBearBackScratchGoal;
 import com.github.alexmodguy.alexscaves.server.entity.ai.GummyBearMeleeGoal;
+import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.GummyColors;
 import com.github.alexmodguy.alexscaves.server.entity.util.HasGummyColors;
 import com.github.alexmodguy.alexscaves.server.entity.util.PossessedByLicowitch;
@@ -71,7 +71,6 @@ import java.util.function.Predicate;
 
 public class GummyBearEntity extends Animal implements IDancesToJukebox, IAnimatedEntity, PossessedByLicowitch, HasGummyColors {
 
-    private static final EntityDataAccessor<GummyColors> GUMMY_COLOR = SynchedEntityData.defineId(GummyBearEntity.class, ACEntityDataRegistry.GUMMY_COLOR.get());
     private static final EntityDataAccessor<Boolean> DANCING = SynchedEntityData.defineId(GummyBearEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> SITTING = SynchedEntityData.defineId(GummyBearEntity.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> STANDING = SynchedEntityData.defineId(GummyBearEntity.class, EntityDataSerializers.BOOLEAN);
@@ -115,7 +114,6 @@ public class GummyBearEntity extends Animal implements IDancesToJukebox, IAnimat
 
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
-        builder.define(GUMMY_COLOR, GummyColors.RED);
         builder.define(DANCING, false);
         builder.define(SITTING, false);
         builder.define(STANDING, false);
@@ -177,7 +175,6 @@ public class GummyBearEntity extends Animal implements IDancesToJukebox, IAnimat
 
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putInt("GummyColor", this.getGummyColor().ordinal());
         if (digestingEffect != null) {
             compound.putString("DigestingEffect", digestingEffect.toString());
             compound.putInt("JellyBeansToMake", this.jellybeansToMake);
@@ -224,11 +221,11 @@ public class GummyBearEntity extends Animal implements IDancesToJukebox, IAnimat
 
 
     public GummyColors getGummyColor() {
-        return this.entityData.get(GUMMY_COLOR);
+        return ACAttachmentRegistry.GUMMY_COLOR.getOrCreate(this);
     }
 
     public void setGummyColor(GummyColors color) {
-        this.entityData.set(GUMMY_COLOR, color);
+        ACAttachmentRegistry.GUMMY_COLOR.set(this, color);
     }
 
     public float getStomachRed() {
@@ -276,9 +273,9 @@ public class GummyBearEntity extends Animal implements IDancesToJukebox, IAnimat
 
     @Override
     public boolean canAttack(LivingEntity living) {
-        if(this.getPossessedByLicowitchId() != -1){
+        if (this.getPossessedByLicowitchId() != -1) {
             LicowitchEntity licowitch = this.getPossessingLicowitch(this.level());
-            if(licowitch != null && licowitch.isFriendlyFire(living)){
+            if (licowitch != null && licowitch.isFriendlyFire(living)) {
                 return false;
             }
         }

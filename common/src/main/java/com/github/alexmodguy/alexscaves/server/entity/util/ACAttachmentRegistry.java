@@ -29,6 +29,21 @@ public class ACAttachmentRegistry {
                     .copyOnDeath()
     );
 
+    public static AttachmentSupplier<GummyColors, Entity> GUMMY_COLOR = Services.REGISTRY_HELPER.registerAttachment("gummy_color", Entity.class,
+            () -> GummyColors.RED,
+            builder -> builder.persistent(GummyColors.CODEC)
+                    .synced(GummyColors.STREAM_CODEC, (entity, player) -> {
+                        if (Services.PLATFORM_HELPER.getPlatform() == IPlatformHelper.Platform.NEOFORGE) {
+                            if (player.connection != null) {
+                                return ConfigApiJava.network().canSend(NEO_SYNC_PAYLOAD, player);
+                            }
+                            return false;
+                        }
+                        return true;
+                    })
+                    .copyOnDeath()
+    );
+
     public static void init() {
     }
 }

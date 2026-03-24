@@ -1,12 +1,11 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.ACEntityDataRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ai.NotLavaSwimNodeEvaluator;
 import com.github.alexmodguy.alexscaves.server.entity.ai.VerticalSwimmingMoveControl;
+import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.GummyColors;
 import com.github.alexmodguy.alexscaves.server.entity.util.HasGummyColors;
-import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -57,7 +56,6 @@ import java.util.EnumSet;
 public class SweetishFishEntity extends WaterAnimal implements Bucketable, HasGummyColors {
 
     private static final EntityDataAccessor<Boolean> FROM_BUCKET = SynchedEntityData.defineId(SweetishFishEntity.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<GummyColors> GUMMY_COLOR = SynchedEntityData.defineId(SweetishFishEntity.class, ACEntityDataRegistry.GUMMY_COLOR.get());
     private float landProgress;
     private float prevLandProgress;
     private float fishPitch = 0;
@@ -79,7 +77,6 @@ public class SweetishFishEntity extends WaterAnimal implements Bucketable, HasGu
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(FROM_BUCKET, false);
-        builder.define(GUMMY_COLOR, GummyColors.RED);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -133,7 +130,6 @@ public class SweetishFishEntity extends WaterAnimal implements Bucketable, HasGu
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("FromBucket", this.fromBucket());
-        compound.putInt("GummyColor", this.getGummyColor().ordinal());
     }
 
     public void readAdditionalSaveData(CompoundTag compound) {
@@ -268,11 +264,11 @@ public class SweetishFishEntity extends WaterAnimal implements Bucketable, HasGu
     }
 
     public GummyColors getGummyColor() {
-        return this.entityData.get(GUMMY_COLOR);
+        return ACAttachmentRegistry.GUMMY_COLOR.getOrCreate(this);
     }
 
     public void setGummyColor(GummyColors color) {
-        this.entityData.set(GUMMY_COLOR, color);
+        ACAttachmentRegistry.GUMMY_COLOR.set(this, color);
     }
 
     public void travel(Vec3 travelVector) {

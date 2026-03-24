@@ -19,7 +19,7 @@ import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseRailBlock;
-import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.RailBlock;import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RailShape;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -164,7 +164,7 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements Min
 
                     this.setRot(this.getYRot(), this.getXRot());
                     AABB box = this.getBoundingBox().inflate(0.2F, 0.0D, 0.2F);
-                    if (((AbstractMinecart) (Entity) this).canBeRidden() && this.getDeltaMovement().horizontalDistanceSqr() > 0.01D) {
+                    if (((AbstractMinecart) (Entity) this).getMinecartType() == AbstractMinecart.Type.RIDEABLE && this.getDeltaMovement().horizontalDistanceSqr() > 0.01D) {
                         List<Entity> list = this.level().getEntities(this, box, EntitySelector.pushableBy(this));
                         if (!list.isEmpty()) {
                             for (int l = 0; l < list.size(); ++l) {
@@ -210,7 +210,7 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements Min
     }
 
     private void moveAlongMagLev(BlockPos railPos, BlockState railState) {
-        boolean doRailFunctions = ((AbstractMinecart) (Entity) this).shouldDoRailFunctions();
+        boolean doRailFunctions = true;
         this.resetFallDistance();
         double d0 = this.getX();
         double d1 = this.getY();
@@ -218,13 +218,16 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements Min
         Vec3 vec3 = this.getPos(d0, d1, d2);
         boolean flag = true;
         boolean flag1 = true;
-        double d3 = ((AbstractMinecart) (Entity) this).getSlopeAdjustment();
+        // TODO see if its needed
+        double d3 = 0.0078125D;
+//        double d3 = ((AbstractMinecart) (Entity) this).getSlopeAdjustment();
         if (this.isInWater()) {
             d3 *= 0.2D;
         }
 
         Vec3 vec31 = this.getDeltaMovement();
-        RailShape railshape = ((BaseRailBlock) railState.getBlock()).getRailDirection(railState, this.level(), railPos, ((AbstractMinecart) (Entity) this));
+        RailShape railshape =  railState.getValue(RailBlock.SHAPE);
+//        RailShape railshape = ((BaseRailBlock) railState.getBlock()).getRailDirection(railState, this.level(), railPos, ((AbstractMinecart) (Entity) this));
         switch (railshape) {
             case ASCENDING_EAST:
                 this.setDeltaMovement(vec31.add(-d3, 0.0D, 0.0D));
@@ -329,8 +332,9 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements Min
             this.setDeltaMovement(d26 * (double) (j - railPos.getX()), vec35.y, d26 * (double) (i - railPos.getZ()));
         }
 
-        if (doRailFunctions)
-            ((BaseRailBlock) railState.getBlock()).onMinecartPass(railState, level(), railPos, ((AbstractMinecart) (Entity) this));
+        // TODO see if needed
+//        if (doRailFunctions)
+//            ((BaseRailBlock) railState.getBlock()).onMinecartPass(railState, level(), railPos, ((AbstractMinecart) (Entity) this));
 
         if (flag && doRailFunctions) {
             Vec3 vec36 = this.getDeltaMovement();
@@ -405,7 +409,8 @@ public abstract class AbstractMinecartMixin extends VehicleEntity implements Min
         if (magLevBelow != null) {
             BlockState magLevState = level().getBlockState(magLevBelow);
             if (magLevState.getBlock() instanceof MagneticLevitationRailBlock magRailBlock) {
-                d25 = magRailBlock.getRailMaxSpeed(magLevState, this.level(), pos, (AbstractMinecart) (Entity) this);
+                // TODO neo why do you change soo much?
+//                d25 = magRailBlock.getRailMaxSpeed(magLevState, this.level(), pos, (AbstractMinecart) (Entity) this);
             }
         }
         Vec3 vec3d1 = this.getDeltaMovement();

@@ -13,10 +13,13 @@ accessible method net/minecraft/core/particles/SimpleParticleType <init> (Z)V
 
 accessible field net/minecraft/world/level/chunk/LevelChunkSection biomes Lnet/minecraft/world/level/chunk/PalettedContainerRO;
 mutable field net/minecraft/world/level/chunk/LevelChunkSection biomes Lnet/minecraft/world/level/chunk/PalettedContainerRO;
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context blockX I
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context blockY I
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context blockZ I
 
 accessible class net/minecraft/client/renderer/texture/SpriteContents$AnimatedTexture
 accessible class net/minecraft/client/multiplayer/ClientChunkCache$Storage
-
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$Condition
 
 # For ConversionCrucibleBlockEntity
 accessible method net/minecraft/world/level/levelgen/NoiseBasedChunkGenerator createNoiseChunk (Lnet/minecraft/world/level/chunk/ChunkAccess;Lnet/minecraft/world/level/StructureManager;Lnet/minecraft/world/level/levelgen/blending/Blender;Lnet/minecraft/world/level/levelgen/RandomState;)Lnet/minecraft/world/level/levelgen/NoiseChunk;

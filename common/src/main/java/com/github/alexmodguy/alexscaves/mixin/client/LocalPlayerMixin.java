@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin.client;
 
 
-import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.mojang.authlib.GameProfile;
@@ -66,7 +65,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
      */
     @Inject(method = "aiStep",
             at = @At(value = "INVOKE",
-                    target = "Lnet/neoforged/neoforge/client/ClientHooks;onMovementInputUpdate(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/client/player/Input;)V",
+                    target ="Lnet/minecraft/client/player/LocalPlayer;isUsingItem()Z",
                     shift = At.Shift.AFTER))
     private void ac_saveMovementInputBeforeSlowdown(CallbackInfo ci) {
         // Save the original input values before vanilla applies the 0.2x slowdown for using items

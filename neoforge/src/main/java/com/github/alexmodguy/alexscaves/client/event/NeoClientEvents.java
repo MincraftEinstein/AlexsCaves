@@ -104,7 +104,7 @@ import static com.github.alexmodguy.alexscaves.client.ClientConstants.*;
 import static com.github.alexmodguy.alexscaves.client.ClientProxy.*;
 import static net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY;
 
-public class ClientEvents {
+public class NeoClientEvents {
 
     public static void addLayersEvent(EntityRenderersEvent.AddLayers event) {
         BuiltInRegistries.ENTITY_TYPE.stream()
@@ -1288,20 +1288,20 @@ public class ClientEvents {
 
     @SuppressWarnings("removal")
     public static void commonInit(IEventBus modEventBus) {
-        modEventBus.addListener(ClientEvents::setupParticles);
-        modEventBus.addListener(ClientEvents::registerKeybinds);
-        modEventBus.addListener(ClientEvents::onItemColors);
-        modEventBus.addListener(ClientEvents::onBlockColors);
-        modEventBus.addListener(ClientEvents::onRegisterTooltips);
-        modEventBus.addListener(ClientEvents::addLayersEvent);
+        modEventBus.addListener(NeoClientEvents::setupParticles);
+        modEventBus.addListener(NeoClientEvents::registerKeybinds);
+        modEventBus.addListener(NeoClientEvents::onItemColors);
+        modEventBus.addListener(NeoClientEvents::onBlockColors);
+        modEventBus.addListener(NeoClientEvents::onRegisterTooltips);
+        modEventBus.addListener(NeoClientEvents::addLayersEvent);
     }
 
     @SuppressWarnings("removal")
     public static void clientInit(IEventBus modEventBus) {
-        NeoForge.EVENT_BUS.register(new ClientEvents());
+        NeoForge.EVENT_BUS.register(new NeoClientEvents());
 //        modEventBus.addListener(ClientLayerRegistry::addLayers);
-        modEventBus.addListener(ClientEvents::bakeModels);
-        modEventBus.addListener(ClientEvents::registerShaders);
+        modEventBus.addListener(NeoClientEvents::bakeModels);
+        modEventBus.addListener(NeoClientEvents::registerShaders);
         modEventBus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
                 AlexsCavesClient.registerEntityRenderers(event::registerEntityRenderer));
         Sheets.addWoodType(ACBlockRegistry.PEWEN_WOOD_TYPE);

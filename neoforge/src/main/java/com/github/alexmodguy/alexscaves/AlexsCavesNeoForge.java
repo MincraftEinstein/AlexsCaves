@@ -1,14 +1,14 @@
 package com.github.alexmodguy.alexscaves;
 
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
-import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
+import com.github.alexmodguy.alexscaves.client.event.NeoClientEvents;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeClientPlatformHelper;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeEventHelper;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeRegistryHelper;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.config.BiomeGenerationConfig;
-import com.github.alexmodguy.alexscaves.server.event.CommonEvents;
+import com.github.alexmodguy.alexscaves.server.event.NeoCommonEvents;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRules;
 import com.github.alexmodguy.alexscaves.server.misc.ACLoadedMods;
@@ -51,15 +51,15 @@ public class AlexsCavesNeoForge {
         modEventBus.addListener(this::reloadConfig);
         modEventBus.addListener(this::registerLayerDefinitions);
         modEventBus.addListener(this::registerTicketControllers);
-        modEventBus.addListener(CommonEvents::initializeAttributes2);
-        modEventBus.addListener(CommonEvents::spawnPlacements);
-        NeoForge.EVENT_BUS.register(new CommonEvents());
+        modEventBus.addListener(NeoCommonEvents::initializeAttributes2);
+        modEventBus.addListener(NeoCommonEvents::spawnPlacements);
+        NeoForge.EVENT_BUS.register(new NeoCommonEvents());
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(modEventBus);
         ACFluidRegistry.FLUID_DEF_REG.register(modEventBus);
         ACLootModifiersRegistry.GLOBAL_LOOT_MODIFIER_DEF_REG.register(modEventBus);
         this.modEventBus = modEventBus; // Store for later use
         if (AlexsCaves.PROXY instanceof ClientProxy) {
-            ClientEvents.commonInit(modEventBus);
+            NeoClientEvents.commonInit(modEventBus);
             NeoForgeClientPlatformHelper.init(modEventBus);
             AlexsCavesClient.init();
         }
@@ -94,7 +94,7 @@ public class AlexsCavesNeoForge {
     private void clientSetup(final FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             if (AlexsCaves.PROXY instanceof ClientProxy) {
-                ClientEvents.clientInit(this.modEventBus);
+                NeoClientEvents.clientInit(this.modEventBus);
                 AlexsCavesClient.lateInit();
             }
         });

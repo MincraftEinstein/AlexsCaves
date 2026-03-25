@@ -64,7 +64,7 @@ import net.neoforged.neoforge.event.village.WandererTradesEvent;
 
 import java.util.List;
 
-public class CommonEvents {
+public class NeoCommonEvents {
 
     public static void initializeAttributes2(EntityAttributeCreationEvent event) {
         CommonCommonEvents.initializeAttributes(event::put);

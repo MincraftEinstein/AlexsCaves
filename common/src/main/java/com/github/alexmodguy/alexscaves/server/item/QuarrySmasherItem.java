@@ -1,5 +1,8 @@
 package com.github.alexmodguy.alexscaves.server.item;
 
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.QuarrySmasherEntity;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -9,6 +12,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -45,8 +49,7 @@ public class QuarrySmasherItem extends Item {
 
             if (hitresult.getType() == HitResult.Type.BLOCK) {
                 Vec3 vec31 = hitresult.getLocation();
-                // TODO fix when entities
-                /*QuarrySmasherEntity smasherEntity = ACEntityRegistry.QUARRY_SMASHER.get().create(level);
+                QuarrySmasherEntity smasherEntity = ACEntityRegistry.QUARRY_SMASHER.get().create(level);
                 smasherEntity.setPos(vec31.x, vec31.y, vec31.z);
                 smasherEntity.setYRot(player.getYRot());
                 smasherEntity.setInactive(true);
@@ -60,9 +63,9 @@ public class QuarrySmasherItem extends Item {
                             itemstack.shrink(1);
                         }
                     }
-                    player.awardStat(Stats.ITEM_USED.get(this));*/
+                    player.awardStat(Stats.ITEM_USED.get(this));
                 return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
-//                }
+                }
             } else {
                 return InteractionResultHolder.pass(itemstack);
             }

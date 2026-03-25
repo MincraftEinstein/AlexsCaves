@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.living.LuxtructosaurusEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.Util;
@@ -14,6 +15,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -32,6 +34,7 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
@@ -63,8 +66,7 @@ public class FissurePrimalMagmaBlock extends Block {
     }
 
     public void entityInside(BlockState state, Level level, BlockPos blockPos, Entity entity) {
-        // TODO when entities
-        if (false/*!(entity instanceof LuxtructosaurusEntity)*/) {
+        if (!(entity instanceof LuxtructosaurusEntity)) {
             entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.9D, 0.1D, 0.9D));
             entity.hurt(level.damageSources().hotFloor(), 1.0F);
             entity.igniteForSeconds(6);
@@ -72,10 +74,9 @@ public class FissurePrimalMagmaBlock extends Block {
     }
 
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos blockPos, CollisionContext context) {
-        // TODO when entities
-//        if (context instanceof EntityCollisionContext entityCollisionContext && !(entityCollisionContext.getEntity() instanceof LuxtructosaurusEntity)) {
-//            return entityCollisionContext.getEntity() instanceof ItemEntity ? Shapes.empty() : PrimalMagmaBlock.SINK_SHAPE;
-//        }
+        if (context instanceof EntityCollisionContext entityCollisionContext && !(entityCollisionContext.getEntity() instanceof LuxtructosaurusEntity)) {
+            return entityCollisionContext.getEntity() instanceof ItemEntity ? Shapes.empty() : PrimalMagmaBlock.SINK_SHAPE;
+        }
         return super.getCollisionShape(state, level, blockPos, context);
     }
 

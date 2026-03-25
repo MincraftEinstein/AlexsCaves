@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.entity.living.LuxtructosaurusEntity;
 import com.github.alexmodguy.alexscaves.server.level.storage.ACWorldData;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -58,8 +59,7 @@ public class PrimalMagmaBlock extends Block {
     }
 
     public void entityInside(BlockState state, Level level, BlockPos blockPos, Entity entity) {
-        // TODO when entities
-        if (false/*!(entity instanceof LuxtructosaurusEntity)*/) {
+        if (!(entity instanceof LuxtructosaurusEntity)) {
             if (state.getValue(ACTIVE)) {
                 if (!(entity instanceof ItemEntity)) {
                     entity.setDeltaMovement(entity.getDeltaMovement().multiply(0.9D, 0.1D, 0.9D));
@@ -75,8 +75,7 @@ public class PrimalMagmaBlock extends Block {
 
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos blockPos, CollisionContext context) {
         if (state.getValue(ACTIVE)) {
-            // TODO when entities
-            if (context instanceof EntityCollisionContext entityCollisionContext /*&& !(entityCollisionContext.getEntity() instanceof LuxtructosaurusEntity)*/) {
+            if (context instanceof EntityCollisionContext entityCollisionContext && !(entityCollisionContext.getEntity() instanceof LuxtructosaurusEntity)) {
                 return entityCollisionContext.getEntity() instanceof ItemEntity ? Shapes.empty() : SINK_SHAPE;
             }
         }
@@ -121,7 +120,6 @@ public class PrimalMagmaBlock extends Block {
     }
 
     public static boolean isBossActive(Level level) {
-        // TODO
         ACWorldData worldData = ACWorldData.get(level);
         if(worldData != null){
             return worldData.isPrimordialBossActive(level);

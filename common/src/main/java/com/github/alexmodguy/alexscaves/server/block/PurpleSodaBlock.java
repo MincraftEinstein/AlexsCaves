@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.util.FrostmintExplosion;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.BlockPos;
@@ -9,6 +10,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -58,10 +60,9 @@ public class PurpleSodaBlock extends LiquidBlock {
             BlockState state1 = worldIn.getBlockState(offset);
             if (state1.is(ACBlockRegistry.FROSTMINT.get())) {
                 worldIn.setBlockAndUpdate(offset, Blocks.AIR.defaultBlockState());
-                // TODO when FrostmintExplosion
-//                FrostmintExplosion explosion = new FrostmintExplosion(worldIn, null, offset.getX() + 0.5F, offset.getY() + 0.5F, offset.getZ() + 0.5F, 4.0F, Explosion.BlockInteraction.DESTROY_WITH_DECAY, false);
-//                explosion.explode();
-//                explosion.finalizeExplosion(true);
+                FrostmintExplosion explosion = new FrostmintExplosion(worldIn, null, offset.getX() + 0.5F, offset.getY() + 0.5F, offset.getZ() + 0.5F, 4.0F, Explosion.BlockInteraction.DESTROY_WITH_DECAY, false);
+                explosion.explode();
+                explosion.finalizeExplosion(true);
             }
         }
     }

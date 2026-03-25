@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.entity.item.FallingFrostmintEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -44,8 +45,7 @@ public class FrostmintBlock extends SlabBlock implements Fallable {
     @Override
     public void tick(BlockState state, ServerLevel level, BlockPos blockPos, RandomSource randomSource) {
         if ((isFree(level.getBlockState(blockPos.below())) || state.getValue(TYPE) == SlabType.TOP) && blockPos.getY() >= level.getMinBuildHeight()) {
-            // TODO when entities
-//            FallingFrostmintEntity.fall(level, blockPos, state);
+            FallingFrostmintEntity.fall(level, blockPos, state);
         }
     }
 

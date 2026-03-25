@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.block;
 
+import com.github.alexmodguy.alexscaves.server.entity.living.DinosaurEntity;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -102,9 +103,7 @@ public class DinosaurEggBlock extends Block {
     }
 
     public VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos blockPos, CollisionContext context) {
-        // TODO when entities
-//        return context instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof DinosaurEntity ? Shapes.empty() : super.getCollisionShape(state, level, blockPos, context);
-        return Shapes.block();
+        return context instanceof EntityCollisionContext entityCollisionContext && entityCollisionContext.getEntity() instanceof DinosaurEntity ? Shapes.empty() : super.getCollisionShape(state, level, blockPos, context);
     }
 
     public void randomTick(BlockState state, ServerLevel worldIn, BlockPos pos, RandomSource random) {
@@ -136,12 +135,11 @@ public class DinosaurEggBlock extends Block {
             if (!level.isClientSide) {
                 Player closest = level.getNearestPlayer(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F, 10, EntitySelector.NO_SPECTATORS);
                 if (closest != null) {
-                    // TODO when entities
-//                    if (fromType instanceof DinosaurEntity dinosaur && dinosaur.tamesFromHatching()) {
-//                        dinosaur.setTame(true, true);
-//                        dinosaur.setOrderedToSit(true);
-//                        dinosaur.tame(closest);
-//                    }
+                    if (fromType instanceof DinosaurEntity dinosaur && dinosaur.tamesFromHatching()) {
+                        dinosaur.setTame(true, true);
+                        dinosaur.setOrderedToSit(true);
+                        dinosaur.tame(closest);
+                    }
                 }
                 level.addFreshEntity(fromType);
             }

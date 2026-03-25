@@ -4,15 +4,25 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.CinderBrickEntity;
+import com.github.alexmodguy.alexscaves.server.entity.item.DepthChargeEntity;
+import com.github.alexmodguy.alexscaves.server.entity.item.SeekingArrowEntity;
 import com.github.alexmodguy.alexscaves.server.entity.item.ThrownIceCreamScoopEntity;
 import com.github.alexmodguy.alexscaves.server.entity.util.AlexsCavesBoat;
+import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
+import com.github.alexmodguy.alexscaves.server.misc.ACProjectileDispenseBehavior;
 import com.github.alexthe666.citadel.server.block.LecternBooks;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Position;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.DispenserBlock;
 
@@ -93,8 +103,7 @@ public class ACItemRegistry {
     public static final Supplier<Item> URANIUM_SHARD = register("uranium_shard", () -> new RadioactiveItem(new Item.Properties(), 0.001F));
     public static final Supplier<Item> SULFUR_DUST = register("sulfur_dust", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> RADON_BOTTLE = register("radon_bottle", () -> new Item(new Item.Properties().craftRemainder(Items.GLASS_BOTTLE).stacksTo(16)));
-    // TODO when entities
-//    public static final Supplier<Item> CINDER_BRICK = register("cinder_brick", () -> new ThrownProjectileItem(new Item.Properties(), player -> new CinderBrickEntity(player.level(), player), -20.0F, 0.65F, 0.9F));
+    public static final Supplier<Item> CINDER_BRICK = register("cinder_brick", () -> new ThrownProjectileItem(new Item.Properties(), player -> new CinderBrickEntity(player.level(), player), -20.0F, 0.65F, 0.9F));
     public static final Supplier<Item> SPELUNKIE = register("spelunkie", () -> new RadiationRemovingFoodItem(new Item.Properties().food(ACFoods.SPELUNKIE)));
     public static final Supplier<Item> SLAM = register("slam", () -> new RadiationRemovingFoodItem(new Item.Properties().food(ACFoods.SLAM)));
     public static final Supplier<Item> GREEN_SOYLENT = register("green_soylent", () -> new RadiationRemovingFoodItem(new Item.Properties().food(ACFoods.SOYLENT_GREEN)));
@@ -146,8 +155,7 @@ public class ACItemRegistry {
     public static final Supplier<Item> SEA_STAFF_SPRITE = register("sea_staff_inventory", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> ORTHOLANCE = register("ortholance", () -> new OrtholanceItem(new Item.Properties().durability(340).rarity(Rarity.UNCOMMON)));
     public static final Supplier<Item> ORTHOLANCE_SPRITE = register("ortholance_inventory", () -> new Item(new Item.Properties()));
-    // TODO when entities
-//    public static final Supplier<Item> DEPTH_CHARGE = register("depth_charge", () -> new ThrownProjectileItem(new Item.Properties(), player -> new DepthChargeEntity(player.level(), player), -10.0F, 0.65F, 1.5F));
+    public static final Supplier<Item> DEPTH_CHARGE = register("depth_charge", () -> new ThrownProjectileItem(new Item.Properties(), player -> new DepthChargeEntity(player.level(), player), -10.0F, 0.65F, 1.5F));
     public static final Supplier<Item> GUARDIAN_POTTERY_SHERD = register("guardian_pottery_sherd", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> HERO_POTTERY_SHERD = register("hero_pottery_sherd", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> BIOLUMINESCENT_TORCH = register("bioluminescent_torch", () -> new StandingAndWallBlockItem(ACBlockRegistry.BIOLUMINESCENT_TORCH.get(), ACBlockRegistry.BIOLUMINESCENT_WALL_TORCH.get(), new Item.Properties(), Direction.DOWN));
@@ -234,8 +242,7 @@ public class ACItemRegistry {
     public static final Supplier<Item> JELLY_BEAN = register("jelly_bean", () -> new JellyBeanItem());
 
     static {
-        // TODO when entity
-      /*  spawnEgg("teletor", ACEntityRegistry.TELETOR, 0X433B4A, 0X0060EF, ACBiomeRegistry.MAGNETIC_CAVES);
+        spawnEgg("teletor", ACEntityRegistry.TELETOR, 0X433B4A, 0X0060EF, ACBiomeRegistry.MAGNETIC_CAVES);
         spawnEgg("magnetron", ACEntityRegistry.MAGNETRON, 0XFF002A, 0X203070, ACBiomeRegistry.MAGNETIC_CAVES);
         spawnEgg("boundroid", ACEntityRegistry.BOUNDROID, 0XBB1919, 0XFFFFFF, ACBiomeRegistry.MAGNETIC_CAVES);
         spawnEgg("ferrouslime", ACEntityRegistry.FERROUSLIME, 0X26272D, 0X53556C, ACBiomeRegistry.MAGNETIC_CAVES);
@@ -278,12 +285,11 @@ public class ACItemRegistry {
         spawnEgg("gummy_bear", ACEntityRegistry.GUMMY_BEAR, 0XFF463F, 0XFDA09E, ACBiomeRegistry.CANDY_CAVITY);
         spawnEgg("licowitch", ACEntityRegistry.LICOWITCH, 0X681182, 0XFF6CD7, ACBiomeRegistry.CANDY_CAVITY);
         spawnEgg("gingerbread_man", ACEntityRegistry.GINGERBREAD_MAN, 0XBB581D, 0XFFFFFF, ACBiomeRegistry.CANDY_CAVITY);
-  */
     }
 
     public static void init() {
         LecternBooks.BOOKS.put(CAVE_BOOK.id(), new LecternBooks.BookData(0X81301C, 0XFDF8EC));
-        // Register compostable on fabric here:
+        // TODO Register compostable on fabric here:
     }
 
     private static void spawnEgg(String entityName, Supplier<? extends EntityType<? extends Mob>> type, int color1, int color2, ResourceKey<Biome> biomeTab) {
@@ -292,14 +298,13 @@ public class ACItemRegistry {
     }
 
     public static void registerDispenserBehavior() {
-        // TODO when entity
-      /*  DispenserBlock.registerBehavior(SEEKING_ARROW.get(), new ACProjectileDispenseBehavior() {
+        DispenserBlock.registerBehavior(SEEKING_ARROW.get(), new ACProjectileDispenseBehavior() {
             protected Projectile getProjectile(Level level, Position position, ItemStack itemStack) {
                 AbstractArrow abstractarrow = new SeekingArrowEntity(level, position.x(), position.y(), position.z());
                 abstractarrow.pickup = AbstractArrow.Pickup.ALLOWED;
                 return abstractarrow;
             }
-        });*/
+        });
         DispenserBlock.registerBehavior(GALENA_GAUNTLET.get(), ArmorItem.DISPENSE_ITEM_BEHAVIOR);
 //        DispenserBlock.registerBehavior(TRILOCARIS_BUCKET.get(), new FluidContainerDispenseItemBehavior());
 //        DispenserBlock.registerBehavior(ACID_BUCKET.get(), new FluidContainerDispenseItemBehavior());

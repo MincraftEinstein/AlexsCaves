@@ -11,8 +11,8 @@ public class FabricCommonEvents {
     private static boolean PLAYER_JOINED = false;
 
     public static void init() {
-        ServerLifecycleEvents.SERVER_STARTING.register(CommonCommonEvents::onServerStarting);
-        ServerLifecycleEvents.SERVER_STOPPING.register(CommonCommonEvents::onServerStopping);
+        ServerLifecycleEvents.SERVER_STARTING.register(CommonEvents::onServerStarting);
+        ServerLifecycleEvents.SERVER_STOPPING.register(CommonEvents::onServerStopping);
         // TODO Configs can't be accessed this early
 //        TradeOfferHelper.registerVillagerOffers(VillagerProfession.CARTOGRAPHER, 2, itemListings -> {
 //            if (AlexsCaves.COMMON_CONFIG.cartographersSellCabinMaps.get()) {
@@ -29,13 +29,13 @@ public class FabricCommonEvents {
             Player player = minecraft.player;
             if (level != null && player != null) {
                 if (!PLAYER_JOINED) {
-                    CommonCommonEvents.onPlayerJoinClient(player);
+                    CommonEvents.onPlayerJoinClient(player);
                     PLAYER_JOINED = true;
                 }
                 return;
             }
             PLAYER_JOINED = false;
         });
-        CommonCommonEvents.initializeAttributes(FabricDefaultAttributeRegistry::register);
+        CommonEvents.initializeAttributes(FabricDefaultAttributeRegistry::register);
     }
 }

@@ -67,7 +67,7 @@ import java.util.List;
 public class NeoCommonEvents {
 
     public static void initializeAttributes2(EntityAttributeCreationEvent event) {
-        CommonCommonEvents.initializeAttributes(event::put);
+        CommonEvents.initializeAttributes(event::put);
     }
 
     public static void spawnPlacements(RegisterSpawnPlacementsEvent event) {
@@ -119,7 +119,7 @@ public class NeoCommonEvents {
 
     @SubscribeEvent
     public void resizeEntity(EntityEvent.Size event) {
-        EntityDimensions dimensions = CommonCommonEvents.onEntityResize(event.getEntity(), event.getOldSize(), event.getNewSize());
+        EntityDimensions dimensions = CommonEvents.onEntityResize(event.getEntity(), event.getOldSize(), event.getNewSize());
         if (dimensions != null) {
             event.setNewSize(dimensions);
         }
@@ -127,7 +127,7 @@ public class NeoCommonEvents {
 
     @SubscribeEvent
     public void livingDie(LivingDeathEvent event) {
-        CommonCommonEvents.onLivingDeath(event.getEntity(), event.getSource());
+        CommonEvents.onLivingDeath(event.getEntity(), event.getSource());
     }
 
     // TODO implement on fabric
@@ -185,7 +185,7 @@ public class NeoCommonEvents {
     @SubscribeEvent
     public void livingHurt(LivingDamageEvent.Pre event) {
         // In 1.21, use LivingDamageEvent.Pre and setNewDamage(0) instead of setCanceled()
-        int damageAmount = CommonCommonEvents.onLivingHurt(event.getEntity(), event.getSource());
+        int damageAmount = CommonEvents.onLivingHurt(event.getEntity(), event.getSource());
         if (damageAmount != -1) {
             event.setNewDamage(damageAmount);
         }
@@ -196,7 +196,7 @@ public class NeoCommonEvents {
         if (event.getSource().getDirectEntity() instanceof AbstractArrow arrow && event.getEntity().isBlocking() && event.getEntity().getUseItem().is(ACItemRegistry.RESISTOR_SHIELD.get())) {
             ItemStack shield = event.getEntity().getUseItem();
             // Check for arrow inducting enchantment using 1.21 data-driven system
-            if (CommonCommonEvents.hasEnchantment(shield, event.getEntity().level(), ACEnchantmentRegistry.ARROW_INDUCTING) && arrow.getType() != ACEntityRegistry.SEEKING_ARROW.get()) {
+            if (CommonEvents.hasEnchantment(shield, event.getEntity().level(), ACEnchantmentRegistry.ARROW_INDUCTING) && arrow.getType() != ACEntityRegistry.SEEKING_ARROW.get()) {
                 SeekingArrowEntity seekingArrowEntity = new SeekingArrowEntity(event.getEntity().level(), event.getEntity());
                 seekingArrowEntity.copyPosition(arrow);
                 seekingArrowEntity.setDeltaMovement(arrow.getDeltaMovement().scale(-0.4D));
@@ -317,12 +317,12 @@ public class NeoCommonEvents {
 
     @SubscribeEvent
     public void onServerStopping(ServerStoppingEvent event) {
-        CommonCommonEvents.onServerStopping(event.getServer());
+        CommonEvents.onServerStopping(event.getServer());
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onServerAboutToStart(ServerAboutToStartEvent event) {
-        CommonCommonEvents.onServerStarting(event.getServer());
+        CommonEvents.onServerStarting(event.getServer());
     }
 
     @SubscribeEvent
@@ -330,10 +330,10 @@ public class NeoCommonEvents {
         Player player = event.getEntity();
         if (!player.isCreative()) {
             if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ACTagRegistry.RESTRICTED_BIOME_LOCATORS)) {
-                CommonCommonEvents.checkAndDestroyExploitItem(player, EquipmentSlot.MAINHAND);
+                CommonEvents.checkAndDestroyExploitItem(player, EquipmentSlot.MAINHAND);
             }
             if (player.getItemInHand(InteractionHand.OFF_HAND).is(ACTagRegistry.RESTRICTED_BIOME_LOCATORS)) {
-                CommonCommonEvents.checkAndDestroyExploitItem(player, EquipmentSlot.OFFHAND);
+                CommonEvents.checkAndDestroyExploitItem(player, EquipmentSlot.OFFHAND);
             }
         }
     }
@@ -359,13 +359,13 @@ public class NeoCommonEvents {
     public void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         Player entity = event.getEntity();
         if (entity.level().isClientSide) {
-            CommonCommonEvents.onPlayerJoinClient(entity);
+            CommonEvents.onPlayerJoinClient(entity);
         }
     }
 
     @SubscribeEvent
     public void onRightClickItem(PlayerInteractEvent.RightClickItem event) {
-        CommonCommonEvents.onItemUsed(event.getItemStack(), event.getLevel(), event.getEntity(), event.getHand());
+        CommonEvents.onItemUsed(event.getItemStack(), event.getLevel(), event.getEntity(), event.getHand());
     }
 
     @SubscribeEvent

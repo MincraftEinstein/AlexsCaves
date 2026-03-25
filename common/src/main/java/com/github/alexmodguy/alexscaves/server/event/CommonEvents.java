@@ -57,7 +57,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public class CommonCommonEvents {
+public class CommonEvents {
 
     public static final String ALEXTHE666_UUID = "71363abe-fd03-49c9-940d-aae8b8209b7c";
     public static final String NOONYEYZ_UUID = "4a463319-625c-4b86-a4e7-8b700f023a60";

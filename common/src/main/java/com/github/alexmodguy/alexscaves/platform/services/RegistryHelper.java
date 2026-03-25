@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.platform.services;
 
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.advancements.CriterionTrigger;
 import net.minecraft.client.particle.ParticleProvider;
@@ -10,7 +9,6 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.util.KeyDispatchDataCodec;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -70,9 +68,6 @@ public interface RegistryHelper {
 
     void registerPotionRecipes(Consumer<PotionBrewing.Builder> consumer);
 
-    // TODO
-//    <T extends BlockEntity> BlockEntityType<T> createBlockEntity(BlockEntitySupplier<T> supplier, Block... blocks);
-
     RegHolder<Potion, Potion> registerPotion(String name, Supplier<Potion> type);
 
     RegHolder<MobEffect, MobEffect> registerMobEffect(String name, Supplier<MobEffect> type);
@@ -82,9 +77,6 @@ public interface RegistryHelper {
     <T extends RecipeType<?>> RegHolder<RecipeType<?>, T> registerRecipeType(String name, Supplier<T> type);
 
     <T extends MenuType<?>> RegHolder<MenuType<?>, T> registerMenuType(String name, Supplier<T> type);
-
-    // TODO
-//    <T extends AbstractContainerMenu> MenuType<T> createMenuType(MenuTypeSupplier<T> supplier);
 
     <T extends PoiType> RegHolder<PoiType, T> registerPOIType(String name, Supplier<T> type);
 

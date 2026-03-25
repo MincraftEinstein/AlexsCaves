@@ -17,7 +17,6 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
@@ -101,11 +100,6 @@ public class FabricRegistryHelper implements RegistryHelper {
         FabricBrewingRecipeRegistryBuilder.BUILD.register(consumer::accept);
     }
 
-//    @Override
-//    public <T extends BlockEntity> BlockEntityType<T> createBlockEntity(BlockEntitySupplier<T> supplier, Block... blocks) {
-//        return BlockEntityType.Builder.of(supplier::create, blocks).build(null);
-//    }
-
     @Override
     public RegHolder<Potion, Potion> registerPotion(String name, Supplier<Potion> type) {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.POTION, id(name), type.get()));
@@ -130,11 +124,6 @@ public class FabricRegistryHelper implements RegistryHelper {
     public <T extends MenuType<?>> RegHolder<MenuType<?>, T> registerMenuType(String name, Supplier<T> type) {
         return FabRegHolder.of(Registry.registerForHolder(BuiltInRegistries.MENU, id(name), type.get()));
     }
-
-//    @Override
-//    public <T extends AbstractContainerMenu> MenuType<T> createMenuType(MenuTypeSupplier<T> supplier) {
-//        return new MenuType<>(supplier::create, FeatureFlags.DEFAULT_FLAGS);
-//    }
 
     @Override
     public <T extends PoiType> RegHolder<PoiType, T> registerPOIType(String name, Supplier<T> type) {

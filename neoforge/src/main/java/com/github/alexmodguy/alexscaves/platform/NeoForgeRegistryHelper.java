@@ -42,7 +42,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.attachment.IAttachmentHolder;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.BlockEntityTypeAddBlocksEvent;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -164,11 +163,6 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
         NeoForge.EVENT_BUS.addListener((RegisterBrewingRecipesEvent event) -> consumer.accept(event.getBuilder()));
     }
 
-//    @Override
-//    public <T extends BlockEntity> BlockEntityType<T> createBlockEntity(BlockEntitySupplier<T> supplier, Block... blocks) {
-//        return BlockEntityType.Builder.of(supplier::create, blocks).build(null);
-//    }
-
     @Override
     public RegHolder<Potion, Potion> registerPotion(String name, Supplier<Potion> type) {
         return NeoRegHolder.of(POTIONS.register(name, type));
@@ -193,11 +187,6 @@ public class NeoForgeRegistryHelper implements RegistryHelper {
     public <T extends MenuType<?>> RegHolder<MenuType<?>, T> registerMenuType(String name, Supplier<T> type) {
         return NeoRegHolder.of(MENU_TYPES.register(name, type));
     }
-
-//    @Override
-//    public <T extends AbstractContainerMenu> MenuType<T> createMenuType(MenuTypeSupplier<T> supplier) {
-//        return new MenuType<>(supplier::create, FeatureFlags.DEFAULT_FLAGS);
-//    }
 
     @Override
     public <T extends PoiType> RegHolder<PoiType, T> registerPOIType(String name, Supplier<T> type) {

@@ -2,6 +2,10 @@ package com.github.alexmodguy.alexscaves.server.block;
 
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.platform.Services;
+import com.github.alexmodguy.alexscaves.server.block.grower.AncientTreeGrower;
+import com.github.alexmodguy.alexscaves.server.block.grower.LicorootGrower;
+import com.github.alexmodguy.alexscaves.server.block.grower.PewenGrower;
+import com.github.alexmodguy.alexscaves.server.block.grower.ThornwoodGrower;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.item.*;
 import com.github.alexthe666.citadel.item.BlockItemWithSupplier;
@@ -157,8 +161,7 @@ public class ACBlockRegistry {
     public static final Supplier<Block> PEWEN_BRANCH = registerBlockAndItem("pewen_branch", () -> new PewenBranchBlock());
     public static final RegHolder<Block, Block> PEWEN_PINES = registerBlockAndItem("pewen_pines", () -> new PewenPinesBlock());
     public static final RegHolder<Block, Block> POTTED_PEWEN_PINES = register("potted_pewen_pines", () -> new FlowerPotBlock(PEWEN_PINES.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
-    // TODO re add tree grower
-    public static final RegHolder<Block, Block> PEWEN_SAPLING = registerBlockAndItem("pewen_sapling", () -> new SaplingBlock(null/*PewenGrower.GROWER*/, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
+    public static final RegHolder<Block, Block> PEWEN_SAPLING = registerBlockAndItem("pewen_sapling", () -> new SaplingBlock(PewenGrower.GROWER, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
     public static final RegHolder<Block, Block> POTTED_PEWEN_SAPLING = register("potted_pewen_sapling", () -> new FlowerPotBlock(PEWEN_SAPLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final RegHolder<Block, Block> FIDDLEHEAD = registerBlockAndItem("fiddlehead", () -> new FiddleheadBlock());
     public static final RegHolder<Block, Block> POTTED_FIDDLEHEAD = register("potted_fiddlehead", () -> new FlowerPotBlock(FIDDLEHEAD.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
@@ -171,8 +174,7 @@ public class ACBlockRegistry {
     public static final Supplier<Block> ARCHAIC_VINE = registerBlockAndItem("archaic_vine", () -> new ArchaicVineBlock());
     public static final Supplier<Block> ARCHAIC_VINE_PLANT = register("archaic_vine_plant", () -> new ArchaicVinePlantBlock());
     public static final Supplier<Block> ANCIENT_LEAVES = registerBlockAndItem("ancient_leaves", () -> new LeavesBlock(BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).strength(0.2F).randomTicks().sound(SoundType.GRASS).noOcclusion().isSuffocating((blockState, getter, pos) -> false)));
-    // TODO re add tree grower
-    public static final RegHolder<Block, Block> ANCIENT_SAPLING = registerBlockAndItem("ancient_sapling", () -> new AncientSaplingBlock(null/*AncientTreeGrower.GROWER*/, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
+    public static final RegHolder<Block, Block> ANCIENT_SAPLING = registerBlockAndItem("ancient_sapling", () -> new AncientSaplingBlock(AncientTreeGrower.GROWER, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS)));
     public static final RegHolder<Block, Block> POTTED_ANCIENT_SAPLING = register("potted_ancient_sapling", () -> new FlowerPotBlock(ANCIENT_SAPLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> TREE_STAR = registerBlockAndItem("tree_star", () -> new TreeStarBlock());
     public static final Supplier<Block> FERN_THATCH = registerBlockAndItem("fern_thatch", () -> new Block(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_GREEN).strength(0.5F).sound(SoundType.GRASS).noOcclusion()));
@@ -321,8 +323,7 @@ public class ACBlockRegistry {
     public static final Supplier<Block> THORNWOOD_BUTTON = registerBlockAndItem("thornwood_button", () -> new ButtonBlock(BlockSetType.OAK, 30, BlockBehaviour.Properties.ofFullCopy(THORNWOOD_PLANKS.get()).noCollission().strength(0.5F).sound(SoundType.WOOD)));
     public static final Supplier<Block> THORNWOOD_FENCE_GATE = registerBlockAndItem("thornwood_fence_gate", () -> new FenceGateBlock(WoodType.OAK, BlockBehaviour.Properties.ofFullCopy(THORNWOOD_PLANKS.get()).strength(2.0F, 3.0F).sound(SoundType.WOOD).forceSolidOn()));
     public static final Supplier<Block> THORNWOOD_DOOR = register("thornwood_door", () -> new DoorBlock(BlockSetType.OAK, BlockBehaviour.Properties.ofFullCopy(THORNWOOD_PLANKS.get()).strength(3.0F).sound(SoundType.WOOD).noOcclusion()));
-    // TODO re add tree grower
-    public static final RegHolder<Block, Block> THORNWOOD_SAPLING = registerBlockAndItem("thornwood_sapling", () -> new CaveSaplingBlock(null/*ThornwoodGrower.GROWER*/, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS), true));
+    public static final RegHolder<Block, Block> THORNWOOD_SAPLING = registerBlockAndItem("thornwood_sapling", () -> new CaveSaplingBlock(ThornwoodGrower.GROWER, BlockBehaviour.Properties.of().mapColor(MapColor.GRASS).noCollission().randomTicks().instabreak().sound(SoundType.GRASS), true));
     public static final RegHolder<Block, Block> POTTED_THORNWOOD_SAPLING = register("potted_thornwood_sapling", () -> new FlowerPotBlock(THORNWOOD_SAPLING.get(), BlockBehaviour.Properties.of().instabreak().noOcclusion().pushReaction(PushReaction.DESTROY)));
     public static final Supplier<Block> MOTH_BALL = registerBlockAndItem("moth_ball", () -> new MothBallBlock());
     public static final Supplier<Block> BEHOLDER = registerBlockAndItem("beholder", () -> new BeholderBlock(), 3);
@@ -343,8 +344,7 @@ public class ACBlockRegistry {
     public static final Supplier<Block> WAFER_COOKIE_WALL = registerBlockAndItemEdible("wafer_cookie_wall", () -> new WallBlock(COOKIE_PROPERTIES), ACFoods.COOKIE_HALF);
     public static final Supplier<Block> LICOROOT = registerBlockAndItemEdible("licoroot", () -> new RotatedPillarBlock(LICOROOT_PROPERTIES), ACFoods.LICOROOT);
     public static final Supplier<Block> LICOROOT_VINE = registerBlockAndItemEdible("licoroot_vine", () -> new LicorootVineBlock(), ACFoods.LICOROOT_VINE);
-    // TODO re add tree grower
-    public static final Supplier<Block> LICOROOT_SPROUT = registerBlockAndItemEdible("licoroot_sprout", () -> new CaveSaplingBlock(null/*LicorootGrower.GROWER*/, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instabreak().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GRASS).noOcclusion().noCollission().replaceable(), false), ACFoods.LICOROOT_VINE);
+    public static final Supplier<Block> LICOROOT_SPROUT = registerBlockAndItemEdible("licoroot_sprout", () -> new CaveSaplingBlock(LicorootGrower.GROWER, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BLACK).instabreak().offsetType(BlockBehaviour.OffsetType.XZ).sound(SoundType.GRASS).noOcclusion().noCollission().replaceable(), false), ACFoods.LICOROOT_VINE);
     public static final Supplier<Block> SMALL_PEPPERMINT = registerBlockAndItemEdible("small_peppermint", () -> new PeppermintBlock(2.0D, 6.0D), ACFoods.SMALL_PEPPERMINT);
     public static final Supplier<Block> LARGE_PEPPERMINT = registerBlockAndItemEdible("large_peppermint", () -> new PeppermintBlock(0.0D, 8.0D), ACFoods.LARGE_PEPPERMINT);
     public static final Supplier<Block> VANILLA_ICE_CREAM = registerBlockAndItemEdible("vanilla_ice_cream", () -> new IceCreamBlock(0), ACFoods.VANILLA_ICE_CREAM);

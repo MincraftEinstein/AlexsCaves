@@ -260,7 +260,7 @@ public abstract class LevelRendererMixin {
             int i = level.getBrightness(LightLayer.SKY, pos);
             int j = level.getBrightness(LightLayer.BLOCK, pos);
             // TODO IBlockStateExtensions
-            int k = state.getLightEmission(level, pos) - 1;
+            int k = 0; //state.getLightEmission(level, pos) - 1;
             if (j < k) {
                 j = k;
             }

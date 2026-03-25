@@ -5,14 +5,8 @@
   "refmap": "alexscaves.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "CorrodentCollisionMixin",
     "neo.IEntityExtensionMixin",
     "neo.MobEffectInstanceMixin"
-  ],
-  "client": [
-    "client.LevelRendererMixin",
-    "client.LightTextureMixin",
-    "client.LocalPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

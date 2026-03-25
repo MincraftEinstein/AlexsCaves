@@ -12,9 +12,8 @@ import java.util.function.Supplier;
 
 public class ACEntityRegistry {
 
-    // TODO fix when custom enums
-    public static final MobCategory CAVE_CREATURE = MobCategory.CREATURE;// MobCategory.valueOf("ALEXSCAVES_CAVE_CREATURE");
-    public static final MobCategory DEEP_SEA_CREATURE =MobCategory.WATER_CREATURE;// MobCategory.valueOf("ALEXSCAVES_DEEP_SEA_CREATURE");
+    public static final MobCategory CAVE_CREATURE = MobCategory.valueOf("ALEXSCAVES_CAVE_CREATURE");
+    public static final MobCategory DEEP_SEA_CREATURE = MobCategory.valueOf("ALEXSCAVES_DEEP_SEA_CREATURE");
 
     private static <T extends Entity> RegHolder<EntityType<?>, EntityType<T>> register(String name, Supplier<EntityType<T>> entityTypeSupplier) {
         return Services.REGISTRY_HELPER.registerEntityType(name, entityTypeSupplier);

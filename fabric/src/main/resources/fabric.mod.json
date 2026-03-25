@@ -24,6 +24,9 @@
     ],
     "jei_mod_plugin": [
       "com.github.alexmodguy.alexscaves.compat.jei.AlexsCavesPlugin"
+    ],
+    "mm:early_risers": [
+      "com.github.alexmodguy.alexscaves.server.AlexsCavesASM"
     ]
   },
   "mixins": [

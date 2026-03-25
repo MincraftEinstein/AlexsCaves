@@ -1,4 +1,4 @@
-package com.github.alexmodguy.alexscaves.server.entity;
+package com.github.alexmodguy.alexscaves.server;
 
 /**
  * Provides enum extension parameters for custom MobCategory values.

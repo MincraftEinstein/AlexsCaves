@@ -14,6 +14,16 @@ repositories {
         name = "Fuzs Mod Resources"
         url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
     }
+    exclusiveContent {
+        forRepository {
+            maven {
+                url = "https://jitpack.io"
+            }
+        }
+        filter {
+            includeGroup "com.github.Chocohead"
+        }
+    }
 }
 
 dependencies {
@@ -34,6 +44,10 @@ dependencies {
     modImplementation("com.github.alexthe666.citadel:citadel-1.21.1-refabricated:${fabric_citadel_version}") {
         transitive(false)
     }
+    include(modImplementation("com.github.Chocohead:Fabric-ASM:${fabric_asm_version}")) {
+        exclude (group: "net.fabricmc.fabric-api")
+    }
+
     // TODO remove when fzzy port
     modApi("fuzs.forgeconfigapiport:forgeconfigapiport-fabric:${fcap_config_version}")
 }

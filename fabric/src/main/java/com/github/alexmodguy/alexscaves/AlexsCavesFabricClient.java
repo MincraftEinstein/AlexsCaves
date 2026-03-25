@@ -1,11 +1,14 @@
 package com.github.alexmodguy.alexscaves;
 
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
+import com.github.alexmodguy.alexscaves.client.render.item.tooltip.ClientSackOfSatingTooltip;
+import com.github.alexmodguy.alexscaves.server.item.tooltip.SackOfSatingTooltip;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
 import net.minecraft.client.renderer.RenderType;
 
 import static com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry.*;
@@ -23,6 +26,13 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((type, renderer, helper, ctx) ->
                 AlexsCavesClient.addLayerIfApplicable(type, renderer)
         );
+
+        TooltipComponentCallback.EVENT.register(data -> {
+            if (data instanceof SackOfSatingTooltip sackData) {
+                return new ClientSackOfSatingTooltip(sackData);
+            }
+            return null;
+        });
     }
 
     static void registerRenderTypes() {

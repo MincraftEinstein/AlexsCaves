@@ -1292,7 +1292,9 @@ public class NeoClientEvents {
         modEventBus.addListener(NeoClientEvents::registerKeybinds);
         modEventBus.addListener(NeoClientEvents::onItemColors);
         modEventBus.addListener(NeoClientEvents::onBlockColors);
-        modEventBus.addListener(NeoClientEvents::onRegisterTooltips);
+        modEventBus.addListener((RegisterClientTooltipComponentFactoriesEvent event) ->
+                event.register(SackOfSatingTooltip.class, ClientSackOfSatingTooltip::new)
+        );
         modEventBus.addListener(NeoClientEvents::addLayersEvent);
     }
 
@@ -1531,9 +1533,6 @@ public class NeoClientEvents {
                 ACBlockRegistry.BLOCK_OF_FROSTING.get());
     }
 
-    private static void onRegisterTooltips(RegisterClientTooltipComponentFactoriesEvent registry) {
-        registry.register(SackOfSatingTooltip.class, ClientSackOfSatingTooltip::new);
-    }
 
     private static void bakeModels(final ModelEvent.ModifyBakingResult e) {
         if (AlexsCaves.CLIENT_CONFIG.emissiveBlockModels.get()) {

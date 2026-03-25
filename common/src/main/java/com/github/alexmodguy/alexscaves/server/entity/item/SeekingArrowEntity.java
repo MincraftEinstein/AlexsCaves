@@ -38,6 +38,7 @@ public class SeekingArrowEntity extends AbstractArrow {
         builder.define(ARC_TOWARDS_ENTITY_ID, -1);
     }
 
+    // TODO make not target invulnerable entities
     public void tick() {
         super.tick();
         int id = this.getArcTowardsID();

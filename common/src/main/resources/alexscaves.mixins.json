@@ -24,6 +24,7 @@
     "client.ItemFrameRendererMixin",
     "client.LightTextureMixin",
     "client.LiquidBlockRendererMixin",
+    "client.LayerAdderAccessor",
     "client.LivingEntityRendererMixin",
     "client.LocalPlayerMixin",
     "client.MapRendererMapInstanceMixin",

@@ -5,6 +5,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
 import net.minecraft.client.renderer.RenderType;
 
 import static com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry.*;
@@ -18,6 +19,10 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
         registerRenderTypes();
         ACModelLayers.register((id, layer) -> EntityModelLayerRegistry.registerModelLayer(id, layer::get));
         AlexsCavesClient.registerEntityRenderers(EntityRendererRegistry::register);
+
+        LivingEntityFeatureRendererRegistrationCallback.EVENT.register((type, renderer, helper, ctx) ->
+                AlexsCavesClient.addLayerIfApplicable(type, renderer)
+        );
     }
 
     static void registerRenderTypes() {

@@ -4,8 +4,10 @@ import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
 import com.github.alexmodguy.alexscaves.client.gui.SpelunkeryTableScreen;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.*;
 import com.github.alexmodguy.alexscaves.client.render.entity.*;
+import com.github.alexmodguy.alexscaves.client.render.entity.layer.ACPotionEffectLayer;
 import com.github.alexmodguy.alexscaves.client.render.item.ACArmorRenderProperties;
 import com.github.alexmodguy.alexscaves.client.render.item.ACItemRenderProperties;
+import com.github.alexmodguy.alexscaves.mixin.client.LayerAdderAccessor;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.platform.services.IClientPlatformHelper;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
@@ -16,9 +18,13 @@ import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ItemLike;
 
@@ -257,5 +263,22 @@ public class AlexsCavesClient {
         event.register(ACEntityRegistry.SODA_BOTTLE_ROCKET.get(), (render) -> new ThrownItemRenderer<>(render, 1.25F, true));
         event.register(ACEntityRegistry.FROSTMINT_SPEAR.get(), FrostmintSpearRenderer::new);
         event.register(ACEntityRegistry.THROWN_ICE_CREAM_SCOOP.get(), (context) -> new ThrownItemRenderer<>(context, 1.25F, false));
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void addLayerIfApplicable(EntityType<? extends LivingEntity> entityType, EntityRenderer<? extends LivingEntity> event) {
+        // TODO replace with config
+        if (entityType == EntityType.ENDER_DRAGON) return;
+
+        LivingEntityRenderer<? extends LivingEntity, ?> renderer;
+
+        try {
+            renderer = (LivingEntityRenderer<? extends LivingEntity, ?>) event;
+            if (renderer != null) {
+                ((LayerAdderAccessor) renderer).ac_addLayer(new ACPotionEffectLayer(renderer));
+            }
+        } catch (Exception e) {
+            AlexsCaves.LOGGER.warn("Could not apply radiation glow layer to {}, has custom renderer that is not LivingEntityRenderer.", BuiltInRegistries.ENTITY_TYPE.getKey(entityType));
+        }
     }
 }

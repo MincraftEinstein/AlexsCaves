@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.block;
 
 import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.platform.Services;
+import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.item.*;
 import com.github.alexthe666.citadel.item.BlockItemWithSupplier;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -127,13 +128,12 @@ public class ACBlockRegistry {
     public static final Supplier<Block> AMBERSOL = registerBlockAndItem("ambersol", () -> new AmbersolBlock());
     public static final Supplier<Block> AMBERSOL_LIGHT = register("ambersol_light", () -> new AmbersolLightBlock(BlockBehaviour.Properties.of().noOcclusion().strength(-1.0F, 3600000.8F).noLootTable().noOcclusion().replaceable().lightLevel(((state -> 15)))));
     public static final Supplier<Block> AMBER_MONOLITH = registerBlockAndItem("amber_monolith", () -> new AmberMonolithBlock());
-    // TODO add entities to all eggs
-    public static final Supplier<Block> SUBTERRANODON_EGG = registerBlockAndItem("subterranodon_egg", () -> new MultipleDinosaurEggsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), null/*(DeferredHolder) ACEntityRegistry.SUBTERRANODON*/, 4));
-    public static final Supplier<Block> VALLUMRAPTOR_EGG = registerBlockAndItem("vallumraptor_egg", () -> new MultipleDinosaurEggsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), null/*(DeferredHolder) ACEntityRegistry.VALLUMRAPTOR*/, 4));
-    public static final Supplier<Block> GROTTOCERATOPS_EGG = registerBlockAndItem("grottoceratops_egg", () -> new DinosaurEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), null/*(DeferredHolder) ACEntityRegistry.GROTTOCERATOPS*/, 8, 10));
-    public static final Supplier<Block> TREMORSAURUS_EGG = registerBlockAndItem("tremorsaurus_egg", () -> new DinosaurEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), null/*(DeferredHolder) ACEntityRegistry.TREMORSAURUS*/, 10, 16));
-    public static final Supplier<Block> RELICHEIRUS_EGG = registerBlockAndItem("relicheirus_egg", () -> new DinosaurEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), null/*(DeferredHolder) ACEntityRegistry.RELICHEIRUS*/, 14, 16));
-    public static final Supplier<Block> ATLATITAN_EGG = registerBlockAndItem("atlatitan_egg", () -> new DinosaurEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), null/*(DeferredHolder) ACEntityRegistry.ATLATITAN*/, 16, 16));
+    public static final Supplier<Block> SUBTERRANODON_EGG = registerBlockAndItem("subterranodon_egg", () -> new MultipleDinosaurEggsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), ACEntityRegistry.SUBTERRANODON, 4));
+    public static final Supplier<Block> VALLUMRAPTOR_EGG = registerBlockAndItem("vallumraptor_egg", () -> new MultipleDinosaurEggsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), ACEntityRegistry.VALLUMRAPTOR, 4));
+    public static final Supplier<Block> GROTTOCERATOPS_EGG = registerBlockAndItem("grottoceratops_egg", () -> new DinosaurEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), ACEntityRegistry.GROTTOCERATOPS, 8, 10));
+    public static final Supplier<Block> TREMORSAURUS_EGG = registerBlockAndItem("tremorsaurus_egg", () -> new DinosaurEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), ACEntityRegistry.TREMORSAURUS, 10, 16));
+    public static final Supplier<Block> RELICHEIRUS_EGG = registerBlockAndItem("relicheirus_egg", () -> new DinosaurEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), ACEntityRegistry.RELICHEIRUS, 14, 16));
+    public static final Supplier<Block> ATLATITAN_EGG = registerBlockAndItem("atlatitan_egg", () -> new DinosaurEggBlock(BlockBehaviour.Properties.of().mapColor(MapColor.TERRACOTTA_WHITE).strength(0.5F).sound(SoundType.METAL).randomTicks(), ACEntityRegistry.ATLATITAN, 16, 16));
     public static final Supplier<Block> DINOSAUR_CHOP = registerBlockAndItem("dinosaur_chop", () -> new DinosaurChopBlock(3, 0.2F));
     public static final Supplier<Block> COOKED_DINOSAUR_CHOP = registerBlockAndItem("cooked_dinosaur_chop", () -> new DinosaurChopBlock(7, 0.35F));
     public static final Supplier<Block> CARMINE_FROGLIGHT = registerBlockAndItem("carmine_froglight", () -> new RotatedPillarBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_YELLOW).strength(0.3F).lightLevel((blockState) -> 15).sound(SoundType.FROGLIGHT)));

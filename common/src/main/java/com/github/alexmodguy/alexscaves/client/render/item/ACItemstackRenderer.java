@@ -46,7 +46,7 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation LIMESTONE_SPEAR_TEXTURE = id("textures/entity/limestone_spear.png");
     private static final LimestoneSpearModel LIMESTONE_SPEAR_MODEL = new LimestoneSpearModel();
     private static final ResourceLocation EXTINCTION_SPEAR_TEXTURE = id("textures/entity/extinction_spear.png");
-//    private static final ExtinctionSpearModel EXTINCTION_SPEAR_MODEL = new ExtinctionSpearModel();
+    private static final ExtinctionSpearModel EXTINCTION_SPEAR_MODEL = new ExtinctionSpearModel();
     private static final ResourceLocation SIREN_LIGHT_TEXTURE = id("textures/entity/siren_light.png");
     private static final ResourceLocation SIREN_LIGHT_COLOR_TEXTURE = id("textures/entity/siren_light_color.png");
     private static final SirenLightModel SIREN_LIGHT_MODEL = new SirenLightModel();
@@ -77,7 +77,7 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
     private static final ResourceLocation SUGAR_STAFF_TEXTURE = id("textures/entity/sugar_staff.png");
     private static final SugarStaffModel SUGAR_STAFF_MODEL = new SugarStaffModel();
     private static final ResourceLocation FROSTMINT_SPEAR_TEXTURE = id("textures/entity/frostmint_spear.png");
-//    private static final FrostmintSpearModel FROSTMINT_SPEAR_MODEL = new FrostmintSpearModel();
+    private static final FrostmintSpearModel FROSTMINT_SPEAR_MODEL = new FrostmintSpearModel();
 
     public static boolean sepiaFlag = false;
 
@@ -226,12 +226,11 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
                     poseStack.translate(0, 0.5F, 0F);
                     poseStack.scale(0.75F, 0.75F, 0.75F);
                 }
-                // TODO fix when item
-//                EXTINCTION_SPEAR_MODEL.resetToDefaultPose();
-//                VertexConsumer vertexconsumer1 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityCutoutNoCull(EXTINCTION_SPEAR_TEXTURE), itemStackIn.hasFoil());
-//                EXTINCTION_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer1, 240, combinedOverlayIn, -1);
-//                VertexConsumer vertexconsumer2 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityTranslucent(EXTINCTION_SPEAR_TEXTURE), itemStackIn.hasFoil());
-//                EXTINCTION_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer2, 240, combinedOverlayIn, -1);
+                EXTINCTION_SPEAR_MODEL.resetToDefaultPose();
+                VertexConsumer vertexconsumer1 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityCutoutNoCull(EXTINCTION_SPEAR_TEXTURE), itemStackIn.hasFoil());
+                EXTINCTION_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer1, 240, combinedOverlayIn, -1);
+                VertexConsumer vertexconsumer2 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityTranslucent(EXTINCTION_SPEAR_TEXTURE), itemStackIn.hasFoil());
+                EXTINCTION_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer2, 240, combinedOverlayIn, -1);
                 poseStack.popPose();
             } else {
                 renderStaticItemSprite(spriteItem, transformType, combinedLightIn, combinedOverlayIn, poseStack, bufferIn, level);
@@ -441,10 +440,9 @@ public class ACItemstackRenderer extends BlockEntityWithoutLevelRenderer {
                     poseStack.translate(0, 0.5F, 0F);
                     poseStack.scale(0.75F, 0.75F, 0.75F);
                 }
-                // TODO
-//                FROSTMINT_SPEAR_MODEL.resetToDefaultPose();
-//                VertexConsumer vertexconsumer1 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityCutoutNoCull(FROSTMINT_SPEAR_TEXTURE), itemStackIn.hasFoil());
-//                FROSTMINT_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer1, combinedLightIn, combinedOverlayIn, -1);
+                FROSTMINT_SPEAR_MODEL.resetToDefaultPose();
+                VertexConsumer vertexconsumer1 = ItemRenderer.getArmorFoilBuffer(bufferIn, RenderType.entityCutoutNoCull(FROSTMINT_SPEAR_TEXTURE), itemStackIn.hasFoil());
+                FROSTMINT_SPEAR_MODEL.renderToBuffer(poseStack, vertexconsumer1, combinedLightIn, combinedOverlayIn, -1);
                 poseStack.popPose();
             } else {
                 renderStaticItemSprite(spriteItem, transformType, combinedLightIn, combinedOverlayIn, poseStack, bufferIn, level);

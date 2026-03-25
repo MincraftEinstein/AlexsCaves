@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRe
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-public class CommonEvents {
+public class FabricCommonEvents {
 
     private static boolean PLAYER_JOINED = false;
 

@@ -31,15 +31,11 @@ import org.joml.Matrix4f;
 
 public class ACPotionEffectLayer extends RenderLayer {
 
-    private static final ResourceLocation TEXTURE_BUBBLE = AlexsCaves.id(
-            "textures/entity/deep_one/bubble.png");
+    private static final ResourceLocation TEXTURE_BUBBLE = AlexsCaves.id("textures/entity/deep_one/bubble.png");
     private static final ResourceLocation TEXTURE_WATER = ResourceLocation.parse("textures/block/water_still.png");
-    public static final ResourceLocation INSIDE_BUBBLE_TEXTURE = AlexsCaves.id(
-            "textures/misc/inside_bubble.png");
-    public static final ResourceLocation TEXTURE_DARKNESS = AlexsCaves.id(
-            "textures/entity/darkness_incarnate.png");
-    public static final ResourceLocation TEXTURE_SUGAR_RUSH = AlexsCaves.id(
-            "textures/entity/sugar_rush.png");
+    public static final ResourceLocation INSIDE_BUBBLE_TEXTURE = AlexsCaves.id("textures/misc/inside_bubble.png");
+    public static final ResourceLocation TEXTURE_DARKNESS = AlexsCaves.id("textures/entity/darkness_incarnate.png");
+    public static final ResourceLocation TEXTURE_SUGAR_RUSH = AlexsCaves.id("textures/entity/sugar_rush.png");
     private RenderLayerParent parent;
 
     public ACPotionEffectLayer(RenderLayerParent parent) {
@@ -54,8 +50,7 @@ public class ACPotionEffectLayer extends RenderLayer {
         poseStack.popPose();
     }
 
-    public static void renderBubbledFluid(Minecraft p110726, PoseStack poseStack, ResourceLocation texture,
-            boolean translate) {
+    public static void renderBubbledFluid(Minecraft p110726, PoseStack poseStack, ResourceLocation texture, boolean translate) {
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, texture);
         BlockPos blockpos = BlockPos.containing(p110726.player.getX(), p110726.player.getEyeY(), p110726.player.getZ());
@@ -88,8 +83,8 @@ public class ACPotionEffectLayer extends RenderLayer {
 
     @Override
     public void render(PoseStack poseStack, MultiBufferSource bufferIn, int packedLightIn, Entity entity,
-            float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw,
-            float headPitch) {
+                       float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw,
+                       float headPitch) {
         if (entity instanceof LivingEntity living) {
             if (living.hasEffect(ACEffectRegistry.IRRADIATED)
                     && AlexsCaves.CLIENT_CONFIG.radiationGlowEffect.get()) {
@@ -140,8 +135,8 @@ public class ACPotionEffectLayer extends RenderLayer {
     }
 
     private static void renderBubble(LivingEntity entity, float partialTicks, PoseStack poseStack,
-            VertexConsumer consumer, float size, int packedLight, float textureScaleXZ, float textureScaleY,
-            float uvOffset, boolean water) {
+                                     VertexConsumer consumer, float size, int packedLight, float textureScaleXZ, float textureScaleY,
+                                     float uvOffset, boolean water) {
         Matrix4f cubeAt = poseStack.last().pose();
         Matrix3f matrix3f = poseStack.last().normal();
         float cubeStart = size * -0.5F;
@@ -161,8 +156,8 @@ public class ACPotionEffectLayer extends RenderLayer {
     }
 
     private static void renderCubeFace(LivingEntity entity, Matrix4f matrix4f, Matrix3f matrix3f,
-            VertexConsumer vertexConsumer, int packedLightIn, float f1, float f2, float f3, float f4, float f5,
-            float f6, float f7, float f8, float textureScaleXZ, float textureScaleY, float uvOffset, boolean water) {
+                                       VertexConsumer vertexConsumer, int packedLightIn, float f1, float f2, float f3, float f4, float f5,
+                                       float f6, float f7, float f8, float textureScaleXZ, float textureScaleY, float uvOffset, boolean water) {
         int overlayCoords = OverlayTexture.NO_OVERLAY;
         int colorR = 255;
         int colorG = 255;

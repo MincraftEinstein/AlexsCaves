@@ -1,6 +1,8 @@
 {
   "type": "alexscaves:underground_cabin",
-  "biomes": {
+  "biomes": "#alexscaves:has_underground_cabins",
+  "fake":{
+    "__comment": "TODO fix this",
     "type": "neoforge:and",
     "values": [
       "#alexscaves:has_underground_cabins",

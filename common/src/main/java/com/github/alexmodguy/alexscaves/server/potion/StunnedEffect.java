@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.potion;
 
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
+import com.github.alexmodguy.alexscaves.mixin.MobGoalAccessor;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -29,10 +30,10 @@ public class StunnedEffect extends MobEffect {
             entity.setXRot(30.0F);
             entity.xRotO = 30.0F;
             if (!mob.level().isClientSide) {
-                // TODO fix
-//                mob.goalSelector.setControlFlag(Goal.Flag.MOVE, false);
-//                mob.goalSelector.setControlFlag(Goal.Flag.JUMP, false);
-//                mob.goalSelector.setControlFlag(Goal.Flag.LOOK, false);
+                var goalSelector = ((MobGoalAccessor) mob).ac_goalSelector();
+                goalSelector.setControlFlag(Goal.Flag.MOVE, false);
+                goalSelector.setControlFlag(Goal.Flag.JUMP, false);
+                goalSelector.setControlFlag(Goal.Flag.LOOK, false);
             }
         }
         return true;

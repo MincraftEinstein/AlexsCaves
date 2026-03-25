@@ -89,7 +89,6 @@ public class AlexsCavesClient {
     }
 
     @SafeVarargs
-    @SuppressWarnings("SameParameterValue")
     private static void registerExtensions(IClientPlatformHelper.RenderExtension ext, Supplier<? extends ItemLike>... items) {
         for (var item : items) {
             Services.CLIENT_HELPER.registerExtension(item, ext);

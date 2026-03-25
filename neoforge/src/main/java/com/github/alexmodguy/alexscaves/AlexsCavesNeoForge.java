@@ -80,31 +80,7 @@ public class AlexsCavesNeoForge {
             ACPlayerCapes.setup();
             ACItemRegistry.registerDispenserBehavior();
             // ACPotPatternRegistry.expandVanillaDefinitions(); // Pot patterns are now data-driven in 1.21
-            // Debug: verify POI registration
-            verifyPoiRegistration();
         });
-    }
-
-    private void verifyPoiRegistration() {
-        try {
-            var attractingMagnets = com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry.ATTRACTING_MAGNETS.get();
-            var repellingMagnets = com.github.alexmodguy.alexscaves.server.block.poi.ACPOIRegistry.REPELLING_MAGNETS.get();
-            AlexsCaves.LOGGER.info("POI Verification - Attracting Magnets: {} states registered", attractingMagnets.matchingStates().size());
-            AlexsCaves.LOGGER.info("POI Verification - Repelling Magnets: {} states registered", repellingMagnets.matchingStates().size());
-
-            // Verify that PoiTypes.hasPoi returns true for our blocks
-            var scarletNode = com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry.SCARLET_NEODYMIUM_NODE.get().defaultBlockState();
-            var azureNode = com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry.AZURE_NEODYMIUM_NODE.get().defaultBlockState();
-            boolean scarletHasPoi = net.minecraft.world.entity.ai.village.poi.PoiTypes.hasPoi(scarletNode);
-            boolean azureHasPoi = net.minecraft.world.entity.ai.village.poi.PoiTypes.hasPoi(azureNode);
-            AlexsCaves.LOGGER.info("POI Verification - Scarlet Node hasPoi: {}, Azure Node hasPoi: {}", scarletHasPoi, azureHasPoi);
-
-            if (!scarletHasPoi || !azureHasPoi) {
-                AlexsCaves.LOGGER.error("POI registration failed! Neodymium blocks are not registered as POI types!");
-            }
-        } catch (Exception e) {
-            AlexsCaves.LOGGER.error("Failed to verify POI registration", e);
-        }
     }
 
     private void registerTicketControllers(RegisterTicketControllersEvent event) {

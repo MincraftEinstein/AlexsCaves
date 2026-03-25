@@ -10,6 +10,7 @@ import com.github.alexmodguy.alexscaves.server.entity.living.*;
 import com.github.alexmodguy.alexscaves.server.entity.util.EntityDropChanceAccessor;
 import com.github.alexmodguy.alexscaves.server.entity.util.FlyingMount;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagneticEntityAccessor;
+import com.github.alexmodguy.alexscaves.server.entity.util.WatcherPossessionAccessor;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ExtinctionSpearItem;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRarity;
@@ -29,6 +30,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -144,10 +146,9 @@ public class CommonCommonEvents {
             return 0;
         }
 
-        // TODO when entities
-//        if (entity instanceof WatcherPossessionAccessor possessed && possessed.isPossessedByWatcher() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && !(source.getEntity() instanceof WatcherEntity)) {
-//            return 0;
-//        }
+        if (entity instanceof WatcherPossessionAccessor possessed && possessed.isPossessedByWatcher() && !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY) && !(source.getEntity() instanceof WatcherEntity)) {
+            return 0;
+        }
 
         if (entity instanceof Player player && player.getUseItem().is(ACItemRegistry.EXTINCTION_SPEAR.get()) && ExtinctionSpearItem.killGrottoGhostsFor(player, true)) {
             player.playSound(SoundEvents.SHIELD_BLOCK);

@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.level.storage;
 
+import com.github.alexmodguy.alexscaves.server.entity.living.LuxtructosaurusEntity;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
@@ -90,10 +91,9 @@ public class ACWorldData extends SavedData {
 
     public boolean isPrimordialBossActive(Level level){
         for(int i : trackedLuxtructosaurusIds){
-            // TODO Readd when LuxtructosaurusEntity
-         /*   if(level.getEntity(i) instanceof LuxtructosaurusEntity lux && lux.isAlive() && lux.isLoadedInWorld()){
+            if(level.getEntity(i) instanceof LuxtructosaurusEntity lux && lux.isAlive() && lux.isLoadedInWorld()){
                 return true;
-            }*/
+            }
         }
         return false;
     }

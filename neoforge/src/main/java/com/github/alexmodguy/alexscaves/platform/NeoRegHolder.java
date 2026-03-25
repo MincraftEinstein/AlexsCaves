@@ -37,6 +37,11 @@ public class NeoRegHolder<Reg, Type extends Reg> implements RegHolder<Reg, Type>
     }
 
     @Override
+    public Holder<Reg> holder() {
+        return deferredHolder;
+    }
+
+    @Override
     public Type get() {
         return deferredHolder.get();
     }

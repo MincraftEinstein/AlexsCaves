@@ -68,6 +68,7 @@
     "OreFeatureMixin",
     "PlayerMixin",
     "PotionUtilsMixin",
+    "RegistryMixin",
     "SeagrassFeatureMixin",
     "ShipwreckStructureMixin",
     "SwampHutPieceMixin"

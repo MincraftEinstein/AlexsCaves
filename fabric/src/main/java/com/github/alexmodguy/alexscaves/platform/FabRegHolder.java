@@ -34,6 +34,11 @@ public class FabRegHolder<Reg, Type extends Reg> implements RegHolder<Reg, Type>
         return holder.key().location();
     }
 
+    @Override
+    public Holder<Reg> holder() {
+        return holder;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public Type get() {

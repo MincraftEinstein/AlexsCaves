@@ -11,4 +11,6 @@ public interface RegHolder<Reg, Type extends Reg> extends Holder<Reg>, Supplier<
     ResourceKey<Reg> key();
 
     ResourceLocation id();
+
+    Holder<Reg> holder();
 }

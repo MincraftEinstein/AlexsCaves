@@ -86,9 +86,9 @@ public abstract class LightTextureMixin {
                 f = Math.min(1.0F, f + 0.05F * DeepsightEffect.getIntensity(Minecraft.getInstance().player, Minecraft.getInstance().getTimer().getRealtimeDeltaTicks()));
             }
             float light = f + cir.getReturnValue();
-            if(primordialBossAmount > 0.0F){
+            if (primordialBossAmount > 0.0F) {
                 cir.setReturnValue(Math.max(0.0F, light - primordialBossAmount * 0.06F));
-            }else if (f != 0) {
+            } else if (f != 0) {
                 cir.setReturnValue(light);
             }
         }
@@ -102,6 +102,9 @@ public abstract class LightTextureMixin {
             at = @At(value = "HEAD")
     )
     private void ac_updateLightTexture(float partialTicks, CallbackInfo ci) {
+        if (true) {
+            return;
+        }
         if (AlexsCaves.CLIENT_CONFIG.biomeAmbientLightColoring.get() && !ACLoadedMods.isDistantHorizonsLoaded()) {
             ci.cancel();
             if (this.updateLightTexture) {
@@ -181,7 +184,7 @@ public abstract class LightTextureMixin {
                             float f14 = this.minecraft.options.gamma().get().floatValue();
                             //INSERTION BY AC
                             float biomeAmbientLight = ClientProxy.lastBiomeAmbientLightAmountPrev + (ClientProxy.lastBiomeAmbientLightAmount - ClientProxy.lastBiomeAmbientLightAmountPrev) * Minecraft.getInstance().getTimer().getRealtimeDeltaTicks();
-                            if(biomeAmbientLight > 0.0F){
+                            if (biomeAmbientLight > 0.0F) {
                                 f14 = Mth.clamp(f14 + biomeAmbientLight, 0.0F, 1.0F);
                             }
 

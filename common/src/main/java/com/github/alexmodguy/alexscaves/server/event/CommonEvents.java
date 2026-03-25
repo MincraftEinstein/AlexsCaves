@@ -204,6 +204,7 @@ public class CommonEvents {
         }
     }
 
+    // TODO move to client events eventually
     public static void onPlayerJoinClient(Player player) {
         if (AlexsCaves.COMMON_CONFIG.warnGenerationIncompatibility.get() && !AlexsCaves.MOD_GENERATION_CONFLICTS.isEmpty()) {
             for (String modid : AlexsCaves.MOD_GENERATION_CONFLICTS) {

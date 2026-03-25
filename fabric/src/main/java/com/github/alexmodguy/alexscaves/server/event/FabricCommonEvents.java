@@ -1,14 +1,9 @@
 package com.github.alexmodguy.alexscaves.server.event;
 
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 public class FabricCommonEvents {
-
-    private static boolean PLAYER_JOINED = false;
 
     public static void init() {
         ServerLifecycleEvents.SERVER_STARTING.register(CommonEvents::onServerStarting);
@@ -24,18 +19,6 @@ public class FabricCommonEvents {
 //                itemListings.add(new VillagerUndergroundCabinMapTrade(8, 1, 10));
 //            }
 //        });
-        ClientTickEvents.END_CLIENT_TICK.register(minecraft -> {
-            Level level = minecraft.level;
-            Player player = minecraft.player;
-            if (level != null && player != null) {
-                if (!PLAYER_JOINED) {
-                    CommonEvents.onPlayerJoinClient(player);
-                    PLAYER_JOINED = true;
-                }
-                return;
-            }
-            PLAYER_JOINED = false;
-        });
         CommonEvents.initializeAttributes(FabricDefaultAttributeRegistry::register);
     }
 }

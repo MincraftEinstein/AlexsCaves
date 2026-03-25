@@ -3,18 +3,25 @@ package com.github.alexmodguy.alexscaves;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
 import com.github.alexmodguy.alexscaves.client.render.ACInternalShaders;
 import com.github.alexmodguy.alexscaves.client.render.item.tooltip.ClientSackOfSatingTooltip;
+import com.github.alexmodguy.alexscaves.server.event.CommonEvents;
 import com.github.alexmodguy.alexscaves.server.item.tooltip.SackOfSatingTooltip;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
 
 import static com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry.*;
 
 public class AlexsCavesFabricClient implements ClientModInitializer {
+
+    private static boolean PLAYER_JOINED = false;
 
     @Override
     public void onInitializeClient() {
@@ -47,6 +54,7 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
 
         AlexsCavesClient.registerSpecialProviders(ParticleFactoryRegistry.getInstance()::register);
         AlexsCavesClient.registerSpriteProviders((AlexsCavesClient.SpriteSetRegistry<? extends ParticleOptions>) (type, factory) -> ParticleFactoryRegistry.getInstance().register(type, factory::create));
+        ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> CommonEvents.onPlayerJoinClient(client.player));
     }
 
     static void registerRenderTypes() {

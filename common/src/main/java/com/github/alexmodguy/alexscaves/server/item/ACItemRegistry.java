@@ -5,18 +5,20 @@ import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
-import com.github.alexmodguy.alexscaves.server.entity.item.CinderBrickEntity;
-import com.github.alexmodguy.alexscaves.server.entity.item.DepthChargeEntity;
-import com.github.alexmodguy.alexscaves.server.entity.item.SeekingArrowEntity;
-import com.github.alexmodguy.alexscaves.server.entity.item.ThrownIceCreamScoopEntity;
+import com.github.alexmodguy.alexscaves.server.entity.item.*;
 import com.github.alexmodguy.alexscaves.server.entity.util.AlexsCavesBoat;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACProjectileDispenseBehavior;
 import com.github.alexthe666.citadel.server.block.LecternBooks;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.BlockSource;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.projectile.AbstractArrow;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -162,8 +165,7 @@ public class ACItemRegistry {
     public static final Supplier<Item> GAME_CONTROLLER = register("game_controller", () -> new Item(new Item.Properties().rarity(Rarity.RARE)));
     public static final Supplier<Item> STINKY_FISH = register("stinky_fish", () -> new Item(new Item.Properties().rarity(Rarity.RARE).food(ACFoods.STINKY_FISH)));
     public static final Supplier<Item> IMMORTAL_EMBRYO = register("immortal_embryo", () -> new Item(new Item.Properties().rarity(Rarity.EPIC)));
-    //TODO when entities
-//    public static final Supplier<Item> GUANO = register("guano", () -> new ThrownProjectileItem(new Item.Properties(), player -> new GuanoEntity(player.level(), player), 0.0F, 1.0F, 1.0F));
+    public static final Supplier<Item> GUANO = register("guano", () -> new ThrownProjectileItem(new Item.Properties(), player -> new GuanoEntity(player.level(), player), 0.0F, 1.0F, 1.0F));
     public static final Supplier<Item> MOTH_DUST = register("moth_dust", () -> new MothDustItem());
     public static final Supplier<Item> FERTILIZER = register("fertilizer", () -> new FertilizerItem());
     public static final Supplier<Item> DARK_TATTERS = register("dark_tatters", () -> new Item(new Item.Properties()));
@@ -309,16 +311,16 @@ public class ACItemRegistry {
 //        DispenserBlock.registerBehavior(TRILOCARIS_BUCKET.get(), new FluidContainerDispenseItemBehavior());
 //        DispenserBlock.registerBehavior(ACID_BUCKET.get(), new FluidContainerDispenseItemBehavior());
 //        DispenserBlock.registerBehavior(RADGILL_BUCKET.get(), new FluidContainerDispenseItemBehavior());
-      /*  DispenserBlock.registerBehavior(CINDER_BRICK.get(), new ACProjectileDispenseBehavior() {
+        DispenserBlock.registerBehavior(CINDER_BRICK.get(), new ACProjectileDispenseBehavior() {
             protected Projectile getProjectile(Level level, Position position, ItemStack itemStack) {
                 return new CinderBrickEntity(level, position.x(), position.y(), position.z());
             }
-        });*/
+        });
 //        DispenserBlock.registerBehavior(LANTERNFISH_BUCKET.get(), new FluidContainerDispenseItemBehavior());
 //        DispenserBlock.registerBehavior(TRIPODFISH_BUCKET.get(), new FluidContainerDispenseItemBehavior());
 //        DispenserBlock.registerBehavior(SEA_PIG_BUCKET.get(), new FluidContainerDispenseItemBehavior());
 //        DispenserBlock.registerBehavior(GOSSAMER_WORM_BUCKET.get(), new FluidContainerDispenseItemBehavior());
-      /*  DispenserBlock.registerBehavior(INK_BOMB.get(), new ACProjectileDispenseBehavior() {
+        DispenserBlock.registerBehavior(INK_BOMB.get(), new ACProjectileDispenseBehavior() {
             protected Projectile getProjectile(Level level, Position position, ItemStack itemStack) {
                 return new InkBombEntity(level, position.x(), position.y(), position.z());
             }
@@ -342,19 +344,19 @@ public class ACItemRegistry {
                 abstractarrow.pickup = AbstractArrow.Pickup.ALLOWED;
                 return abstractarrow;
             }
-        });*/
-       /* DispenserBlock.registerBehavior(ACBlockRegistry.NUCLEAR_BOMB.get(), new DefaultDispenseItemBehavior() {
+        });
+        DispenserBlock.registerBehavior(ACBlockRegistry.NUCLEAR_BOMB.get(), new DefaultDispenseItemBehavior() {
             protected ItemStack execute(BlockSource blockSource, ItemStack itemStack) {
                 Level level = blockSource.level();
                 BlockPos blockpos = blockSource.pos().relative(blockSource.state().getValue(DispenserBlock.FACING));
                 NuclearBombEntity nuclearBomb = new NuclearBombEntity(level, (double) blockpos.getX() + 0.5D, (double) blockpos.getY(), (double) blockpos.getZ() + 0.5D);
                 level.addFreshEntity(nuclearBomb);
-                level.playSound((Player) null, nuclearBomb.getX(), nuclearBomb.getY(), nuclearBomb.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
-                level.gameEvent((Entity) null, GameEvent.ENTITY_PLACE, blockpos);
+                level.playSound(null, nuclearBomb.getX(), nuclearBomb.getY(), nuclearBomb.getZ(), SoundEvents.TNT_PRIMED, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.gameEvent(null, GameEvent.ENTITY_PLACE, blockpos);
                 itemStack.shrink(1);
                 return itemStack;
             }
-        });*/
+        });
 //        DispenserBlock.registerBehavior(PURPLE_SODA_BUCKET.get(), new FluidContainerDispenseItemBehavior());
 //        DispenserBlock.registerBehavior(SWEETISH_FISH_RED_BUCKET.get(), new FluidContainerDispenseItemBehavior());
 //        DispenserBlock.registerBehavior(SWEETISH_FISH_GREEN_BUCKET.get(), new FluidContainerDispenseItemBehavior());
@@ -375,9 +377,9 @@ public class ACItemRegistry {
 
     public static Item getSpawnEggFor(EntityType type) {
         for (Map.Entry<Supplier<Item>, ResourceKey<Biome>> entry : creativeTabSpawnEggMap.entrySet()) {
-//            if (entry.getKey().get() instanceof DeferredSpawnEggItem forgeSpawnEggItem && forgeSpawnEggItem.getType(null) == type) {
-//                return forgeSpawnEggItem;
-//            }
+            if (entry.getKey().get() instanceof SpawnEggItem eggItem && eggItem.getType(eggItem.getDefaultInstance()) == type) {
+                return eggItem;
+            }
         }
         return Items.AIR;
     }

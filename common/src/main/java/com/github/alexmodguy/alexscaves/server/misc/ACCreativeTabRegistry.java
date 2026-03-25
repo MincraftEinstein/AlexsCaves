@@ -237,7 +237,7 @@ public class ACCreativeTabRegistry {
                 add(output, ACItemRegistry.URANIUM.get());
                 add(output, ACItemRegistry.SULFUR_DUST.get());
                 add(output, ACItemRegistry.RADON_BOTTLE.get());
-//                add(output, ACItemRegistry.CINDER_BRICK.get());
+                add(output, ACItemRegistry.CINDER_BRICK.get());
                 add(output, ACItemRegistry.SPELUNKIE.get());
                 add(output, ACItemRegistry.SLAM.get());
                 add(output, ACItemRegistry.GREEN_SOYLENT.get());
@@ -428,7 +428,7 @@ public class ACCreativeTabRegistry {
                 add(output, ACItemRegistry.CAVE_BOOK.get());
                 output.accept(CaveMapItem.createMap(ACBiomeRegistry.FORLORN_HOLLOWS));
                 ACItemRegistry.getSpawnEggsForTab(ACBiomeRegistry.FORLORN_HOLLOWS).forEach((spawnEgg -> add(output, spawnEgg.get())));
-//                add(output, ACItemRegistry.GUANO.get());
+                add(output, ACItemRegistry.GUANO.get());
                 add(output, ACItemRegistry.MOTH_DUST.get());
                 add(output, ACItemRegistry.FERTILIZER.get());
                 add(output, ACItemRegistry.DARK_TATTERS.get());

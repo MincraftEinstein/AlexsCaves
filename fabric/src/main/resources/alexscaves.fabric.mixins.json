@@ -6,9 +6,12 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "client.AnimatedTextureAccessor",
+    "client.GuiMixin",
+    "client.ItemStackMixin",
     "client.SpriteContentsAccessor"
   ],
   "mixins": [
+    "RarityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

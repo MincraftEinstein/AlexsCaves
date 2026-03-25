@@ -5,9 +5,11 @@ import com.github.alexmodguy.alexscaves.platform.services.IPlatformHelper;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
 import com.mojang.serialization.Codec;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import org.teamvoided.voidlib.attachments.AttachmentSupplier;
 
@@ -41,6 +43,13 @@ public class ACAttachmentRegistry {
     public static final AttachmentSupplier<Boolean, Entity> TOTEM_POSSESSED = Services.REGISTRY_HELPER.registerAttachment("totem_possessed", Entity.class,
             () -> false,
             builder -> builder.persistent(Codec.BOOL)
+                    .copyOnDeath()
+    );
+
+    public static final AttachmentSupplier<Boolean, Player> SPELUNKERY_TUTORIAL_COMPLETE = Services.REGISTRY_HELPER.registerAttachment("spelunkery_tutorial_complete", Player.class,
+            () -> false,
+            builder -> builder.persistent(Codec.BOOL)
+                    .synced(ByteBufCodecs.BOOL)
                     .copyOnDeath()
     );
 

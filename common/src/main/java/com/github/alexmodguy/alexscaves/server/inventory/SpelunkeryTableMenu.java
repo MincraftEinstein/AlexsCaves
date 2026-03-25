@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.inventory;
 
 import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.CaveInfoItem;
 import com.github.alexmodguy.alexscaves.server.message.WorldEventMessage;
@@ -215,21 +216,11 @@ public class SpelunkeryTableMenu extends AbstractContainerMenu {
     }
 
     public static void setTutorialComplete(Player player, boolean done) {
-        // TODO fix when attachments
-      /*  CompoundTag playerData = player.getPersistentData();
-        CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
-        if (data != null) {
-            data.putBoolean(NEEDS_TUTORIAL_IDENTIFIER, done);
-            playerData.put(Player.PERSISTED_NBT_TAG, data);
-        }*/
+        ACAttachmentRegistry.SPELUNKERY_TUTORIAL_COMPLETE.set(player, done);
     }
 
     public static boolean hasCompletedTutorial(Player player) {
-        // TODO fix when attachments
-       /* CompoundTag playerData = player.getPersistentData();
-        CompoundTag data = playerData.getCompound(Player.PERSISTED_NBT_TAG);
-        return data != null && data.getBoolean(NEEDS_TUTORIAL_IDENTIFIER);*/
-        return false;
+        return ACAttachmentRegistry.SPELUNKERY_TUTORIAL_COMPLETE.getOrCreate(player);
     }
 
     public void makeStoneParticles(Level level, BlockPos blockPos) {

@@ -1,14 +1,13 @@
 package com.github.alexmodguy.alexscaves;
 
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
+import com.github.alexmodguy.alexscaves.client.render.ACInternalShaders;
 import com.github.alexmodguy.alexscaves.client.render.item.tooltip.ClientSackOfSatingTooltip;
 import com.github.alexmodguy.alexscaves.server.item.tooltip.SackOfSatingTooltip;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
-import net.fabricmc.fabric.api.client.rendering.v1.LivingEntityFeatureRendererRegistrationCallback;
-import net.fabricmc.fabric.api.client.rendering.v1.TooltipComponentCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.renderer.RenderType;
 
 import static com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry.*;
@@ -32,6 +31,16 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
                 return new ClientSackOfSatingTooltip(sackData);
             }
             return null;
+        });
+        CoreShaderRegistrationCallback.EVENT.register(context -> {
+            context.register(ACInternalShaders.RENDERTYPE_FERROUSLIME_GEL, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeFerrouslimeGelShader);
+            context.register(ACInternalShaders.RENDERTYPE_HOLOGRAM, DefaultVertexFormat.POSITION_COLOR, ACInternalShaders::setRenderTypeHologramShader);
+            context.register(ACInternalShaders.RENDERTYPE_IRRADIATED, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeIrradiatedShader);
+            context.register(ACInternalShaders.RENDERTYPE_BLUE_IRRADIATED, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeBlueIrradiatedShader);
+            context.register(ACInternalShaders.RENDERTYPE_BUBBLED, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeBubbledShader);
+            context.register(ACInternalShaders.RENDERTYPE_SEPIA, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeSepiaShader);
+            context.register(ACInternalShaders.RENDERTYPE_RED_GHOST, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeRedGhostShader);
+            context.register(ACInternalShaders.RENDERTYPE_PURPLE_WITCH, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypePurpleWitchShader);
         });
     }
 

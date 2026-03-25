@@ -1550,32 +1550,32 @@ public class NeoClientEvents {
     private static void registerShaders(final RegisterShadersEvent e) {
         try {
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_ferrouslime_gel"),
+                    ACInternalShaders.RENDERTYPE_FERROUSLIME_GEL,
                     DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeFerrouslimeGelShader);
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_hologram"),
+                    ACInternalShaders.RENDERTYPE_HOLOGRAM,
                     DefaultVertexFormat.POSITION_COLOR), ACInternalShaders::setRenderTypeHologramShader);
             e.registerShader(
                     new ShaderInstance(e.getResourceProvider(),
-                            AlexsCaves.id("rendertype_irradiated"),
+                            ACInternalShaders.RENDERTYPE_IRRADIATED,
                             DefaultVertexFormat.NEW_ENTITY),
                     ACInternalShaders::setRenderTypeIrradiatedShader);
             e.registerShader(
                     new ShaderInstance(e.getResourceProvider(),
-                            AlexsCaves.id("rendertype_blue_irradiated"),
+                            ACInternalShaders.RENDERTYPE_BLUE_IRRADIATED,
                             DefaultVertexFormat.NEW_ENTITY),
                     ACInternalShaders::setRenderTypeBlueIrradiatedShader);
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_bubbled"),
+                    ACInternalShaders.RENDERTYPE_BUBBLED,
                     DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeBubbledShader);
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_sepia"),
+                    ACInternalShaders.RENDERTYPE_SEPIA,
                     DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeSepiaShader);
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_red_ghost"),
+                    ACInternalShaders.RENDERTYPE_RED_GHOST,
                     DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeRedGhostShader);
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    AlexsCaves.id("rendertype_purple_witch"),
+                    ACInternalShaders.RENDERTYPE_PURPLE_WITCH,
                     DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypePurpleWitchShader);
             AlexsCaves.LOGGER.info("registered internal shaders");
         } catch (IOException exception) {

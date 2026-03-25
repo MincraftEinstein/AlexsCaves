@@ -1,10 +1,21 @@
 package com.github.alexmodguy.alexscaves.client.render;
 
+import com.github.alexmodguy.alexscaves.AlexsCaves;
 import net.minecraft.client.renderer.ShaderInstance;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
 
 public class ACInternalShaders {
+
+    public static final ResourceLocation RENDERTYPE_FERROUSLIME_GEL = AlexsCaves.id("rendertype_ferrouslime_gel");
+    public static final ResourceLocation RENDERTYPE_HOLOGRAM = AlexsCaves.id("rendertype_hologram");
+    public static final ResourceLocation RENDERTYPE_IRRADIATED = AlexsCaves.id("rendertype_irradiated");
+    public static final ResourceLocation RENDERTYPE_BLUE_IRRADIATED = AlexsCaves.id("rendertype_blue_irradiated");
+    public static final ResourceLocation RENDERTYPE_BUBBLED = AlexsCaves.id("rendertype_bubbled");
+    public static final ResourceLocation RENDERTYPE_SEPIA = AlexsCaves.id("rendertype_sepia");
+    public static final ResourceLocation RENDERTYPE_RED_GHOST = AlexsCaves.id("rendertype_red_ghost");
+    public static final ResourceLocation RENDERTYPE_PURPLE_WITCH = AlexsCaves.id("rendertype_purple_witch");
 
     private static ShaderInstance renderTypeFerrouslimeGelShader;
     private static ShaderInstance renderTypeHologramShader;

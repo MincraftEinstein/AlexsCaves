@@ -7,8 +7,10 @@ import com.github.alexmodguy.alexscaves.server.item.tooltip.SackOfSatingTooltip;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
+import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.particles.ParticleOptions;
 
 import static com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry.*;
 
@@ -42,6 +44,9 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
             context.register(ACInternalShaders.RENDERTYPE_RED_GHOST, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeRedGhostShader);
             context.register(ACInternalShaders.RENDERTYPE_PURPLE_WITCH, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypePurpleWitchShader);
         });
+
+        AlexsCavesClient.registerSpecialProviders(ParticleFactoryRegistry.getInstance()::register);
+        AlexsCavesClient.registerSpriteProviders((AlexsCavesClient.SpriteSetRegistry<? extends ParticleOptions>) (type, factory) -> ParticleFactoryRegistry.getInstance().register(type, factory::create));
     }
 
     static void registerRenderTypes() {

@@ -28,3 +28,6 @@ accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context <init>
 accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context updateXZ (II)V
 accessible method net/minecraft/world/level/levelgen/SurfaceRules$Context updateY (IIIIII)V
 accessible class net/minecraft/world/level/levelgen/SurfaceRules$SurfaceRule
+
+# For Particle Registry
+accessible class net/minecraft/client/particle/ParticleEngine$SpriteParticleRegistration

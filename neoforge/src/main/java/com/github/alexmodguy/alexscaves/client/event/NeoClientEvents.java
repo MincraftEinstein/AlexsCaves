@@ -5,7 +5,6 @@ import com.github.alexmodguy.alexscaves.AlexsCavesClient;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.gui.ACAdvancementTabs;
 import com.github.alexmodguy.alexscaves.client.model.baked.BakedModelShadeLayerFullbright;
-import com.github.alexmodguy.alexscaves.client.particle.*;
 import com.github.alexmodguy.alexscaves.client.render.ACInternalShaders;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.AmbersolBlockRenderer;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.HologramProjectorBlockRenderer;
@@ -1288,7 +1287,10 @@ public class NeoClientEvents {
 
     @SuppressWarnings("removal")
     public static void commonInit(IEventBus modEventBus) {
-        modEventBus.addListener(NeoClientEvents::setupParticles);
+        modEventBus.addListener((RegisterParticleProvidersEvent event) -> {
+            AlexsCavesClient.registerSpecialProviders(event::registerSpecial);
+            AlexsCavesClient.registerSpriteProviders(event::registerSpriteSet);
+        });
         modEventBus.addListener(NeoClientEvents::registerKeybinds);
         modEventBus.addListener(NeoClientEvents::onItemColors);
         modEventBus.addListener(NeoClientEvents::onBlockColors);
@@ -1370,138 +1372,6 @@ public class NeoClientEvents {
         ItemBlockRenderTypes.setRenderLayer(ACFluidRegistry.PURPLE_SODA_FLUID_FLOWING.get(), RenderType.translucent());
     }
 
-    public static void setupParticles(RegisterParticleProvidersEvent registry) {
-        AlexsCaves.LOGGER.debug("Registered particle factories");
-        registry.registerSpecial(ACParticleRegistry.SCARLET_MAGNETIC_ORBIT.get(),
-                new MagneticOrbitParticle.ScarletFactory());
-        registry.registerSpecial(ACParticleRegistry.AZURE_MAGNETIC_ORBIT.get(),
-                new MagneticOrbitParticle.AzureFactory());
-        registry.registerSpecial(ACParticleRegistry.SCARLET_MAGNETIC_FLOW.get(),
-                new MagneticFlowParticle.ScarletFactory());
-        registry.registerSpecial(ACParticleRegistry.AZURE_MAGNETIC_FLOW.get(), new MagneticFlowParticle.AzureFactory());
-        registry.registerSpecial(ACParticleRegistry.TESLA_BULB_LIGHTNING.get(),
-                new TeslaBulbLightningParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.MAGNET_LIGHTNING.get(), new MagnetLightningParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.GALENA_DEBRIS.get(), GalenaDebrisParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.MAGNETIC_CAVES_AMBIENT.get(),
-                new MagneticCavesAmbientParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.FERROUSLIME.get(), FerrouslimeParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.QUARRY_BORDER_LIGHTING.get(),
-                new QuarryBorderLightningParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.AZURE_SHIELD_LIGHTNING.get(),
-                new ResistorShieldLightningParticle.AzureFactory());
-        registry.registerSpecial(ACParticleRegistry.SCARLET_SHIELD_LIGHTNING.get(),
-                new ResistorShieldLightningParticle.ScarletFactory());
-        registry.registerSpriteSet(ACParticleRegistry.FLY.get(), FlyParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.WATER_TREMOR.get(), WaterTremorParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.AMBER_MONOLITH.get(), AmberMonolithParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.AMBER_EXPLOSION.get(), SmallExplosionParticle.AmberFactory::new);
-        registry.registerSpecial(ACParticleRegistry.DINOSAUR_TRANSFORMATION_AMBER.get(),
-                new DinosaurTransformParticle.AmberFactory());
-        registry.registerSpecial(ACParticleRegistry.DINOSAUR_TRANSFORMATION_TECTONIC.get(),
-                new DinosaurTransformParticle.TectonicFactory());
-        registry.registerSpecial(ACParticleRegistry.STUN_STAR.get(), new StunStarParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.TEPHRA.get(), TephraParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TEPHRA_SMALL.get(), TephraParticle.SmallFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TEPHRA_FLAME.get(), TephraParticle.FlameFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.LUXTRUCTOSAURUS_SPIT.get(),
-                LuxtructosaurusSpitParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.LUXTRUCTOSAURUS_ASH.get(),
-                LuxtructosaurusAshParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.HAPPINESS.get(), HappinessParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.ACID_BUBBLE.get(), AcidBubbleParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.BLACK_VENT_SMOKE.get(), VentSmokeParticle.BlackFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.WHITE_VENT_SMOKE.get(), VentSmokeParticle.WhiteFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.GREEN_VENT_SMOKE.get(), VentSmokeParticle.GreenFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.RED_VENT_SMOKE.get(), VentSmokeParticle.RedFactory::new);
-        registry.registerSpecial(ACParticleRegistry.MUSHROOM_CLOUD.get(), new MushroomCloudParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.MUSHROOM_CLOUD_SMOKE.get(),
-                SmallExplosionParticle.NukeFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.MUSHROOM_CLOUD_EXPLOSION.get(),
-                SmallExplosionParticle.NukeFactory::new);
-        registry.registerSpecial(ACParticleRegistry.PROTON.get(), new ProtonParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.FALLOUT.get(), FalloutParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.GAMMAROACH.get(), GammaroachParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.HAZMAT_BREATHE.get(), HazmatBreatheParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.BLUE_HAZMAT_BREATHE.get(),
-                HazmatBreatheParticle.BlueFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.RADGILL_SPLASH.get(), RadgillSplashParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.ACID_DROP.get(), AcidDropParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.NUCLEAR_SIREN_SONAR.get(),
-                NuclearSirenSonarParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.RAYGUN_EXPLOSION.get(),
-                SmallExplosionParticle.RaygunFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.BLUE_RAYGUN_EXPLOSION.get(),
-                SmallExplosionParticle.BlueRaygunFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.RAYGUN_BLAST.get(), RaygunBlastParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_EXPLOSION.get(),
-                SmallExplosionParticle.TremorzillaFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_RETRO_EXPLOSION.get(),
-                SmallExplosionParticle.TremorzillaRetroFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_TECTONIC_EXPLOSION.get(),
-                SmallExplosionParticle.TremorzillaTectonicFactory::new);
-        registry.registerSpecial(ACParticleRegistry.TREMORZILLA_PROTON.get(), new TremorzillaProtonParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.TREMORZILLA_RETRO_PROTON.get(),
-                new TremorzillaProtonParticle.RetroFactory());
-        registry.registerSpecial(ACParticleRegistry.TREMORZILLA_TECTONIC_PROTON.get(),
-                new TremorzillaProtonParticle.TectonicFactory());
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_LIGHTNING.get(),
-                TremorzillaLightningParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_RETRO_LIGHTNING.get(),
-                TremorzillaLightningParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_TECTONIC_LIGHTNING.get(),
-                TremorzillaLightningParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_BLAST.get(),
-                RaygunBlastParticle.TremorzillaFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TREMORZILLA_STEAM.get(), TremorzillaSteamParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.TUBE_WORM.get(), new TubeWormParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.DEEP_ONE_MAGIC.get(), DeepOneMagicParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.WATER_FOAM.get(), WaterFoamParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.BIG_SPLASH.get(), new BigSplashParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.BIG_SPLASH_EFFECT.get(), BigSplashEffectParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.MINE_EXPLOSION.get(), SmallExplosionParticle.MineFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.BIO_POP.get(), BioPopParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.WATCHER_APPEARANCE.get(), new WatcherAppearanceParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.VOID_BEING_CLOUD.get(), new VoidBeingCloudParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.VOID_BEING_TENDRIL.get(), new VoidBeingTendrilParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.VOID_BEING_EYE.get(), new VoidBeingEyeParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.UNDERZEALOT_MAGIC.get(), UnderzealotMagicParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.UNDERZEALOT_EXPLOSION.get(),
-                SmallExplosionParticle.UnderzealotFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.FALLING_GUANO.get(), FallingGuanoParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.MOTH_DUST.get(), MothDustParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.FORSAKEN_SPIT.get(), ForsakenSpitParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.FORSAKEN_SONAR.get(), ForsakenSonarParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.FORSAKEN_SONAR_LARGE.get(),
-                ForsakenSonarParticle.LargeFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.TOTEM_EXPLOSION.get(), SmallExplosionParticle.TotemFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.ICE_CREAM_DRIP.get(), IceCreamDripParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.ICE_CREAM_SPLASH.get(), IceCreamSplashParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.PURPLE_SODA_BUBBLE.get(), PurpleSodaBubbleParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.PURPLE_SODA_BUBBLE_EMITTER.get(),
-                PurpleSodaBubbleEmitterParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.PURPLE_SODA_FIZZ.get(), PurpleSodaFizzParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.SUNDROP.get(), SundropParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.RAINBOW.get(), new RainbowParticle.Factory());
-        registry.registerSpecial(ACParticleRegistry.PLAYER_RAINBOW.get(), new PlayerRainbowParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.CANDICORN_CHARGE.get(), CandicornChargeParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.BIG_BLOCK_DUST.get(), BigBlockDustParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.CARAMEL_DROP.get(), CaramelDropParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.JELLY_BEAN_EAT.get(), new JellyBeanEatParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.SLEEP.get(), SleepParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.WITCH_COOKIE.get(), WitchCookieParticle.Factory::new);
-        registry.registerSpecial(ACParticleRegistry.PURPLE_WITCH_MAGIC.get(), new PurpleWitchMagicParticle.Factory());
-        registry.registerSpriteSet(ACParticleRegistry.PURPLE_WITCH_EXPLOSION.get(),
-                SmallExplosionParticle.PurpleWitchFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.GOBTHUMPER.get(), GobthumperParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.COLORED_DUST.get(), ColoredDustParticle.Factory::new);
-        registry.registerSpriteSet(ACParticleRegistry.SMALL_COLORED_DUST.get(), ColoredDustParticle.SmallFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.CONVERSION_CRUCIBLE_EXPLOSION.get(),
-                SmallExplosionParticle.ConversionCrucibleFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.FROSTMINT_EXPLOSION.get(),
-                SmallExplosionParticle.FrostmintFactory::new);
-        registry.registerSpriteSet(ACParticleRegistry.SUGAR_FLAKE.get(), SugarFlakeParticle.Factory::new);
-    }
 
     public static void onItemColors(RegisterColorHandlersEvent.Item event) {
         event.register(

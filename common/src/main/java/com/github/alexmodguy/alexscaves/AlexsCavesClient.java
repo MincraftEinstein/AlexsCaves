@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves;
 
 import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
 import com.github.alexmodguy.alexscaves.client.gui.SpelunkeryTableScreen;
+import com.github.alexmodguy.alexscaves.client.particle.*;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.*;
 import com.github.alexmodguy.alexscaves.client.render.entity.*;
 import com.github.alexmodguy.alexscaves.client.render.entity.layer.ACPotionEffectLayer;
@@ -18,11 +19,15 @@ import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.minecraft.client.particle.ParticleEngine;
+import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -279,5 +284,118 @@ public class AlexsCavesClient {
         } catch (Exception e) {
             AlexsCaves.LOGGER.warn("Could not apply radiation glow layer to {}, has custom renderer that is not LivingEntityRenderer.", BuiltInRegistries.ENTITY_TYPE.getKey(entityType));
         }
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    public static void registerSpriteProviders(SpriteSetRegistry event) {
+        event.register(ACParticleRegistry.GALENA_DEBRIS.get(), GalenaDebrisParticle.Factory::new);
+        event.register(ACParticleRegistry.FERROUSLIME.get(), FerrouslimeParticle.Factory::new);
+        event.register(ACParticleRegistry.FLY.get(), FlyParticle.Factory::new);
+        event.register(ACParticleRegistry.WATER_TREMOR.get(), WaterTremorParticle.Factory::new);
+        event.register(ACParticleRegistry.AMBER_MONOLITH.get(), AmberMonolithParticle.Factory::new);
+        event.register(ACParticleRegistry.AMBER_EXPLOSION.get(), SmallExplosionParticle.AmberFactory::new);
+        event.register(ACParticleRegistry.TEPHRA.get(), TephraParticle.Factory::new);
+        event.register(ACParticleRegistry.TEPHRA_SMALL.get(), TephraParticle.SmallFactory::new);
+        event.register(ACParticleRegistry.TEPHRA_FLAME.get(), TephraParticle.FlameFactory::new);
+        event.register(ACParticleRegistry.LUXTRUCTOSAURUS_SPIT.get(), LuxtructosaurusSpitParticle.Factory::new);
+        event.register(ACParticleRegistry.LUXTRUCTOSAURUS_ASH.get(), LuxtructosaurusAshParticle.Factory::new);
+        event.register(ACParticleRegistry.HAPPINESS.get(), HappinessParticle.Factory::new);
+        event.register(ACParticleRegistry.ACID_BUBBLE.get(), AcidBubbleParticle.Factory::new);
+        event.register(ACParticleRegistry.BLACK_VENT_SMOKE.get(), VentSmokeParticle.BlackFactory::new);
+        event.register(ACParticleRegistry.WHITE_VENT_SMOKE.get(), VentSmokeParticle.WhiteFactory::new);
+        event.register(ACParticleRegistry.GREEN_VENT_SMOKE.get(), VentSmokeParticle.GreenFactory::new);
+        event.register(ACParticleRegistry.RED_VENT_SMOKE.get(), VentSmokeParticle.RedFactory::new);
+        event.register(ACParticleRegistry.MUSHROOM_CLOUD_SMOKE.get(), SmallExplosionParticle.NukeFactory::new);
+        event.register(ACParticleRegistry.MUSHROOM_CLOUD_EXPLOSION.get(), SmallExplosionParticle.NukeFactory::new);
+        event.register(ACParticleRegistry.FALLOUT.get(), FalloutParticle.Factory::new);
+        event.register(ACParticleRegistry.GAMMAROACH.get(), GammaroachParticle.Factory::new);
+        event.register(ACParticleRegistry.HAZMAT_BREATHE.get(), HazmatBreatheParticle.Factory::new);
+        event.register(ACParticleRegistry.BLUE_HAZMAT_BREATHE.get(), HazmatBreatheParticle.BlueFactory::new);
+        event.register(ACParticleRegistry.RADGILL_SPLASH.get(), RadgillSplashParticle.Factory::new);
+        event.register(ACParticleRegistry.ACID_DROP.get(), AcidDropParticle.Factory::new);
+        event.register(ACParticleRegistry.NUCLEAR_SIREN_SONAR.get(), NuclearSirenSonarParticle.Factory::new);
+        event.register(ACParticleRegistry.RAYGUN_EXPLOSION.get(), SmallExplosionParticle.RaygunFactory::new);
+        event.register(ACParticleRegistry.BLUE_RAYGUN_EXPLOSION.get(), SmallExplosionParticle.BlueRaygunFactory::new);
+        event.register(ACParticleRegistry.RAYGUN_BLAST.get(), RaygunBlastParticle.Factory::new);
+        event.register(ACParticleRegistry.TREMORZILLA_EXPLOSION.get(), SmallExplosionParticle.TremorzillaFactory::new);
+        event.register(ACParticleRegistry.TREMORZILLA_RETRO_EXPLOSION.get(), SmallExplosionParticle.TremorzillaRetroFactory::new);
+        event.register(ACParticleRegistry.TREMORZILLA_TECTONIC_EXPLOSION.get(), SmallExplosionParticle.TremorzillaTectonicFactory::new);
+        event.register(ACParticleRegistry.TREMORZILLA_LIGHTNING.get(), TremorzillaLightningParticle.Factory::new);
+        event.register(ACParticleRegistry.TREMORZILLA_RETRO_LIGHTNING.get(), TremorzillaLightningParticle.Factory::new);
+        event.register(ACParticleRegistry.TREMORZILLA_TECTONIC_LIGHTNING.get(), TremorzillaLightningParticle.Factory::new);
+        event.register(ACParticleRegistry.TREMORZILLA_BLAST.get(), RaygunBlastParticle.TremorzillaFactory::new);
+        event.register(ACParticleRegistry.TREMORZILLA_STEAM.get(), TremorzillaSteamParticle.Factory::new);
+        event.register(ACParticleRegistry.DEEP_ONE_MAGIC.get(), DeepOneMagicParticle.Factory::new);
+        event.register(ACParticleRegistry.WATER_FOAM.get(), WaterFoamParticle.Factory::new);
+        event.register(ACParticleRegistry.BIG_SPLASH_EFFECT.get(), BigSplashEffectParticle.Factory::new);
+        event.register(ACParticleRegistry.MINE_EXPLOSION.get(), SmallExplosionParticle.MineFactory::new);
+        event.register(ACParticleRegistry.BIO_POP.get(), BioPopParticle.Factory::new);
+        event.register(ACParticleRegistry.UNDERZEALOT_MAGIC.get(), UnderzealotMagicParticle.Factory::new);
+        event.register(ACParticleRegistry.UNDERZEALOT_EXPLOSION.get(), SmallExplosionParticle.UnderzealotFactory::new);
+        event.register(ACParticleRegistry.FALLING_GUANO.get(), FallingGuanoParticle.Factory::new);
+        event.register(ACParticleRegistry.MOTH_DUST.get(), MothDustParticle.Factory::new);
+        event.register(ACParticleRegistry.FORSAKEN_SPIT.get(), ForsakenSpitParticle.Factory::new);
+        event.register(ACParticleRegistry.FORSAKEN_SONAR.get(), ForsakenSonarParticle.Factory::new);
+        event.register(ACParticleRegistry.FORSAKEN_SONAR_LARGE.get(), ForsakenSonarParticle.LargeFactory::new);
+        event.register(ACParticleRegistry.TOTEM_EXPLOSION.get(), SmallExplosionParticle.TotemFactory::new);
+        event.register(ACParticleRegistry.ICE_CREAM_DRIP.get(), IceCreamDripParticle.Factory::new);
+        event.register(ACParticleRegistry.ICE_CREAM_SPLASH.get(), IceCreamSplashParticle.Factory::new);
+        event.register(ACParticleRegistry.PURPLE_SODA_BUBBLE.get(), PurpleSodaBubbleParticle.Factory::new);
+        event.register(ACParticleRegistry.PURPLE_SODA_BUBBLE_EMITTER.get(), PurpleSodaBubbleEmitterParticle.Factory::new);
+        event.register(ACParticleRegistry.PURPLE_SODA_FIZZ.get(), PurpleSodaFizzParticle.Factory::new);
+        event.register(ACParticleRegistry.SUNDROP.get(), SundropParticle.Factory::new);
+        event.register(ACParticleRegistry.CANDICORN_CHARGE.get(), CandicornChargeParticle.Factory::new);
+        event.register(ACParticleRegistry.BIG_BLOCK_DUST.get(), BigBlockDustParticle.Factory::new);
+        event.register(ACParticleRegistry.CARAMEL_DROP.get(), CaramelDropParticle.Factory::new);
+        event.register(ACParticleRegistry.SLEEP.get(), SleepParticle.Factory::new);
+        event.register(ACParticleRegistry.WITCH_COOKIE.get(), WitchCookieParticle.Factory::new);
+        event.register(ACParticleRegistry.PURPLE_WITCH_EXPLOSION.get(), SmallExplosionParticle.PurpleWitchFactory::new);
+        event.register(ACParticleRegistry.GOBTHUMPER.get(), GobthumperParticle.Factory::new);
+        event.register(ACParticleRegistry.COLORED_DUST.get(), ColoredDustParticle.Factory::new);
+        event.register(ACParticleRegistry.SMALL_COLORED_DUST.get(), ColoredDustParticle.SmallFactory::new);
+        event.register(ACParticleRegistry.CONVERSION_CRUCIBLE_EXPLOSION.get(), SmallExplosionParticle.ConversionCrucibleFactory::new);
+        event.register(ACParticleRegistry.FROSTMINT_EXPLOSION.get(), SmallExplosionParticle.FrostmintFactory::new);
+        event.register(ACParticleRegistry.SUGAR_FLAKE.get(), SugarFlakeParticle.Factory::new);
+    }
+
+    public static void registerSpecialProviders(SpecialRegistry event) {
+        event.register(ACParticleRegistry.SCARLET_MAGNETIC_ORBIT.get(), new MagneticOrbitParticle.ScarletFactory());
+        event.register(ACParticleRegistry.AZURE_MAGNETIC_ORBIT.get(), new MagneticOrbitParticle.AzureFactory());
+        event.register(ACParticleRegistry.SCARLET_MAGNETIC_FLOW.get(), new MagneticFlowParticle.ScarletFactory());
+        event.register(ACParticleRegistry.AZURE_MAGNETIC_FLOW.get(), new MagneticFlowParticle.AzureFactory());
+        event.register(ACParticleRegistry.TESLA_BULB_LIGHTNING.get(), new TeslaBulbLightningParticle.Factory());
+        event.register(ACParticleRegistry.MAGNET_LIGHTNING.get(), new MagnetLightningParticle.Factory());
+        event.register(ACParticleRegistry.MAGNETIC_CAVES_AMBIENT.get(), new MagneticCavesAmbientParticle.Factory());
+        event.register(ACParticleRegistry.QUARRY_BORDER_LIGHTING.get(), new QuarryBorderLightningParticle.Factory());
+        event.register(ACParticleRegistry.AZURE_SHIELD_LIGHTNING.get(), new ResistorShieldLightningParticle.AzureFactory());
+        event.register(ACParticleRegistry.SCARLET_SHIELD_LIGHTNING.get(), new ResistorShieldLightningParticle.ScarletFactory());
+        event.register(ACParticleRegistry.DINOSAUR_TRANSFORMATION_AMBER.get(), new DinosaurTransformParticle.AmberFactory());
+        event.register(ACParticleRegistry.DINOSAUR_TRANSFORMATION_TECTONIC.get(), new DinosaurTransformParticle.TectonicFactory());
+        event.register(ACParticleRegistry.STUN_STAR.get(), new StunStarParticle.Factory());
+        event.register(ACParticleRegistry.MUSHROOM_CLOUD.get(), new MushroomCloudParticle.Factory());
+        event.register(ACParticleRegistry.PROTON.get(), new ProtonParticle.Factory());
+        event.register(ACParticleRegistry.TREMORZILLA_PROTON.get(), new TremorzillaProtonParticle.Factory());
+        event.register(ACParticleRegistry.TREMORZILLA_RETRO_PROTON.get(), new TremorzillaProtonParticle.RetroFactory());
+        event.register(ACParticleRegistry.TREMORZILLA_TECTONIC_PROTON.get(), new TremorzillaProtonParticle.TectonicFactory());
+        event.register(ACParticleRegistry.TUBE_WORM.get(), new TubeWormParticle.Factory());
+        event.register(ACParticleRegistry.BIG_SPLASH.get(), new BigSplashParticle.Factory());
+        event.register(ACParticleRegistry.WATCHER_APPEARANCE.get(), new WatcherAppearanceParticle.Factory());
+        event.register(ACParticleRegistry.VOID_BEING_CLOUD.get(), new VoidBeingCloudParticle.Factory());
+        event.register(ACParticleRegistry.VOID_BEING_TENDRIL.get(), new VoidBeingTendrilParticle.Factory());
+        event.register(ACParticleRegistry.VOID_BEING_EYE.get(), new VoidBeingEyeParticle.Factory());
+        event.register(ACParticleRegistry.RAINBOW.get(), new RainbowParticle.Factory());
+        event.register(ACParticleRegistry.PLAYER_RAINBOW.get(), new PlayerRainbowParticle.Factory());
+        event.register(ACParticleRegistry.JELLY_BEAN_EAT.get(), new JellyBeanEatParticle.Factory());
+        event.register(ACParticleRegistry.PURPLE_WITCH_MAGIC.get(), new PurpleWitchMagicParticle.Factory());
+    }
+
+    @FunctionalInterface
+    public interface SpriteSetRegistry<T extends ParticleOptions> {
+        void register(ParticleType<T> type, ParticleEngine.SpriteParticleRegistration<T> registration);
+    }
+
+    @FunctionalInterface
+    public interface SpecialRegistry {
+        <T extends ParticleOptions> void register(ParticleType<T> type, ParticleProvider<T> provider);
     }
 }

@@ -7,15 +7,14 @@ import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry
 import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.TotemExplosion;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
+import com.github.alexmodguy.alexscaves.server.misc.ACDataComponentRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.DustParticleOptions;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
@@ -28,7 +27,6 @@ import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -38,10 +36,11 @@ import net.minecraft.world.phys.Vec3;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
+
+    public static final TextColor WHITE_TEXT = TextColor.fromRgb(0xFFFFFF);
 
     public TotemOfPossessionItem() {
         super(new Item.Properties().durability(1000).rarity(Rarity.UNCOMMON).attributes(createAttributes()));
@@ -72,27 +71,32 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
 
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack itemstack = player.getItemInHand(interactionHand);
-        if (!level.isClientSide && level instanceof ServerLevel serverLevel) {
-            updateEntityIdFromServer(serverLevel, player, itemstack);
-        }
-        Entity controlledEntity = getControlledEntity(level, itemstack);
-        if (isBound(itemstack) && (controlledEntity == null || !controlledEntity.isAlive()) && !level.isClientSide) {
-            setPossessed(controlledEntity, false);
-            resetBound(itemstack);
-        }
-        if (isBound(itemstack) && controlledEntity != null && (isEntityLookingAt(player, controlledEntity, 5F) || ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.SIGHTLESS, itemstack) > 0)) {
-            player.playSound(ACSoundRegistry.TOTEM_OF_POSSESSION_USE.get());
-            player.startUsingItem(interactionHand);
+        if (level.isClientSide && isBound(itemstack)) {
             return InteractionResultHolder.consume(itemstack);
-        } else {
-            return InteractionResultHolder.pass(itemstack);
         }
+
+        if (level instanceof ServerLevel serverLevel) {
+            updateEntityIdFromServer(serverLevel, player, itemstack);
+            Entity controlledEntity = getControlledEntity(serverLevel, itemstack);
+            if (isBound(itemstack) && (controlledEntity == null || !controlledEntity.isAlive()) && !level.isClientSide) {
+                setPossessed(controlledEntity, false);
+                resetBound(itemstack);
+            }
+            if (isBound(itemstack) && controlledEntity != null && (isEntityLookingAt(player, controlledEntity, 5F) || ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.SIGHTLESS, itemstack) > 0)) {
+                player.playSound(ACSoundRegistry.TOTEM_OF_POSSESSION_USE.get());
+                player.startUsingItem(interactionHand);
+                return InteractionResultHolder.consume(itemstack);
+            }
+        }
+        return InteractionResultHolder.pass(itemstack);
     }
 
     public void releaseUsing(ItemStack stack, Level level, LivingEntity user, int i1) {
-        Entity controlledEntity = getControlledEntity(level, stack);
-        if (controlledEntity != null) {
-            controlledEntity.setGlowingTag(false);
+        if (level instanceof ServerLevel serverLevel) {
+            Entity controlledEntity = getControlledEntity(serverLevel, stack);
+            if (controlledEntity != null) {
+                controlledEntity.setGlowingTag(false);
+            }
         }
 
         if (level.isClientSide) {
@@ -104,7 +108,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
     }
 
     public void onUseTick(Level level, LivingEntity user, ItemStack stack, int timeUsing) {
-        Entity controlledEntity = getControlledEntity(level, stack);
+        Entity controlledEntity = level instanceof ServerLevel serverLevel ? getControlledEntity(serverLevel, stack) : null;
 
         if (isBound(stack) && (controlledEntity == null || !controlledEntity.isAlive()) || stack.getDamageValue() >= stack.getMaxDamage()) {
             if (controlledEntity != null && ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.DETONATING_DEATH, stack) > 0) {
@@ -115,21 +119,14 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
             setPossessed(controlledEntity, false);
             resetBound(stack);
             user.stopUsingItem();
-            if (level.isClientSide) {
-                NetworkRegistry.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
-            }
             return;
         }
         if (!isBound(stack) || controlledEntity == null || !isEntityLookingAt(user, controlledEntity, 5F) && ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.SIGHTLESS, stack) == 0 || controlledEntity instanceof Player && !AlexsCaves.COMMON_CONFIG.totemOfPossessionPlayers.get()) {
-
             user.stopUsingItem();
-            if (level.isClientSide) {
-                NetworkRegistry.sendMSGToServer(new UpdateItemTagMessage(user.getId(), stack));
-            }
             return;
         }
 
-        if (timeUsing % 2 == 0 && level.isClientSide && !(user instanceof Player player && player.isCreative())) {
+        if (timeUsing % 2 == 0 && !(user instanceof Player player && player.isCreative())) {
             stack.setDamageValue(stack.getDamageValue() + 1);
         }
 
@@ -146,13 +143,15 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
             if (ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.SIGHTLESS, stack) > 0) {
                 controlledEntity.setGlowingTag(true);
             }
-        } else {
+        }
+        else {
             boolean flying = controlledEntity instanceof FlyingAnimal || controlledEntity instanceof FlyingMob;
             Vec3 vec31 = vec3.subtract(controlledEntity.position());
             boolean jumpFlag = false;
             if (!flying && controlledEntity.horizontalCollision && controlledEntity.onGround() && vec31.y > 0) {
                 jumpFlag = true;
-            } else if (!flying && vec31.y > 0) {
+            }
+            else if (!flying && vec31.y > 0) {
                 vec31 = new Vec3(vec31.x, 0, vec31.z);
             }
             float yaw = -((float) Mth.atan2(vec31.x, vec31.z)) * (180F / (float) Math.PI);
@@ -169,11 +168,13 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
             }
             controlledEntity.setDeltaMovement(controlledEntity.getDeltaMovement().scale(0.8F).add(jumpAdd));
         }
+
         if (level.isClientSide) {
             for (int particles = 0; particles < 1 + controlledEntity.getBbWidth() * 2; particles++) {
                 level.addParticle(DustParticleOptions.REDSTONE, (double) controlledEntity.getRandomX(0.75F), (double) controlledEntity.getRandomY(), (double) controlledEntity.getRandomZ(0.75F), 0.0D, 0.0D, 0.0D);
             }
-        } else {
+        }
+        else {
             AABB hitBox = controlledEntity.getBoundingBox().inflate(3F);
             if (controlledEntity instanceof Player || controlledEntity instanceof Mob) {
                 for (Entity entity : level.getEntities(controlledEntity, hitBox, Entity::canBeHitByProjectile)) {
@@ -184,18 +185,15 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
                                 mob.setLastHurtByMob(target);
                                 if (i % 4 == 0 && target.getHealth() > mob.getHealth() && !target.getType().is(ACTagRegistry.RESISTS_TOTEM_OF_POSSESSION) && ACEnchantmentHelper.getEnchantmentLevel(level, ACEnchantmentRegistry.ASTRAL_TRANSFERRING, stack) > 0) {
                                     setPossessed(target, true);
-                                    CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-                                    tag.putUUID("BoundEntityUUID", target.getUUID());
-                                    CompoundTag entityTag = target.saveWithoutId(new CompoundTag());
-                                    entityTag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(target.getType()).toString());
-                                    tag.put("BoundEntityTag", entityTag);
-                                    stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+                                    setTooltipEntity(stack, target);
+                                    stack.set(ACDataComponentRegistry.CONTROLLED_ENTITY.get(), target.getUUID());
                                     user.playSound(ACSoundRegistry.TOTEM_OF_POSSESSION_USE.get());
                                     if (level instanceof ServerLevel serverLevel && user instanceof Player player) {
                                         updateEntityIdFromServer(serverLevel, player, stack);
                                     }
                                 }
-                            } else if (controlledEntity instanceof Player player) {
+                            }
+                            else if (controlledEntity instanceof Player player) {
                                 player.attack(target);
                                 player.resetAttackStrengthTicker();
                             }
@@ -216,62 +214,40 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
     }
 
     private static void resetBound(ItemStack itemStack) {
-        CompoundTag tag = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        tag.remove("BoundEntityTag");
-        tag.remove("BoundEntityUUID");
-        tag.remove("ControllingEntityID");
-        itemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+        if (itemStack.has(ACDataComponentRegistry.CONTROLLED_ENTITY.get())) {
+            itemStack.remove(ACDataComponentRegistry.CONTROLLED_ENTITY.get());
+            itemStack.remove(ACDataComponentRegistry.CONTROLLED_ENTITY_NAME.get());
+        }
     }
-
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltip, TooltipFlag flagIn) {
-        CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        if (!tag.isEmpty()) {
-            Tag entity = tag.get("BoundEntityTag");
-            if (entity instanceof CompoundTag) {
-                Optional<EntityType<?>> optional = EntityType.by((CompoundTag) entity);
-                if (optional.isPresent()) {
-                    Component untranslated = optional.get().getDescription().copy().withStyle(ChatFormatting.GRAY);
-                    tooltip.add(untranslated);
-                }
-            }
+        if (stack.has(ACDataComponentRegistry.CONTROLLED_ENTITY_NAME.get())) {
+            tooltip.add(stack.get(ACDataComponentRegistry.CONTROLLED_ENTITY_NAME.get()));
         }
         super.appendHoverText(stack, context, tooltip, flagIn);
     }
 
     public static UUID getBoundEntityUUID(ItemStack stack) {
-        CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        return tag.contains("BoundEntityUUID") ? tag.getUUID("BoundEntityUUID") : null;
+        if (stack.has(ACDataComponentRegistry.CONTROLLED_ENTITY.get())) {
+            return stack.get(ACDataComponentRegistry.CONTROLLED_ENTITY.get());
+        }
+        return null;
     }
 
     private static void updateEntityIdFromServer(ServerLevel level, Player player, ItemStack itemStack) {
         UUID uuid = getBoundEntityUUID(itemStack);
-        CompoundTag tag = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-        int prev = !tag.contains("ControllingEntityID") ? -1 : tag.getInt("ControllingEntityID");
-        int set = -1;
-        if (uuid != null) {
-            Entity entity = level.getEntity(uuid);
-            set = entity == null ? -1 : entity.getId();
-        }
-        tag.putInt("ControllingEntityID", set);
-        itemStack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
-        if (prev != set) {
-            NetworkRegistry.sendMSGToAll(new UpdateItemTagMessage(player.getId(), itemStack));
+        if (uuid == null || level.getEntity(uuid) == null) {
+            itemStack.remove(ACDataComponentRegistry.CONTROLLED_ENTITY.get());
         }
     }
 
-    private Entity getControlledEntity(Level level, ItemStack itemStack) {
-        if (level.isClientSide) {
-            CompoundTag tag = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            int id = tag.contains("ControllingEntityID") ? tag.getInt("ControllingEntityID") : -1;
-            return id == -1 ? null : level.getEntity(id);
-        } else if (level instanceof ServerLevel serverLevel) {
-            UUID uuid = getBoundEntityUUID(itemStack);
-            return uuid == null ? null : serverLevel.getEntity(uuid);
-        } else {
-            return null;
+    private Entity getControlledEntity(ServerLevel level, ItemStack itemStack) {
+        if (itemStack.has(ACDataComponentRegistry.CONTROLLED_ENTITY.get())) {
+            // noinspection ConstantConditions
+            return level.getEntity(itemStack.get(ACDataComponentRegistry.CONTROLLED_ENTITY.get()));
         }
+        return null;
     }
 
     private static boolean isEntityLookingAt(LivingEntity looker, Entity seen, double degree) {
@@ -285,7 +261,7 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
     }
 
     public static boolean isBound(ItemStack stack) {
-        return getBoundEntityUUID(stack) != null;
+        return stack.has(ACDataComponentRegistry.CONTROLLED_ENTITY.get());
     }
 
     public boolean hurtEnemy(ItemStack stack, LivingEntity hurtMob, LivingEntity livingEntity1) {
@@ -293,22 +269,31 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
             if (livingEntity1 instanceof Player player) {
                 player.displayClientMessage(Component.translatable("item.alexscaves.totem_of_possession.invalid"), true);
             }
-        } else {
+        }
+        else {
             setPossessed(hurtMob, true);
-            CompoundTag tag = stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
-            tag.putUUID("BoundEntityUUID", hurtMob.getUUID());
-            CompoundTag entityTag = hurtMob.saveWithoutId(new CompoundTag());
-            entityTag.putString("id", BuiltInRegistries.ENTITY_TYPE.getKey(hurtMob.getType()).toString());
-            tag.put("BoundEntityTag", entityTag);
-            stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
+            setTooltipEntity(stack, hurtMob);
+            stack.set(ACDataComponentRegistry.CONTROLLED_ENTITY.get(), hurtMob.getUUID());
             livingEntity1.playSound(ACSoundRegistry.TOTEM_OF_POSSESSION_USE.get());
         }
 
         return true;
     }
 
+    private static void setTooltipEntity(ItemStack stack, LivingEntity entity) {
+        Component displayName = entity.getDisplayName();
+        TextColor color = displayName.getStyle().getColor();
+        if (color == null || color.equals(WHITE_TEXT)) {
+            displayName.copy().withStyle(ChatFormatting.GRAY);
+        }
+
+        stack.set(ACDataComponentRegistry.CONTROLLED_ENTITY_NAME.get(), displayName);
+    }
+
     private static void setPossessed(@Nullable Entity e, boolean v) {
-        if (e == null) return;
+        if (e == null) {
+            return;
+        }
         if (v) {
             ACAttachmentRegistry.TOTEM_POSSESSED.set(e, true);
             return;

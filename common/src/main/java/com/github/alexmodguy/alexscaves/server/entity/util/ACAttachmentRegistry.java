@@ -3,6 +3,7 @@ package com.github.alexmodguy.alexscaves.server.entity.util;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.platform.services.IPlatformHelper;
 import com.github.alexmodguy.alexscaves.server.misc.ACMath;
+import com.mojang.serialization.Codec;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -34,6 +35,12 @@ public class ACAttachmentRegistry {
             () -> GummyColors.RED,
             builder -> builder.persistent(GummyColors.CODEC)
                     .synced(GummyColors.STREAM_CODEC, ACAttachmentRegistry::canSendNeo)
+                    .copyOnDeath()
+    );
+
+    public static final AttachmentSupplier<Boolean, Entity> TOTEM_POSSESSED = Services.REGISTRY_HELPER.registerAttachment("totem_possessed", Entity.class,
+            () -> false,
+            builder -> builder.persistent(Codec.BOOL)
                     .copyOnDeath()
     );
 

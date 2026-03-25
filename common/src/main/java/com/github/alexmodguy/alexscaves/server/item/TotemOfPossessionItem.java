@@ -4,6 +4,7 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentHelper;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.TotemExplosion;
 import com.github.alexmodguy.alexscaves.server.message.UpdateItemTagMessage;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
@@ -308,14 +309,12 @@ public class TotemOfPossessionItem extends Item implements UpdatesStackTags {
 
     private static void setPossessed(@Nullable Entity e, boolean v) {
         if (e == null) return;
-        // TODO fix when Attachments
-       /* if (v) {
-            e.getPersistentData().putBoolean("TotemPossessed", true);
-        } else {
-            e.getPersistentData().remove("TotemPossessed");
-        }*/
+        if (v) {
+            ACAttachmentRegistry.TOTEM_POSSESSED.set(e, true);
+            return;
+        }
+        ACAttachmentRegistry.TOTEM_POSSESSED.remove(e);
     }
-
 }
 
 

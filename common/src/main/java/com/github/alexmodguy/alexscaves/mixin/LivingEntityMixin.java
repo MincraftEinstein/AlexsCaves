@@ -174,7 +174,6 @@ public abstract class LivingEntityMixin extends Entity implements HeadRotationEn
 
     @Unique
     private static boolean isPossessed(Entity e) {
-        // TODO fix when attachments
-        return false;//e.getPersistentData().getBoolean("TotemPossessed");
+        return ACAttachmentRegistry.TOTEM_POSSESSED.getOrCreate(e);
     }
 }

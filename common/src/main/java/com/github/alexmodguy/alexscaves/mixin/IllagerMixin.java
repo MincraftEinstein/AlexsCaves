@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.mixin;
 
+import com.github.alexmodguy.alexscaves.server.entity.util.ACAttachmentRegistry;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Evoker;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,7 +28,6 @@ public abstract class IllagerMixin {
 
     @Unique
     private static boolean isPossessed(Entity e) {
-        //TODO fix when attachment
-        return false; //  e.getPersistentData().getBoolean("TotemPossessed");
+        return ACAttachmentRegistry.TOTEM_POSSESSED.getOrCreate(e);
     }
 }

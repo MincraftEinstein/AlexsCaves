@@ -1,7 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.potion;
 
-//import com.github.alexmodguy.alexscaves.server.entity.living.RaycatEntity;
-//import com.github.alexmodguy.alexscaves.server.item.HazmatArmorItem;
+import com.github.alexmodguy.alexscaves.server.entity.living.RaycatEntity;
+import com.github.alexmodguy.alexscaves.server.item.HazmatArmorItem;
 import com.github.alexmodguy.alexscaves.server.misc.ACDamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -21,16 +21,15 @@ public class IrradiatedEffect extends MobEffect {
 
     @Override
     public boolean applyEffectTick(LivingEntity entity, int tick) {
-        // TODO Hazmat
-        int hazmat = 1;//HazmatArmorItem.getWornAmount(entity);
+        int hazmat = HazmatArmorItem.getWornAmount(entity);
         float damageScale = 1F - hazmat * 0.25F;
         if (entity instanceof Player player && hazmat == 0) {
             player.causeFoodExhaustion(0.4F);
         }
-        // TODO Raycat
-       /* if (!(entity instanceof RaycatEntity) && entity.level().random.nextFloat() < damageScale + 0.1F) {
+
+        if (!(entity instanceof RaycatEntity) && entity.level().random.nextFloat() < damageScale + 0.1F) {
             entity.hurt(ACDamageTypes.causeRadiationDamage(entity.level().registryAccess()), damageScale);
-        }*/
+        }
         return true;
     }
 

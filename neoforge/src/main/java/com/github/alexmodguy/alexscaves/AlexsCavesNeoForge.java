@@ -75,12 +75,7 @@ public class AlexsCavesNeoForge {
 
     private void commonSetup(final FMLCommonSetupEvent event) {
         AlexsCaves.PROXY.initPathfinding();
-        event.enqueueWork(() -> {
-            ACSurfaceRules.setup();
-            ACPlayerCapes.setup();
-            ACItemRegistry.registerDispenserBehavior();
-            // ACPotPatternRegistry.expandVanillaDefinitions(); // Pot patterns are now data-driven in 1.21
-        });
+        event.enqueueWork(AlexsCaves::laterSetup);
     }
 
     private void registerTicketControllers(RegisterTicketControllersEvent event) {

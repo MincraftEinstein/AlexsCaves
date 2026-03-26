@@ -15,7 +15,7 @@ public class AlexsCavesFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         AlexsCaves.init();
-        ACItemRegistry.registerDispenserBehavior();
+        AlexsCaves.laterSetup();
         FabricCommonEvents.init();
         NeoForgeConfigRegistry.INSTANCE.register(MOD_ID, ModConfig.Type.COMMON, AlexsCaves.COMMON_CONFIG_SPEC, "alexscaves-general.toml");
         NeoForgeConfigRegistry.INSTANCE.register(MOD_ID, ModConfig.Type.CLIENT, AlexsCaves.CLIENT_CONFIG_SPEC, "alexscaves-client.toml");

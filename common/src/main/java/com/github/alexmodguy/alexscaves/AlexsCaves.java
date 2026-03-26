@@ -4,7 +4,6 @@ import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.config.ACClientConfig;
 import com.github.alexmodguy.alexscaves.client.particle.ACParticleRegistry;
 import com.github.alexmodguy.alexscaves.init.NetworkRegistry;
-import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.CommonProxy;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.ACSoundTypes;
@@ -24,6 +23,7 @@ import com.github.alexmodguy.alexscaves.server.level.structure.ACStructureRegist
 import com.github.alexmodguy.alexscaves.server.level.structure.piece.ACStructurePieceRegistry;
 import com.github.alexmodguy.alexscaves.server.level.structure.processor.ACStructureProcessorRegistry;
 import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRuleConditionRegistry;
+import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRules;
 import com.github.alexmodguy.alexscaves.server.misc.*;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.recipe.ACRecipeRegistry;
@@ -93,6 +93,12 @@ public class AlexsCaves {
         NetworkRegistry.registerPayloads();
         ACSurfaceRuleConditionRegistry.init();
         readModIncompatibilities();
+    }
+
+    public static void laterSetup() {
+        ACSurfaceRules.setup();
+        ACPlayerCapes.setup();
+        ACItemRegistry.registerDispenserBehavior();
     }
 
     public static ResourceLocation id(String path) {

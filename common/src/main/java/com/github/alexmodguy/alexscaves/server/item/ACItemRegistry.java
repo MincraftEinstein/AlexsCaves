@@ -7,6 +7,7 @@ import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.item.*;
 import com.github.alexmodguy.alexscaves.server.entity.util.AlexsCavesBoat;
+import com.github.alexmodguy.alexscaves.server.item.dispenser.FluidContainerDispenseItemBehavior;
 import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACProjectileDispenseBehavior;
 import com.github.alexthe666.citadel.server.block.LecternBooks;
@@ -28,6 +29,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.Fluids;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -70,8 +72,7 @@ public class ACItemRegistry {
     public static final Supplier<Item> PEWEN_HANGING_SIGN = register("pewen_hanging_sign", () -> new HangingSignItem(ACBlockRegistry.PEWEN_HANGING_SIGN.get(), ACBlockRegistry.PEWEN_WALL_HANGING_SIGN.get(), (new Item.Properties()).stacksTo(16)));
     public static final Supplier<Item> PEWEN_BOAT = register("pewen_boat", () -> new CaveBoatItem(false, AlexsCavesBoat.Type.PEWEN, new Item.Properties().stacksTo(1)));
     public static final Supplier<Item> PEWEN_CHEST_BOAT = register("pewen_chest_boat", () -> new CaveBoatItem(true, AlexsCavesBoat.Type.PEWEN, new Item.Properties().stacksTo(1)));
-    // TODO fix when fluid
-//    public static final Supplier<Item> TRILOCARIS_BUCKET = register("trilocaris_bucket", () -> new ModFishBucketItem(ACEntityRegistry.TRILOCARIS, () -> Fluids.WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final Supplier<Item> TRILOCARIS_BUCKET = register("trilocaris_bucket", () -> new ModFishBucketItem(ACEntityRegistry.TRILOCARIS, () -> Fluids.WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final Supplier<Item> TRILOCARIS_TAIL = register("trilocaris_tail", () -> new Item(new Item.Properties().food(ACFoods.TRILOCARIS_TAIL)));
     public static final Supplier<Item> COOKED_TRILOCARIS_TAIL = register("cooked_trilocaris_tail", () -> new Item(new Item.Properties().food(ACFoods.TRILOCARIS_TAIL_COOKED)));
     public static final Supplier<Item> PINE_NUTS = register("pine_nuts", () -> new Item(new Item.Properties().food(ACFoods.PINE_NUTS)));
@@ -125,20 +126,16 @@ public class ACItemRegistry {
     // The jukebox songs are data-driven and defined in data/alexscaves/jukebox_song/
     public static final ResourceKey<JukeboxSong> JUKEBOX_SONG_FUSION = ResourceKey.create(Registries.JUKEBOX_SONG, AlexsCaves.id("fusion"));
     public static final Supplier<Item> MUSIC_DISC_FUSION = register("music_disc_fusion", () -> new Item(new Item.Properties().stacksTo(1).rarity(ACRarity.getRarityNuclear()).jukeboxPlayable(JUKEBOX_SONG_FUSION)));
-    // TODO fix when fluid
-//    public static final Supplier<Item> LANTERNFISH_BUCKET = register("lanternfish_bucket", () -> new ModFishBucketItem(ACEntityRegistry.LANTERNFISH, () -> Fluids.WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final Supplier<Item> LANTERNFISH_BUCKET = register("lanternfish_bucket", () -> new ModFishBucketItem(ACEntityRegistry.LANTERNFISH, () -> Fluids.WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final Supplier<Item> LANTERNFISH = register("lanternfish", () -> new Item(new Item.Properties().food(ACFoods.LANTERNFISH)));
     public static final Supplier<Item> COOKED_LANTERNFISH = register("cooked_lanternfish", () -> new Item(new Item.Properties().food(ACFoods.LANTERNFISH_COOKED)));
-    // TODO fix when fluid
-//    public static final Supplier<Item> TRIPODFISH_BUCKET = register("tripodfish_bucket", () -> new ModFishBucketItem(ACEntityRegistry.TRIPODFISH, () -> Fluids.WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final Supplier<Item> TRIPODFISH_BUCKET = register("tripodfish_bucket", () -> new ModFishBucketItem(ACEntityRegistry.TRIPODFISH, () -> Fluids.WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final Supplier<Item> TRIPODFISH = register("tripodfish", () -> new Item(new Item.Properties().food(ACFoods.TRIPODFISH)));
     public static final Supplier<Item> COOKED_TRIPODFISH = register("cooked_tripodfish", () -> new Item(new Item.Properties().food(ACFoods.TRIPODFISH_COOKED)));
-    // TODO fix when fluid
-//    public static final Supplier<Item> SEA_PIG_BUCKET = register("sea_pig_bucket", () -> new ModFishBucketItem(ACEntityRegistry.SEA_PIG, () -> Fluids.WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final Supplier<Item> SEA_PIG_BUCKET = register("sea_pig_bucket", () -> new ModFishBucketItem(ACEntityRegistry.SEA_PIG, () -> Fluids.WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final Supplier<Item> SEA_PIG = register("sea_pig", () -> new Item(new Item.Properties().food(ACFoods.SEA_PIG)));
     public static final Supplier<Item> MARINE_SNOW = register("marine_snow", () -> new MarineSnowItem());
-    // TODO fix when fluid
-//    public static final Supplier<Item> GOSSAMER_WORM_BUCKET = register("gossamer_worm_bucket", () -> new ModFishBucketItem(ACEntityRegistry.GOSSAMER_WORM, () -> Fluids.WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
+    public static final Supplier<Item> GOSSAMER_WORM_BUCKET = register("gossamer_worm_bucket", () -> new ModFishBucketItem(ACEntityRegistry.GOSSAMER_WORM, () -> Fluids.WATER, new Item.Properties().craftRemainder(Items.BUCKET).stacksTo(1)));
     public static final Supplier<Item> BIOLUMINESSCENCE = register("bioluminesscence", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> PEARL = register("pearl", () -> new Item(new Item.Properties()));
     public static final Supplier<Item> COOKED_MUSSEL = register("cooked_mussel", () -> new Item(new Item.Properties().food(ACFoods.MUSSEL_COOKED)));
@@ -308,7 +305,7 @@ public class ACItemRegistry {
             }
         });
         DispenserBlock.registerBehavior(GALENA_GAUNTLET.get(), ArmorItem.DISPENSE_ITEM_BEHAVIOR);
-//        DispenserBlock.registerBehavior(TRILOCARIS_BUCKET.get(), new FluidContainerDispenseItemBehavior());
+        DispenserBlock.registerBehavior(TRILOCARIS_BUCKET.get(), new FluidContainerDispenseItemBehavior());
 //        DispenserBlock.registerBehavior(ACID_BUCKET.get(), new FluidContainerDispenseItemBehavior());
 //        DispenserBlock.registerBehavior(RADGILL_BUCKET.get(), new FluidContainerDispenseItemBehavior());
         DispenserBlock.registerBehavior(CINDER_BRICK.get(), new ACProjectileDispenseBehavior() {
@@ -316,10 +313,10 @@ public class ACItemRegistry {
                 return new CinderBrickEntity(level, position.x(), position.y(), position.z());
             }
         });
-//        DispenserBlock.registerBehavior(LANTERNFISH_BUCKET.get(), new FluidContainerDispenseItemBehavior());
-//        DispenserBlock.registerBehavior(TRIPODFISH_BUCKET.get(), new FluidContainerDispenseItemBehavior());
-//        DispenserBlock.registerBehavior(SEA_PIG_BUCKET.get(), new FluidContainerDispenseItemBehavior());
-//        DispenserBlock.registerBehavior(GOSSAMER_WORM_BUCKET.get(), new FluidContainerDispenseItemBehavior());
+        DispenserBlock.registerBehavior(LANTERNFISH_BUCKET.get(), new FluidContainerDispenseItemBehavior());
+        DispenserBlock.registerBehavior(TRIPODFISH_BUCKET.get(), new FluidContainerDispenseItemBehavior());
+        DispenserBlock.registerBehavior(SEA_PIG_BUCKET.get(), new FluidContainerDispenseItemBehavior());
+        DispenserBlock.registerBehavior(GOSSAMER_WORM_BUCKET.get(), new FluidContainerDispenseItemBehavior());
         DispenserBlock.registerBehavior(INK_BOMB.get(), new ACProjectileDispenseBehavior() {
             protected Projectile getProjectile(Level level, Position position, ItemStack itemStack) {
                 return new InkBombEntity(level, position.x(), position.y(), position.z());

@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.entity.living;
 
 import com.github.alexmodguy.alexscaves.server.entity.ai.SemiAquaticPathNavigator;
+import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -196,7 +197,7 @@ public class TrilocarisEntity extends WaterAnimal implements Bucketable {
 
     @Nonnull
     public ItemStack getBucketItemStack() {
-        ItemStack stack = new ItemStack(Items.APPLE/*ACItemRegistry.TRILOCARIS_BUCKET.get()*/);
+        ItemStack stack = new ItemStack(ACItemRegistry.TRILOCARIS_BUCKET.get());
         if (this.hasCustomName()) {
             stack.set(DataComponents.CUSTOM_NAME, this.getCustomName());
         }

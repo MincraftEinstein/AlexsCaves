@@ -108,7 +108,7 @@ public class ACCreativeTabRegistry {
                 add(output, ACItemRegistry.CAVE_BOOK.get());
                 output.accept(CaveMapItem.createMap(ACBiomeRegistry.PRIMORDIAL_CAVES));
                 ACItemRegistry.getSpawnEggsForTab(ACBiomeRegistry.PRIMORDIAL_CAVES).forEach((spawnEgg -> add(output, spawnEgg.get())));
-//                add(output, ACItemRegistry.TRILOCARIS_BUCKET.get());
+                add(output, ACItemRegistry.TRILOCARIS_BUCKET.get());
                 add(output, ACItemRegistry.TRILOCARIS_TAIL.get());
                 add(output, ACItemRegistry.COOKED_TRILOCARIS_TAIL.get());
                 add(output, ACItemRegistry.PINE_NUTS.get());
@@ -332,16 +332,16 @@ public class ACCreativeTabRegistry {
                 add(output, ACItemRegistry.CAVE_BOOK.get());
                 output.accept(CaveMapItem.createMap(ACBiomeRegistry.ABYSSAL_CHASM));
                 ACItemRegistry.getSpawnEggsForTab(ACBiomeRegistry.ABYSSAL_CHASM).forEach((spawnEgg -> add(output, spawnEgg.get())));
-//                add(output, ACItemRegistry.LANTERNFISH_BUCKET.get());
+                add(output, ACItemRegistry.LANTERNFISH_BUCKET.get());
                 add(output, ACItemRegistry.LANTERNFISH.get());
                 add(output, ACItemRegistry.COOKED_LANTERNFISH.get());
-//                add(output, ACItemRegistry.TRIPODFISH_BUCKET.get());
+                add(output, ACItemRegistry.TRIPODFISH_BUCKET.get());
                 add(output, ACItemRegistry.TRIPODFISH.get());
                 add(output, ACItemRegistry.COOKED_TRIPODFISH.get());
-//                add(output, ACItemRegistry.SEA_PIG_BUCKET.get());
+                add(output, ACItemRegistry.SEA_PIG_BUCKET.get());
                 add(output, ACItemRegistry.SEA_PIG.get());
                 add(output, ACItemRegistry.MARINE_SNOW.get());
-//                add(output, ACItemRegistry.GOSSAMER_WORM_BUCKET.get());
+                add(output, ACItemRegistry.GOSSAMER_WORM_BUCKET.get());
                 add(output, ACItemRegistry.BIOLUMINESSCENCE.get());
                 add(output, ACItemRegistry.PEARL.get());
                 add(output, ACItemRegistry.COOKED_MUSSEL.get());
@@ -359,7 +359,7 @@ public class ACCreativeTabRegistry {
                 add(output, ACItemRegistry.ORTHOLANCE.get());
                 add(output, ACItemRegistry.MAGIC_CONCH.get());
                 add(output, ACItemRegistry.SEA_STAFF.get());
-//                add(output, ACItemRegistry.DEPTH_CHARGE.get());
+                add(output, ACItemRegistry.DEPTH_CHARGE.get());
                 add(output, ACItemRegistry.IMMORTAL_EMBRYO.get());
                 add(output, ACItemRegistry.GUARDIAN_POTTERY_SHERD.get());
                 add(output, ACItemRegistry.HERO_POTTERY_SHERD.get());

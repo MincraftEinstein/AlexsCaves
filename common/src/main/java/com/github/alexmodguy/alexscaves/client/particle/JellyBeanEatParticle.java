@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves.client.particle;
 
+import com.github.alexmodguy.alexscaves.mixin.client.ItemColorAccessor;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import com.github.alexmodguy.alexscaves.server.item.BiomeTreatItem;
 import net.minecraft.client.Minecraft;
@@ -20,17 +21,16 @@ public class JellyBeanEatParticle extends BreakingItemParticle {
         this.xd += xd;
         this.yd += yd;
         this.zd += zd;
-        // TODO fix neo
-//        int colorizer = Minecraft.getInstance().getItemColors().getColor(stack, 0);
-//        if(stack.getItem() == ACItemRegistry.BIOME_TREAT.get()){
-//            colorizer = BiomeTreatItem.getBiomeTreatColorOf(Minecraft.getInstance().level, stack);
-//        }
-//        if(colorizer != -1){
-//            float f = (float)(colorizer >> 16 & 255) / 255.0F;
-//            float f1 = (float)(colorizer >> 8 & 255) / 255.0F;
-//            float f2 = (float)(colorizer & 255) / 255.0F;
-//            this.setColor(f, f1, f2);
-//        }
+        int colorizer = ((ItemColorAccessor)Minecraft.getInstance()).ac_getItemColors().getColor(stack, 0);
+        if(stack.getItem() == ACItemRegistry.BIOME_TREAT.get()){
+            colorizer = BiomeTreatItem.getBiomeTreatColorOf(Minecraft.getInstance().level, stack);
+        }
+        if(colorizer != -1){
+            float f = (float)(colorizer >> 16 & 255) / 255.0F;
+            float f1 = (float)(colorizer >> 8 & 255) / 255.0F;
+            float f2 = (float)(colorizer & 255) / 255.0F;
+            this.setColor(f, f1, f2);
+        }
     }
 
     public static class Factory implements ParticleProvider<ItemParticleOption> {

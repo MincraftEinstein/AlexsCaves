@@ -25,11 +25,11 @@
     "client.LayerAdderAccessor",
     "client.LightTextureMixin",
     "client.LiquidBlockRendererMixin",
-    "client.NeoForgeLivingEntityRendererMixin",
     "client.LocalPlayerMixin",
     "client.MapRendererMapInstanceMixin",
     "client.MinecartSoundInstanceMixin",
     "client.MinecraftMixin",
+    "client.NeoForgeLivingEntityRendererMixin",
     "client.OptionsMixin",
     "client.RidingMinecartSoundInstanceMixin",
     "client.SoundEngineAccessor",
@@ -71,7 +71,8 @@
     "RegistryMixin",
     "SeagrassFeatureMixin",
     "ShipwreckStructureMixin",
-    "SwampHutPieceMixin"
+    "SwampHutPieceMixin",
+    "client.ItemColorAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

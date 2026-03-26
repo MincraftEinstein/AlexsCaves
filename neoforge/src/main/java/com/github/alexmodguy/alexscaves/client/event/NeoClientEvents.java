@@ -5,7 +5,6 @@ import com.github.alexmodguy.alexscaves.AlexsCavesClient;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.baked.BakedModelShadeLayerFullbright;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
-import com.github.alexmodguy.alexscaves.client.render.ACInternalShaders;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.AmbersolBlockRenderer;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.HologramProjectorBlockRenderer;
 import com.github.alexmodguy.alexscaves.client.render.entity.CorrodentRenderer;
@@ -30,10 +29,10 @@ import com.github.alexmodguy.alexscaves.server.misc.ACKeybindRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.DeepsightEffect;
 import com.github.alexthe666.citadel.client.event.EventGetOutlineColor;
+import com.github.alexthe666.citadel.client.event.EventLivingRenderer;
 import com.github.alexthe666.citadel.client.event.EventPosePlayerHand;
 import com.github.alexthe666.citadel.client.event.EventRenderSplashText;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
@@ -50,6 +49,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceProvider;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -75,7 +75,6 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.util.TriState;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
-import java.io.IOException;
 import java.util.UUID;
 
 import static com.github.alexmodguy.alexscaves.client.ClientConstants.*;
@@ -664,9 +663,15 @@ public class NeoClientEvents {
 
     public static void clientInit(IEventBus bus) {
         NeoForge.EVENT_BUS.register(new NeoClientEvents());
+        NeoForge.EVENT_BUS.addListener((EventLivingRenderer.SetupRotations event) ->
+                ClientEvents.renderMagnetised(event.getEntity(), event.getPartialTicks(), event.getBodyYRot(), event.getPoseStack()));
         bus.addListener(NeoClientEvents::addLayersEvent);
         bus.addListener(NeoClientEvents::bakeModels);
-        bus.addListener(NeoClientEvents::registerShaders);
+        bus.addListener((RegisterShadersEvent event) -> {
+            ResourceProvider provider = event.getResourceProvider();
+            ClientEvents.registerShaders((id, format, consumer) ->
+                    event.registerShader(new ShaderInstance(provider, id, format), consumer));
+        });
         bus.addListener(NeoClientEvents::onItemColors);
         bus.addListener(NeoClientEvents::onBlockColors);
         bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> ClientEvents.registerEntityRenderers(event::registerEntityRenderer));
@@ -677,6 +682,8 @@ public class NeoClientEvents {
             ClientEvents.registerSpecialProviders(event::registerSpecial);
             ClientEvents.registerSpriteProviders(event::registerSpriteSet);
         });
+        bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> ClientEvents.registerBERenderers(event::registerBlockEntityRenderer));
+        bus.addListener((RegisterMenuScreensEvent event) -> ClientEvents.registerMenus(event::register));
     }
 
     public static void onItemColors(RegisterColorHandlersEvent.Item event) {
@@ -714,43 +721,4 @@ public class NeoClientEvents {
 
         }
     }
-
-    // TODO change this to be more common (it can very easily)
-    private static void registerShaders(final RegisterShadersEvent e) {
-        try {
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ACInternalShaders.RENDERTYPE_FERROUSLIME_GEL,
-                    DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeFerrouslimeGelShader);
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ACInternalShaders.RENDERTYPE_HOLOGRAM,
-                    DefaultVertexFormat.POSITION_COLOR), ACInternalShaders::setRenderTypeHologramShader);
-            e.registerShader(
-                    new ShaderInstance(e.getResourceProvider(),
-                            ACInternalShaders.RENDERTYPE_IRRADIATED,
-                            DefaultVertexFormat.NEW_ENTITY),
-                    ACInternalShaders::setRenderTypeIrradiatedShader);
-            e.registerShader(
-                    new ShaderInstance(e.getResourceProvider(),
-                            ACInternalShaders.RENDERTYPE_BLUE_IRRADIATED,
-                            DefaultVertexFormat.NEW_ENTITY),
-                    ACInternalShaders::setRenderTypeBlueIrradiatedShader);
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ACInternalShaders.RENDERTYPE_BUBBLED,
-                    DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeBubbledShader);
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ACInternalShaders.RENDERTYPE_SEPIA,
-                    DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeSepiaShader);
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ACInternalShaders.RENDERTYPE_RED_GHOST,
-                    DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypeRedGhostShader);
-            e.registerShader(new ShaderInstance(e.getResourceProvider(),
-                    ACInternalShaders.RENDERTYPE_PURPLE_WITCH,
-                    DefaultVertexFormat.NEW_ENTITY), ACInternalShaders::setRenderTypePurpleWitchShader);
-            AlexsCaves.LOGGER.info("registered internal shaders");
-        } catch (IOException exception) {
-            AlexsCaves.LOGGER.error("could not register internal shaders");
-            exception.printStackTrace();
-        }
-    }
-
 }

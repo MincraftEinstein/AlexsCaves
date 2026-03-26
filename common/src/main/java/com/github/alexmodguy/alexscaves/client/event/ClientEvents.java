@@ -6,6 +6,7 @@ import com.github.alexmodguy.alexscaves.client.gui.ACAdvancementTabs;
 import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
 import com.github.alexmodguy.alexscaves.client.gui.SpelunkeryTableScreen;
 import com.github.alexmodguy.alexscaves.client.particle.*;
+import com.github.alexmodguy.alexscaves.client.render.ACInternalShaders;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.*;
 import com.github.alexmodguy.alexscaves.client.render.entity.*;
 import com.github.alexmodguy.alexscaves.client.render.item.RaygunRenderHelper;
@@ -30,8 +31,10 @@ import com.github.alexmodguy.alexscaves.server.misc.ACVanillaMapUtil;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.DarknessIncarnateEffect;
 import com.github.alexthe666.citadel.client.tick.ClientTickRateTracker;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Axis;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.AdvancementHolder;
@@ -49,6 +52,7 @@ import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.FallingBlockRenderer;
@@ -80,7 +84,9 @@ import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 import static com.github.alexmodguy.alexscaves.client.ClientConstants.TRAIL_TEXTURE;
 import static com.github.alexmodguy.alexscaves.client.ClientConstants.UNDERGROUND_CABIN_MAP_ICONS;
@@ -1041,6 +1047,24 @@ public class ClientEvents {
         event.register(ACParticleRegistry.PURPLE_WITCH_MAGIC.get(), new PurpleWitchMagicParticle.Factory());
     }
 
+    public static void registerShaders(ShaderRegistry event) {
+        try {
+            event.register(ACInternalShaders.RENDERTYPE_FERROUSLIME_GEL, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeFerrouslimeGelShader);
+            event.register(ACInternalShaders.RENDERTYPE_HOLOGRAM, DefaultVertexFormat.POSITION_COLOR, ACInternalShaders::setRenderTypeHologramShader);
+            event.register(ACInternalShaders.RENDERTYPE_IRRADIATED, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeIrradiatedShader);
+            event.register(ACInternalShaders.RENDERTYPE_BLUE_IRRADIATED, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeBlueIrradiatedShader);
+            event.register(ACInternalShaders.RENDERTYPE_BUBBLED, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeBubbledShader);
+            event.register(ACInternalShaders.RENDERTYPE_SEPIA, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeSepiaShader);
+            event.register(ACInternalShaders.RENDERTYPE_RED_GHOST, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeRedGhostShader);
+            event.register(ACInternalShaders.RENDERTYPE_PURPLE_WITCH, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypePurpleWitchShader);
+            AlexsCaves.LOGGER.info("Registered internal shaders");
+        }
+        catch (IOException exception) {
+            AlexsCaves.LOGGER.error("Could not register internal shaders");
+            exception.printStackTrace();
+        }
+    }
+
     @FunctionalInterface
     public interface SpecialRegistry {
 
@@ -1069,5 +1093,11 @@ public class ClientEvents {
     public interface MenuScreenRegistry {
 
         <M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void register(MenuType<? extends M> type, MenuScreens.ScreenConstructor<M, U> factory);
+    }
+
+    @FunctionalInterface
+    public interface ShaderRegistry {
+
+        void register(ResourceLocation id, VertexFormat format, Consumer<ShaderInstance> consumer) throws IOException;
     }
 }

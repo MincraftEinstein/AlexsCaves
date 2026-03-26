@@ -2,13 +2,11 @@ package com.github.alexmodguy.alexscaves;
 
 import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
-import com.github.alexmodguy.alexscaves.client.render.ACInternalShaders;
 import com.github.alexmodguy.alexscaves.client.render.item.tooltip.ClientSackOfSatingTooltip;
 import com.github.alexmodguy.alexscaves.server.item.tooltip.SackOfSatingTooltip;
 import com.github.alexmodguy.alexscaves.server.misc.ACKeybindRegistry;
 import com.github.alexthe666.citadel.refabrciated.client.event.CitadelClientEvents;
 import com.github.alexthe666.citadel.refabrciated.client.event.LivingRendererEvents;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -46,17 +44,8 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
             }
             return null;
         });
-        CoreShaderRegistrationCallback.EVENT.register(context -> {
-            context.register(ACInternalShaders.RENDERTYPE_FERROUSLIME_GEL, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeFerrouslimeGelShader);
-            context.register(ACInternalShaders.RENDERTYPE_HOLOGRAM, DefaultVertexFormat.POSITION_COLOR, ACInternalShaders::setRenderTypeHologramShader);
-            context.register(ACInternalShaders.RENDERTYPE_IRRADIATED, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeIrradiatedShader);
-            context.register(ACInternalShaders.RENDERTYPE_BLUE_IRRADIATED, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeBlueIrradiatedShader);
-            context.register(ACInternalShaders.RENDERTYPE_BUBBLED, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeBubbledShader);
-            context.register(ACInternalShaders.RENDERTYPE_SEPIA, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeSepiaShader);
-            context.register(ACInternalShaders.RENDERTYPE_RED_GHOST, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypeRedGhostShader);
-            context.register(ACInternalShaders.RENDERTYPE_PURPLE_WITCH, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypePurpleWitchShader);
-        });
 
+        CoreShaderRegistrationCallback.EVENT.register(context -> ClientEvents.registerShaders(context::register));
         ClientEvents.registerSpecialProviders(ParticleFactoryRegistry.getInstance()::register);
         ClientEvents.registerSpriteProviders((ClientEvents.SpriteSetRegistry<? extends ParticleOptions>) (type, factory) -> ParticleFactoryRegistry.getInstance().register(type, factory::create));
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> ClientEvents.onPlayerJoinClient(client.player));

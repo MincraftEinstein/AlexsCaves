@@ -53,10 +53,7 @@ public class AlexsCavesNeoForge {
         bus.addListener((ModConfigEvent.Reloading event) -> BiomeGenerationConfig.reloadConfig());
         bus.addListener(this::registerTicketControllers);
         bus.addListener((EntityAttributeCreationEvent event) -> CommonEvents.initializeAttributes(event::put));
-        bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> ClientEvents.registerBERenderers(event::registerBlockEntityRenderer));
         bus.addListener(NeoCommonEvents::spawnPlacements);
-        bus.addListener((RegisterMenuScreensEvent event) -> ClientEvents.registerMenus(event::register));
-        NeoForge.EVENT_BUS.addListener((EventLivingRenderer.SetupRotations event) -> ClientEvents.renderMagnetised(event.getEntity(), event.getPartialTicks(), event.getBodyYRot(), event.getPoseStack()));
         NeoForge.EVENT_BUS.register(new NeoCommonEvents());
 
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(bus);

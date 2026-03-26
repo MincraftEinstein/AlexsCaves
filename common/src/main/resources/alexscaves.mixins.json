@@ -25,7 +25,7 @@
     "client.LayerAdderAccessor",
     "client.LightTextureMixin",
     "client.LiquidBlockRendererMixin",
-    "client.LivingEntityRendererMixin",
+    "client.NeoForgeLivingEntityRendererMixin",
     "client.LocalPlayerMixin",
     "client.MapRendererMapInstanceMixin",
     "client.MinecartSoundInstanceMixin",

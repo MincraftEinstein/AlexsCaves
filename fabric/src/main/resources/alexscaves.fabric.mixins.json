@@ -6,12 +6,17 @@
   "compatibilityLevel": "JAVA_17",
   "client": [
     "client.AnimatedTextureAccessor",
+    "client.FabricClientLevelMixin",
     "client.GuiMixin",
     "client.ItemStackMixin",
+    "client.LivingEntityRendererMixin",
+    "client.NeoForgeLivingEntityRendererMixin",
     "client.SpriteContentsAccessor"
   ],
   "mixins": [
-    "RarityMixin"
+    "FabricLivingEntityMixin",
+    "RarityMixin",
+    "ServerPlayerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

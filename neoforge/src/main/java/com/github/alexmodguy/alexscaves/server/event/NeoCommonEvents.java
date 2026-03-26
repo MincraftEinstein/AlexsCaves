@@ -1,6 +1,7 @@
 package com.github.alexmodguy.alexscaves.server.event;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACSpawnPlacementTypes;
@@ -359,7 +360,7 @@ public class NeoCommonEvents {
     public void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         Player entity = event.getEntity();
         if (entity.level().isClientSide) {
-            CommonEvents.onPlayerJoinClient(entity);
+            ClientEvents.onPlayerJoinClient(entity);
         }
     }
 

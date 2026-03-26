@@ -10,11 +10,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(LivingEntityRenderer.class)
-public abstract class LivingEntityRendererMixin extends EntityRenderer implements LivingEntityRendererAccessor {
+public abstract class NeoForgeLivingEntityRendererMixin extends EntityRenderer implements LivingEntityRendererAccessor {
 
     @Shadow protected abstract void scale(LivingEntity living, PoseStack poseStack, float f);
 
-    protected LivingEntityRendererMixin(EntityRendererProvider.Context context) {
+    protected NeoForgeLivingEntityRendererMixin(EntityRendererProvider.Context context) {
         super(context);
     }
 

@@ -1,5 +1,6 @@
 package com.github.alexmodguy.alexscaves;
 
+import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.client.gui.NuclearFurnaceScreen;
 import com.github.alexmodguy.alexscaves.client.gui.SpelunkeryTableScreen;
 import com.github.alexmodguy.alexscaves.client.particle.*;
@@ -87,6 +88,7 @@ public class AlexsCavesClient {
         Services.CLIENT_HELPER.setupEntityRotationsEvent(AlexsCavesClient::renderMagnetised);
         Services.CLIENT_HELPER.registerBlockEntityRenderers(AlexsCavesClient::registerBERenderers);
         Services.CLIENT_HELPER.registerMenuScreens(AlexsCavesClient::registerMenus);
+        ClientEvents.registerItemProperties();
     }
 
     // (ender) a neo special

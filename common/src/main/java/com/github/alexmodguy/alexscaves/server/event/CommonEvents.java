@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.server.event;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
-import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
@@ -20,7 +19,6 @@ import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
 import com.google.common.collect.ImmutableSet;
-import net.minecraft.ChatFormatting;
 import net.minecraft.core.*;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
@@ -85,7 +83,6 @@ public class CommonEvents {
         return null;
     }
 
-    // TODO implement on fabric
     public static void onLivingDeath(LivingEntity entity, DamageSource source) {
         if (entity instanceof Player) {
             String stringUUID = entity.getUUID().toString();
@@ -140,7 +137,6 @@ public class CommonEvents {
         }
     }
 
-    // TODO implement on fabric
     public static int onLivingHurt(LivingEntity entity, DamageSource source) {
         if (entity.isPassenger() && entity instanceof FlyingMount && (source.is(DamageTypes.IN_WALL) || source.is(DamageTypes.FALL) || source.is(DamageTypes.FLY_INTO_WALL))) {
             return 0;
@@ -199,17 +195,6 @@ public class CommonEvents {
                         allBiomes.getHolder(biomeResourceKey).ifPresent(biomeHolders::add);
                     }
                     expandedBiomeSource.expandBiomesWith(biomeHolders.build());
-                }
-            }
-        }
-    }
-
-    // TODO move to client events eventually
-    public static void onPlayerJoinClient(Player player) {
-        if (AlexsCaves.COMMON_CONFIG.warnGenerationIncompatibility.get() && !AlexsCaves.MOD_GENERATION_CONFLICTS.isEmpty()) {
-            for (String modid : AlexsCaves.MOD_GENERATION_CONFLICTS) {
-                if (Services.PLATFORM_HELPER.isModLoaded(modid)) {
-                    player.sendSystemMessage(Component.translatable("alexscaves.startup_warning.generation_incompatible", modid).withStyle(ChatFormatting.RED));
                 }
             }
         }

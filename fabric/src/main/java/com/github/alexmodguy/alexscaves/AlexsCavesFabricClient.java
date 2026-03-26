@@ -6,13 +6,11 @@ import com.github.alexmodguy.alexscaves.client.render.ACInternalShaders;
 import com.github.alexmodguy.alexscaves.client.render.item.tooltip.ClientSackOfSatingTooltip;
 import com.github.alexmodguy.alexscaves.server.item.tooltip.SackOfSatingTooltip;
 import com.github.alexmodguy.alexscaves.server.misc.ACKeybindRegistry;
-import com.github.alexthe666.citadel.client.event.EventPosePlayerHand;
 import com.github.alexthe666.citadel.refabrciated.client.event.CitadelClientEvents;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.KeyBindingRegistry;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
@@ -30,7 +28,7 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         AlexsCavesClient.init();
-        AlexsCavesClient.lateInit();
+        AlexsCavesClient.laterSetup();
         registerRenderTypes();
         ACModelLayers.register((id, layer) -> EntityModelLayerRegistry.registerModelLayer(id, layer::get));
         AlexsCavesClient.registerEntityRenderers(EntityRendererRegistry::register);

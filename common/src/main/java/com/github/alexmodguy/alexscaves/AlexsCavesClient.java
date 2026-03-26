@@ -91,7 +91,7 @@ public class AlexsCavesClient {
     }
 
     // (ender) a neo special
-    public static void lateInit() {
+    public static void laterSetup() {
         ClientEvents.registerItemProperties();
     }
 

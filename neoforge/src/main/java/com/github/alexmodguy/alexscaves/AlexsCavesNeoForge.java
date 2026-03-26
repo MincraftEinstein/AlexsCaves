@@ -9,11 +9,8 @@ import com.github.alexmodguy.alexscaves.platform.NeoForgeRegistryHelper;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
 import com.github.alexmodguy.alexscaves.server.config.BiomeGenerationConfig;
 import com.github.alexmodguy.alexscaves.server.event.NeoCommonEvents;
-import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
-import com.github.alexmodguy.alexscaves.server.level.surface.ACSurfaceRules;
 import com.github.alexmodguy.alexscaves.server.misc.ACLoadedMods;
 import com.github.alexmodguy.alexscaves.server.misc.ACLootModifiersRegistry;
-import com.github.alexmodguy.alexscaves.server.misc.ACPlayerCapes;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -90,7 +87,7 @@ public class AlexsCavesNeoForge {
         event.enqueueWork(() -> {
             if (AlexsCaves.PROXY instanceof ClientProxy) {
                 NeoClientEvents.clientInit(this.modEventBus);
-                AlexsCavesClient.lateInit();
+                AlexsCavesClient.laterSetup();
             }
         });
     }

@@ -6,7 +6,6 @@ import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACSpawnPlacementTypes;
 import com.github.alexmodguy.alexscaves.server.entity.item.SeekingArrowEntity;
-import com.github.alexmodguy.alexscaves.server.entity.item.SubmarineEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.*;
 import com.github.alexmodguy.alexscaves.server.entity.util.VillagerUndergroundCabinMapTrade;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
@@ -22,12 +21,9 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -211,25 +207,6 @@ public class NeoCommonEvents {
     public void playerAttack(AttackEntityEvent event) {
         if (event.getTarget() instanceof DinosaurEntity && event.getEntity().isPassengerOfSameVehicle(event.getTarget())) {
             event.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public void livingTick(EntityTickEvent.Post event) {
-        if (!(event.getEntity() instanceof LivingEntity livingEntity)) {
-            return;
-        }
-        if (livingEntity.hasEffect(ACEffectRegistry.BUBBLED) && livingEntity.isInFluidType()) {
-            livingEntity.removeEffect(ACEffectRegistry.BUBBLED);
-        }
-        if (livingEntity.hasEffect(ACEffectRegistry.DARKNESS_INCARNATE) && livingEntity.tickCount % 5 == 0 && DarknessIncarnateEffect.isInLight(livingEntity, 11)) {
-            livingEntity.removeEffect(ACEffectRegistry.DARKNESS_INCARNATE);
-        }
-        if (livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(ACItemRegistry.DIVING_HELMET.get()) && (!livingEntity.isEyeInFluid(FluidTags.WATER) || livingEntity.getVehicle() instanceof SubmarineEntity)) {
-            livingEntity.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 810, 0, false, false, true));
-        }
-        if (!livingEntity.level().isClientSide && livingEntity instanceof Mob mob && mob.getTarget() instanceof VallumraptorEntity vallumraptor && vallumraptor.getHideFor() > 0) {
-            mob.setTarget(null);
         }
     }
 

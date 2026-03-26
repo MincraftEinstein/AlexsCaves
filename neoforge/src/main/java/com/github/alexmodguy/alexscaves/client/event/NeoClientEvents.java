@@ -247,11 +247,6 @@ public class NeoClientEvents {
     }
 
     @SubscribeEvent
-    public void clientLivingTick(EntityTickEvent.Post event) {
-        ClientEvents.onClientLivingTick(event.getEntity());
-    }
-
-    @SubscribeEvent
     public void onRenderHand(RenderHandEvent event) {
         if (Minecraft.getInstance().getCameraEntity() instanceof PossessesCamera) {
             event.setCanceled(true);

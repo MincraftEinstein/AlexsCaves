@@ -29,6 +29,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 import net.neoforged.neoforge.common.world.chunk.TicketController;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 @Mod(AlexsCaves.MOD_ID)
 public class AlexsCavesNeoForge {
@@ -54,6 +55,7 @@ public class AlexsCavesNeoForge {
         bus.addListener(this::registerTicketControllers);
         bus.addListener((EntityAttributeCreationEvent event) -> CommonEvents.initializeAttributes(event::put));
         bus.addListener(NeoCommonEvents::spawnPlacements);
+        bus.addListener((EntityTickEvent event) -> CommonEvents.onEntityTick(event.getEntity()));
         NeoForge.EVENT_BUS.register(new NeoCommonEvents());
 
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(bus);

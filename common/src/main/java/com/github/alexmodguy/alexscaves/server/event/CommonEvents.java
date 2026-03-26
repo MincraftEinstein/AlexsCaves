@@ -1,10 +1,12 @@
 package com.github.alexmodguy.alexscaves.server.event;
 
 import com.github.alexmodguy.alexscaves.AlexsCaves;
+import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.enchantment.ACEnchantmentRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.ACFrogRegistry;
+import com.github.alexmodguy.alexscaves.server.entity.item.SubmarineEntity;
 import com.github.alexmodguy.alexscaves.server.entity.living.*;
 import com.github.alexmodguy.alexscaves.server.entity.util.EntityDropChanceAccessor;
 import com.github.alexmodguy.alexscaves.server.entity.util.FlyingMount;
@@ -17,6 +19,8 @@ import com.github.alexmodguy.alexscaves.server.level.biome.ACBiomeRegistry;
 import com.github.alexmodguy.alexscaves.server.level.biome.BiomeSourceAccessor;
 import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
+import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
+import com.github.alexmodguy.alexscaves.server.potion.DarknessIncarnateEffect;
 import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.*;
@@ -29,10 +33,13 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -315,6 +322,35 @@ public class CommonEvents {
         event.register(ACEntityRegistry.GUMMY_BEAR.get(), GummyBearEntity.createAttributes().build());
         event.register(ACEntityRegistry.LICOWITCH.get(), LicowitchEntity.createAttributes().build());
         event.register(ACEntityRegistry.GINGERBREAD_MAN.get(), GingerbreadManEntity.createAttributes().build());
+    }
+
+    public static void onEntityTick(Entity entity) {
+        if (!(entity instanceof LivingEntity livingEntity)) {
+            return;
+        }
+
+        boolean isClientSide = livingEntity.level().isClientSide;
+        if (isClientSide) {
+            // TODO make sure this call isn't gonna crash servers
+            ClientEvents.onClientLivingTick(livingEntity);
+        }
+
+        // TODO when fluids
+        if (livingEntity.hasEffect(ACEffectRegistry.BUBBLED) /*&& livingEntity.isInFluidType()*/) {
+            livingEntity.removeEffect(ACEffectRegistry.BUBBLED);
+        }
+
+        if (livingEntity.hasEffect(ACEffectRegistry.DARKNESS_INCARNATE) && livingEntity.tickCount % 5 == 0 && DarknessIncarnateEffect.isInLight(livingEntity, 11)) {
+            livingEntity.removeEffect(ACEffectRegistry.DARKNESS_INCARNATE);
+        }
+
+        if (livingEntity.getItemBySlot(EquipmentSlot.HEAD).is(ACItemRegistry.DIVING_HELMET.get()) && (!livingEntity.isEyeInFluid(FluidTags.WATER) || livingEntity.getVehicle() instanceof SubmarineEntity)) {
+            livingEntity.addEffect(new MobEffectInstance(MobEffects.WATER_BREATHING, 810, 0, false, false, true));
+        }
+
+        if (!isClientSide && livingEntity instanceof Mob mob && mob.getTarget() instanceof VallumraptorEntity vallumraptor && vallumraptor.getHideFor() > 0) {
+            mob.setTarget(null);
+        }
     }
 
     public interface EntityAttributeRegistry {

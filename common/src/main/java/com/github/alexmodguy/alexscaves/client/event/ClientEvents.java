@@ -421,15 +421,7 @@ public class ClientEvents {
         }
     }
 
-    public static void onClientLivingTick(Entity entity) {
-        if (!entity.level().isClientSide) {
-            return;
-        }
-
-        if (!(entity instanceof LivingEntity livingEntity)) {
-            return;
-        }
-
+    public static void onClientLivingTick(LivingEntity livingEntity) {
         if (livingEntity.hasEffect(ACEffectRegistry.DARKNESS_INCARNATE) && livingEntity.isAlive()) {
             int trailPointer = ClientProxy.darknessTrailPointerMap.getOrDefault(livingEntity, -1);
             Vec3 latest = livingEntity.position();

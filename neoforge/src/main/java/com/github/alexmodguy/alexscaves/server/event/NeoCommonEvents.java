@@ -22,7 +22,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
@@ -53,7 +52,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.server.ServerAboutToStartEvent;
 import net.neoforged.neoforge.event.server.ServerStoppingEvent;
-import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.event.village.WandererTradesEvent;
@@ -122,7 +120,6 @@ public class NeoCommonEvents {
         CommonEvents.onLivingDeath(event.getEntity(), event.getSource());
     }
 
-    // TODO implement on fabric
     @SubscribeEvent
     public void livingHeal(LivingHealEvent event) {
         if (event.getEntity().hasEffect(ACEffectRegistry.IRRADIATED) && !event.getEntity().getType().is(ACTagRegistry.RESISTS_RADIATION)) {
@@ -283,9 +280,7 @@ public class NeoCommonEvents {
 
     @SubscribeEvent
     public void travelToDimension(EntityTravelToDimensionEvent event) {
-        if (event.getEntity() instanceof Player player && player.hasEffect(ACEffectRegistry.SUGAR_RUSH)) {
-            SugarRushEffect.leaveSlowMotion(player, player.level());
-        }
+        CommonEvents.travelToDimension(event.getEntity());
     }
 
     @SubscribeEvent
@@ -300,15 +295,7 @@ public class NeoCommonEvents {
 
     @SubscribeEvent
     public void playerTick(PlayerTickEvent.Post event) {
-        Player player = event.getEntity();
-        if (!player.isCreative()) {
-            if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ACTagRegistry.RESTRICTED_BIOME_LOCATORS)) {
-                CommonEvents.checkAndDestroyExploitItem(player, EquipmentSlot.MAINHAND);
-            }
-            if (player.getItemInHand(InteractionHand.OFF_HAND).is(ACTagRegistry.RESTRICTED_BIOME_LOCATORS)) {
-                CommonEvents.checkAndDestroyExploitItem(player, EquipmentSlot.OFFHAND);
-            }
-        }
+        CommonEvents.onPlayerTick(event.getEntity());
     }
 
     @SubscribeEvent
@@ -332,6 +319,7 @@ public class NeoCommonEvents {
     public void playerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         Player entity = event.getEntity();
         if (entity.level().isClientSide) {
+            // TODO make sure this call isn't gonna crash servers
             ClientEvents.onPlayerJoinClient(entity);
         }
     }

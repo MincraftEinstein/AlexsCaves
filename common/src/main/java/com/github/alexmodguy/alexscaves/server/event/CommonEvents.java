@@ -21,6 +21,7 @@ import com.github.alexmodguy.alexscaves.server.misc.ACSoundRegistry;
 import com.github.alexmodguy.alexscaves.server.misc.ACTagRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.ACEffectRegistry;
 import com.github.alexmodguy.alexscaves.server.potion.DarknessIncarnateEffect;
+import com.github.alexmodguy.alexscaves.server.potion.SugarRushEffect;
 import com.github.alexthe666.citadel.server.tick.ServerTickRateTracker;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.*;
@@ -350,6 +351,23 @@ public class CommonEvents {
 
         if (!isClientSide && livingEntity instanceof Mob mob && mob.getTarget() instanceof VallumraptorEntity vallumraptor && vallumraptor.getHideFor() > 0) {
             mob.setTarget(null);
+        }
+    }
+
+    public static void travelToDimension(Entity entity) {
+        if (entity instanceof Player player && player.hasEffect(ACEffectRegistry.SUGAR_RUSH)) {
+            SugarRushEffect.leaveSlowMotion(player, player.level());
+        }
+    }
+
+    public static void onPlayerTick(Player player) {
+        if (!player.isCreative()) {
+            if (player.getItemInHand(InteractionHand.MAIN_HAND).is(ACTagRegistry.RESTRICTED_BIOME_LOCATORS)) {
+                checkAndDestroyExploitItem(player, EquipmentSlot.MAINHAND);
+            }
+            if (player.getItemInHand(InteractionHand.OFF_HAND).is(ACTagRegistry.RESTRICTED_BIOME_LOCATORS)) {
+                checkAndDestroyExploitItem(player, EquipmentSlot.OFFHAND);
+            }
         }
     }
 

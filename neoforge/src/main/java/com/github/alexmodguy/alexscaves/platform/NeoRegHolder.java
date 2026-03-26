@@ -41,6 +41,15 @@ public class NeoRegHolder<Reg, Type extends Reg> implements RegHolder<Reg, Type>
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        return deferredHolder.equals(obj);
+    }
+
+    @Override
     public Type get() {
         return deferredHolder.get();
     }

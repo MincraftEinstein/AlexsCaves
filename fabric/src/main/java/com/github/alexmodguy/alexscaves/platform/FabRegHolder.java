@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 public class FabRegHolder<Reg, Type extends Reg> implements RegHolder<Reg, Type> {
+
     private final Reference<Reg> holder;
 
     public FabRegHolder(Reference<Reg> holder) {
@@ -22,7 +23,6 @@ public class FabRegHolder<Reg, Type extends Reg> implements RegHolder<Reg, Type>
     public static <R, T extends R> RegHolder<R, T> of(Reference<R> holder) {
         return new FabRegHolder<>(holder);
     }
-
 
     @Override
     public ResourceKey<Reg> key() {
@@ -37,6 +37,15 @@ public class FabRegHolder<Reg, Type extends Reg> implements RegHolder<Reg, Type>
     @Override
     public Holder<Reg> holder() {
         return holder;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+
+        return holder.equals(obj);
     }
 
     @SuppressWarnings("unchecked")

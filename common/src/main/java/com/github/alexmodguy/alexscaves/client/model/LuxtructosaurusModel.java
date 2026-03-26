@@ -8,7 +8,6 @@ import net.minecraft.util.RandomSource;
 
 import java.util.List;
 
-// TODO ACWorldData check
 public class LuxtructosaurusModel extends SauropodBaseModel<LuxtructosaurusEntity> {
     private final AdvancedModelBox cube_r1;
     private final AdvancedModelBox cube_r2;

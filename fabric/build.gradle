@@ -70,7 +70,7 @@ loom {
         testWorld {
             client()
             runDir('runs/client')
-            programArgs("--quickPlaySingleplayer", "test")
+            programArgs("--quickPlaySingleplayer", "test", "--username", "Dev")
         }
 
         server {

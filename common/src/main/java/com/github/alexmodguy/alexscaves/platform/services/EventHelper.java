@@ -5,6 +5,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import java.util.function.Consumer;
 
+// TODO ether yeet and call on both or transfer to voidlib
 public interface EventHelper {
 
     void addSupportedBlocks(Consumer<BlockEntityExtender> consumer);

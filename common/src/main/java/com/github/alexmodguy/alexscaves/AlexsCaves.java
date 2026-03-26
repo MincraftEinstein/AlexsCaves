@@ -96,6 +96,7 @@ public class AlexsCaves {
     }
 
     public static void laterSetup() {
+        AlexsCaves.PROXY.initPathfinding();
         ACSurfaceRules.setup();
         ACPlayerCapes.setup();
         ACItemRegistry.registerDispenserBehavior();

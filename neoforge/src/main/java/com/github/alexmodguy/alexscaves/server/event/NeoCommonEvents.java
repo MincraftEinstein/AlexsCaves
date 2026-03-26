@@ -48,7 +48,6 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.AnvilUpdateEvent;
-import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.EntityEvent;
 import net.neoforged.neoforge.event.entity.EntityTravelToDimensionEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
@@ -66,10 +65,6 @@ import net.neoforged.neoforge.event.village.WandererTradesEvent;
 import java.util.List;
 
 public class NeoCommonEvents {
-
-    public static void initializeAttributes2(EntityAttributeCreationEvent event) {
-        CommonEvents.initializeAttributes(event::put);
-    }
 
     public static void spawnPlacements(RegisterSpawnPlacementsEvent event) {
         // Custom spawn placement types for acid and soda fluids are defined in ACSpawnPlacementTypes.

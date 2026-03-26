@@ -18,6 +18,7 @@ import com.github.alexmodguy.alexscaves.server.entity.ACEntityRegistry;
 import com.github.alexmodguy.alexscaves.server.entity.util.MagneticEntityAccessor;
 import com.github.alexmodguy.alexscaves.server.inventory.ACMenuRegistry;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
+import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.particle.ParticleEngine;
@@ -35,6 +36,9 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.function.Supplier;
+
+import static com.github.alexmodguy.alexscaves.client.ClientConstants.*;
+import static com.github.alexmodguy.alexscaves.client.ClientProxy.*;
 
 public class AlexsCavesClient {
 
@@ -90,8 +94,12 @@ public class AlexsCavesClient {
         Services.CLIENT_HELPER.registerMenuScreens(AlexsCavesClient::registerMenus);
     }
 
-    // (ender) a neo special
     public static void laterSetup() {
+        blockedParticleLocations.clear();
+        hasACSplashText = RANDOM.nextInt(300) == 0;
+        PostEffectRegistry.registerEffect(IRRADIATED_SHADER);
+        PostEffectRegistry.registerEffect(HOLOGRAM_SHADER);
+        PostEffectRegistry.registerEffect(PURPLE_WITCH_SHADER);
         ClientEvents.registerItemProperties();
     }
 

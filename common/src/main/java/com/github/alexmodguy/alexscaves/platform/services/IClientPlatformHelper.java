@@ -39,6 +39,7 @@ public interface IClientPlatformHelper {
         }
     }
 
+    // TODO move move from services to regular events
     void setupEntityRotationsEvent(EntityRotEvent consumer);
 
     @FunctionalInterface
@@ -46,6 +47,7 @@ public interface IClientPlatformHelper {
         void setupRot(LivingEntity entity, float partialTicks, float bodyYRot, PoseStack poseStack);
     }
 
+    // TODO move move from services to regular events
     void registerBlockEntityRenderers(Consumer<BERendererRegistry> consumer);
 
     @FunctionalInterface
@@ -58,6 +60,7 @@ public interface IClientPlatformHelper {
         <T extends Entity> void register(EntityType<? extends T> type, EntityRendererProvider<T> renderProvider);
     }
 
+    // TODO move move from services to regular events
     void registerMenuScreens(Consumer<MenuScreenRegistry> consumer);
 
     @FunctionalInterface

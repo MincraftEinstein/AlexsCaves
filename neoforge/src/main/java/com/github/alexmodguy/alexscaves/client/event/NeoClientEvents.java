@@ -4,6 +4,7 @@ import com.github.alexmodguy.alexscaves.AlexsCaves;
 import com.github.alexmodguy.alexscaves.AlexsCavesClient;
 import com.github.alexmodguy.alexscaves.client.ClientProxy;
 import com.github.alexmodguy.alexscaves.client.model.baked.BakedModelShadeLayerFullbright;
+import com.github.alexmodguy.alexscaves.client.model.layered.ACModelLayers;
 import com.github.alexmodguy.alexscaves.client.render.ACInternalShaders;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.AmbersolBlockRenderer;
 import com.github.alexmodguy.alexscaves.client.render.blockentity.HologramProjectorBlockRenderer;
@@ -12,7 +13,8 @@ import com.github.alexmodguy.alexscaves.client.render.entity.LicowitchRenderer;
 import com.github.alexmodguy.alexscaves.client.render.entity.SubmarineRenderer;
 import com.github.alexmodguy.alexscaves.client.render.item.RaygunRenderHelper;
 import com.github.alexmodguy.alexscaves.client.render.item.tooltip.ClientSackOfSatingTooltip;
-import com.github.alexmodguy.alexscaves.mixin.client.*;
+import com.github.alexmodguy.alexscaves.mixin.client.CameraAccessor;
+import com.github.alexmodguy.alexscaves.mixin.client.GameRendererAccessor;
 import com.github.alexmodguy.alexscaves.server.block.ACBlockRegistry;
 import com.github.alexmodguy.alexscaves.server.block.FrostedChocolateBlock;
 import com.github.alexmodguy.alexscaves.server.block.fluid.ACFluidRegistry;
@@ -30,15 +32,16 @@ import com.github.alexmodguy.alexscaves.server.potion.DeepsightEffect;
 import com.github.alexthe666.citadel.client.event.EventGetOutlineColor;
 import com.github.alexthe666.citadel.client.event.EventPosePlayerHand;
 import com.github.alexthe666.citadel.client.event.EventRenderSplashText;
-import com.github.alexthe666.citadel.client.shader.PostEffectRegistry;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.model.HumanoidModel;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.FogRenderer;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.resources.PlayerSkin;
@@ -49,7 +52,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.DefaultAttributes;
@@ -60,8 +66,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.FogType;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -271,11 +275,8 @@ public class NeoClientEvents {
     }
 
     @SubscribeEvent
-    @OnlyIn(Dist.CLIENT)
     public void onPoseHand(EventPosePlayerHand event) {
-        LivingEntity player = (LivingEntity) event.getEntityIn();
-        HumanoidModel<?> model = event.getModel();
-        if (ClientEvents.onPoseHand(player, model, event.getResult() != TriState.TRUE, event.getEntityIn())) {
+        if (ClientEvents.onPoseHand((LivingEntity) event.getEntityIn(), event.getModel(), event.getResult() != TriState.TRUE, event.getEntityIn())) {
             event.setResult(TriState.TRUE);
         }
     }
@@ -661,53 +662,28 @@ public class NeoClientEvents {
         }
     }
 
-    @SuppressWarnings("removal")
-    public static void commonInit(IEventBus modEventBus) {
-        modEventBus.addListener((RegisterParticleProvidersEvent event) -> {
+    public static void clientInit(IEventBus bus) {
+        NeoForge.EVENT_BUS.register(new NeoClientEvents());
+        bus.addListener(NeoClientEvents::addLayersEvent);
+        bus.addListener(NeoClientEvents::bakeModels);
+        bus.addListener(NeoClientEvents::registerShaders);
+        bus.addListener(NeoClientEvents::onItemColors);
+        bus.addListener(NeoClientEvents::onBlockColors);
+        bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> AlexsCavesClient.registerEntityRenderers(event::registerEntityRenderer));
+        bus.addListener((RegisterKeyMappingsEvent event) -> event.register(ACKeybindRegistry.KEY_SPECIAL_ABILITY));
+        bus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> ACModelLayers.register(event::registerLayerDefinition));
+        bus.addListener((RegisterClientTooltipComponentFactoriesEvent event) -> event.register(SackOfSatingTooltip.class, ClientSackOfSatingTooltip::new));
+        bus.addListener((RegisterParticleProvidersEvent event) -> {
             AlexsCavesClient.registerSpecialProviders(event::registerSpecial);
             AlexsCavesClient.registerSpriteProviders(event::registerSpriteSet);
         });
-        modEventBus.addListener(NeoClientEvents::registerKeybinds);
-        modEventBus.addListener(NeoClientEvents::onItemColors);
-        modEventBus.addListener(NeoClientEvents::onBlockColors);
-        modEventBus.addListener((RegisterClientTooltipComponentFactoriesEvent event) ->
-                event.register(SackOfSatingTooltip.class, ClientSackOfSatingTooltip::new)
-        );
-        modEventBus.addListener(NeoClientEvents::addLayersEvent);
     }
-
-    @SuppressWarnings("removal")
-    public static void clientInit(IEventBus modEventBus) {
-        NeoForge.EVENT_BUS.register(new NeoClientEvents());
-//        modEventBus.addListener(ClientLayerRegistry::addLayers);
-        modEventBus.addListener(NeoClientEvents::bakeModels);
-        modEventBus.addListener(NeoClientEvents::registerShaders);
-        modEventBus.addListener((EntityRenderersEvent.RegisterRenderers event) ->
-                AlexsCavesClient.registerEntityRenderers(event::registerEntityRenderer));
-        Sheets.addWoodType(ACBlockRegistry.PEWEN_WOOD_TYPE);
-        Sheets.addWoodType(ACBlockRegistry.THORNWOOD_WOOD_TYPE);
-        blockedParticleLocations.clear();
-        PostEffectRegistry.registerEffect(IRRADIATED_SHADER);
-        PostEffectRegistry.registerEffect(HOLOGRAM_SHADER);
-        PostEffectRegistry.registerEffect(PURPLE_WITCH_SHADER);
-        // Menu screens are now registered via RegisterMenuScreensEvent in commonInit
-        hasACSplashText = RANDOM.nextInt(300) == 0;
-        ItemBlockRenderTypes.setRenderLayer(ACFluidRegistry.ACID_FLUID_SOURCE.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(ACFluidRegistry.ACID_FLUID_FLOWING.get(), RenderType.cutoutMipped());
-        ItemBlockRenderTypes.setRenderLayer(ACFluidRegistry.PURPLE_SODA_FLUID_SOURCE.get(), RenderType.translucent());
-        ItemBlockRenderTypes.setRenderLayer(ACFluidRegistry.PURPLE_SODA_FLUID_FLOWING.get(), RenderType.translucent());
-    }
-
 
     public static void onItemColors(RegisterColorHandlersEvent.Item event) {
         event.register(
                 (stack, colorIn) -> colorIn != 1 ? -1
                         : CaveInfoItem.getBiomeColorOf(Minecraft.getInstance().level, stack, false) | 0xFF000000,
-                ACItemRegistry.CAVE_TABLET.get());
-        event.register(
-                (stack, colorIn) -> colorIn != 1 ? -1
-                        : CaveInfoItem.getBiomeColorOf(Minecraft.getInstance().level, stack, false) | 0xFF000000,
-                ACItemRegistry.CAVE_CODEX.get());
+                ACItemRegistry.CAVE_TABLET.get(), ACItemRegistry.CAVE_CODEX.get());
         event.register((stack, colorIn) -> colorIn != 0 ? -1 : GazingPearlItem.getPearlColor(stack),
                 ACItemRegistry.GAZING_PEARL.get());
         event.register((stack, colorIn) -> colorIn != 0 ? -1 : JellyBeanItem.getBeanColor(stack),
@@ -720,13 +696,9 @@ public class NeoClientEvents {
 
     public static void onBlockColors(RegisterColorHandlersEvent.Block event) {
         event.register(
-                (blockState, blockAndTintGetter, blockPos, colorIn) -> colorIn != 0 ? -1
-                        : FrostedChocolateBlock.calculateFrostingColor(blockPos),
-                ACBlockRegistry.BLOCK_OF_FROSTED_CHOCOLATE.get());
-        event.register(
-                (blockState, blockAndTintGetter, blockPos, colorIn) -> colorIn != 0 ? -1
-                        : FrostedChocolateBlock.calculateFrostingColor(blockPos),
-                ACBlockRegistry.BLOCK_OF_FROSTING.get());
+                (blockState, blockAndTintGetter, blockPos, colorIn) -> colorIn != 0 ? -1 : FrostedChocolateBlock.calculateFrostingColor(blockPos),
+                ACBlockRegistry.BLOCK_OF_FROSTED_CHOCOLATE.get(), ACBlockRegistry.BLOCK_OF_FROSTING.get()
+        );
     }
 
 
@@ -743,6 +715,7 @@ public class NeoClientEvents {
         }
     }
 
+    // TODO change this to be more common (it can very easily)
     private static void registerShaders(final RegisterShadersEvent e) {
         try {
             e.registerShader(new ShaderInstance(e.getResourceProvider(),
@@ -780,7 +753,4 @@ public class NeoClientEvents {
         }
     }
 
-    private static void registerKeybinds(RegisterKeyMappingsEvent e) {
-        e.register(ACKeybindRegistry.KEY_SPECIAL_ABILITY);
-    }
 }

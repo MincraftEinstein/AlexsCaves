@@ -423,7 +423,8 @@ public class ClientEvents {
 
     public static void postLivingEntityRender(LivingEntity entity, float partialTick, MultiBufferSource bufferSource, PoseStack poseStack, int packedLight) {
         if (entity instanceof HeadRotationEntityAccessor magnetic) {
-            magnetic.resetMagnetHeadRotation();
+            // TODO make this only reset when needed
+//            magnetic.resetMagnetHeadRotation();
         }
         if (!Minecraft.getInstance().options.getCameraType().isFirstPerson()) {
             RaygunRenderHelper.renderRaysFor(entity, entity.getPosition(partialTick), poseStack,

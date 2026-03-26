@@ -7,6 +7,7 @@ import com.github.alexmodguy.alexscaves.client.render.item.tooltip.ClientSackOfS
 import com.github.alexmodguy.alexscaves.server.item.tooltip.SackOfSatingTooltip;
 import com.github.alexmodguy.alexscaves.server.misc.ACKeybindRegistry;
 import com.github.alexthe666.citadel.refabrciated.client.event.CitadelClientEvents;
+import com.github.alexthe666.citadel.refabrciated.client.event.LivingRendererEvents;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
@@ -16,8 +17,10 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.*;
 import net.fabricmc.fabric.api.util.TriState;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -31,7 +34,7 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
         AlexsCavesClient.laterSetup();
         registerRenderTypes();
         ACModelLayers.register((id, layer) -> EntityModelLayerRegistry.registerModelLayer(id, layer::get));
-        AlexsCavesClient.registerEntityRenderers(EntityRendererRegistry::register);
+        ClientEvents.registerEntityRenderers(EntityRendererRegistry::register);
 
         LivingEntityFeatureRendererRegistrationCallback.EVENT.register((type, renderer, helper, ctx) ->
                 AlexsCavesClient.addLayerIfApplicable(type, renderer)
@@ -54,8 +57,8 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
             context.register(ACInternalShaders.RENDERTYPE_PURPLE_WITCH, DefaultVertexFormat.NEW_ENTITY, ACInternalShaders::setRenderTypePurpleWitchShader);
         });
 
-        AlexsCavesClient.registerSpecialProviders(ParticleFactoryRegistry.getInstance()::register);
-        AlexsCavesClient.registerSpriteProviders((AlexsCavesClient.SpriteSetRegistry<? extends ParticleOptions>) (type, factory) -> ParticleFactoryRegistry.getInstance().register(type, factory::create));
+        ClientEvents.registerSpecialProviders(ParticleFactoryRegistry.getInstance()::register);
+        ClientEvents.registerSpriteProviders((ClientEvents.SpriteSetRegistry<? extends ParticleOptions>) (type, factory) -> ParticleFactoryRegistry.getInstance().register(type, factory::create));
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> ClientEvents.onPlayerJoinClient(client.player));
         ClientTickEvents.END_CLIENT_TICK.register(ClientEvents::onClientTick);
         KeyBindingHelper.registerKeyBinding(ACKeybindRegistry.KEY_SPECIAL_ABILITY);
@@ -66,6 +69,9 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
                 event.setResult(TriState.TRUE);
             }
         });
+        ClientEvents.registerBERenderers(BlockEntityRenderers::register);
+        LivingRendererEvents.SETUP_ROTATIONS.register((event) -> ClientEvents.renderMagnetised(event.getEntity(), event.getPartialTicks(), event.getBodyYRot(), event.getPoseStack()));
+        ClientEvents.registerMenus(MenuScreens::register);
     }
 
     static void registerRenderTypes() {

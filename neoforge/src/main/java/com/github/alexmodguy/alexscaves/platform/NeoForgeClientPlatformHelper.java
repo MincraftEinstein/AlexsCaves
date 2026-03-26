@@ -1,7 +1,6 @@
 package com.github.alexmodguy.alexscaves.platform;
 
 import com.github.alexmodguy.alexscaves.platform.services.IClientPlatformHelper;
-import com.github.alexthe666.citadel.client.event.EventLivingRenderer;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -11,14 +10,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class NeoForgeClientPlatformHelper implements IClientPlatformHelper {
@@ -50,21 +45,6 @@ public class NeoForgeClientPlatformHelper implements IClientPlatformHelper {
                 return render != null ? render : IClientItemExtensions.super.getHumanoidArmorModel(livingEntity, itemStack, equipmentSlot, original);
             }
         }, item.get().asItem()));
-    }
-
-    @Override
-    public void setupEntityRotationsEvent(EntityRotEvent consumer) {
-        NeoForge.EVENT_BUS.addListener((EventLivingRenderer.SetupRotations event) -> consumer.setupRot(event.getEntity(), event.getPartialTicks(), event.getBodyYRot(), event.getPoseStack()));
-    }
-
-    @Override
-    public void registerBlockEntityRenderers(Consumer<BERendererRegistry> consumer) {
-        modEventBus.addListener((EntityRenderersEvent.RegisterRenderers event) -> consumer.accept(event::registerBlockEntityRenderer));
-    }
-
-    @Override
-    public void registerMenuScreens(Consumer<MenuScreenRegistry> consumer) {
-        modEventBus.addListener((RegisterMenuScreensEvent event) -> consumer.accept(event::register));
     }
 
     @Override

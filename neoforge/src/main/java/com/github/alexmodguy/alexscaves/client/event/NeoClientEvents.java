@@ -669,13 +669,13 @@ public class NeoClientEvents {
         bus.addListener(NeoClientEvents::registerShaders);
         bus.addListener(NeoClientEvents::onItemColors);
         bus.addListener(NeoClientEvents::onBlockColors);
-        bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> AlexsCavesClient.registerEntityRenderers(event::registerEntityRenderer));
+        bus.addListener((EntityRenderersEvent.RegisterRenderers event) -> ClientEvents.registerEntityRenderers(event::registerEntityRenderer));
         bus.addListener((RegisterKeyMappingsEvent event) -> event.register(ACKeybindRegistry.KEY_SPECIAL_ABILITY));
         bus.addListener((EntityRenderersEvent.RegisterLayerDefinitions event) -> ACModelLayers.register(event::registerLayerDefinition));
         bus.addListener((RegisterClientTooltipComponentFactoriesEvent event) -> event.register(SackOfSatingTooltip.class, ClientSackOfSatingTooltip::new));
         bus.addListener((RegisterParticleProvidersEvent event) -> {
-            AlexsCavesClient.registerSpecialProviders(event::registerSpecial);
-            AlexsCavesClient.registerSpriteProviders(event::registerSpriteSet);
+            ClientEvents.registerSpecialProviders(event::registerSpecial);
+            ClientEvents.registerSpriteProviders(event::registerSpriteSet);
         });
     }
 

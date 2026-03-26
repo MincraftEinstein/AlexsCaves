@@ -4,12 +4,9 @@ import com.github.alexmodguy.alexscaves.mixin.client.AnimatedTextureAccessor;
 import com.github.alexmodguy.alexscaves.mixin.client.SpriteContentsAccessor;
 import com.github.alexmodguy.alexscaves.platform.services.IClientPlatformHelper;
 import com.github.alexthe666.citadel.refabrciated.client.ClientExtensionsManager;
-import com.github.alexthe666.citadel.refabrciated.client.event.LivingRendererEvents;
-import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -17,7 +14,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class FabricClientPlatformHelper implements IClientPlatformHelper {
@@ -50,21 +46,6 @@ public class FabricClientPlatformHelper implements IClientPlatformHelper {
                 return render != null ? render : IClientItemExtensions.super.getHumanoidArmorModel(livingEntity, itemStack, equipmentSlot, original);
             }
         });
-    }
-
-    @Override
-    public void setupEntityRotationsEvent(EntityRotEvent consumer) {
-        LivingRendererEvents.SETUP_ROTATIONS.register((event) -> consumer.setupRot(event.getEntity(), event.getPartialTicks(), event.getBodyYRot(), event.getPoseStack()));
-    }
-
-    @Override
-    public void registerBlockEntityRenderers(Consumer<BERendererRegistry> consumer) {
-        consumer.accept(BlockEntityRenderers::register);
-    }
-
-    @Override
-    public void registerMenuScreens(Consumer<MenuScreenRegistry> consumer) {
-        consumer.accept(MenuScreens::register);
     }
 
     @Override

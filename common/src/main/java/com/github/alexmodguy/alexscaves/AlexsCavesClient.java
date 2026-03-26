@@ -88,11 +88,11 @@ public class AlexsCavesClient {
         Services.CLIENT_HELPER.setupEntityRotationsEvent(AlexsCavesClient::renderMagnetised);
         Services.CLIENT_HELPER.registerBlockEntityRenderers(AlexsCavesClient::registerBERenderers);
         Services.CLIENT_HELPER.registerMenuScreens(AlexsCavesClient::registerMenus);
-        ClientEvents.registerItemProperties();
     }
 
     // (ender) a neo special
     public static void lateInit() {
+        ClientEvents.registerItemProperties();
     }
 
     @SafeVarargs

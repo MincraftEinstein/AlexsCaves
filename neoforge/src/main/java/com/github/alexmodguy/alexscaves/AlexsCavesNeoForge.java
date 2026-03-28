@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves;
 
-import com.github.alexmodguy.alexscaves.client.event.ClientEvents;
 import com.github.alexmodguy.alexscaves.client.event.NeoClientEvents;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeClientPlatformHelper;
 import com.github.alexmodguy.alexscaves.platform.NeoForgeEventHelper;
@@ -11,7 +10,6 @@ import com.github.alexmodguy.alexscaves.server.event.CommonEvents;
 import com.github.alexmodguy.alexscaves.server.event.NeoCommonEvents;
 import com.github.alexmodguy.alexscaves.server.misc.ACLoadedMods;
 import com.github.alexmodguy.alexscaves.server.misc.ACLootModifiersRegistry;
-import com.github.alexthe666.citadel.client.event.EventLivingRenderer;
 import me.fzzyhmstrs.fzzy_config.api.ConfigApiJava;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -23,8 +21,6 @@ import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLLoadCompleteEvent;
-import net.neoforged.neoforge.client.event.EntityRenderersEvent;
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.world.chunk.RegisterTicketControllersEvent;
 import net.neoforged.neoforge.common.world.chunk.TicketController;
@@ -55,7 +51,7 @@ public class AlexsCavesNeoForge {
         bus.addListener(this::registerTicketControllers);
         bus.addListener((EntityAttributeCreationEvent event) -> CommonEvents.initializeAttributes(event::put));
         bus.addListener(NeoCommonEvents::spawnPlacements);
-        bus.addListener((EntityTickEvent event) -> CommonEvents.onEntityTick(event.getEntity()));
+        NeoForge.EVENT_BUS.addListener((EntityTickEvent.Post event) -> CommonEvents.onEntityTick(event.getEntity()));
         NeoForge.EVENT_BUS.register(new NeoCommonEvents());
 
         ACFluidRegistry.FLUID_TYPE_DEF_REG.register(bus);

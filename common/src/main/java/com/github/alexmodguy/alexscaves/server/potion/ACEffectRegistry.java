@@ -1,6 +1,5 @@
 package com.github.alexmodguy.alexscaves.server.potion;
 
-import com.github.alexmodguy.alexscaves.platform.RegHolder;
 import com.github.alexmodguy.alexscaves.platform.Services;
 import com.github.alexmodguy.alexscaves.server.item.ACItemRegistry;
 import net.minecraft.core.Holder;
@@ -18,12 +17,12 @@ import java.util.function.Supplier;
 
 public class ACEffectRegistry {
 
-    static RegHolder<MobEffect, MobEffect> registerEffect(String name, Supplier<MobEffect> effectSupplier) {
-        return Services.REGISTRY_HELPER.registerMobEffect(name, effectSupplier);
+    static Holder<MobEffect> registerEffect(String name, Supplier<MobEffect> effectSupplier) {
+        return Services.REGISTRY_HELPER.registerMobEffect(name, effectSupplier).holder();
     }
 
-    static RegHolder<Potion, Potion> registerPotion(String name, Supplier<Potion> potionSupplier) {
-        return Services.REGISTRY_HELPER.registerPotion(name, potionSupplier);
+    static Holder<Potion> registerPotion(String name, Supplier<Potion> potionSupplier) {
+        return Services.REGISTRY_HELPER.registerPotion(name, potionSupplier).holder();
     }
 
     public static final Holder<MobEffect> MAGNETIZING = registerEffect("magnetizing", MagnetizedEffect::new);

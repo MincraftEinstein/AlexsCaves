@@ -13,8 +13,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.util.Objects;
-
 @Mixin(LivingEntity.class)
 public class FabricLivingEntityMixin {
 
@@ -37,16 +35,6 @@ public class FabricLivingEntityMixin {
 
     @Inject(method = "heal", at = @At("HEAD"), cancellable = true)
     private void onHeal(float healAmount, CallbackInfo ci) {
-//        alexscaves$me.getActiveEffectsMap().forEach((mobEffectHolder, mobEffectInstance) -> {
-//            System.out.println("===================================");
-//            System.out.println(mobEffectHolder);
-//            System.out.println(mobEffectInstance);
-//            System.out.println("Equals RegHolder: " + mobEffectHolder.equals(ACEffectRegistry.IRRADIATED));
-//            System.out.println("RegHolder Equals: " + ACEffectRegistry.IRRADIATED.equals(mobEffectHolder));
-//            System.out.println("Objects.equals RegHolder: " + Objects.equals(mobEffectHolder, ACEffectRegistry.IRRADIATED));
-//            System.out.println("RegHolder Objects.equals: " + Objects.equals(ACEffectRegistry.IRRADIATED, mobEffectHolder));
-//        });
-        // TODO figure out how the heck this doesn't work
         if (alexscaves$me.hasEffect(ACEffectRegistry.IRRADIATED) && !alexscaves$me.getType().is(ACTagRegistry.RESISTS_RADIATION)) {
             ci.cancel();
         }

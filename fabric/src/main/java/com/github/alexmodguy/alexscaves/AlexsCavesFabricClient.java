@@ -164,7 +164,8 @@ public class AlexsCavesFabricClient implements ClientModInitializer {
                 SUBTERRANODON_EGG.get(),
                 VALLUMRAPTOR_EGG.get(),
                 SPRINKLES.get(),
-                TREMORSAURUS_EGG.get()
+                TREMORSAURUS_EGG.get(),
+                TESLA_BULB.get()
         );
         BlockRenderLayerMap.INSTANCE.putBlocks(RenderType.translucent(),
                 AMBER.get(),

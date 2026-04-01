@@ -2,6 +2,7 @@ package com.github.alexmodguy.alexscaves.server.event;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
+import net.minecraft.world.entity.SpawnPlacements;
 
 public class FabricCommonEvents {
 
@@ -20,5 +21,6 @@ public class FabricCommonEvents {
 //            }
 //        });
         CommonEvents.initializeAttributes(FabricDefaultAttributeRegistry::register);
+        CommonEvents.registerSpawnPlacements(SpawnPlacements::register);
     }
 }
